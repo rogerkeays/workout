@@ -1,0 +1,58 @@
+# vim: filetype=sh
+
+OUTDIR=$HOME/library/workout/drills
+mkdir -p $OUTDIR
+
+#
+# convert an abc score to an mp3 file
+#
+# $1 abc score
+# $2 output directory
+# $3 output filename
+# $4 transpose semitones (default 0)
+# $5 transpose tempo % (default 100)
+#
+function make_mp3 {
+  if [ -f "$2/$3" ]; then
+    echo "$3 already exists; skipping"
+    return
+  fi
+  mkdir -p $2
+  echo "$1" | abc2midi /dev/stdin -o /dev/stdout \
+        | timidity - --output-24bit -A800 -K${4:=0} -T${5:=100} -Ow -o - \
+        | ffmpeg -i - -ac 1 -ab 64k $2/$3
+}
+
+#
+# generate a set of mp3s by transposing the pitch and tempo of the score
+#
+# $1 set name
+# $2 abc score in the key of C with a tempo of 100
+# $3 pitches
+# 
+function generate_scales {
+  STEPS=$((12#${3:0:2} - 12#40))
+  for PITCH in $3; do
+    TEMPO=20 # percent
+    while [ $TEMPO -le 400 ]; do
+      make_mp3 "$2" $OUTDIR/$1/$PITCH $(printf %03d $TEMPO).$PITCH.${1/\//-}.mp3 $STEPS $TEMPO
+      TEMPO=$((TEMPO+10))
+    done
+    STEPS=$((STEPS+1))
+  done
+}
+
+#
+# generate a set of mp3s by transposing the tempo of the score
+#
+# $1 set name
+# $2 abc score with a tempo of 100
+# 
+function generate_tempos {
+  TEMPO=20 # percent
+  while [ $TEMPO -le 400 ]; do
+    make_mp3 "$2" $OUTDIR/$1 \'$(printf %03d $TEMPO).${1/\//-}.mp3 0 $TEMPO
+    TEMPO=$((TEMPO+10))
+  done
+}
+

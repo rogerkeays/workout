@@ -1,0 +1,72 @@
+#!/bin/bash
+
+INSTRUMENT=57
+
+source drills.lib
+
+generate_scales arpeggios/major-1 "
+  X:0
+  M:4/4
+  L:1/4
+  Q:100
+  K:C
+  | [I:MIDI program 115] CCCC|
+  | [I:MIDI program $((INSTRUMENT - 1))] 
+  |:CEGc|GE:|C4|
+  " "37 38 39 3X 3Y 40 41 42 43 44 45 46 47 48 49 4X 4Y 50 51 52 53 54 55 56"
+
+generate_scales arpeggios/minor-1 "
+  X:0
+  M:4/4
+  L:1/4
+  Q:100
+  K:C
+  | [I:MIDI program 115] CCCC|
+  | [I:MIDI program $((INSTRUMENT - 1))] 
+  |:C_EGc|G_E:|C4|
+  " "37 38 39 3X 3Y 40 41 42 43 44 45 46 47 48 49 4X 4Y 50 51 52 53 54 55 56"
+
+generate_scales arpeggios/major-2 "
+  X:0
+  M:4/4
+  L:1/4
+  Q:100
+  K:C
+  | [I:MIDI program 115] CCCC|
+  | [I:MIDI program $((INSTRUMENT - 1))] 
+  |:CEGc|egc'g|ecGE:|C4|
+  " "37 38 39 3X 3Y 40 41 42 43 44 45 46"
+
+generate_scales arpeggios/minor-2 "
+  X:0
+  M:4/4
+  L:1/4
+  Q:100
+  K:C
+  | [I:MIDI program 115] CCCC|
+  | [I:MIDI program $((INSTRUMENT - 1))] 
+  |:C_EGc|_egc'g|_ecG_E:|C4|
+  " "37 38 39 3X 3Y 40 41 42 43 44 45 46"
+
+generate_scales arpeggios/major-3 "
+  X:0
+  M:4/4
+  L:1/4
+  Q:100
+  K:C
+  | [I:MIDI program 115] CCCC|
+  | [I:MIDI program $((INSTRUMENT - 1))] 
+  |:CEGc|egc'e'|g'c''g'e'|c'gec|GE:|C4|
+  " "37 38 39 3X 3Y 40 41 42 43 44 45 46"
+
+generate_scales arpeggios/minor-3 "
+  X:0
+  M:4/4
+  L:1/4
+  Q:100
+  K:C
+  | [I:MIDI program 115] CCCC|
+  | [I:MIDI program $((INSTRUMENT - 1))] 
+  |:CEGc|egc'e'|g'c''g'e'|c'gec|GE:|C4|
+  " "37 38 39 3X 3Y 40 41 42 43 44 45 46"
+

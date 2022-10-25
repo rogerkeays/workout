@@ -1,0 +1,39 @@
+#!/bin/bash
+
+OUTDIR=$HOME/library/sounds/drills/intervals
+mkdir -p $OUTDIR
+
+STEPS=-17
+for PITCH in 27 28 29 2X 2Y 30 31 32 33 34 35 36 37 38 39 3X 3Y 40 41 42 43 44 45 46 47 48 49 4X 4Y 50 51 52 53 54 55 56; do
+  INTERVAL=1
+  for NOTE in _D D _E E F _G G _A A _B B c; do
+
+    # ascending intervals
+    echo "
+      X:0
+      M:1/4
+      L:1/4
+      Q:60
+      K:C
+      |:C|$NOTE|C|$NOTE|C|$NOTE:|" \
+        | abc2midi /dev/stdin -o /dev/stdout \
+        | timidity - -K$STEPS --output-24bit -Ow -o - \
+        | ffmpeg -i - $OUTDIR/`printf %02d $INTERVAL`.${PITCH}A.mp3
+
+    # descending intervals
+    echo "
+      X:0
+      M:1/4
+      L:1/4
+      Q:60
+      K:C
+      |:$NOTE|C|$NOTE|C|$NOTE|C:|" \
+        | abc2midi /dev/stdin -o /dev/stdout \
+        | timidity - -K$STEPS --output-24bit -Ow -o - \
+        | ffmpeg -i - $OUTDIR/`printf %02d $INTERVAL`.${PITCH}D.mp3
+    
+    INTERVAL=$((INTERVAL+1))
+  done
+  STEPS=$((STEPS+1))
+done
+

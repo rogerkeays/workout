@@ -1,0 +1,61 @@
+#!/usr/bin/sh
+
+if [ ! $1 ]; then
+  echo "
+Usage:
+
+$(basename $0) name
+
+name.mp3 is the source file in the current directory
+name.txt contains a list of timestamps where the audio should be split
+
+the first line in the audio is the start of the first chunk
+timestamps are in seconds, like the labels files exported from audacity
+practise files include the previous chunk, so include an intro chunk
+the last line of the timestamp file is the end of the last chunk
+start a new voice with a numeric-only label
+"
+  exit 1
+fi
+
+# set up the environment
+ffmpeg="ffmpeg -nostdin -loglevel error"
+calc() { echo "$*" | bc -l ; } # no floating point arithmetic in posix
+count=1; padding=3; padding2=$(calc $padding*2)
+name=$1; format=mp3; input=$name.$format;
+
+# open the labels file for reading
+[ ! -d $name ] && mkdir $name
+timestamps=3; exec 3< $name.txt
+
+# uses named pipes for streaming
+tmp=$(mktemp -d)
+mkfifo $tmp/1 $tmp/2
+echo "file $tmp/1\nfile $tmp/2" > $tmp/list
+trap "rm -r $tmp" EXIT
+trap exit INT HUP TERM
+
+# process timestamps
+read current x label <& $timestamps
+while read next x nextlabel; do
+  if expr match "$label" "^[0-9]\+$" > /dev/null; then
+    voice=$label
+    count=1
+  elif [ "$label" != "X" ]; then
+    output=$name/$voice$(printf %02d $count).$label.$format
+    start=$(calc $current-$padding)
+    stop=$(calc $next+$padding)
+    fadestart=$(calc $next-$current+$padding)
+    fadestart2=$(calc $fadestart*2)
+
+    # cut, filter and join the audio
+    cut="$ffmpeg -ss $start -to $stop -i $input -f $format -ac 1 -ar 48000 -q 4"
+    $cut -af atempo=0.5,afade=d=$padding2,afade=t=out:st=$fadestart2:d=$padding2 pipe:1 > $tmp/1 &
+    $cut -af afade=d=$padding,afade=t=out:st=$fadestart:d=$padding pipe:1 > $tmp/2 &
+    $ffmpeg -f concat -safe 0 -i $tmp/list -codec copy "$output"
+    count=$((count + 1))
+    echo "wrote $output"
+  fi
+  prev=$current; current=$next; label=$nextlabel;
+done <& $timestamps
+

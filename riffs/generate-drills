@@ -1,0 +1,87 @@
+#!/bin/bash
+#
+# the source files should have tempo 120 and use C3 as the root
+#
+
+SOURCE=$HOME/game/create/drills
+TARGET=$HOME/library/sounds/drills
+MIDI_PITCH_TEMPO=                     # arpeggios climbs scales
+MIDI_TEMPO_PITCH=                     # pitches
+TEMPO_PITCH_MIDI=                     # intervals
+MIDI_TEMPO=metronome                  # metronome string-crossings riffs chromatic
+INSTRUMENT=0                          # 0: piano, 40: violin, 73: flute, 75: pan flute, 57: trumpet
+SOURCE_TEMPO=120
+
+for DRILL in $MIDI_PITCH_TEMPO; do
+  for MIDI in $SOURCE/$DRILL/*.mid; do
+    STEPS=-5
+    for PITCH in 7 8 9 X Y 0 1 2 3 4 5 6; do
+      OUTDIR=$TARGET/$DRILL/`basename ${MIDI/.mid/}`/$PITCH
+      mkdir -p $OUTDIR
+
+      TEMPO=400
+      COUNTER=01
+      while [ $TEMPO -ge 15 ]; do
+        timidity $MIDI --output-24bit -A800 -EI$INSTRUMENT/1 -K$STEPS -T$TEMPO -Ow -o - | ffmpeg -i - $OUTDIR/`printf %02d $COUNTER`.`printf %03d $TEMPO`.mp3
+        COUNTER=$((COUNTER+1))
+        TEMPO=$((TEMPO-10))
+      done
+      STEPS=$((STEPS+1))
+    done
+  done
+done
+
+for DRILL in $MIDI_TEMPO_PITCH; do
+  for MIDI in $SOURCE/$DRILL/*.mid; do
+    TEMPO=120
+    COUNTER=01
+    while [ $TEMPO -ge 15 ]; do
+      OUTDIR=$TARGET/$DRILL/`basename ${MIDI/.mid/}`/$TEMPO
+      mkdir -p $OUTDIR
+      STEPS=-17
+      for PITCH in 27 28 29 2X 2Y 30 31 32 33 34 35 36 37 38 39 3X 3Y 40 41 42 43 44 45 46 47 48 49 4X 4Y 50 51 52 53 54 55 56; do
+
+        timidity $MIDI --output-24bit -A800 -EI$INSTRUMENT/1 -K$STEPS -T$TEMPO -Ow -o - | ffmpeg -i - $OUTDIR/$PITCH.mp3
+        STEPS=$((STEPS+1))
+      done
+      COUNTER=$((COUNTER+1))
+      TEMPO=$((TEMPO-10))
+    done
+  done
+done
+
+for DRILL in $TEMPO_PITCH_MIDI; do
+  TEMPO=400
+  COUNTER=01
+  while [ $TEMPO -ge 15 ]; do
+    STEPS=-5
+    for PITCH in 7 8 9 X Y 0 1 2 3 4 5 6; do
+      OUTDIR=$TARGET/$DRILL/`printf %02d $COUNTER`-`printf %03d $TEMPO`/$PITCH
+      mkdir -p $OUTDIR
+      for MIDI in $SOURCE/$DRILL/*.mid; do
+        SEGMENT=`basename ${MIDI/.mid/}`
+        timidity $MIDI --output-24bit -A800 -EI$INSTRUMENT/1 -K$STEPS -T$TEMPO -Ow -o - | ffmpeg -i - $OUTDIR/$PITCH.$SEGMENT.mp3
+      done
+      STEPS=$((STEPS+1))
+    done
+    COUNTER=$((COUNTER+1))
+    TEMPO=$((TEMPO-50))
+  done
+done
+
+for DRILL in $MIDI_TEMPO; do
+  for MIDI in $SOURCE/$DRILL/*.mid; do
+    OUTDIR=$TARGET/$DRILL/`basename ${MIDI/.mid/}`
+    mkdir -p $OUTDIR
+
+    TEMPO=240
+    COUNTER=01
+    while [ $TEMPO -ge 20 ]; do
+      RATE=$(echo "$TEMPO / $SOURCE_TEMPO * 100" | bc -l)
+      timidity $MIDI --output-24bit -A800 -T$RATE -Ow -o - | ffmpeg -t 1:00 -i - -af "adelay=10000|10000" $OUTDIR/`printf %03d $TEMPO`.mp3
+      COUNTER=$((COUNTER+1))
+      TEMPO=$((TEMPO-5))
+    done
+  done
+done
+
