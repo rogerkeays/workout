@@ -10,6 +10,12 @@ blank lines are ignored
 lines starting with == start a new heading
 """
 
+data class Card(
+    val question: String, 
+    val answer: String,
+    val category: String = ""
+)
+
 fun main(args: Array<String>) {
     if (args.isEmpty()) {
         print(usage)
@@ -38,6 +44,46 @@ infix fun (() -> Any).throws(ex: kotlin.reflect.KClass<out Throwable>) {
     } 
 }
 
+fun def_parseCards() {
+    "".parseCards() returns listOf<Card>()
+    "foo: bar".parseCards() returns listOf(Card("foo", "bar"))
+    "foo : bar".parseCards() returns listOf(Card("foo", "bar"))
+    "foo :heading bar".parseCards() returns listOf(Card("foo :heading", "bar"))
+    "foo:heading bar".parseCards() returns listOf(Card("foo :heading", "bar"))
+    "foo : bar : baz".parseCards() returns 
+            listOf(Card("foo :1", "bar"), Card("foo :2", "baz"))
+    "foo: bar :heading baz".parseCards() returns 
+            listOf(Card("foo :1", "bar"), Card("foo :heading", "baz"))
+    "foo : bar :heading baz".parseCards() returns 
+            listOf(Card("foo :1", "bar"), Card("foo :heading", "baz"))
+    "foo :heading bar : baz".parseCards() returns 
+            listOf(Card("foo :heading", "bar"), Card("foo :2", "baz"))
+}
+fun String.parseCards(category: String = ""): List<Card> {
+    val separators = separatorRegex.findAll(this).map { it.range }.toList()
+    if (separators.isEmpty()) {
+        return emptyList<Card>()
+    } else {
+        val baseQuestion = take(separators[0].first).trim() + " "
+        return separators.mapIndexed { i, range ->
+            val question = baseQuestion + if (range.count() > 1) {
+                drop(range.first).take(range.count())
+            } else if (separators.size > 1) {
+                ":" + (i + 1)
+            } else {
+                ""
+            }
+            val answer = if (i == separators.lastIndex) {
+                drop(range.last + 1)
+            } else {
+                drop(range.last + 1).take(separators[i + 1].first - range.last - 1)
+            }
+            Card(question.trim(), answer.trim(), category)
+        }
+    }
+}
+val separatorRegex = Regex(":[^ ]*")
+
 fun def_wrap() {
     "12345".wrap(1) returns "1\n2\n3\n4\n5"
     "12345".wrap(2) returns "12\n34\n5"
@@ -56,25 +102,28 @@ fun String.wrap(width: Int): String {
     }.toString()
 }
 
-fun makeFlashcard(name: String, heading: String, question: String, answer: String) {
+fun makeFlashcard(filename: String, card: Card) {
     flashcardNumber++
+    val question = "$filename\n${card.category}\n${card.question.wrap(15)}"
+    val answer = card.answer.wrap(15)
     Runtime.getRuntime().exec(arrayOf(
         "convert", "-size", "240x320", "xc:black",
         "-font", "FreeMono", "-weight", "bold", "-pointsize", "24",
-        "-fill", "white", "-annotate", "+12+24", "$name\n$heading\n${question.wrap(15)}",
-        "-fill", "yellow", "-annotate", "+12+185", answer.replace(" : ", "\n").wrap(15),
-        "%s.%03d.png".format(name, flashcardNumber)))
+        "-fill", "white", "-annotate", "+12+24", question,
+        "-fill", "yellow", "-annotate", "+12+185", answer,
+        "%s.%03d.png".format(filename, flashcardNumber)))
 }
 var flashcardNumber = 0
 
 fun processStdin(name: String) {
-    var heading = ""
+    var category = ""
     System.`in`.bufferedReader().lines().forEach { line ->
         if (line.startsWith("==")) {
-            heading = line.drop(2).toLowerCase()
+            category = line.drop(2).lowercase()
         } else if (line.isNotBlank()) {
-            val i = line.indexOf(":")
-            makeFlashcard(name, heading, line.take(i), line.drop(i + 1).trim())
+            line.parseCards(category).forEach {
+                makeFlashcard(name, it)
+            }
         }
     }
 }
