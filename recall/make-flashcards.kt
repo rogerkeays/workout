@@ -56,7 +56,7 @@ fun def_parseCardsWithLabels() {
             listOf(Card("foo :1", "bar"), Card("foo :label", "baz"))
     "foo : bar :label baz".parseCardsWithLabels() returns 
             listOf(Card("foo :1", "bar"), Card("foo :label", "baz"))
-    "foo :label bar : baz".parseCardsWithLabels() returns 
+    "foo :label bar : baz".parseCardsWithLabels() returns
             listOf(Card("foo :label", "bar"), Card("foo :2", "baz"))
 }
 fun String.parseCardsWithLabels(category: String = ""): List<Card> {
@@ -83,6 +83,31 @@ fun String.parseCardsWithLabels(category: String = ""): List<Card> {
     }
 }
 val separatorRegex = Regex(":[^ ]*")
+
+fun def_parseUnlabelledCards() {
+    "".parseUnlabelledCards() returns listOf<Card>()
+    "foo: bar".parseUnlabelledCards() returns listOf(Card("foo", "bar"))
+    "foo : bar".parseUnlabelledCards() returns listOf(Card("foo", "bar"))
+    "foo : bar : baz".parseUnlabelledCards() returns
+            listOf(Card("foo", "bar"), Card("foo : bar", "baz"))
+    "foo : bar : baz : zap".parseUnlabelledCards() returns
+            listOf(Card("foo", "bar"), Card("foo : bar", "baz"), Card("foo : bar : baz", "zap"))
+}
+fun String.parseUnlabelledCards(category: String = ""): List<Card> {
+    val parts = split(":")
+    if (parts.size < 2) {
+        return emptyList<Card>()
+    } else {
+        var result = mutableListOf<Card>()
+        var question = StringBuilder(parts[0].trim())
+        parts.drop(1).forEach {
+            val answer = it.trim()
+            result.add(Card(question.toString(), answer, category))
+            question.append(" : ").append(answer)
+        }
+        return result
+    }
+}
 
 fun def_wrap() {
     "12345".wrap(1) returns "1\n2\n3\n4\n5"
@@ -121,7 +146,7 @@ fun processStdin(name: String) {
         if (line.startsWith("==")) {
             category = line.drop(2).lowercase()
         } else if (line.isNotBlank()) {
-            line.parseCardsWithLabels(category).forEach {
+            line.parseUnlabelledCards(category).forEach {
                 makeFlashcard(name, it)
             }
         }
