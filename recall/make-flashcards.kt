@@ -44,22 +44,22 @@ infix fun (() -> Any).throws(ex: kotlin.reflect.KClass<out Throwable>) {
     } 
 }
 
-fun def_parseCards() {
-    "".parseCards() returns listOf<Card>()
-    "foo: bar".parseCards() returns listOf(Card("foo", "bar"))
-    "foo : bar".parseCards() returns listOf(Card("foo", "bar"))
-    "foo :heading bar".parseCards() returns listOf(Card("foo :heading", "bar"))
-    "foo:heading bar".parseCards() returns listOf(Card("foo :heading", "bar"))
-    "foo : bar : baz".parseCards() returns 
+fun def_parseCardsWithLabels() {
+    "".parseCardsWithLabels() returns listOf<Card>()
+    "foo: bar".parseCardsWithLabels() returns listOf(Card("foo", "bar"))
+    "foo : bar".parseCardsWithLabels() returns listOf(Card("foo", "bar"))
+    "foo :label bar".parseCardsWithLabels() returns listOf(Card("foo :label", "bar"))
+    "foo:label bar".parseCardsWithLabels() returns listOf(Card("foo :label", "bar"))
+    "foo : bar : baz".parseCardsWithLabels() returns 
             listOf(Card("foo :1", "bar"), Card("foo :2", "baz"))
-    "foo: bar :heading baz".parseCards() returns 
-            listOf(Card("foo :1", "bar"), Card("foo :heading", "baz"))
-    "foo : bar :heading baz".parseCards() returns 
-            listOf(Card("foo :1", "bar"), Card("foo :heading", "baz"))
-    "foo :heading bar : baz".parseCards() returns 
-            listOf(Card("foo :heading", "bar"), Card("foo :2", "baz"))
+    "foo: bar :label baz".parseCardsWithLabels() returns 
+            listOf(Card("foo :1", "bar"), Card("foo :label", "baz"))
+    "foo : bar :label baz".parseCardsWithLabels() returns 
+            listOf(Card("foo :1", "bar"), Card("foo :label", "baz"))
+    "foo :label bar : baz".parseCardsWithLabels() returns 
+            listOf(Card("foo :label", "bar"), Card("foo :2", "baz"))
 }
-fun String.parseCards(category: String = ""): List<Card> {
+fun String.parseCardsWithLabels(category: String = ""): List<Card> {
     val separators = separatorRegex.findAll(this).map { it.range }.toList()
     if (separators.isEmpty()) {
         return emptyList<Card>()
@@ -121,7 +121,7 @@ fun processStdin(name: String) {
         if (line.startsWith("==")) {
             category = line.drop(2).lowercase()
         } else if (line.isNotBlank()) {
-            line.parseCards(category).forEach {
+            line.parseCardsWithLabels(category).forEach {
                 makeFlashcard(name, it)
             }
         }
