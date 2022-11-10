@@ -44,22 +44,22 @@ infix fun (() -> Any).throws(ex: kotlin.reflect.KClass<out Throwable>) {
     } 
 }
 
-fun def_parseCardsWithLabels() {
-    "".parseCardsWithLabels() returns listOf<Card>()
-    "foo: bar".parseCardsWithLabels() returns listOf(Card("foo", "bar"))
-    "foo : bar".parseCardsWithLabels() returns listOf(Card("foo", "bar"))
-    "foo :label bar".parseCardsWithLabels() returns listOf(Card("foo :label", "bar"))
-    "foo:label bar".parseCardsWithLabels() returns listOf(Card("foo :label", "bar"))
-    "foo : bar : baz".parseCardsWithLabels() returns 
+fun def_parseLabelledCards() {
+    "".parseLabelledCards() returns listOf<Card>()
+    "foo: bar".parseLabelledCards() returns listOf(Card("foo", "bar"))
+    "foo : bar".parseLabelledCards() returns listOf(Card("foo", "bar"))
+    "foo :label bar".parseLabelledCards() returns listOf(Card("foo :label", "bar"))
+    "foo:label bar".parseLabelledCards() returns listOf(Card("foo :label", "bar"))
+    "foo : bar : baz".parseLabelledCards() returns 
             listOf(Card("foo :1", "bar"), Card("foo :2", "baz"))
-    "foo: bar :label baz".parseCardsWithLabels() returns 
+    "foo: bar :label baz".parseLabelledCards() returns 
             listOf(Card("foo :1", "bar"), Card("foo :label", "baz"))
-    "foo : bar :label baz".parseCardsWithLabels() returns 
+    "foo : bar :label baz".parseLabelledCards() returns 
             listOf(Card("foo :1", "bar"), Card("foo :label", "baz"))
-    "foo :label bar : baz".parseCardsWithLabels() returns
+    "foo :label bar : baz".parseLabelledCards() returns
             listOf(Card("foo :label", "bar"), Card("foo :2", "baz"))
 }
-fun String.parseCardsWithLabels(category: String = ""): List<Card> {
+fun String.parseLabelledCards(category: String = ""): List<Card> {
     val separators = separatorRegex.findAll(this).map { it.range }.toList()
     if (separators.isEmpty()) {
         return emptyList<Card>()
