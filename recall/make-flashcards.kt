@@ -10,12 +10,6 @@ blank lines are ignored
 lines starting with == start a new heading
 """
 
-data class Card(
-    val question: String, 
-    val answer: String,
-    val category: String = ""
-)
-
 fun main(args: Array<String>) {
     if (args.isEmpty()) {
         print(usage)
@@ -27,6 +21,12 @@ fun main(args: Array<String>) {
         }
     }
 }
+
+data class Card(
+    val question: String, 
+    val answer: String,
+    val category: String = ""
+)
 
 // simple test functions, since kotlin.test is not on the default classpath
 fun test(klass: Class<*> = ::test.javaClass.enclosingClass, prefix: String = "def_") {
