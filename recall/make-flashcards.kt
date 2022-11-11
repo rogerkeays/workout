@@ -127,29 +127,32 @@ fun String.wrap(width: Int): String {
     }.toString()
 }
 
-fun makeFlashcard(filename: String, card: Card) {
-    flashcardNumber++
-    val question = "$filename\n${card.category}\n${card.question.wrap(15)}"
+fun makeFlashcard(card: Card, set: String, sequence: String, ) {
+    val question = "$set\n${card.category}\n${card.question.wrap(15)}"
     val answer = card.answer.wrap(15)
     Runtime.getRuntime().exec(arrayOf(
         "convert", "-size", "240x320", "xc:black",
         "-font", "FreeMono", "-weight", "bold", "-pointsize", "24",
         "-fill", "white", "-annotate", "+12+24", question,
         "-fill", "yellow", "-annotate", "+12+185", answer,
-        "%s.%03d.png".format(filename, flashcardNumber)))
+        "$set.$sequence.png"))
 }
-var flashcardNumber = 0
 
-fun processStdin(name: String) {
+fun processStdin(set: String) {
     var category = ""
+    var categoryCount = 0
     System.`in`.bufferedReader().lines().forEach { line ->
         if (line.startsWith("==")) {
             category = line.drop(2).lowercase()
+            categoryCount++
         } else if (line.isNotBlank()) {
-            line.parseUnlabelledCards(category).forEach {
-                makeFlashcard(name, it)
+            line.parseUnlabelledCards(category).forEachIndexed { i, card ->
+                val sequence = "%02d%02d%03d".format(categoryCount, i, flashcardNumber)
+                makeFlashcard(card, set, sequence)
+                flashcardNumber++
             }
         }
     }
 }
+var flashcardNumber = 0
 
