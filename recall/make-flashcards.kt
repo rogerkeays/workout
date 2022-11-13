@@ -12,12 +12,12 @@ lines starting with == start a new heading
 
 fun main(args: Array<String>) {
     if (args.isEmpty()) {
-        print(usage)
+        processStdin()
     } else {
         when (args[0]) {
-            "help" -> print(usage)
             "test" -> test()
-            else -> processStdin(args[0])
+            "help" -> print(usage)
+            else -> print(usage)
         }
     }
 }
@@ -127,7 +127,8 @@ fun String.wrap(width: Int): String {
     }.toString()
 }
 
-fun makeFlashcard(card: Card, set: String, sequence: String, ) {
+fun makeFlashcard(card: Card, set: String, sequence: String, dir: String = ".") {
+    java.io.File(dir).mkdir()
     val question = "$set\n${card.category}\n${card.question.wrap(15)}"
     val answer = card.answer.wrap(15)
     Runtime.getRuntime().exec(arrayOf(
@@ -135,24 +136,30 @@ fun makeFlashcard(card: Card, set: String, sequence: String, ) {
         "-font", "FreeMono", "-weight", "bold", "-pointsize", "24",
         "-fill", "white", "-annotate", "+12+24", question,
         "-fill", "yellow", "-annotate", "+12+185", answer,
-        "$set.$sequence.png"))
+        "$dir/$sequence.$set.png"))
 }
 
-fun processStdin(set: String) {
+fun processStdin() {
+    var set = ""
+    var lines = 0
     var category = ""
-    var categoryCount = 0
+    var categories = 0
     System.`in`.bufferedReader().lines().forEach { line ->
-        if (line.startsWith("==")) {
+        if (line.matches(headerRegex)) {
+            set = line.drop(17).takeWhile { it != '/' && it != '@' }.trim().replace(" ", "-")
+            lines = 0
+            categories = 0
+        } else if (line.startsWith("==")) {
             category = line.drop(2).lowercase()
-            categoryCount++
+            categories++
         } else if (line.isNotBlank()) {
             line.parseUnlabelledCards(category).forEachIndexed { i, card ->
-                val sequence = "%02d%02d%03d".format(categoryCount, i, flashcardNumber)
+                val sequence = "%02d%02d%03d".format(categories, i, lines)
                 makeFlashcard(card, set, sequence)
-                flashcardNumber++
             }
+            lines++
         }
     }
 }
-var flashcardNumber = 0
+val headerRegex = Regex("^[0-9A-Z_]{13} \\|.*$")
 
