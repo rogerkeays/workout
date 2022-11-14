@@ -157,10 +157,10 @@ fun processStdin() {
             lines++
             line.parseUnlabelledCards(category).forEachIndexed { i, card ->
                 if (card.answer.isNotBlank()) {
-                    val dir = "%02d%02d.%s".format(categories, i, category)
-                    val seq = "%02d%03d".format(songs, lines)
+                    val dir = "$categories$i.$category"
+                    val seq = "%02d%02d".format(songs, lines)
                     mkdir(dir)
-                    makeFlashcard(card, song, "$dir/$seq.$song.png")
+                    makeFlashcard(card, song, "00$dir/$dir$seq.$song.png")
                 }
             }
         }
