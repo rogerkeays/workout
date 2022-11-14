@@ -88,8 +88,6 @@ fun def_parseUnlabelledCards() {
     "".parseUnlabelledCards() returns listOf<Card>()
     "foo: bar".parseUnlabelledCards() returns listOf(Card("foo", "bar"))
     "foo : bar".parseUnlabelledCards() returns listOf(Card("foo", "bar"))
-    "foo :: bar".parseUnlabelledCards() returns listOf(Card("foo : ", "bar"))
-    "foo : : bar".parseUnlabelledCards() returns listOf(Card("foo : ", "bar"))
     "foo : bar : baz".parseUnlabelledCards() returns
             listOf(Card("foo", "bar"), Card("foo : bar", "baz"))
     "foo : bar : baz : zap".parseUnlabelledCards() returns
@@ -104,9 +102,7 @@ fun String.parseUnlabelledCards(category: String = ""): List<Card> {
         var question = StringBuilder(parts[0].trim())
         parts.drop(1).forEach {
             val answer = it.trim()
-            if (answer.isNotBlank()) {
-                result.add(Card(question.toString(), answer, category))
-            }
+            result.add(Card(question.toString(), answer, category))
             question.append(" : ").append(answer)
         }
         return result
@@ -131,39 +127,45 @@ fun String.wrap(width: Int): String {
     }.toString()
 }
 
-fun makeFlashcard(card: Card, set: String, sequence: String, dir: String = ".") {
-    java.io.File(dir).mkdir()
-    val question = "$set\n${card.category}\n${card.question.wrap(15)}"
+fun makeFlashcard(card: Card, heading: String, filename: String) {
+    val question = "$heading\n${card.category}\n${card.question.wrap(15)}"
     val answer = card.answer.wrap(15)
     Runtime.getRuntime().exec(arrayOf(
         "convert", "-size", "240x320", "xc:black",
         "-font", "FreeMono", "-weight", "bold", "-pointsize", "24",
         "-fill", "white", "-annotate", "+12+24", question,
         "-fill", "yellow", "-annotate", "+12+185", answer,
-        "$dir/$sequence.$set.png"))
+        "$filename"))
 }
 
 fun processStdin() {
-    var set = ""
+    var song = ""
+    var songs = 0
     var lines = 0
     var category = ""
     var categories = 0
     System.`in`.bufferedReader().lines().forEach { line ->
         if (line.matches(headerRegex)) {
-            set = line.drop(17).takeWhile { it != '/' && it != '@' }.trim().replace(" ", "-")
-            lines = 0
+            song = line.drop(17).takeWhile { it != '/' && it != '@' }.trim().replace(" ", "-")
+            songs++
             categories = 0
         } else if (line.startsWith("==")) {
             category = line.drop(2).lowercase()
             categories++
+            lines = 0
         } else if (line.isNotBlank()) {
-            line.parseUnlabelledCards(category).forEachIndexed { i, card ->
-                val sequence = "%02d%02d%03d".format(categories, i, lines)
-                makeFlashcard(card, set, sequence)
-            }
             lines++
+            line.parseUnlabelledCards(category).forEachIndexed { i, card ->
+                if (card.answer.isNotBlank()) {
+                    val dir = "%02d%02d.%s".format(categories, i, category)
+                    val seq = "%02d%03d".format(songs, lines)
+                    mkdir(dir)
+                    makeFlashcard(card, song, "$dir/$seq.$song.png")
+                }
+            }
         }
     }
 }
 val headerRegex = Regex("^[0-9A-Z_]{13} \\|.*$")
+fun mkdir(dir: String) = java.io.File(dir).mkdir()
 
