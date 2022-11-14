@@ -88,6 +88,8 @@ fun def_parseUnlabelledCards() {
     "".parseUnlabelledCards() returns listOf<Card>()
     "foo: bar".parseUnlabelledCards() returns listOf(Card("foo", "bar"))
     "foo : bar".parseUnlabelledCards() returns listOf(Card("foo", "bar"))
+    "foo :: bar".parseUnlabelledCards() returns listOf(Card("foo : ", "bar"))
+    "foo : : bar".parseUnlabelledCards() returns listOf(Card("foo : ", "bar"))
     "foo : bar : baz".parseUnlabelledCards() returns
             listOf(Card("foo", "bar"), Card("foo : bar", "baz"))
     "foo : bar : baz : zap".parseUnlabelledCards() returns
@@ -102,7 +104,9 @@ fun String.parseUnlabelledCards(category: String = ""): List<Card> {
         var question = StringBuilder(parts[0].trim())
         parts.drop(1).forEach {
             val answer = it.trim()
-            result.add(Card(question.toString(), answer, category))
+            if (answer.isNotBlank()) {
+                result.add(Card(question.toString(), answer, category))
+            }
             question.append(" : ").append(answer)
         }
         return result
