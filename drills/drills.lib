@@ -1,6 +1,6 @@
 # vim: filetype=sh
 
-OUTDIR=$HOME/library/workout/drills
+OUTDIR=$HOME/library/sounds/drills
 mkdir -p $OUTDIR
 
 #
