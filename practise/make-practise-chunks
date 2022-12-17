@@ -25,10 +25,9 @@ count=1; padding=3; padding2=$(calc $padding*2)
 name=$1; format=mp3; input=$name.$format;
 
 # open the labels file for reading
-[ ! -d $name ] && mkdir $name
 timestamps=3; exec 3< $name.txt
 
-# uses named pipes for streaming
+# use named pipes for streaming
 tmp=$(mktemp -d)
 mkfifo $tmp/1 $tmp/2
 echo "file $tmp/1\nfile $tmp/2" > $tmp/list
@@ -42,7 +41,7 @@ while read next x nextlabel; do
     voice=$label
     count=1
   elif [ "$label" != "X" ]; then
-    output=$name/$voice$(printf %02d $count).$label.$format
+    output=$voice$(printf %02d $count).$label.$format
     start=$(calc $current-$padding)
     stop=$(calc $next+$padding)
     fadestart=$(calc $next-$current+$padding)
