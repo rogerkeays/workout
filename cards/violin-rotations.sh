@@ -95,7 +95,7 @@ drill 004.pitch-arm/004.vibrato/003.on-the-body fulcrum=wrist,arm $EF
 drill 004.pitch-arm/004.vibrato/004.on-the-string fulcrum=wrist,arm silent,voiced $EF $ES pos=1,3,5,7,9,Z
 drill 004.pitch-arm/005.shifts/001.one-finger-scales chromatic,major,minor
 drill 004.pitch-arm/005.shifts/002.shifts $EF int=1,2,3,4,5,6,7,8,9,X,Y,Z pos=1,3,5,7,9,Z
-scale 005.both-arms/001.chromatic-scale
+drill 005.both-arms/001.chromatic-scale $SCALE_VARS
 scale 005.both-arms/002.scales 001.ud $MODES
 scale 005.both-arms/002.scales 002.climbs $MODES
 scale 005.both-arms/002.scales 003.four-in-a-row $MODES
