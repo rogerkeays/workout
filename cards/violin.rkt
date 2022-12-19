@@ -131,29 +131,6 @@ define hands-together `(hands-together
   (scales : $mode $finger-pos $string-octaves $swgtlm $fmtvw $8npb $attack $dynamics $dynamics $tempo)
   (arpeggios : $majmin $finger-pos $string-octaves $swgtlm $fmtvw $8npb $attack $dynamics $dynamics $tempo))
 
-  #|
-  (riffs
-    gavotte-one-in-ten
-    gavotte-theres-a-miniature-train-ride
-    gavotte-a-family-of-ducklings
-    symphony-40-at-the-door-a
-    despacito-scooby-dooby-doo
-    despacito-the-doors-they-slide-open
-    despacito-gonna-gonna-orgasm
-    despacito-i-dont-care-im-naked
-    nuvole-were-in-my-hand
-    nuvole-pizza-dough
-    nuvole-tomato
-    nuvole-vegetables
-    nuvole-capsicum))
-
-  (lh.chord-patterns)
-  (lh.pizzicato)
-  (bh.scales.double-stops.one-octave)
-  (bh.scales.double-stops.two-octaves)
-  (bh.scales.double-stops.three-octaves)
-  |#
-
 module+ main
   for ([i 25])
     select bowing 1
