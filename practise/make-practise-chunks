@@ -40,7 +40,7 @@ while read next x nextlabel; do
   if expr match "$label" "^[0-9]\+$" > /dev/null; then
     voice=$label
     count=1
-  elif [ "$label" != "X" ]; then
+  elif expr match "$label" "^[^X]" > /dev/null; then
     output=$voice$(printf %02d $count).$label.$format
     start=$(calc $current-$padding)
     stop=$(calc $next+$padding)
