@@ -4,7 +4,7 @@
 # can be rotated by incrementing the leading zeros
 #
 
-. rotations.sh
+source rotations-base.sh
 
 # shorthand
 EF="finger=p,r,m,i"
@@ -17,6 +17,7 @@ MODES="mode=maj,nmin,mmin,hmin"
 SCALE_VARS="timing=together,predictive tempo=30,60,90,120,240 npb=1,2,3,4,5,6,7 octaves=1,2,3 pos=1,3,5,7,9,Z"
 
 # build the drill hierarchy
+mkdir violin; cd violin
 drill 001.ear/001.pitch-singing 
 drill 001.ear/002.pitch-matching timing=after,together,before
 drill 001.ear/003.interval-singing
