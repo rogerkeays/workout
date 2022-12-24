@@ -3,7 +3,7 @@
 ;; vim: syntax=scheme
 ;; screenshot size: 25x15
 
-require fluent/unicode "workout.rkt" "music.rkt"
+require fluent/unicode "random-base.rkt"
 
 ;; bowing drills
 define tempo `(tempo 60 70 80 90)

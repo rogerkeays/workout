@@ -4,6 +4,8 @@
 # can be rotated by incrementing the leading zeros
 #
 
+. rotations.sh
+
 # shorthand
 EF="finger=p,r,m,i"
 ES="string=1,2,3,4"
@@ -13,23 +15,6 @@ MFTZ="$MFT,travelling"
 XING_VARS="$ES reptop=off,on npb=0,1,2,3 $MFTZ" # shoulder/elbow/wrist
 MODES="mode=maj,nmin,mmin,hmin"
 SCALE_VARS="timing=together,predictive tempo=30,60,90,120,240 npb=1,2,3,4,5,6,7 octaves=1,2,3 pos=1,3,5,7,9,Z"
-
-# create a directory for each drill and one file defining each drill variable
-function drill { 
-  mkdir -p $1; 
-  i=0
-  for var in ${@:2}; do
-    i=$((i+1))
-    touch $1/$i.$var
-  done
-}
-
-# create a set of drills for each scale key
-function scale {
-  for TONIC in 0 1 2 3 4 5 6 7 8 9 X Y; do
-    drill $1/00.$TONIC/$2 ${@:3} $SCALE_VARS
-  done
-}
 
 # build the drill hierarchy
 drill 001.ear/001.pitch-singing 

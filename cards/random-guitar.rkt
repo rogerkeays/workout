@@ -2,7 +2,7 @@
 #lang jamaica sweet-exp racket
 ;; vim: syntax=scheme
 
-require fluent/unicode "workout.rkt" "music.rkt"
+require fluent/unicode "random-base.rkt"
 
 ;; bridge-hand drills
 define es `(string 1 2 3 4 5 6)
