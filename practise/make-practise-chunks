@@ -22,7 +22,8 @@ fi
 ffmpeg="ffmpeg -nostdin -loglevel error"
 calc() { echo "$*" | bc -l ; } # no floating point arithmetic in posix
 count=1; padding=3; padding2=$(calc $padding*2)
-name=$1; format=mp3; input=$name.$format;
+name=$1; format=mp3; input=$name.$format; outputdir=$name
+mkdir $outputdir
 
 # open the labels file for reading
 timestamps=3; exec 3< $name.txt
@@ -41,7 +42,7 @@ while read next x nextlabel; do
     voice=$label
     count=1
   elif expr match "$label" "^[^X]" > /dev/null; then
-    output=$voice$(printf %02d $count).$label.$format
+    output=$outputdir/$voice$(printf %02d $count).$label.$format
     start=$(calc $current-$padding)
     stop=$(calc $next+$padding)
     fadestart=$(calc $next-$current+$padding)
