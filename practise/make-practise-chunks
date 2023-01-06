@@ -4,10 +4,10 @@ if [ ! $1 ]; then
   echo "
 Usage:
 
-$(basename $0) name
+$(basename $0) name number
 
-name.mp3 is the source file in the current directory
-name.txt contains a list of timestamps where the audio should be split
+number.name.mp3 is the source file in the current directory
+number.name.txt contains a list of timestamps where the audio should be split
 
 the first line in the audio is the start of the first chunk
 timestamps are in seconds, like the labels files exported from audacity
@@ -21,12 +21,23 @@ fi
 # set up the environment
 ffmpeg="ffmpeg -nostdin -loglevel error"
 calc() { echo "$*" | bc -l ; } # no floating point arithmetic in posix
-count=1; padding=3; padding2=$(calc $padding*2)
-name=$1; format=mp3; input=$name.$format; outputdir=$name
+count=1; padding=2; padding2=$(calc $padding*2)
+name=$1; number=$2; format=mp3; input=$number.$name.$format; outputdir=$number.$name;
 mkdir $outputdir
 
-# open the labels file for reading
-timestamps=3; exec 3< $name.txt
+# create full length versions at different tempos
+output=$outputdir/${number}00.$name.050.$format
+$ffmpeg -i $input -ss 2.5 -af atempo=0.5 $output
+echo "wrote $output"
+output=$outputdir/${number}00.$name.100.$format
+cp -a $input $output
+echo "wrote $output"
+output=$outputdir/${number}00.$name.125.$format
+$ffmpeg -i $input -af atempo=1.25 $output
+echo "wrote $output"
+
+# open the chunk labels file for reading
+timestamps=3; exec 3< $number.$name.txt
 
 # use named pipes for streaming
 tmp=$(mktemp -d)
@@ -42,7 +53,7 @@ while read next x nextlabel; do
     voice=$label
     count=1
   elif expr match "$label" "^[^X]" > /dev/null; then
-    output=$outputdir/$voice$(printf %02d $count).$label.$format
+    output=$outputdir/$number$voice$(printf %02d $count).$label.$format
     start=$(calc $current-$padding)
     stop=$(calc $next+$padding)
     fadestart=$(calc $next-$current+$padding)
