@@ -87,16 +87,16 @@ drill 0004.pitch-arm/0006.shifts/0002.same-finger-shifts $EF int=1,2,3,4,5,6,7,8
 drill 0004.pitch-arm/0006.shifts/0003.different-finger-shifts $EF int=1,2,3,4,5,6,7,8,9,X,Y,Z pos=1,3,5,7,9,Z
 drill 0005.both-arms/0000.frogs
 drill 0005.both-arms/0001.chromatic-scale $SCALE_VARS
-scale 0005.both-arms/0002.scales 0001.ud $MODES
-scale 0005.both-arms/0002.scales 0002.climbs $MODES
-scale 0005.both-arms/0002.scales 0003.four-in-a-row $MODES
-scale 0005.both-arms/0002.scales 0004.random-conj $MODES
-scale 0005.both-arms/0002.scales 0005.random-disj $MODES
-scale 0005.both-arms/0003.arpeggios 0001.ud mode=maj,min
-scale 0005.both-arms/0003.arpeggios 0002.climbs mode=maj,min
-scale 0005.both-arms/0003.arpeggios 0003.random-conj mode=maj,min
-scale 0005.both-arms/0003.arpeggios 0004.random-disj mode=maj,min
-drill 0006.phrases/0000.frogs
+scale 0005.both-arms/0002.scales 0001.ud $MODES $SCALE_VARS
+scale 0005.both-arms/0002.scales 0002.climbs $MODES $SCALE_VARS
+scale 0005.both-arms/0002.scales 0003.four-in-a-row $MODES $SCALE_VARS
+scale 0005.both-arms/0002.scales 0004.random-conj $MODES $SCALE_VARS
+scale 0005.both-arms/0002.scales 0005.random-disj $MODES $SCALE_VARS
+scale 0005.both-arms/0003.arpeggios 0001.ud mode=maj,min $SCALE_VARS
+scale 0005.both-arms/0003.arpeggios 0002.climbs mode=maj,min $SCALE_VARS
+scale 0005.both-arms/0003.arpeggios 0003.random-conj mode=maj,min $SCALE_VARS
+scale 0005.both-arms/0003.arpeggios 0004.random-disj mode=maj,min $SCALE_VARS
+drill 0006.phrases
 drill 0007.pieces
 
 #chord patterns {301} {es} {3-strings/12, 3-strings/22} {ud} {fmt}
