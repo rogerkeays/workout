@@ -25,7 +25,6 @@ fun main(args: Array<String>) {
 data class Card(
     val question: String, 
     val answer: String,
-    val category: String = ""
 )
 
 // simple test functions, since kotlin.test is not on the default classpath
@@ -59,7 +58,7 @@ fun def_parseLabelledCards() {
     "foo :label bar : baz".parseLabelledCards() returns
             listOf(Card("foo :label", "bar"), Card("foo :2", "baz"))
 }
-fun String.parseLabelledCards(category: String = ""): List<Card> {
+fun String.parseLabelledCards(): List<Card> {
     val separators = separatorRegex.findAll(this).map { it.range }.toList()
     if (separators.isEmpty()) {
         return emptyList<Card>()
@@ -78,7 +77,7 @@ fun String.parseLabelledCards(category: String = ""): List<Card> {
             } else {
                 drop(range.last + 1).take(separators[i + 1].first - range.last - 1)
             }
-            Card(question.trim(), answer.trim(), category)
+            Card(question.trim(), answer.trim())
         }
     }
 }
@@ -93,7 +92,7 @@ fun def_parseUnlabelledCards() {
     "foo : bar : baz : zap".parseUnlabelledCards() returns
             listOf(Card("foo", "bar"), Card("foo : bar", "baz"), Card("foo : bar : baz", "zap"))
 }
-fun String.parseUnlabelledCards(category: String = ""): List<Card> {
+fun String.parseUnlabelledCards(): List<Card> {
     val parts = split(":")
     if (parts.size < 2) {
         return emptyList<Card>()
@@ -102,7 +101,7 @@ fun String.parseUnlabelledCards(category: String = ""): List<Card> {
         var question = StringBuilder(parts[0].trim())
         parts.drop(1).forEach {
             val answer = it.trim()
-            result.add(Card(question.toString(), answer, category))
+            result.add(Card(question.toString(), answer))
             question.append(" : ").append(answer)
         }
         return result
@@ -127,8 +126,8 @@ fun String.wrap(width: Int): String {
     }.toString()
 }
 
-fun makeFlashcard(card: Card, heading: String, filename: String) {
-    val question = "$heading\n${card.category}\n${card.question.wrap(15)}"
+fun makeFlashcard(card: Card, heading: String, field: String, filename: String) {
+    val question = "$heading\n$field\n${card.question.wrap(15)}"
     val answer = card.answer.wrap(15)
     Runtime.getRuntime().exec(arrayOf(
         "convert", "-size", "240x320", "xc:black",
@@ -138,29 +137,35 @@ fun makeFlashcard(card: Card, heading: String, filename: String) {
         "$filename"))
 }
 
+val fields = arrayOf(
+    arrayOf("location", "story"),
+    arrayOf("structure", "bars", "metre", "tempo", "tonic"),
+    arrayOf("images", "anchors"),
+    arrayOf("lyrics", "rhythm", "melody", "mechanics", "dynamics"),
+    arrayOf("lyrics-variation", "rhythm-variation"))
+
 fun processStdin() {
     var song = ""
     var songs = 0
     var lines = 0
-    var category = ""
-    var categories = 0
+    var section = 0
     System.`in`.bufferedReader().lines().forEach { line ->
         if (line.matches(headerRegex)) {
             song = line.drop(17).takeWhile { it != '/' && it != '@' }.trim().replace(" ", "-")
             songs++
-            categories = 0
+            section = 0
         } else if (line.startsWith("==")) {
-            category = line.drop(2).lowercase()
-            categories++
+            section++
             lines = 0
         } else if (line.isNotBlank()) {
             lines++
-            line.parseUnlabelledCards(category).forEachIndexed { i, card ->
+            line.parseUnlabelledCards().forEachIndexed { i, card ->
                 if (card.answer.isNotBlank()) {
-                    val dir = "00$song" // "00$categories$i.$category"
-                    val seq = "%d%d%02d%02d".format(categories, i, songs, lines)
+                    val field = fields[section - 1][i]
+                    val dir = "$section$i.$field" // val dir = "00$song"
+                    val seq = "00%d%d%02d%02d".format(section, i, songs, lines)
                     mkdir(dir)
-                    makeFlashcard(card, song, "$dir/$seq.$song.png")
+                    makeFlashcard(card, song, field, "$dir/$seq.$song.png")
                 }
             }
         }
