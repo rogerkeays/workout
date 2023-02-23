@@ -42,26 +42,37 @@ fun processStdin() {
     var song = ""
     var songs = 0
     var lines = 0
-    var section = 0
+    var section = ""
+    var sections = 0
     System.`in`.bufferedReader().lines().forEach { line ->
         if (line.matches(headerRegex)) {
             song = line.drop(17).takeWhile { it != '/' && it != '@' }.trim().replace(" ", "-")
             songs++
-            section = 0
+            sections = 0
         } else if (line.startsWith("==")) {
-            section++
+            section = line.drop(2).lowercase()
+            sections++
             lines = 0
         } else if (line.isNotBlank()) {
             lines++
+            /* one flashcard per field
             line.parseUnlabelledCards().forEachIndexed { i, card ->
                 if (card.answer.isNotBlank()) {
-                    val field = fields[section - 1][i]
-                    val dir = "$section$i.$field" // val dir = "00$song"
-                    val seq = "00%d%d%02d%02d".format(section, i, songs, lines)
+                    val field = fields[sections - 1][i]
+                    val dir = "$sections$i.$field" // val dir = "00$song"
+                    val seq = "00%d%d%02d%02d".format(sections, i, songs, lines)
                     mkdir(dir)
                     makeFlashcard(card, song, field, "$dir/$seq.$song.png")
                 }
-            }
+            } */
+
+            // one flashcard per line
+            val question = line.takeWhile { it != ':' }
+            val answer = line.drop(question.length + 1)
+            val dir = "$sections.$section"
+            val seq = "00%d%02d%02d".format(sections, songs, lines)
+            mkdir(dir)
+            makeFlashcard(Card(question, answer), song, section, "$dir/$seq.$song.png")
         }
     }
 }
