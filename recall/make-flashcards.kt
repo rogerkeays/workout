@@ -1,14 +1,30 @@
 //usr/bin/env [ $0 -nt $0.jar ] && kotlinc -d $0.jar $0; [ $0.jar -nt $0 ] && java -cp $CLASSPATH:$0.jar Make_flashcardsKt "$@"; exit 0
 
 val usage = """
-usage: make-flashcards.kt [ {name} | help | test ]
+usage: make-flashcards.kt [ help | test ]
 
 reads from stdin
-writes to name.xxx.png, where xxx is the flashcard number
+lines containing a journal header start a new piece
+lines starting with == start a new section
 each line describes a flashcard with the question and answer separated by a colon
 blank lines are ignored
-lines starting with == start a new heading
+writes to xxx.png, where xxx is the flashcard sequence number
 """
+
+val fields = arrayOf(
+    arrayOf("location", "story"),
+    arrayOf("structure", "bars", "metre", "tempo", "tonic"),
+    arrayOf("images", "anchors"),
+    arrayOf("lyrics", "rhythm", "melody", "mechanics", "dynamics"),
+    arrayOf("lyrics-variation", "rhythm-variation"))
+
+val headerRegex = Regex("^[0-9A-Z_]{13} \\|.*$")
+val separatorRegex = Regex(":[^ ]*")
+
+data class Card(
+    val question: String, 
+    val answer: String,
+)
 
 fun main(args: Array<String>) {
     if (args.isEmpty()) {
@@ -22,25 +38,57 @@ fun main(args: Array<String>) {
     }
 }
 
-data class Card(
-    val question: String, 
-    val answer: String,
-)
+fun processStdin() {
+    var song = ""
+    var songs = 0
+    var lines = 0
+    var section = 0
+    System.`in`.bufferedReader().lines().forEach { line ->
+        if (line.matches(headerRegex)) {
+            song = line.drop(17).takeWhile { it != '/' && it != '@' }.trim().replace(" ", "-")
+            songs++
+            section = 0
+        } else if (line.startsWith("==")) {
+            section++
+            lines = 0
+        } else if (line.isNotBlank()) {
+            lines++
+            line.parseUnlabelledCards().forEachIndexed { i, card ->
+                if (card.answer.isNotBlank()) {
+                    val field = fields[section - 1][i]
+                    val dir = "$section$i.$field" // val dir = "00$song"
+                    val seq = "00%d%d%02d%02d".format(section, i, songs, lines)
+                    mkdir(dir)
+                    makeFlashcard(card, song, field, "$dir/$seq.$song.png")
+                }
+            }
+        }
+    }
+}
 
-// simple test functions, since kotlin.test is not on the default classpath
-fun test(klass: Class<*> = ::test.javaClass.enclosingClass, prefix: String = "def_") {
-    klass.declaredMethods.filter { it.name.startsWith(prefix) }.forEach { it(null) }
+fun def_parseUnlabelledCards() {
+    "".parseUnlabelledCards() returns listOf<Card>()
+    "foo: bar".parseUnlabelledCards() returns listOf(Card("foo", "bar"))
+    "foo : bar".parseUnlabelledCards() returns listOf(Card("foo", "bar"))
+    "foo : bar : baz".parseUnlabelledCards() returns
+            listOf(Card("foo", "bar"), Card("foo : bar", "baz"))
+    "foo : bar : baz : zap".parseUnlabelledCards() returns
+            listOf(Card("foo", "bar"), Card("foo : bar", "baz"), Card("foo : bar : baz", "zap"))
 }
-infix fun Any?.returns(result: Any?) { 
-    if (this != result) throw AssertionError("Expected: $result, got $this") 
-}
-infix fun (() -> Any).throws(ex: kotlin.reflect.KClass<out Throwable>) { 
-    try { 
-        invoke() 
-        throw AssertionError("Exception expected: $ex")
-    } catch (e: Throwable) { 
-        if (!ex.java.isAssignableFrom(e.javaClass)) throw AssertionError("Expected: $ex, got $e")
-    } 
+fun String.parseUnlabelledCards(): List<Card> {
+    val parts = split(":")
+    if (parts.size < 2) {
+        return emptyList<Card>()
+    } else {
+        var result = mutableListOf<Card>()
+        var question = StringBuilder(parts[0].trim())
+        parts.drop(1).forEach {
+            val answer = it.trim()
+            result.add(Card(question.toString(), answer))
+            question.append(" : ").append(answer)
+        }
+        return result
+    }
 }
 
 fun def_parseLabelledCards() {
@@ -81,31 +129,18 @@ fun String.parseLabelledCards(): List<Card> {
         }
     }
 }
-val separatorRegex = Regex(":[^ ]*")
 
-fun def_parseUnlabelledCards() {
-    "".parseUnlabelledCards() returns listOf<Card>()
-    "foo: bar".parseUnlabelledCards() returns listOf(Card("foo", "bar"))
-    "foo : bar".parseUnlabelledCards() returns listOf(Card("foo", "bar"))
-    "foo : bar : baz".parseUnlabelledCards() returns
-            listOf(Card("foo", "bar"), Card("foo : bar", "baz"))
-    "foo : bar : baz : zap".parseUnlabelledCards() returns
-            listOf(Card("foo", "bar"), Card("foo : bar", "baz"), Card("foo : bar : baz", "zap"))
-}
-fun String.parseUnlabelledCards(): List<Card> {
-    val parts = split(":")
-    if (parts.size < 2) {
-        return emptyList<Card>()
-    } else {
-        var result = mutableListOf<Card>()
-        var question = StringBuilder(parts[0].trim())
-        parts.drop(1).forEach {
-            val answer = it.trim()
-            result.add(Card(question.toString(), answer))
-            question.append(" : ").append(answer)
-        }
-        return result
-    }
+fun mkdir(dir: String) = java.io.File(dir).mkdir()
+
+fun makeFlashcard(card: Card, heading: String, field: String, filename: String) {
+    val question = "$heading\n$field\n${card.question.wrap(15)}"
+    val answer = card.answer.wrap(15)
+    Runtime.getRuntime().exec(arrayOf(
+        "convert", "-size", "240x320", "xc:black",
+        "-font", "FreeMono", "-weight", "bold", "-pointsize", "24",
+        "-fill", "white", "-annotate", "+12+24", question,
+        "-fill", "yellow", "-annotate", "+12+185", answer,
+        "$filename"))
 }
 
 fun def_wrap() {
@@ -126,51 +161,19 @@ fun String.wrap(width: Int): String {
     }.toString()
 }
 
-fun makeFlashcard(card: Card, heading: String, field: String, filename: String) {
-    val question = "$heading\n$field\n${card.question.wrap(15)}"
-    val answer = card.answer.wrap(15)
-    Runtime.getRuntime().exec(arrayOf(
-        "convert", "-size", "240x320", "xc:black",
-        "-font", "FreeMono", "-weight", "bold", "-pointsize", "24",
-        "-fill", "white", "-annotate", "+12+24", question,
-        "-fill", "yellow", "-annotate", "+12+185", answer,
-        "$filename"))
+// simple test functions, since kotlin.test is not on the default classpath
+fun test(klass: Class<*> = ::test.javaClass.enclosingClass, prefix: String = "def_") {
+    klass.declaredMethods.filter { it.name.startsWith(prefix) }.forEach { it(null) }
 }
-
-val fields = arrayOf(
-    arrayOf("location", "story"),
-    arrayOf("structure", "bars", "metre", "tempo", "tonic"),
-    arrayOf("images", "anchors"),
-    arrayOf("lyrics", "rhythm", "melody", "mechanics", "dynamics"),
-    arrayOf("lyrics-variation", "rhythm-variation"))
-
-fun processStdin() {
-    var song = ""
-    var songs = 0
-    var lines = 0
-    var section = 0
-    System.`in`.bufferedReader().lines().forEach { line ->
-        if (line.matches(headerRegex)) {
-            song = line.drop(17).takeWhile { it != '/' && it != '@' }.trim().replace(" ", "-")
-            songs++
-            section = 0
-        } else if (line.startsWith("==")) {
-            section++
-            lines = 0
-        } else if (line.isNotBlank()) {
-            lines++
-            line.parseUnlabelledCards().forEachIndexed { i, card ->
-                if (card.answer.isNotBlank()) {
-                    val field = fields[section - 1][i]
-                    val dir = "$section$i.$field" // val dir = "00$song"
-                    val seq = "00%d%d%02d%02d".format(section, i, songs, lines)
-                    mkdir(dir)
-                    makeFlashcard(card, song, field, "$dir/$seq.$song.png")
-                }
-            }
-        }
-    }
+infix fun Any?.returns(result: Any?) { 
+    if (this != result) throw AssertionError("Expected: $result, got $this") 
 }
-val headerRegex = Regex("^[0-9A-Z_]{13} \\|.*$")
-fun mkdir(dir: String) = java.io.File(dir).mkdir()
+infix fun (() -> Any).throws(ex: kotlin.reflect.KClass<out Throwable>) { 
+    try { 
+        invoke() 
+        throw AssertionError("Exception expected: $ex")
+    } catch (e: Throwable) { 
+        if (!ex.java.isAssignableFrom(e.javaClass)) throw AssertionError("Expected: $ex, got $e")
+    } 
+}
 
