@@ -16,7 +16,7 @@ val fields = arrayOf(
     arrayOf("structure", "bars", "metre", "tempo", "tonic"),
     arrayOf("images", "anchors"),
     arrayOf("lyrics", "rhythm", "melody", "mechanics", "dynamics"),
-    arrayOf("lyrics-variation", "rhythm-variation"))
+    arrayOf("lyrics-variation", "rhythm-variation", "melody-variation"))
 
 val headerRegex = Regex("^[0-9A-Z_]{13} \\|.*$")
 val separatorRegex = Regex(":[^ ]*")
@@ -55,24 +55,26 @@ fun processStdin() {
             lines = 0
         } else if (line.isNotBlank()) {
             lines++
-            /* one flashcard per field
+
+            /* one flashcard per field */
             line.parseUnlabelledCards().forEachIndexed { i, card ->
                 if (card.answer.isNotBlank()) {
                     val field = fields[sections - 1][i]
-                    val dir = "$sections$i.$field" // val dir = "00$song"
+                    val dir = "00$song" // "$sections$i.$field"
                     val seq = "00%d%d%02d%02d".format(sections, i, songs, lines)
                     mkdir(dir)
                     makeFlashcard(card, song, field, "$dir/$seq.$song.png")
                 }
-            } */
+            }
 
-            // one flashcard per line
+            /* one flashcard per line
             val question = line.takeWhile { it != ':' }
             val answer = line.drop(question.length + 1)
             val dir = "$sections.$section"
             val seq = "00%d%02d%02d".format(sections, songs, lines)
             mkdir(dir)
             makeFlashcard(Card(question, answer), song, section, "$dir/$seq.$song.png")
+            */
         }
     }
 }
