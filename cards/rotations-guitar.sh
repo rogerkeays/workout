@@ -43,10 +43,13 @@ drill 0006.pieces
 
 
 # bridge hand
+#   strumming=thumb,thumbnail,finger,fingernail,fake-pick,thumb-then-finger
 #       picking
 #         finger picking
 #         fingerstyle
 #         finger tapping
+#       6/8 strumming
+#       crescendo/decrescendo strumming
 #       pinch harmonics
 #
 # pitch hand
@@ -75,3 +78,5 @@ drill 0006.pieces
 #         climbs in thirds
 #         four in a row
 #
+#  riffs
+#    peter gunn theme
