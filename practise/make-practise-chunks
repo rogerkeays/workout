@@ -22,19 +22,19 @@ fi
 ffmpeg="ffmpeg -nostdin -loglevel error"
 calc() { echo "$*" | bc -l ; } # no floating point arithmetic in posix
 count=1; padding=2; padding2=$(calc $padding*2)
-name=$1; number=$2; format=mp3; input=$number.$name.$format; outputdir=$number.$name;
+name=$1; number=$2; format=mp3; input=$number.$name.$format; outputdir=00$number.$name;
 mkdir $outputdir
 
 # create full length versions at different tempos
-output=$outputdir/${number}00.$name.050.$format
-$ffmpeg -i $input -ss 2.5 -af atempo=0.5 $output
-echo "wrote $output"
-output=$outputdir/${number}00.$name.100.$format
-cp -a $input $output
-echo "wrote $output"
-output=$outputdir/${number}00.$name.125.$format
-$ffmpeg -i $input -af atempo=1.25 $output
-echo "wrote $output"
+#output=$outputdir/${number}00.$name.050.$format
+#$ffmpeg -i $input -ss 2.5 -af atempo=0.5 $output
+#echo "wrote $output"
+#output=$outputdir/${number}00.$name.100.$format
+#cp -a $input $output
+#echo "wrote $output"
+#output=$outputdir/${number}00.$name.125.$format
+#$ffmpeg -i $input -af atempo=1.25 $output
+#echo "wrote $output"
 
 # open the chunk labels file for reading
 timestamps=3; exec 3< $number.$name.txt
@@ -53,7 +53,7 @@ while read next x nextlabel; do
     voice=$label
     count=1
   elif expr match "$label" "^[^X]" > /dev/null; then
-    output=$outputdir/$number$voice$(printf %02d $count).$label.$format
+    output=$outputdir/00$number$voice$(printf %02d $count).$label.$format
     start=$(calc $current-$padding)
     stop=$(calc $next+$padding)
     fadestart=$(calc $next-$current+$padding)
