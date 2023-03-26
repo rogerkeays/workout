@@ -4,10 +4,10 @@ if [ ! $1 ]; then
   echo "
 Usage:
 
-$(basename $0) name number
+$(basename $0) file
 
-number.name.mp3 is the source file in the current directory
-number.name.txt contains a list of timestamps where the audio should be split
+file.mp3 is the source file in the current directory
+file.txt contains a list of timestamps where the audio should be split
 
 the first line in the audio is the start of the first chunk
 timestamps are in seconds, like the labels files exported from audacity
@@ -22,22 +22,11 @@ fi
 ffmpeg="ffmpeg -nostdin -loglevel error"
 calc() { echo "$*" | bc -l ; } # no floating point arithmetic in posix
 count=1; padding=2; padding2=$(calc $padding*2)
-name=$1; number=$2; format=mp3; input=$number.$name.$format; outputdir=00$number.$name;
+name=$1; format=mp3; input=$name.$format; outputdir=00$name;
 mkdir $outputdir
 
-# create full length versions at different tempos
-#output=$outputdir/${number}00.$name.050.$format
-#$ffmpeg -i $input -ss 2.5 -af atempo=0.5 $output
-#echo "wrote $output"
-#output=$outputdir/${number}00.$name.100.$format
-#cp -a $input $output
-#echo "wrote $output"
-#output=$outputdir/${number}00.$name.125.$format
-#$ffmpeg -i $input -af atempo=1.25 $output
-#echo "wrote $output"
-
 # open the chunk labels file for reading
-timestamps=3; exec 3< $number.$name.txt
+timestamps=3; exec 3< $name.txt
 
 # use named pipes for streaming
 tmp=$(mktemp -d)
@@ -53,7 +42,7 @@ while read next x nextlabel; do
     voice=$label
     count=1
   elif expr match "$label" "^[^X]" > /dev/null; then
-    output=$outputdir/00$number$voice$(printf %02d $count).$label.$format
+    output=$outputdir/00$name.$voice$(printf %02d $count).$label.$format
     start=$(calc $current-$padding)
     stop=$(calc $next+$padding)
     fadestart=$(calc $next-$current+$padding)
@@ -61,8 +50,8 @@ while read next x nextlabel; do
 
     # cut, filter and join the audio
     cut="$ffmpeg -ss $start -to $stop -i $input -f $format -ac 1 -ar 48000 -q 4"
-    $cut -af atempo=0.5,afade=d=$padding2,afade=t=out:st=$fadestart2:d=$padding2 pipe:1 > $tmp/1 &
-    $cut -af afade=d=$padding,afade=t=out:st=$fadestart:d=$padding pipe:1 > $tmp/2 &
+    $cut -af afade=d=$padding,afade=t=out:st=$fadestart:d=$padding pipe:1 > $tmp/1 &
+    $cut -af atempo=0.5,afade=d=$padding2,afade=t=out:st=$fadestart2:d=$padding2 pipe:1 > $tmp/2 &
     $ffmpeg -f concat -safe 0 -i $tmp/list -codec copy "$output"
     count=$((count + 1))
     echo "wrote $output"
