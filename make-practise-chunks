@@ -19,21 +19,10 @@ start a new voice with a numeric-only label
 fi
 
 # set up the environment
-ffmpeg="ffmpeg -nostdin -loglevel error"
 calc() { echo "$*" | bc -l ; } # no floating point arithmetic in posix
-count=1; padding=2; padding2=$(calc $padding*2)
-name=$1; format=mp3; input=$name.$format; outputdir=LL.$name;
-mkdir $outputdir
-
-# open the chunk labels file for reading
+count=1; padding=3; format=mp3
+name=$1; input=$name.$format;
 timestamps=3; exec 3< $name.txt
-
-# use named pipes for streaming
-tmp=$(mktemp -d)
-mkfifo $tmp/1 $tmp/2
-echo "file $tmp/1\nfile $tmp/2" > $tmp/list
-trap "rm -r $tmp" EXIT
-trap exit INT HUP TERM
 
 # process timestamps
 read current x label <& $timestamps
@@ -42,19 +31,24 @@ while read next x nextlabel; do
     voice=$label
     count=1
   elif expr match "$label" "^[^X]" > /dev/null; then
-    output=$outputdir/00.$name.$voice$(printf %02d $count).$label.$format
-    start=$(calc $current-$padding)
-    stop=$(calc $next+$padding)
-    fadestart=$(calc $next-$current+$padding)
-    fadestart2=$(calc $fadestart*2)
 
-    # cut, filter and join the audio
-    cut="$ffmpeg -ss $start -to $stop -i $input -f $format -ac 1 -ar 48000 -q 4"
-    $cut -af afade=d=$padding,afade=t=out:st=$fadestart:d=$padding pipe:1 > $tmp/1 &
-    $cut -af atempo=0.5,afade=d=$padding2,afade=t=out:st=$fadestart2:d=$padding2 pipe:1 > $tmp/2 &
-    $ffmpeg -f concat -safe 0 -i $tmp/list -codec copy "$output"
+    # one folder per chunk
+    outputdir=LL.$name/000.$voice$(printf %02d $count).$label
+    mkdir -p "$outputdir"
+
+    # cut and retempo each chunk
+    cut="ffmpeg -nostdin -loglevel error \
+                -ss $(calc $current-$padding) -to $(calc $next+$padding) \
+                -i $input -f $format -ac 1 -ar 48000 -q 4 \
+                -af afade=d=$padding,afade=t=out:st=$(calc $next-$current+$padding):d=$padding"
+    $cut,atempo=0.5 "$outputdir/050.mp3"
+    $cut,atempo=0.75 "$outputdir/075.mp3"
+    $cut "$outputdir/100.mp3"
+    $cut,atempo=1.25 "$outputdir/125.mp3"
+    $cut,atempo=1.50 "$outputdir/150.mp3"
+
     count=$((count + 1))
-    echo "wrote $output"
+    echo "wrote $outputdir"
   fi
   prev=$current; current=$next; label=$nextlabel;
 done <& $timestamps
