@@ -12,9 +12,9 @@ writes to xxx.png, where xxx is the flashcard sequence number
 """
 
 val fields = arrayOf(
-    arrayOf("location", "story"),
-    arrayOf("structure", "bars", "metre", "tempo", "tonic"),
-    arrayOf("images", "anchors"),
+    arrayOf("location", "metre", "tempo", "tonic"),
+    arrayOf("structure"),
+    arrayOf("arrangement", "anchors"),
     arrayOf("lyrics", "rhythm", "melody", "mechanics", "dynamics"),
     arrayOf("lyrics-variation", "rhythm-variation", "melody-variation"))
 
@@ -28,6 +28,7 @@ data class Card(
 
 fun main(args: Array<String>) {
     if (args.isEmpty()) {
+        println("Ready")
         processStdin()
     } else {
         when (args[0]) {
@@ -144,10 +145,11 @@ fun String.parseLabelledCards(): List<Card> {
 }
 
 fun mkdir(dir: String) = java.io.File(dir).mkdir()
+fun String.escape() = replace("\\", "\\\\")
 
 fun makeFlashcard(card: Card, heading: String, field: String, filename: String) {
-    val question = "$heading\n$field\n${card.question.wrap(15)}"
-    val answer = card.answer.wrap(15)
+    val question = "$heading\n$field\n${card.question.wrap(15)}".escape()
+    val answer = card.answer.wrap(15).escape()
     Runtime.getRuntime().exec(arrayOf(
         "convert", "-size", "240x320", "xc:black",
         "-font", "FreeMono", "-weight", "bold", "-pointsize", "24",
