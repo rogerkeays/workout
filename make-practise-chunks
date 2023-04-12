@@ -40,6 +40,13 @@ cut_chunk() {
          "$4"
 }
 
+# setup output folders
+outputdir=LL.$name
+mkdir -p "$outputdir/LL.050"
+mkdir -p "$outputdir/LL.075"
+mkdir -p "$outputdir/LL.100"
+mkdir -p "$outputdir/LL.125"
+
 # process timestamps
 read current x label <& $timestamps
 while read next x nextlabel; do
@@ -47,20 +54,16 @@ while read next x nextlabel; do
     voice=$label
     count=1
   elif expr match "$label" "^[^X]" > /dev/null; then
-
-    # one folder per chunk
-    outputdir=000.$name/000.$voice$(printf %02d $count).$label
-    mkdir -p "$outputdir"
+    filename=LL.$voice$(printf %02d $count).$label.mp3
 
     # cut and retempo each chunk
-    cut_chunk $current $next 0.50 "$outputdir/050.mp3"
-    cut_chunk $current $next 0.75 "$outputdir/075.mp3"
-    cut_chunk $current $next 1.00 "$outputdir/100.mp3"
-    cut_chunk $current $next 1.25 "$outputdir/125.mp3"
-    cut_chunk $current $next 1.50 "$outputdir/150.mp3"
+    cut_chunk $current $next 0.50 "$outputdir/LL.050/$filename"
+    cut_chunk $current $next 0.75 "$outputdir/LL.075/$filename"
+    cut_chunk $current $next 1.00 "$outputdir/LL.100/$filename"
+    cut_chunk $current $next 1.25 "$outputdir/LL.125/$filename"
 
     count=$((count + 1))
-    echo "wrote $outputdir"
+    echo "chunked $name: $label"
   fi
   prev=$current; current=$next; label=$nextlabel;
 done <& $timestamps
