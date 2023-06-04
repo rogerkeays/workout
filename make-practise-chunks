@@ -20,7 +20,7 @@ fi
 
 # set up the environment
 calc() { echo "$*" | bc -l ; } # no floating point arithmetic in posix
-silence=3; padding=2; format=mp3; count=1
+silence=5; padding=2; format=mp3; count=1
 name=$1; input=$name.$format;
 timestamps=3; exec 3< $name.txt
 
@@ -40,13 +40,6 @@ cut_chunk() {
          "$4"
 }
 
-# setup output folders
-outputdir=LL.$name
-mkdir -p "$outputdir/LL.050"
-mkdir -p "$outputdir/LL.075"
-mkdir -p "$outputdir/LL.100"
-mkdir -p "$outputdir/LL.125"
-
 # process timestamps
 read current x label <& $timestamps
 while read next x nextlabel; do
@@ -54,13 +47,16 @@ while read next x nextlabel; do
     voice=$label
     count=1
   elif expr match "$label" "^[^X]" > /dev/null; then
-    filename=LL.$voice$(printf %02d $count).$label.mp3
+
+    # one folder per chunk
+    outputdir=LL.$name/LL.$voice$(printf %02d $count).$label
+    mkdir -p "$outputdir"
 
     # cut and retempo each chunk
-    cut_chunk $current $next 0.50 "$outputdir/LL.050/$filename"
-    cut_chunk $current $next 0.75 "$outputdir/LL.075/$filename"
-    cut_chunk $current $next 1.00 "$outputdir/LL.100/$filename"
-    cut_chunk $current $next 1.25 "$outputdir/LL.125/$filename"
+    cut_chunk $current $next 0.50 "$outputdir/050.mp3"
+    cut_chunk $current $next 0.75 "$outputdir/075.mp3"
+    cut_chunk $current $next 1.00 "$outputdir/100.mp3"
+    cut_chunk $current $next 1.25 "$outputdir/125.mp3"
 
     count=$((count + 1))
     echo "chunked $name: $label"
