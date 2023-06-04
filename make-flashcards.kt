@@ -12,9 +12,7 @@ writes to xxx.png, where xxx is the flashcard sequence number
 """
 
 val fields = arrayOf(
-    arrayOf("location", "metre", "tempo", "tonic"),
-    arrayOf("structure"),
-    arrayOf("arrangement", "anchors"),
+    arrayOf("structure", "metre", "tempo", "tonic"),
     arrayOf("lyrics", "rhythm", "melody", "mechanics", "dynamics"),
     arrayOf("lyrics-variation", "rhythm-variation", "melody-variation"))
 
@@ -62,9 +60,9 @@ fun processStdin() {
                 if (card.answer.isNotBlank()) {
                     val field = fields[sections - 1][i]
                     val dir = "00.$song" // "$sections$i.$field"
-                    val seq = "00.%s.%d%d%02d".format(song, sections, i, lines)
+                    val seq = "XX.%d%d%02d".format(sections, i, lines)
                     mkdir(dir)
-                    makeFlashcard(card, song, field, "$dir/$seq.png")
+                    makeFlashcard(card, song, field, "$dir/$seq.11111.png")
                 }
             }
 
