@@ -4,7 +4,7 @@
 # can be rotated by incrementing the leading zeros
 #
 
-source rotations-base.sh
+source drills.lib
 
 # shorthand
 es=string=1,2,3,4,5,6
