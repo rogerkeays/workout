@@ -1,7 +1,26 @@
 # vim: filetype=sh
 
+INSTRUMENT=57
 OUTDIR=$HOME/library/workout
 mkdir -p $OUTDIR
+
+function mcd { mkdir -p "$1"; cd "$1"; }
+
+#
+# create a directory for each drill, adding rotation number, drill number and parameters
+#
+# $1 drill name
+# $* drill parameters
+#
+function drill {
+  DRILLNUM=$((DRILLNUM+1))
+  mkdir -p "00.$(printf %02d $DRILLNUM).$*"
+}
+function drillcd {
+  DRILLNUM=$((DRILLNUM+1))
+  mcd "00.$(printf %02d $DRILLNUM).$*"
+}
+DRILLNUM=0
 
 #
 # convert an abc score to an mp3 file
@@ -17,10 +36,10 @@ function make_mp3 {
     echo "$3 already exists; skipping"
     return
   fi
-  mkdir -p $2
+  mkdir -p "$2"
   echo "$1" | abc2midi /dev/stdin -o /dev/stdout \
         | timidity - --output-24bit -A800 -K${4:=0} -T${5:=100} -Ow -o - \
-        | ffmpeg -i - -ac 1 -ab 64k $2/$3
+        | ffmpeg -loglevel error -i - -ac 1 -ab 64k "$2/$3"
 }
 
 #
@@ -29,7 +48,7 @@ function make_mp3 {
 # $1 set name
 # $2 abc score in the key of C with a tempo of 100
 # $3 pitches
-# 
+#
 function generate_scales {
   STEPS=$((12#${3:0:2} - 12#40))
   for PITCH in $3; do
@@ -43,11 +62,38 @@ function generate_scales {
 }
 
 #
+# generate a set of mp3s by transposing the pitch and tempo of the score
+#
+# $1 drill name
+# $2 abc score in the base position
+# $3 last fret to transpose up to
+#
+function generate_pattern_scales {
+  FRET=1
+  while [ $FRET -le $3 ]; do
+    TEMPO=30 # percent
+    while [ $TEMPO -le 240 ]; do
+      make_mp3 "
+        X:0
+        M:4/4
+        L:1/4
+        Q:100
+        K:C
+        | [I:MIDI program 115]
+        |cccc| [I:MIDI program $((INSTRUMENT - 1))]
+        $2" "$1/fret=$FRET" $(printf %03d $TEMPO).mp3 $FRET $TEMPO
+      TEMPO=$((TEMPO+30))
+    done
+    FRET=$((FRET+1))
+  done
+}
+
+#
 # generate a set of mp3s by transposing the tempo of the score
 #
 # $1 set name
 # $2 abc score with a tempo of 100
-# 
+#
 function generate_tempos {
   TEMPO=20 # percent
   while [ $TEMPO -le 400 ]; do
@@ -56,16 +102,9 @@ function generate_tempos {
   done
 }
 
-# create a directory for each drill, adding rotation number, drill number and parameters
-function drill { 
-  mkdir -p "$1/00.$(printf %02d $DRILLNUM).${*:2}"; 
-  DRILLNUM=$((DRILLNUM+1))
-}
-DRILLNUM=0
-
 # create a directory for each drill and one file defining each drill variable
-function drill~ { 
-  mkdir -p $1; 
+function drill~ {
+  mkdir -p $1;
   i=0
   for var in ${@:2}; do
     i=$((i+1))
