@@ -49,7 +49,7 @@ while read next x nextlabel; do
   elif expr match "$label" "^[^X]" > /dev/null; then
 
     # one folder per chunk
-    outputdir=LL.$name/LL.$voice$(printf %02d $count).$label
+    outputdir=LL.$name/00.$voice$(printf %02d $count).$label
     mkdir -p "$outputdir"
 
     # cut and retempo each chunk
