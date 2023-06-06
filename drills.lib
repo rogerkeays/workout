@@ -65,12 +65,11 @@ function generate_scales {
 # generate a set of mp3s by transposing the pitch and tempo of the score
 #
 # $1 drill name
-# $2 abc score in the base position
-# $3 last fret to transpose up to
+# $2 abc score for the base position (fret=0)
+# $* list of frets to transpose to
 #
 function generate_pattern_scales {
-  FRET=1
-  while [ $FRET -le $3 ]; do
+  for FRET in ${@:3}; do
     TEMPO=30 # percent
     while [ $TEMPO -le 240 ]; do
       make_mp3 "
@@ -84,7 +83,6 @@ function generate_pattern_scales {
         $2" "$1/fret=$FRET" $(printf %03d $TEMPO).mp3 $FRET $TEMPO
       TEMPO=$((TEMPO+30))
     done
-    FRET=$((FRET+1))
   done
 }
 
