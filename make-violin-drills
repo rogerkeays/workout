@@ -122,25 +122,36 @@ drill different-finger-shifts $EF int=1,2,3,4,5,6,7,8,9,X,Y,Z pos=1,3,5,7,9,Z
 cd ..
 mcd 6.both-arms
 drillcd chromatic-scale $SCALE_VARS
+generate_pattern_scales ud "|G,_A,=A,_B,=B,=C_D|=D_E=E=F_G=G_A|=A_B=B=c_d=d_e|=e=f_g=g_a=a_b|=b_b=a_a=g_g=f=e|_e=d_d=c=B_B=A|_A=G_G=F=E_E=D|_D=C=B,_B,=A,_A,G," 0 1 2 3 4 5
+cd ..
+
+drillcd scale-dinosaur $SCALE_VARS
+generate_pattern_scales ud "|=G,=A,=B,=C|=D=E^F=G|=A=B=c=d|=e^f=g=a|=g^f=e|=d=c=B=A|=G^F=E=D|=C=B,=A,=G," 1 2
+cd ..
+
+drillcd scale-chicken $SCALE_VARS
+generate_pattern_scales ud "|=G,=A,=B,=C|=D=E=F=G|=A=B=c=d|=e=f=g=a|=g=f=e|=d=c=B=A|=G=F=E=D|=C=B,=A,=G," 1 2
 cd ..
 
 drillcd scale-jake $SCALE_VARS
-generate_pattern_scales ud "|G,A,B,C|DE^FG|ABcd|e^fga|g^fed|cBAG|^FEDC|B,A,G,2|" $FRETS
+generate_pattern_scales ud "|=G,=A,_B,=C|=D=E=F=G|=A_B=c=d|=e=f=g=a|=g=f=e|=d=c_B=A|=G=F=E=D|=C_B,=A,=G," 1 2
 cd ..
 
-#drill arpeggio-jake $SCALE_VARS
-drill scale-elwood $SCALE_VARS
-#drill arpeggio-elwood $SCALE_VARS
-drill scale-pistol $SCALE_VARS
-#drill arpeggio-pistol $SCALE_VARS
-drill scale-nuke $SCALE_VARS
-#drill arpeggio-nuke $SCALE_VARS
-drill scale-explosion $SCALE_VARS
-#drill arpeggio-explosion $SCALE_VARS
-drill scale-chicken $SCALE_VARS
-#drill arpeggio-chicken $SCALE_VARS
-drill scale-dinosaur $SCALE_VARS
-#drill arpeggio-dinosaur $SCALE_VARS
+drillcd scale-elwood $SCALE_VARS
+generate_pattern_scales ud "|=G,=A,_B,=C|=D_E=F=G|=A_B=c=d|_e=f=g=a|=g=f_e|=d=c_B=A|=G=F_E=D|=C_B,=A,=G," 2
+cd ..
+
+drillcd scale-pistol $SCALE_VARS
+generate_pattern_scales ud "|=G,_A,_B,=C|=D_E=F=G|_A_B=c=d|_e=f=g_a|=g=f_e|=d=c_B_A|=G=F_E=D|=C_B,_A,=G," 2
+cd ..
+
+drillcd scale-nuke $SCALE_VARS
+generate_pattern_scales ud "|=G,_A,_B,=C|_D_E=F=G|_A_B=c_d|_e=f=g_a|=g=f_e|_d=c_B_A|=G=F_E_D|=C_B,_A,=G," 2
+cd ..
+
+drillcd scale-explosion $SCALE_VARS
+generate_pattern_scales ud "|_G,_A,_B,=C|_D_E=F_G|_A_B=c_d|_e=f_g_a|_g=f_e|_d=c_B_A|_G=F_E_D|=C_B,_A,_G," 2
+cd ..
 
 cd ..
 mkdir 7.phrases
