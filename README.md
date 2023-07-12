@@ -8,10 +8,12 @@ To run scripts ending in `.kt` you will have to install [Kotlin](https://kotlinl
 
 ## Command Line Tools
 
-  * make-practise-chunks: cuts and mp3 into multiple chunks at different tempos so you can play along with them.
-  * make-flashcards.kt: generate flashcards from **[Quickstep](https://github.com/rogerkeays/quickstep)** scores.
+  * make-practise-chunks: cuts mp3s into multiple chunks at different tempos so you can play along with them.
+  * make-flashcards.kt: generate flashcards from **[quickstep](https://github.com/rogerkeays/quickstep)** scores.
   * make-scales: generate practise mp3 scales you can play along with.
-  * make-arpeggiois: generate practise mp3 arpeggios you can play along with.
+  * make-arpeggios: generate practise mp3 arpeggios you can play along with.
+  * make-violin-drill: generate a hierarchy of violin drills and some accompanying mp3s
+  * many more, just check the code
 
 ## Related Resources
 
