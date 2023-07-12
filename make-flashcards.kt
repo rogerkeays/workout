@@ -62,7 +62,7 @@ fun processStdin() {
                     val dir = "00.$song" // "$sections$i.$field"
                     val seq = "XX.%d%d%02d".format(sections, i, lines)
                     mkdir(dir)
-                    makeFlashcard(card, song, field, "$dir/$seq.11111.png")
+                    makeFlashcard(card, song, field, "$dir/$seq.FROGS.png")
                 }
             }
 
