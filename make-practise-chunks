@@ -1,10 +1,7 @@
-#!/usr/bin/sh
+#!/bin/sh
 
-if [ ! $1 ]; then
-  echo "
-Usage:
-
-$(basename $0) file
+USAGE="
+usage: $(basename $0) file
 
 file.mp3 is the source file in the current directory
 file.txt contains a list of timestamps where the audio should be split
@@ -15,14 +12,7 @@ practise files include the previous chunk, so include an intro chunk
 the last line of the timestamp file is the end of the last chunk
 start a new voice with a numeric-only label
 "
-  exit 1
-fi
-
-# set up the environment
-calc() { echo "$*" | bc -l ; } # no floating point arithmetic in posix
-silence=5; padding=2; format=mp3; count=1
-name=$1; input=$name.$format;
-timestamps=3; exec 3< $name.txt
+[ ! $1 ] && echo "$USAGE" && exit 1
 
 #
 # cut a single chunk at the given tempo from the input file
@@ -40,7 +30,12 @@ cut_chunk() {
          "$4"
 }
 
+# set up the environment
+silence=5; padding=2; format=mp3; count=1
+name=$1; input=$name.$format;
+
 # process timestamps
+timestamps=3; exec 3< $name.txt
 read current x label <& $timestamps
 while read next x nextlabel; do
   if expr match "$label" "^[0-9]\+$" > /dev/null; then
