@@ -25,6 +25,8 @@ calc() { echo "$*" | bc -l ; }
 # tempo
 # output file
 #
+# note: -nostdin must be specified or ffmpeg consumes bytes from the data source (!!)
+#
 cut_chunk() {
   ffmpeg -nostdin -loglevel error \
          -ss $(calc $1-$padding) -to $(calc $2+$padding) \
@@ -34,12 +36,23 @@ cut_chunk() {
 }
 
 # set up the environment
-silence=5; padding=2; format=mp3; count=1
+silence=2; padding=2.5; format=mp3; count=1
 name=$1; input=$name.$format;
 outputdir=LL.$name
-for i in 050 075 100 125; do
-  mkdir -p "$outputdir"/$i;
-done
+mkdir "$outputdir"
+
+# temporary files
+tmp=$(mktemp -d)
+trap "rm -r $tmp" EXIT
+trap exit INT HUP TERM
+echo "
+file $tmp/100.$format
+file $tmp/075.$format
+file $tmp/050.$format
+file $tmp/075.$format
+file $tmp/100.$format
+file $tmp/125.$format
+" > $tmp/list
 
 # process timestamps
 timestamps=3; exec 3< $name.txt
@@ -50,12 +63,16 @@ while read next x nextlabel; do
     count=1
   elif expr match "$label" "^[^X]" > /dev/null; then
 
-    # cut and retempo each chunk
-    mp3=00.$voice$(printf %02d $count).$label.mp3
-    cut_chunk $current $next 0.50 "$outputdir/050/$mp3"
-    cut_chunk $current $next 0.75 "$outputdir/075/$mp3"
-    cut_chunk $current $next 1.00 "$outputdir/100/$mp3"
-    cut_chunk $current $next 1.25 "$outputdir/125/$mp3"
+    # cut practise chunks at different tempos
+    rm "$tmp"/*.$format 2> /dev/null
+    cut_chunk $current $next 0.50 "$tmp/050.$format"
+    cut_chunk $current $next 0.75 "$tmp/075.$format"
+    cut_chunk $current $next 1.00 "$tmp/100.$format"
+    cut_chunk $current $next 1.25 "$tmp/125.$format"
+
+    # concatenate the practise chunks
+    output="$outputdir/00.$voice$(printf %02d $count).$label.$format"
+    ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "$tmp/list" -codec copy "$output"
 
     count=$((count + 1))
     echo "chunked $name: $label"
