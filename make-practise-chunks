@@ -14,6 +14,9 @@ start a new voice with a numeric-only label
 "
 [ ! $1 ] && echo "$USAGE" && exit 1
 
+# floating point arithmetic in posix
+calc() { echo "$*" | bc -l ; }
+
 #
 # cut a single chunk at the given tempo from the input file
 #
