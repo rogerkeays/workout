@@ -33,6 +33,10 @@ cut_chunk() {
 # set up the environment
 silence=5; padding=2; format=mp3; count=1
 name=$1; input=$name.$format;
+outputdir=LL.$name
+for i in 050 075 100 125; do
+  mkdir -p "$outputdir"/$i;
+done
 
 # process timestamps
 timestamps=3; exec 3< $name.txt
@@ -43,15 +47,12 @@ while read next x nextlabel; do
     count=1
   elif expr match "$label" "^[^X]" > /dev/null; then
 
-    # one folder per chunk
-    outputdir=LL.$name/00.$voice$(printf %02d $count).$label
-    mkdir -p "$outputdir"
-
     # cut and retempo each chunk
-    cut_chunk $current $next 0.50 "$outputdir/050.mp3"
-    cut_chunk $current $next 0.75 "$outputdir/075.mp3"
-    cut_chunk $current $next 1.00 "$outputdir/100.mp3"
-    cut_chunk $current $next 1.25 "$outputdir/125.mp3"
+    mp3=00.$voice$(printf %02d $count).$label.mp3
+    cut_chunk $current $next 0.50 "$outputdir/050/$mp3"
+    cut_chunk $current $next 0.75 "$outputdir/075/$mp3"
+    cut_chunk $current $next 1.00 "$outputdir/100/$mp3"
+    cut_chunk $current $next 1.25 "$outputdir/125/$mp3"
 
     count=$((count + 1))
     echo "chunked $name: $label"
