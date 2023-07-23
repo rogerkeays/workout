@@ -7,18 +7,31 @@ mkdir -p $OUTDIR
 function mcd { mkdir -p "$1"; cd "$1"; }
 
 #
-# create a directory for each drill, adding rotation number, drill number and parameters
+# create a directory for each drill, adding rotation number, drill number and permutations
 #
 # $1 drill name
-# $* drill parameters
+# $2+ drill permutation patterns
 #
 function drill {
   DRILLNUM=$((DRILLNUM+1))
-  mkdir -p "00.$(printf %02d $DRILLNUM).$*"
+  dir="00.$(printf %02d $DRILLNUM).$1"
+  mkdir "$dir"
+
+  # join and normalise the permutations pattern
+  # brace expansion uses spaces as separators, so we replace them with underscores
+  pattern="${*:2}"
+  pattern="${pattern// /_}"
+
+  # make one file per permutation
+  i=0
+  for permutation in $(eval echo "$pattern"); do 
+    i=$((i+1))
+    touch "$dir"/$(printf %04d $i)."${permutation//_/ }"
+  done
 }
 function drillcd {
-  DRILLNUM=$((DRILLNUM+1))
-  mcd "00.$(printf %02d $DRILLNUM).$*"
+  drill $*
+  cd "00.$(printf %02d $DRILLNUM).$1"
 }
 DRILLNUM=0
 
