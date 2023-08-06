@@ -26,7 +26,7 @@ function drill {
   i=0
   for permutation in $(eval echo "$pattern"); do 
     i=$((i+1))
-    touch "$dir"/$(printf %04d $i)."${permutation//_/ }"
+    echo -e ${permutation//_/\\n} > "$dir"/$(printf %04d $i)."${permutation//_/ }".txt
   done
 }
 function drillcd {
