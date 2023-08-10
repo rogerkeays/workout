@@ -59,10 +59,11 @@ fun processStdin() {
             line.parseUnlabelledCards().forEachIndexed { i, card ->
                 if (card.answer.isNotBlank()) {
                     val field = fields[sections - 1][i]
-                    val dir = "00.$song" // "$sections$i.$field"
-                    val seq = "XX.%d%d%02d".format(sections, i, lines)
+                    val dir = "cards" //00.$song" // "$sections$i.$field"
+                    //val seq = "99.%s.%d%d%02d".format(song, sections, i, lines)
+                    val seq = "%d%d.%s.%02d".format(sections, i, song, lines)
                     mkdir(dir)
-                    makeFlashcard(card, song, field, "$dir/$seq.FROGS.png")
+                    makeFlashcard(card, song, field, "$dir/$seq.D00.png")
                 }
             }
 
