@@ -150,7 +150,7 @@ fun makeFlashcard(card: Card, heading: String, field: String, filename: String) 
     val answer = card.answer.wrap(15).escape()
     Runtime.getRuntime().exec(arrayOf(
         "convert", "-size", "240x320", "xc:black",
-        "-font", "FreeMono", "-weight", "bold", "-pointsize", "24",
+        "-font", "FreeMono Bold", "-weight", "bold", "-pointsize", "24",
         "-fill", "white", "-annotate", "+12+24", question,
         "-fill", "yellow", "-annotate", "+12+185", answer,
         "$filename"))
