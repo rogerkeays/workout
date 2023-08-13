@@ -1,10 +1,10 @@
 #!/bin/sh
 
 USAGE="
-usage: $(basename $0) number
+usage: $(basename $0) name
 
-number.*.mp3 is the source file in the current directory
-number.*.txt contains a list of timestamps where the audio should be split
+name.mp3 is the source file in the current directory
+name.txt contains a list of timestamps where the audio should be split
 
 the first line in the audio is the start of the first chunk
 timestamps are in seconds, like the labels files exported from audacity
@@ -30,14 +30,14 @@ calc() { echo "$*" | bc -l ; }
 cut_chunk() {
   ffmpeg -nostdin -loglevel error \
          -ss $(calc $1-$padding) -to $(calc $2+$padding) \
-         -i $number.*.$format -f $format -ac 1 -ar 48000 -q 4 \
+         -i $name.$format -f $format -ac 1 -ar 48000 -q 4 \
          -af afade=d=$padding,afade=t=out:st=$(calc $2-$1+$padding):d=$padding,atempo=$3,adelay=${silence}s:all=true \
          "$4"
 }
 
 # set up the environment
-number=$1; silence=2; padding=3; format=mp3; count=1
-outputdir=chunks
+name=$1; silence=5; padding=3; format=mp3; count=1
+outputdir=00.$name
 [ -d $outputdir ] || mkdir "$outputdir"
 
 # temporary files
@@ -48,23 +48,16 @@ echo "
 file $tmp/100.$format
 file $tmp/100.$format
 file $tmp/075.$format
-file $tmp/075.$format
-file $tmp/050.$format
-file $tmp/050.$format
 file $tmp/050.$format
 file $tmp/050.$format
 file $tmp/075.$format
-file $tmp/075.$format
-file $tmp/100.$format
 file $tmp/100.$format
 file $tmp/125.$format
-file $tmp/125.$format
-file $tmp/100.$format
 file $tmp/100.$format
 " > $tmp/list
 
 # process timestamps
-timestamps=3; exec 3< $(ls $number.*.txt)
+timestamps=3; exec 3< $name.txt
 read current x label <& $timestamps
 while read next x nextlabel; do
   if expr match "$label" "^[0-9]\+$" > /dev/null; then
@@ -79,11 +72,11 @@ while read next x nextlabel; do
     cut_chunk $current $next 1.25 "$tmp/125.$format"
 
     # concatenate the practise chunks
-    output="$outputdir/L$number.$voice$(printf %02d $count).X00.$label.$format"
+    output="$outputdir/00.$voice$(printf %02d $count).$label.$format"
     ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "$tmp/list" -codec copy "$output"
 
     count=$((count + 1))
-    echo "chunked $number: $label"
+    echo "chunked $name: $label"
     rm "$tmp"/???.$format
   fi
   prev=$current; current=$next; label=$nextlabel;
