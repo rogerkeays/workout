@@ -61,9 +61,9 @@ fun processStdin() {
                     val field = fields[sections - 1][i]
                     val dir = "cards" //00.$song" // "$sections$i.$field"
                     //val seq = "99.%s.%d%d%02d".format(song, sections, i, lines)
-                    val seq = "%d%d.%s.%02d".format(sections, i, song, lines)
+                    val seq = "%d%d.%s%02d".format(sections, i, song.take(4), lines)
                     mkdir(dir)
-                    makeFlashcard(card, song, field, "$dir/$seq.D00.png")
+                    makeTextFlashcard(card, song, field, "$dir/$seq.X00.txt")
                 }
             }
 
@@ -146,6 +146,7 @@ fun String.parseLabelledCards(): List<Card> {
 fun mkdir(dir: String) = java.io.File(dir).mkdir()
 fun String.escape() = replace("\\", "\\\\")
 
+// export a record as a png flashcard suitable for nokia phones
 fun makeFlashcard(card: Card, heading: String, field: String, filename: String) {
     val question = "$heading\n$field\n${card.question.wrap(15)}".escape()
     val answer = card.answer.wrap(15).escape()
@@ -156,6 +157,16 @@ fun makeFlashcard(card: Card, heading: String, field: String, filename: String) 
         "-fill", "yellow", "-annotate", "+12+185", answer,
         "$filename"))
 }
+
+// export a record as a text flashcard suitable for nokia phones
+fun makeTextFlashcard(card: Card, heading: String, field: String, filename: String) {
+    val question = "$heading\n$field\n${card.question}"
+    java.io.File(filename).writeText(question
+                    .padEnd(TEXT_FLASHCARD_PAGE_SIZE, EM_SPACE)
+                    .replace("$EM_SPACE", "  ") + "\n\n" + card.answer)
+}
+val TEXT_FLASHCARD_PAGE_SIZE = 160
+val EM_SPACE = '\u2003'
 
 fun def_wrap() {
     "12345".wrap(1) returns "1\n2\n3\n4\n5"
