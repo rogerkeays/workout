@@ -31,7 +31,7 @@ calc() { echo "$*" | bc -l ; }
 cut_chunk() {
   ffmpeg -nostdin -loglevel error \
          -ss $(calc $1-$padding) -to $(calc $2+$padding) -i $name.$format \
-         -f $format -ac 1 -ar 48000 -q 4 \
+         -f $format -vcodec mpeg4 -s 320x240 -q 4 -acodec aac -ac 1 -ar 48000 \
          -filter:v setpts=$(calc 1/$3)*PTS \
          -af afade=d=$padding,afade=t=out:st=$(calc $2-$1+$padding):d=$padding,atempo=$3,volume=${5:-1} \
          "$4"
