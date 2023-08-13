@@ -36,7 +36,7 @@ cut_chunk() {
 }
 
 # set up the environment
-silence=2; padding=2.5; format=mp3; count=1
+silence=2; padding=3; format=mp3; count=1
 name=$1; input=$name.$format;
 outputdir=LL.$name
 mkdir "$outputdir"
@@ -47,11 +47,21 @@ trap "rm -r $tmp" EXIT
 trap exit INT HUP TERM
 echo "
 file $tmp/100.$format
+file $tmp/100.$format
+file $tmp/075.$format
 file $tmp/075.$format
 file $tmp/050.$format
+file $tmp/050.$format
+file $tmp/050.$format
+file $tmp/050.$format
+file $tmp/075.$format
 file $tmp/075.$format
 file $tmp/100.$format
+file $tmp/100.$format
 file $tmp/125.$format
+file $tmp/125.$format
+file $tmp/100.$format
+file $tmp/100.$format
 " > $tmp/list
 
 # process timestamps
@@ -64,7 +74,6 @@ while read next x nextlabel; do
   elif expr match "$label" "^[^X]" > /dev/null; then
 
     # cut practise chunks at different tempos
-    rm "$tmp"/*.$format 2> /dev/null
     cut_chunk $current $next 0.50 "$tmp/050.$format"
     cut_chunk $current $next 0.75 "$tmp/075.$format"
     cut_chunk $current $next 1.00 "$tmp/100.$format"
@@ -76,6 +85,7 @@ while read next x nextlabel; do
 
     count=$((count + 1))
     echo "chunked $name: $label"
+    rm "$tmp"/???.$format
   fi
   prev=$current; current=$next; label=$nextlabel;
 done <& $timestamps
