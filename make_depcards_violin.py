@@ -34,47 +34,47 @@ def violin_hold():
 
 def bow_placement(string, section):
   violin_hold()
-  push("bow_placement", string=string, section=section)
+  push("bow_placement", **locals())
 
 def bow_benders(string, section):
-  bow_placement(string, section) 
-  push("bow_benders", string=string, section=section)
+  bow_placement(string, section)
+  push("bow_benders", **locals())
 
 def bow_hops(string, section):
-  bow_benders(string, section) 
-  push("bow_hops", string=string, section=section)
+  bow_benders(string, section)
+  push("bow_hops", **locals())
 
 def swivel_and_stop(string, section):
   bow_hops(string, section)
-  push("swivel_and_stop", string=string, section=section)
+  push("swivel_and_stop", **locals())
 
 def blind_bow_placement(string, section):
   swivel_and_stop(string, section)
-  push("blind_bow_placement", string=string, section=section)
+  push("blind_bow_placement", **locals())
 
 def string_grabbing(string, section):
   blind_bow_placement(string, section)
-  push("string_grabbing", string=string, section=section)
+  push("string_grabbing", **locals())
 
-def even_bowing(string, section, **p):
+def even_bowing(string, section, attack, tempo):
   string_grabbing(string, section)
-  push("even_bowing", string=string, section=section, **p)
+  push("even_bowing", **locals())
 
-def string_xings(frm, to, section, fulcrum, **p):
-  even_bowing(frm, section, **p)
-  even_bowing(to, section, **p)
-  push("string_xings", frm=frm, to=to, section=section, fulcrum=fulcrum, **p)
+def string_xings(frm, to, section, fulcrum, attack, pattern, tempo):
+  even_bowing(frm, section, attack, tempo)
+  even_bowing(to, section, attack, tempo)
+  push("string_xings", **locals())
 
-def single_string_xings(section, fulcrum, **p):
-  string_xings(1, 2, section, fulcrum, **p)
-  string_xings(2, 3, section, fulcrum, **p)
-  string_xings(3, 4, section, fulcrum, **p)
+def single_string_xings(section, fulcrum, attack, pattern, tempo):
+  string_xings(1, 2, section, fulcrum, attack, pattern, tempo)
+  string_xings(2, 3, section, fulcrum, attack, pattern, tempo)
+  string_xings(3, 4, section, fulcrum, attack, pattern, tempo)
 
-def the_crawl(tempo):
-  single_string_xings("middle", "elbow", attack="detache", tempo=tempo)
+def the_crawl(tempo=90):
+  if tempo == 90: the_crawl(45)
+  single_string_xings("middle", "elbow", "detache", "UD", tempo)
 
-the_crawl(45)
-the_crawl(90)
+the_crawl()
 write_cards("the-crawl")
 
 #  retune
@@ -102,7 +102,7 @@ write_cards("the-crawl")
 #    (legato : $swgtlm $fmtv $esd $tempo)
 #    (bow-circles : (rhythm orange-juice coffee step) $fmtvw (direction up down) $esd $tempo))
 #  (length
-#    (z-bowing : $fmtw (pressure constant) $rhythm-3 $es $tempo) 
+#    (z-bowing : $fmtw (pressure constant) $rhythm-3 $es $tempo)
 #    (baroque-hold : $locs $esd $tempo))
 #  (speed
 #    (var-speed : (accel slow-fast fast-slow) $swg (bow-speed 2) $esd $eyes $tempo))
