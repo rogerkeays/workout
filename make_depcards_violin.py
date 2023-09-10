@@ -63,7 +63,7 @@ def blind_bow_placement(string, section):
 
 def string_grabbing(string, section):
   return append("string_grabbing", locals(),
-    blind_bow_placement(string, section)
+    swivel_and_stop(string, section)
   )
 
 def even_bowing(string, section, attack, tempo):
@@ -79,9 +79,9 @@ def string_xings(frm, to, section, fulcrum, attack, pattern, tempo):
 
 def single_string_xings(section, fulcrum, attack, pattern, tempo):
   return sum([
-    string_xings(1, 2, section, fulcrum, attack, pattern, tempo),
-    string_xings(2, 3, section, fulcrum, attack, pattern, tempo),
-    string_xings(3, 4, section, fulcrum, attack, pattern, tempo)
+    string_xings(3, 2, section, fulcrum, attack, pattern, tempo),
+    string_xings(2, 1, section, fulcrum, attack, pattern, tempo),
+    string_xings(4, 3, section, fulcrum, attack, pattern, tempo)
   ])
 
 # goals
