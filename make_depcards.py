@@ -4,16 +4,17 @@ import os
 
 #
 # Add a card to the queue, indexed by the number of descendants in the
-# dependency hierarchy.
+# dependency hierarchy. Returns the total number of descendants of the
+# new card.
 #
 seen = set()
 drills = []
-def push(name, params = {}, *deps):
+def append(name, params = {}, *deps):
   numdeps = sum(deps)
   key = name + str(params)
   if key not in seen:
     seen.add(key)
-    drills.append((numdeps, name, params))
+    drills.append((name, params, numdeps))
   return numdeps + 1
 
 #
@@ -21,12 +22,12 @@ def push(name, params = {}, *deps):
 #
 def write_cards(dir):
   os.makedirs(dir, exist_ok=True)
-  drills.sort(key = lambda x: x[0])
+  drills.sort(key = lambda x: x[2])
   for i, drill in enumerate(drills):
-    deps = str(drill[0]).zfill(4)
-    name = drill[1]
-    params = drill[2]
-    print(deps + " " + name + " " + str(params))
+    name = drill[0]
+    params = drill[1]
+    numdeps = str(drill[2]).zfill(4)
+    print(numdeps + " " + name + " " + str(params))
     with open(dir + "/" + str(i).zfill(4) + ".txt", "w") as f:
       f.writelines(name + "\n")
       for key in params:
