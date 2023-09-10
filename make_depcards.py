@@ -1,33 +1,35 @@
 #!/usr/bin/env python3
 
-import inspect, os
+import os
 
 #
-# Add a card to the queue, using the stacktrace to determine its depth in
-# the dependency tree. Cards deeper in the dependency hierarchy get higher
-# priority.
+# Add a card to the queue, indexed by the number of descendants in the
+# dependency hierarchy.
 #
+seen = set()
 drills = []
-def push(name, **p): 
-  drills.append((-len(inspect.stack()), (name, p)))
+def push(name, params = {}, *deps):
+  numdeps = sum(deps)
+  key = name + str(params)
+  if key not in seen:
+    seen.add(key)
+    drills.append((numdeps, name, params))
+  return numdeps + 1
 
 #
 # Sort and write cards to text files.
 #
 def write_cards(dir):
-  seen = set()
   os.makedirs(dir, exist_ok=True)
   drills.sort(key = lambda x: x[0])
-  for drill in drills:
-    name = drill[1][0]
-    params = drill[1][1]
-    key = name + str(params)
-    if key not in seen:
-      seen.add(key)
-      num = str(len(seen)).zfill(4)
-      with open(dir + "/" + num + ".txt", "w") as f:
-        f.writelines(name + "\n")
-        for key in params:
-          f.write(key + "=" + str(params[key]) + "\n")
+  for i, drill in enumerate(drills):
+    deps = str(drill[0]).zfill(4)
+    name = drill[1]
+    params = drill[2]
+    print(deps + " " + name + " " + str(params))
+    with open(dir + "/" + str(i).zfill(4) + ".txt", "w") as f:
+      f.writelines(name + "\n")
+      for key in params:
+        f.write(key + "=" + str(params[key]) + "\n")
   drills.clear()
 

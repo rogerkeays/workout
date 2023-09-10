@@ -4,94 +4,114 @@ from make_depcards import *
 
 # violin dependency tree
 def jellyfish():
-  push("jellyfish")
+  return push("jellyfish")
 
 def vertical_bow_raises():
-  push("vertical bow raises")
+  return push("vertical bow raises")
 
 def horizontal_bow_raises():
-  push("horizontal bow raises")
+  return push("horizontal bow raises")
 
 def itsy_bitsy_spider():
-  push("itsy bitsy spider")
+  return push("itsy bitsy spider")
 
 def bow_hand_resets():
-  push("bow_hand_resets")
+  return push("bow_hand_resets")
 
 def bow_hold():
-  jellyfish()
-  vertical_bow_raises()
-  horizontal_bow_raises()
-  itsy_bitsy_spider()
-  bow_hand_resets()
+  return sum([
+    jellyfish(),
+    vertical_bow_raises(),
+    horizontal_bow_raises(),
+    itsy_bitsy_spider(),
+    bow_hand_resets()
+  ])
 
 def no_hands_hold():
-  push("no_hands_hold")
+  return push("no_hands_hold")
 
 def violin_hold():
-  bow_hold()
-  no_hands_hold()
+  return sum([
+    bow_hold(),
+    no_hands_hold()
+  ])
 
 def bow_placement(string, section):
-  violin_hold()
-  push("bow_placement", **locals())
+  return push("bow_placement", locals(),
+    violin_hold()
+  )
 
 def bow_benders(string, section):
-  bow_placement(string, section)
-  push("bow_benders", **locals())
+  return push("bow_benders", locals(),
+    bow_placement(string, section)
+  )
 
 def bow_hops(string, section):
-  bow_benders(string, section)
-  push("bow_hops", **locals())
+  return push("bow_hops", locals(),
+    bow_benders(string, section)
+  )
 
 def swivel_and_stop(string, section):
-  bow_hops(string, section)
-  push("swivel_and_stop", **locals())
+  return push("swivel_and_stop", locals(),
+    bow_hops(string, section)
+  )
 
 def blind_bow_placement(string, section):
-  swivel_and_stop(string, section)
-  push("blind_bow_placement", **locals())
+  return push("blind_bow_placement", locals(),
+    swivel_and_stop(string, section)
+  )
 
 def string_grabbing(string, section):
-  blind_bow_placement(string, section)
-  push("string_grabbing", **locals())
+  return push("string_grabbing", locals(),
+    blind_bow_placement(string, section)
+  )
 
 def even_bowing(string, section, attack, tempo):
-  string_grabbing(string, section)
-  push("even_bowing", **locals())
+  return push("even_bowing", locals(),
+    string_grabbing(string, section)
+  )
 
 def string_xings(frm, to, section, fulcrum, attack, pattern, tempo):
-  even_bowing(frm, section, attack, tempo)
-  even_bowing(to, section, attack, tempo)
-  push("string_xings", **locals())
+  return push("string_xings", locals(),
+    even_bowing(frm, section, attack, tempo),
+    even_bowing(to, section, attack, tempo)
+  )
 
 def single_string_xings(section, fulcrum, attack, pattern, tempo):
-  string_xings(1, 2, section, fulcrum, attack, pattern, tempo)
-  string_xings(2, 3, section, fulcrum, attack, pattern, tempo)
-  string_xings(3, 4, section, fulcrum, attack, pattern, tempo)
+  return sum([
+    string_xings(1, 2, section, fulcrum, attack, pattern, tempo),
+    string_xings(2, 3, section, fulcrum, attack, pattern, tempo),
+    string_xings(3, 4, section, fulcrum, attack, pattern, tempo)
+  ])
 
 # etudes
 def the_crawl(tempo=90):
-  if tempo == 90: the_crawl(45)
-  single_string_xings("middle", "elbow", "detache", "UD", tempo)
-  single_string_xings("middle", "elbow", "detache", "DU", tempo)
-  push("the_crawl", **locals())
+  return push("the_crawl", locals(),
+    single_string_xings("middle", "elbow", "detache", "UD", tempo),
+    single_string_xings("middle", "elbow", "detache", "DU", tempo)
+  )
 
 def baby_steps(tempo=90):
-  the_crawl()
-  if tempo == 90: baby_steps(45)
-  push("baby_steps", **locals())
+  return push("baby_steps", locals(),
+    single_string_xings("middle", "elbow", "detache", "UD", tempo),
+    single_string_xings("middle", "elbow", "detache", "DU", tempo)
+  )
 
 def the_car_trip(tempo=110):
-  baby_steps()
-  if tempo == 110: the_car_trip(55)
-  push("the_car_trip", **locals())
+  return push("the_car_trip", locals(),
+    single_string_xings("middle", "elbow", "detache", "UD", tempo),
+    single_string_xings("middle", "elbow", "detache", "DU", tempo)
+  )
 
 def aeroplane_games(tempo=110):
-  the_car_trip()
-  if tempo == 110: aeroplane_games(55)
-  push("aeroplane_games", **locals())
+  return push("aeroplane_games", locals(),
+    single_string_xings("middle", "elbow", "detache", "UD", tempo),
+    single_string_xings("middle", "elbow", "detache", "DU", tempo)
+  )
 
+the_crawl()
+baby_steps()
+the_car_trip()
 aeroplane_games()
 write_cards("drills")
 
