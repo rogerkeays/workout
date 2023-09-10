@@ -70,12 +70,30 @@ def single_string_xings(section, fulcrum, attack, pattern, tempo):
   string_xings(2, 3, section, fulcrum, attack, pattern, tempo)
   string_xings(3, 4, section, fulcrum, attack, pattern, tempo)
 
+# etudes
 def the_crawl(tempo=90):
   if tempo == 90: the_crawl(45)
   single_string_xings("middle", "elbow", "detache", "UD", tempo)
+  single_string_xings("middle", "elbow", "detache", "DU", tempo)
+  push("the_crawl", **locals())
 
-the_crawl()
-write_cards("the-crawl")
+def baby_steps(tempo=90):
+  the_crawl()
+  if tempo == 90: baby_steps(45)
+  push("baby_steps", **locals())
+
+def the_car_trip(tempo=110):
+  baby_steps()
+  if tempo == 110: the_car_trip(55)
+  push("the_car_trip", **locals())
+
+def aeroplane_games(tempo=110):
+  the_car_trip()
+  if tempo == 110: aeroplane_games(55)
+  push("aeroplane_games", **locals())
+
+aeroplane_games()
+write_cards("drills")
 
 #  retune
 #  (pitch : $rp)
