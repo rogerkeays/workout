@@ -22,7 +22,7 @@ def append(name, params = {}, *deps):
 #
 def write_cards(dir):
   os.makedirs(dir, exist_ok=True)
-  drills.sort(key = lambda x: x[2])
+  #drills.sort(key = lambda x: x[2])
   for i, drill in enumerate(drills):
     name = drill[0]
     params = drill[1]
