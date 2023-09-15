@@ -28,7 +28,7 @@ def write_cards(dir):
     params = drill[1]
     numdeps = str(drill[2]).zfill(4)
     print(numdeps + " " + name + " " + str(params))
-    with open(dir + "/" + str(i).zfill(4) + ".txt", "w") as f:
+    with open(dir + "/" + str(i).zfill(4) + ".X00.txt", "w") as f:
       f.writelines(name + "\n")
       for key in params:
         f.write(key + "=" + str(params[key]) + "\n")
