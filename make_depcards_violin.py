@@ -2,99 +2,10 @@
 
 from make_depcards import *
 
-# dependency tree
-def jellyfish():
-  return append("jellyfish")
-
-def vertical_bow_raises():
-  return append("vertical bow raises")
-
-def horizontal_bow_raises():
-  return append("horizontal bow raises")
-
-def itsy_bitsy_spider():
-  return append("itsy bitsy spider")
-
-def bow_hand_resets():
-  return append("bow_hand_resets")
-
-def bow_hold():
-  return sum([
-    jellyfish(),
-    vertical_bow_raises(),
-    horizontal_bow_raises(),
-    itsy_bitsy_spider(),
-    bow_hand_resets()
-  ])
-
-def no_hands_hold():
-  return append("no_hands_hold")
-
-def violin_hold():
-  return sum([
-    bow_hold(),
-    no_hands_hold()
-  ])
-
-def bow_placement(string, section):
-  return append("bow_placement", locals(),
-    violin_hold()
-  )
-
-def bow_benders(string, section):
-  return append("bow_benders", locals(),
-    bow_placement(string, section)
-  )
-
-def bow_hops(string, section):
-  return append("bow_hops", locals(),
-    bow_benders(string, section)
-  )
-
-def swivel_and_stop(string, section):
-  return append("swivel_and_stop", locals(),
-    bow_hops(string, section)
-  )
-
-def blind_bow_placement(string, section):
-  return append("blind_bow_placement", locals(),
-    swivel_and_stop(string, section)
-  )
-
-def string_grabbing(string, section):
-  return append("string_grabbing", locals(),
-    swivel_and_stop(string, section)
-  )
-
-def even_bowing(string, section, attack, tempo):
-  return append("even_bowing", locals(),
-    string_grabbing(string, section)
-  )
-
-def string_xings(frm, to, section, fulcrum, attack, pattern, tempo):
-  return append("string_xings", locals(),
-    even_bowing(frm, section, attack, tempo),
-    even_bowing(to, section, attack, tempo)
-  )
-
-def single_string_xings(section, fulcrum, attack, pattern, tempo):
-  return sum([
-    string_xings(3, 2, section, fulcrum, attack, pattern, tempo),
-    string_xings(2, 1, section, fulcrum, attack, pattern, tempo),
-    string_xings(4, 3, section, fulcrum, attack, pattern, tempo)
-  ])
-
 # goals
-def the_crawl(tempo=90):
-  return append("the_crawl", locals(),
-    the_crawl(45) if tempo == 90 else 0,
-    single_string_xings("middle", "elbow", "detache", "UD", tempo),
-    single_string_xings("middle", "elbow", "detache", "DU", tempo)
-  )
-
-def baby_steps(tempo=90):
-  return append("baby_steps", locals(),
-    baby_steps(45) if tempo == 90 else 0,
+def aeroplane_games(tempo=110):
+  return append("aeroplane_games", locals(),
+    aeroplane_games(55) if tempo == 110 else 0,
     single_string_xings("middle", "elbow", "detache", "UD", tempo),
     single_string_xings("middle", "elbow", "detache", "DU", tempo)
   )
@@ -106,12 +17,101 @@ def the_car_trip(tempo=110):
     single_string_xings("middle", "elbow", "detache", "DU", tempo)
   )
 
-def aeroplane_games(tempo=110):
-  return append("aeroplane_games", locals(),
-    aeroplane_games(55) if tempo == 110 else 0,
+def baby_steps(tempo=90):
+  return append("baby_steps", locals(),
+    baby_steps(45) if tempo == 90 else 0,
     single_string_xings("middle", "elbow", "detache", "UD", tempo),
     single_string_xings("middle", "elbow", "detache", "DU", tempo)
   )
+
+def the_crawl(tempo=90):
+  return append("the_crawl", locals(),
+    the_crawl(45) if tempo == 90 else 0,
+    single_string_xings("middle", "elbow", "detache", "UD", tempo),
+    single_string_xings("middle", "elbow", "detache", "DU", tempo)
+  )
+
+# drills
+def single_string_xings(section, fulcrum, attack, pattern, tempo):
+  return sum([
+    string_xings(3, 2, section, fulcrum, attack, pattern, tempo),
+    string_xings(2, 1, section, fulcrum, attack, pattern, tempo),
+    string_xings(4, 3, section, fulcrum, attack, pattern, tempo)
+  ])
+
+def string_xings(frm, to, section, fulcrum, attack, pattern, tempo):
+  return append("string_xings", locals(),
+    even_bowing(frm, section, attack, tempo),
+    even_bowing(to, section, attack, tempo)
+  )
+
+def even_bowing(string, section, attack, tempo):
+  return append("even_bowing", locals(),
+    string_grabbing(string, section)
+  )
+
+def string_grabbing(string, section):
+  return append("string_grabbing", locals(),
+    swivel_and_stop(string, section)
+  )
+
+def blind_bow_placement(string, section):
+  return append("blind_bow_placement", locals(),
+    swivel_and_stop(string, section)
+  )
+
+def swivel_and_stop(string, section):
+  return append("swivel_and_stop", locals(),
+    bow_hops(string, section)
+  )
+
+def bow_hops(string, section):
+  return append("bow_hops", locals(),
+    bow_benders(string, section)
+  )
+
+def bow_benders(string, section):
+  return append("bow_benders", locals(),
+    bow_placement(string, section)
+  )
+
+def bow_placement(string, section):
+  return append("bow_placement", locals(),
+    violin_hold()
+  )
+
+def violin_hold():
+  return sum([
+    bow_hold(),
+    no_hands_hold()
+  ])
+
+def no_hands_hold():
+  return append("no_hands_hold")
+
+def bow_hold():
+  return sum([
+    jellyfish(),
+    vertical_bow_raises(),
+    horizontal_bow_raises(),
+    itsy_bitsy_spider(),
+    bow_hand_resets()
+  ])
+
+def bow_hand_resets():
+  return append("bow_hand_resets")
+
+def itsy_bitsy_spider():
+  return append("itsy bitsy spider")
+
+def horizontal_bow_raises():
+  return append("horizontal bow raises")
+
+def vertical_bow_raises():
+  return append("vertical bow raises")
+
+def jellyfish():
+  return append("jellyfish")
 
 the_crawl()
 baby_steps()
