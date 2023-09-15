@@ -46,13 +46,8 @@ trap "rm -r $tmp" EXIT
 trap exit INT HUP TERM
 echo "
 file $tmp/100.$format
-file $tmp/100.$format
-file $tmp/075.$format
 file $tmp/050.$format
 file $tmp/050.$format
-file $tmp/075.$format
-file $tmp/100.$format
-file $tmp/125.$format
 file $tmp/100.$format
 " > $tmp/list
 
@@ -67,9 +62,7 @@ while read next x nextlabel; do
 
     # cut practise chunks at different tempos
     cut_chunk $current $next 0.50 "$tmp/050.$format"
-    cut_chunk $current $next 0.75 "$tmp/075.$format"
     cut_chunk $current $next 1.00 "$tmp/100.$format"
-    cut_chunk $current $next 1.25 "$tmp/125.$format"
 
     # concatenate the practise chunks
     output="$outputdir/00.$voice$(printf %02d $count).$label.$format"
