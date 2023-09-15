@@ -61,9 +61,9 @@ fun processStdin() {
                     val field = fields[sections - 1][i]
                     val dir = "cards" //00.$song" // "$sections$i.$field"
                     //val seq = "99.%s.%d%d%02d".format(song, sections, i, lines)
-                    val seq = "%d%d.%s%02d".format(sections, i, song.take(4), lines)
+                    val seq = "%s.%02d%d%d".format(song.take(4), lines, sections, i)
                     mkdir(dir)
-                    makeTextFlashcard(card, song, field, "$dir/$seq.X00.txt")
+                    makeTextFlashcards(card, song, field, dir, seq)
                 }
             }
 
@@ -159,11 +159,11 @@ fun makeFlashcard(card: Card, heading: String, field: String, filename: String) 
 }
 
 // export a record as a text flashcard suitable for nokia phones
-fun makeTextFlashcard(card: Card, heading: String, field: String, filename: String) {
+fun makeTextFlashcards(card: Card, heading: String, field: String, dir: String, seq: String) {
     val question = "$heading\n$field\n${card.question}"
-    java.io.File(filename).writeText(question
-                    .padEnd(TEXT_FLASHCARD_PAGE_SIZE, EM_SPACE)
-                    .replace("$EM_SPACE", "  ") + "\n\n" + card.answer)
+    val answer = "$heading\n$field\n${card.answer}"
+    java.io.File(dir + "/${seq}A.txt").writeText(question)
+    java.io.File(dir + "/${seq}B.00.txt").writeText(answer)
 }
 val TEXT_FLASHCARD_PAGE_SIZE = 160
 val EM_SPACE = '\u2003'
