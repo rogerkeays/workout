@@ -33,13 +33,13 @@ def the_crawl(tempo=90, consec=2):
   the_crawl_circle(tempo)
   add_card(locals())
 
-def the_crawl_baby(rhythm="ssss ssss", melody="00 /77 /22 /99", tempo=90, consec=5):
+def the_crawl_baby(tempo=90, rhythm="ssss ssss", melody="00 /77 /22 /99", consec=5):
   string_xings(4, 3, "middle", "elbow", "detache", "UD", tempo)
   string_xings(3, 2, "middle", "elbow", "detache", "UD", tempo)
   string_xings(2, 1, "middle", "elbow", "detache", "UD", tempo)
   add_card(locals())
 
-def the_crawl_circle(rhythm="ssss ssss", melody="\\22 \\77 /22 \\77", tempo=90, consec=5):
+def the_crawl_circle(tempo=90, rhythm="ssss ssss", melody="\\22 \\77 /22 \\77", consec=5):
   string_xings(1, 2, "middle", "elbow", "detache", "UD", tempo)
   string_xings(2, 3, "middle", "elbow", "detache", "UD", tempo)
   add_card(locals())
@@ -61,7 +61,7 @@ def even_bowing(string, section, attack, tempo):
   bow_attack(string, section, attack, "D")
   add_card(locals())
 
-def bow_attack(string, section, attack, dir):
+def bow_attack(string, section, attack, dir, consec=15):
   string_grabbing(string, section)
   add_card(locals())
 
