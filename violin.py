@@ -11,20 +11,17 @@ def alison_open_string_drills():
 
 def aeroplane_games(tempo=110):
   aeroplane_games(55) if tempo == 110 else 0
-  single_string_xings("middle", "elbow", "detache", "UD", tempo)
-  single_string_xings("middle", "elbow", "detache", "DU", tempo)
+  single_string_xings("middle", "elbow", "detache", tempo)
   make_card(locals())
 
 def the_car_trip(tempo=110):
   the_car_trip(55) if tempo == 110 else 0
-  single_string_xings("middle", "elbow", "detache", "UD", tempo)
-  single_string_xings("middle", "elbow", "detache", "DU", tempo)
+  single_string_xings("middle", "elbow", "detache", tempo)
   make_card(locals())
 
 def baby_steps(tempo=90):
   baby_steps(45) if tempo == 90 else 0
-  single_string_xings("middle", "elbow", "detache", "UD", tempo)
-  single_string_xings("middle", "elbow", "detache", "DU", tempo)
+  single_string_xings("middle", "elbow", "detache", tempo)
   make_card(locals())
 
 def the_crawl(tempo=90, reps=2):
@@ -34,23 +31,26 @@ def the_crawl(tempo=90, reps=2):
   make_card(locals())
 
 def little_baby_crawls_to_danger(tempo=90, rhythm="ssss ssss", melody="00 /77 /22 /99", reps=5):
-  string_xings(4, 3, "middle", "elbow", "detache", "UD", tempo)
-  string_xings(3, 2, "middle", "elbow", "detache", "UD", tempo)
-  string_xings(2, 1, "middle", "elbow", "detache", "UD", tempo)
+  string_xings(3, 4, "middle", "elbow", "detache", tempo)
+  string_xings(2, 3, "middle", "elbow", "detache", tempo)
+  string_xings(1, 2, "middle", "elbow", "detache", tempo)
   make_card(locals())
 
 def scared_he_turns_round_in_a_circle(tempo=90, rhythm="ssss ssss", melody="\\22 \\77 /22 \\77", reps=5):
-  string_xings(1, 2, "middle", "elbow", "detache", "UD", tempo)
-  string_xings(2, 3, "middle", "elbow", "detache", "UD", tempo)
+  string_xings(2, 1, "middle", "elbow", "detache", tempo)
+  string_xings(3, 2, "middle", "elbow", "detache", tempo)
   make_card(locals())
 
 # drills
-def single_string_xings(section, fulcrum, attack, pattern, tempo):
-  string_xings(3, 2, section, fulcrum, attack, pattern, tempo)
-  string_xings(2, 1, section, fulcrum, attack, pattern, tempo)
-  string_xings(4, 3, section, fulcrum, attack, pattern, tempo)
+def single_string_xings(section, fulcrum, attack, tempo):
+  string_xings(3, 2, section, fulcrum, attack, tempo)
+  string_xings(2, 3, section, fulcrum, attack, tempo)
+  string_xings(2, 1, section, fulcrum, attack, tempo)
+  string_xings(1, 2, section, fulcrum, attack, tempo)
+  string_xings(4, 3, section, fulcrum, attack, tempo)
+  string_xings(3, 4, section, fulcrum, attack, tempo)
 
-def string_xings(frm, to, section, fulcrum, attack, pattern, tempo, reps=15):
+def string_xings(frm, to, section, fulcrum, attack, tempo, reps=15):
   even_bowing(frm, section, attack, tempo),
   even_bowing(to, section, attack, tempo),
   make_card(locals())
