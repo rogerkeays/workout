@@ -17,3 +17,5 @@ def make_card(params = {}, dir="drills"):
       for key in params:
         f.write(key + "=" + str(params[key]) + "\n")
 
+def half(val): return int(val / 2)
+
