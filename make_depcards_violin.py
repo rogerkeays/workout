@@ -13,36 +13,36 @@ def aeroplane_games(tempo=110):
   aeroplane_games(55) if tempo == 110 else 0
   single_string_xings("middle", "elbow", "detache", "UD", tempo)
   single_string_xings("middle", "elbow", "detache", "DU", tempo)
-  add_card(locals())
+  make_card(locals())
 
 def the_car_trip(tempo=110):
   the_car_trip(55) if tempo == 110 else 0
   single_string_xings("middle", "elbow", "detache", "UD", tempo)
   single_string_xings("middle", "elbow", "detache", "DU", tempo)
-  add_card(locals())
+  make_card(locals())
 
 def baby_steps(tempo=90):
   baby_steps(45) if tempo == 90 else 0
   single_string_xings("middle", "elbow", "detache", "UD", tempo)
   single_string_xings("middle", "elbow", "detache", "DU", tempo)
-  add_card(locals())
+  make_card(locals())
 
-def the_crawl(tempo=90, consec=2):
+def the_crawl(tempo=90, reps=2):
   the_crawl(45) if tempo == 90 else 0
-  the_crawl_baby(tempo)
-  the_crawl_circle(tempo)
-  add_card(locals())
+  little_baby_crawls_to_danger(tempo)
+  scared_he_turns_round_in_a_circle(tempo)
+  make_card(locals())
 
-def the_crawl_baby(tempo=90, rhythm="ssss ssss", melody="00 /77 /22 /99", consec=5):
+def little_baby_crawls_to_danger(tempo=90, rhythm="ssss ssss", melody="00 /77 /22 /99", reps=5):
   string_xings(4, 3, "middle", "elbow", "detache", "UD", tempo)
   string_xings(3, 2, "middle", "elbow", "detache", "UD", tempo)
   string_xings(2, 1, "middle", "elbow", "detache", "UD", tempo)
-  add_card(locals())
+  make_card(locals())
 
-def the_crawl_circle(tempo=90, rhythm="ssss ssss", melody="\\22 \\77 /22 \\77", consec=5):
+def scared_he_turns_round_in_a_circle(tempo=90, rhythm="ssss ssss", melody="\\22 \\77 /22 \\77", reps=5):
   string_xings(1, 2, "middle", "elbow", "detache", "UD", tempo)
   string_xings(2, 3, "middle", "elbow", "detache", "UD", tempo)
-  add_card(locals())
+  make_card(locals())
 
 # drills
 def single_string_xings(section, fulcrum, attack, pattern, tempo):
@@ -50,42 +50,41 @@ def single_string_xings(section, fulcrum, attack, pattern, tempo):
   string_xings(2, 1, section, fulcrum, attack, pattern, tempo)
   string_xings(4, 3, section, fulcrum, attack, pattern, tempo)
 
-def string_xings(frm, to, section, fulcrum, attack, pattern, tempo):
+def string_xings(frm, to, section, fulcrum, attack, pattern, tempo, reps=15):
   even_bowing(frm, section, attack, tempo),
   even_bowing(to, section, attack, tempo),
-  add_card(locals())
+  make_card(locals())
 
-def even_bowing(string, section, attack, tempo):
-  string_grabbing(string, section)
+def even_bowing(string, section, attack, tempo, reps=15):
   bow_attack(string, section, attack, "U")
   bow_attack(string, section, attack, "D")
-  add_card(locals())
+  make_card(locals())
 
-def bow_attack(string, section, attack, dir, consec=15):
-  string_grabbing(string, section)
-  add_card(locals())
+def bow_attack(string, section, attack, dir, reps=15):
+  string_wiggles(string, section)
+  make_card(locals())
 
-def string_grabbing(string, section, consec=30):
+def string_wiggles(string, section, reps=30):
   bow_benders(string, section)
   swivel_and_stop(string, section)
-  add_card(locals())
+  make_card(locals())
 
-def bow_benders(string, section, consec=15):
+def bow_benders(string, section, reps=30):
   bow_placement(string, section)
-  add_card(locals())
+  make_card(locals())
 
-def swivel_and_stop(string, section, consec=5):
-  add_card(locals())
+def swivel_and_stop(string, section, reps=5):
+  make_card(locals())
 
-def bow_placement(string, section, consec=5):
+def bow_placement(string, section, reps=5):
   violin_hold()
-  add_card(locals())
+  make_card(locals())
 
 def violin_hold():
   bow_hold()
-  no_hands_hold()
+  no_hands_swivels()
 
-def no_hands_hold(): add_card(locals())
+def no_hands_swivels(reps=5): make_card(locals())
 
 def bow_hold():
   jellyfish()
@@ -94,12 +93,11 @@ def bow_hold():
   itsy_bitsy_spider()
   bow_hand_resets()
 
-def bow_hand_resets(consec=5): add_card(locals())
-def itsy_bitsy_spider(): add_card(locals())
-def horizontal_bow_raises(consec=15): add_card(locals())
-def vertical_bow_raises(consec=15): add_card(locals())
-def jellyfish(consec=15): add_card(locals())
+def bow_hand_resets(reps=5): make_card(locals())
+def itsy_bitsy_spider(): make_card(locals())
+def horizontal_bow_raises(reps=15): make_card(locals())
+def vertical_bow_raises(reps=30): make_card(locals())
+def jellyfish(reps=15): make_card(locals())
 
 alison_open_string_drills()
-write_cards("drills")
 
