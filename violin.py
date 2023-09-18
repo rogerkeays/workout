@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from make_depcards import *
+from workout import *
 
 # goals
 def alison_open_string_drills():
