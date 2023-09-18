@@ -9,18 +9,29 @@ def alison_open_string_drills():
   the_car_trip()
   aeroplane_games()
 
+#-------------------
 def aeroplane_games(tempo=90):
   aeroplane_games(half(tempo)) if tempo == 90 else 0
   single_string_xings(tempo, "middle", "elbow", "detache")
   make_card(locals())
 
+#-------------------
 def the_car_trip(tempo=90):
   the_car_trip(half(tempo)) if tempo == 90 else 0
   single_string_xings(tempo, "middle", "elbow", "detache")
+  little_baby_throwing_up(tempo)
+  mummy_wants_to_throw_up_too(tempo)
+  pulling_over(tempo)
+  clean_it_up(tempo)
   make_card(locals())
 
+def little_baby_throwing_up(tempo, rhythm="wwws", melody="/77 \\00 55 /0", reps=5): make_card(locals())
+def mummy_wants_to_throw_up_too(tempo, rhythm="wwws", melody="\\55 XX /55 0", mechanics="U", reps=5): make_card(locals())
+def pulling_over(tempo, rhythm="ssss", melody="/7\\05X", reps=5): make_card(locals())
+def clean_it_up(tempo, rhythm="sssx", melody="/550", reps=5): make_card(locals())
+
 #-------------------
-def baby_steps(tempo=90):
+def baby_steps(tempo=90, reps=3):
   baby_steps(half(tempo)) if tempo == 90 else 0
   left_foot_step(tempo)
   right_foot_step(tempo)
@@ -46,7 +57,7 @@ def falling_down(tempo, rhythm="sssx", melody="\\270", reps=5):
   make_card(locals())
 
 #-------------------
-def the_crawl(tempo=90, reps=2):
+def the_crawl(tempo=90, reps=3):
   the_crawl(45) if tempo == 90 else 0
   little_baby_crawls_to_danger(tempo)
   scared_he_turns_round_in_a_circle(tempo)
@@ -73,6 +84,7 @@ def single_string_xings(tempo, section, fulcrum, attack, rhythm="ss"):
   string_xings(tempo, 3, 4, section, fulcrum, attack, rhythm)
 
 def string_xings(tempo, frm, to, section, fulcrum, attack, rhythm="ss", reps=15):
+  string_xings(tempo, frm, to, section, fulcrum, "silent", rhythm, reps) if attack != "silent" else 0
   even_bowing(tempo, frm, section, attack),
   even_bowing(tempo, to, section, attack),
   make_card(locals())
