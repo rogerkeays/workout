@@ -160,8 +160,8 @@ fun makeFlashcard(card: Card, heading: String, field: String, filename: String) 
 
 // export a record as a text flashcard suitable for nokia phones
 fun makeTextFlashcards(card: Card, heading: String, field: String, dir: String, seq: String) {
-    val question = "$heading\n${card.question} : [$field]"
-    val answer = "$heading\n${card.question} : ${card.answer}"
+    val question = "$heading\n${card.question}\n[$field]".replace(" : ", "\n")
+    val answer = "$heading\n${card.question}\n${card.answer}".replace(" : ", "\n")
     java.io.File(dir + "/${seq}A.txt").writeText(question)
     java.io.File(dir + "/${seq}B.00.txt").writeText(answer)
 }
