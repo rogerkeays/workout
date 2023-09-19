@@ -61,7 +61,7 @@ fun processStdin() {
                     val field = fields[sections - 1][i]
                     val dir = "cards" //00.$song" // "$sections$i.$field"
                     //val seq = "99.%s.%d%d%02d".format(song, sections, i, lines)
-                    val seq = "%s.%02d%d%d".format(song.take(4), lines, sections, i)
+                    val seq = "%s.%d%02d%d".format(song.take(4), sections, lines, i)
                     mkdir(dir)
                     makeTextFlashcards(card, song, field, dir, seq)
                 }
@@ -160,8 +160,8 @@ fun makeFlashcard(card: Card, heading: String, field: String, filename: String) 
 
 // export a record as a text flashcard suitable for nokia phones
 fun makeTextFlashcards(card: Card, heading: String, field: String, dir: String, seq: String) {
-    val question = "$heading\n$field\n${card.question}"
-    val answer = "$heading\n$field\n${card.answer}"
+    val question = "$heading\n${card.question} : [$field]"
+    val answer = "$heading\n${card.question} : ${card.answer}"
     java.io.File(dir + "/${seq}A.txt").writeText(question)
     java.io.File(dir + "/${seq}B.00.txt").writeText(answer)
 }
