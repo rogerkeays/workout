@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import os, inspect
+import os, inspect, re
 
 seen = set()
 drills = []
@@ -18,4 +18,19 @@ def make_card(params = {}, dir="drills"):
         f.write(key + "=" + str(params[key]) + "\n")
 
 def half(val): return int(val / 2)
+
+def phrase(tempo, lyrics, rhythm, melody, mechanics="", reps=5):
+  for w in lyrics.split(" "):
+    word(tempo, w, lyrics)
+  del w
+  make_card(locals())
+
+def word(tempo, lyrics, phrase, reps=5):
+  for n in re.split("[-. ]", lyrics):
+    note(tempo, n, phrase)
+  del n
+  make_card(locals())
+
+def note(tempo, lyrics, phrase, reps=5):
+  make_card(locals())
 
