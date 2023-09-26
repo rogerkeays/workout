@@ -74,13 +74,13 @@ def single_string_xings(tempo, section, fulcrum, attack, rhythm="ss"):
 
 def string_xings(tempo, frm, to, section, fulcrum, attack, rhythm="ss", reps=15):
   string_xings(tempo, frm, to, section, fulcrum, "silent", rhythm, reps) if attack != "silent" else 0
-  even_bowing(tempo, frm, section, attack),
-  even_bowing(tempo, to, section, attack),
+  even_bowing(tempo, frm, section, attack, rhythm),
+  even_bowing(tempo, to, section, attack, rhythm),
   make_card(locals())
 
-def even_bowing(tempo, string, section, attack, reps=15):
-  bow_attack(string, section, attack, "U")
+def even_bowing(tempo, string, section, attack, rhythm, reps=15):
   bow_attack(string, section, attack, "D")
+  bow_attack(string, section, attack, "U")
   make_card(locals())
 
 def bow_attack(string, section, attack, dir, reps=15):
@@ -130,6 +130,8 @@ single_string_xings(45, "m", "elbow", "detache", "ss")
 single_string_xings(45, "m", "elbow", "detache", "ssx")
 single_string_xings(90, "m", "elbow", "detache", "ss")
 single_string_xings(90, "m", "elbow", "detache", "ssx")
+even_bowing(90, 4, "m", "detache", "ww")
+even_bowing(90, 3, "m", "detache", "ww")
 
 # first finger etudes
 fret_hitting(2, 2)
