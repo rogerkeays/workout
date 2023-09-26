@@ -34,3 +34,15 @@ def word(tempo, lyrics, phrase, reps=5):
 def note(tempo, lyrics, phrase, reps=5):
   make_card(locals())
 
+def add(note, interval):
+  return decimal_to_note(note_to_decimal(note) + note_to_decimal(interval))
+
+def note_to_decimal(note):
+  return int(str(note).replace("X", "A").replace("Y", "B"), 12)
+
+def decimal_to_note(note):
+  if not note:
+    return "0"
+  else:
+    return decimal_to_note(note // 12).lstrip("0") + "0123456789XY"[note % 12]
+
