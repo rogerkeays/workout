@@ -2,43 +2,7 @@
 
 from workout import *
 
-# goals
-def alison_open_string_drills():
-  the_crawl()
-  baby_steps()
-  the_car_trip()
-  aeroplane_games()
-
-#-------------------
-def aeroplane_games(tempo=110):
-  aeroplane_games(half(tempo)) if tempo == 110 else 0
-  phrase(tempo, "fly.ing.up.wards fly.ing.down.wards", "wwww", "\\X/507 7\\05X")
-  phrase(tempo, "lan.ding.at.the term.i.nal", "wwws", "/550077\\0")
-  make_card(locals())
-
-def the_car_trip(tempo=110):
-  the_car_trip(half(tempo)) if tempo == 110 else 0
-  phrase(tempo, "li.ttle.ba.by throw.ing.up", "wwws", "/77 \\00 55 /0")
-  phrase(tempo, "mu.mmy.wants.to throw.up.too", "wwws", "\\55 XX /55 0")
-  phrase(tempo, "pu.lling.over", "ssss", "/7\\05X")
-  phrase(tempo, "clean.it.up", "sssx", "/550")
-  make_card(locals())
-
-def baby_steps(tempo=90, reps=2):
-  baby_steps(half(tempo)) if tempo == 90 else 0
-  phrase(tempo, "left.foot.step", "sssx", "00/7")
-  phrase(tempo, "right.foot.step", "sssx", "/22\\7", "U")
-  phrase(tempo, "looks.for mu.mmy", "ssss", "/2299")
-  phrase(tempo, "fa.lling.down", "sssx", "\\270")
-  make_card(locals())
-
-def the_crawl(tempo=90, reps=2):
-  the_crawl(45) if tempo == 90 else 0
-  phrase(tempo, "li.ttle ba.by crawls.to da.nger", "ssss ssss", "00 /77 22 99")
-  phrase(tempo, "scared.he turns.round in.a cir.cle", "ssss ssss", "\\22 77 /22 \\77")
-  make_card(locals())
-
-#--------------------
+#----- drills
 def scale_49_major_one_octave(tempo, section, attack, rhythm):
   scale(tempo, 0,
         [2,2,2,2,2,1,1,1, 1,1,1,2,2,2,2], # strings
@@ -125,24 +89,59 @@ def horizontal_bow_raises(reps=15): make_card(locals())
 def vertical_bow_raises(reps=30): make_card(locals())
 def jellyfish(reps=15): make_card(locals())
 
-# open string etudes
-single_string_xings(45, "m", "elbow", "detache", "ss")
-single_string_xings(45, "m", "elbow", "detache", "ssx")
-single_string_xings(90, "m", "elbow", "detache", "ss")
-single_string_xings(90, "m", "elbow", "detache", "ssx")
-even_bowing(90, 4, "m", "detache", "ww")
-even_bowing(90, 3, "m", "detache", "ww")
+# ------ goals
+goal("the-crawl")
+for tempo in [45, 90]:
+  single_string_xings(tempo, "m", "elbow", "detache", "ss")
+  phrase(tempo, "li.ttle ba.by crawls.to da.nger", "ssss ssss", "00 /77 22 99")
+  phrase(tempo, "scared.he turns.round in.a cir.cle", "ssss ssss", "\\22 77 /22 \\77")
+  piece(tempo, "the-crawl")
 
-# first finger etudes
+goal("baby-steps")
+for tempo in [45, 90]:
+  single_string_xings(tempo, "m", "elbow", "detache", "ss")
+  string_xings(tempo, 3, 4, "m", "elbow", "detache", "ssx")
+  string_xings(tempo, 2, 3, "m", "elbow", "detache", "ssx")
+  phrase(tempo, "left.foot.step", "sssx", "00/7")
+  phrase(tempo, "right.foot.step", "sssx", "/22\\7", "U")
+  phrase(tempo, "looks.for mu.mmy", "ssss", "/2299")
+  phrase(tempo, "fa.lling.down", "sssx", "\\270")
+  piece(tempo, "baby-steps")
+
+goal("the-car-trip")
+for tempo in [55, 110]:
+  single_string_xings(tempo, "m", "elbow", "detache", "ss")
+  phrase(tempo, "li.ttle.ba.by throw.ing.up", "wwws", "/77 \\00 55 /0")
+  phrase(tempo, "mu.mmy.wants.to throw.up.too", "wwws", "\\55 XX /55 0")
+  phrase(tempo, "pu.lling.over", "ssss", "/7\\05X")
+  phrase(tempo, "clean.it.up", "sssx", "/550")
+  piece(tempo, "the-car-trip")
+
+goal("aeroplane-games")
+for tempo in [55, 110]:
+  single_string_xings(tempo, "m", "elbow", "detache", "ss")
+  phrase(tempo, "fly.ing.up.wards fly.ing.down.wards", "wwww", "\\X/507 7\\05X")
+  phrase(tempo, "lan.ding.at.the term.i.nal", "wwws", "/550077\\0")
+  piece(tempo, "baby-steps")
+
+goal("first-finger-etudes")
 fret_hitting(2, 2)
 
-# second finger etudes
+goal("second-finger-etudes")
 fret_hitting(4, 2)
 
-# third and fourth finger etudes
+goal("third-and-fourth-finger-etudes")
 fret_hitting(5, 3)
 fret_hitting(7, 4)
 
-# lightly row
-scale_49_major_one_octave(90, "m", "detache", "ss")
+goal("lightly-row")
+for tempo in [45, 90]:
+  scale_49_major_one_octave(tempo, "m", "detache", "ss")
+  phrase(tempo, "lightly row, flamingo", "sssx sssx", "/744 522")
+  phrase(tempo, "down the river we will go", "ssss sssx", "0245 777")
+  phrase(tempo, "always rowing, never slowing", "ssss ssss", "7444 5222")
+  phrase(tempo, "in my bright new red canoe", "ssss sssx", "0477 444")
+  phrase(tempo, "see the fishes swimming by", "ssss sssx", "2222 245")
+  phrase(tempo, "see the birds up in the sky", "ssss sssx", "4444 457")
+  piece(tempo, "lightly-row")
 
