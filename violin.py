@@ -2,7 +2,6 @@
 
 from workout import *
 
-#----- drills
 def scale_49_major_one_octave(tempo, section, attack, rhythm):
   scale(tempo, 0,
         [2,2,2,2,2,1,1,1, 1,1,1,2,2,2,2], # strings
@@ -13,7 +12,7 @@ def scale_49_major_one_octave(tempo, section, attack, rhythm):
 
 def scale(tempo, base, strings, frets, fingers, section, fulcrum, attack, rhythm):
   for frm, to in zip(strings, strings[1:]):
-    if frm != to: string_xings(tempo, frm, to, section, fulcrum, attack, rhythm)
+    if frm != to: string_crossings(tempo, frm, to, section, fulcrum, attack, rhythm)
   for i, string in enumerate(strings):
     pitch_hitting(string, frets[i], fingers[i])
 
@@ -28,53 +27,52 @@ def pitch_hitting(string, fret, finger):
     note = decimal_to_note(note_to_decimal("5Y") - (string * 7) + fret)
     make_card(locals())
 
-def single_string_xings(tempo, section, fulcrum, attack, rhythm="ss"):
-  string_xings(tempo, 3, 2, section, fulcrum, attack, rhythm)
-  string_xings(tempo, 2, 3, section, fulcrum, attack, rhythm)
-  string_xings(tempo, 2, 1, section, fulcrum, attack, rhythm)
-  string_xings(tempo, 1, 2, section, fulcrum, attack, rhythm)
-  string_xings(tempo, 4, 3, section, fulcrum, attack, rhythm)
-  string_xings(tempo, 3, 4, section, fulcrum, attack, rhythm)
+def single_string_crossings(tempo, section, fulcrum, attack, rhythm="ss"):
+  string_crossings(tempo, 3, 2, section, fulcrum, attack, rhythm)
+  string_crossings(tempo, 2, 3, section, fulcrum, attack, rhythm)
+  string_crossings(tempo, 2, 1, section, fulcrum, attack, rhythm)
+  string_crossings(tempo, 1, 2, section, fulcrum, attack, rhythm)
+  string_crossings(tempo, 4, 3, section, fulcrum, attack, rhythm)
+  string_crossings(tempo, 3, 4, section, fulcrum, attack, rhythm)
 
-def string_xings(tempo, frm, to, section, fulcrum, attack, rhythm="ss", reps=15):
-  string_xings(tempo, frm, to, section, fulcrum, "silent", rhythm, reps) if attack != "silent" else 0
+def string_crossings(tempo, frm, to, section, fulcrum, attack, rhythm="ss", reps=15):
   even_bowing(tempo, frm, section, attack, rhythm),
   even_bowing(tempo, to, section, attack, rhythm),
+  string_switching(tempo, frm, to, section, fulcrum, reps)
+  make_card(locals())
+
+def string_switching(tempo, frm, to, section, fulcrum, reps=15):
+  bow_hold()
+  if frm > to: frm, to = to, frm
   make_card(locals())
 
 def even_bowing(tempo, string, section, attack, rhythm, reps=15):
-  bow_attack(string, section, attack, "D")
-  bow_attack(string, section, attack, "U")
+  bow_attack(tempo, string, section, attack, "D")
+  bow_attack(tempo, string, section, attack, "U")
   make_card(locals())
 
-def bow_attack(string, section, attack, dir, reps=15):
-  string_wiggles(string, section)
-  retuning()
+def bow_attack(tempo, string, section, attack, dir, reps=15):
+  string_grabbing(tempo, string, section)
   make_card(locals())
 
-def string_wiggles(string, section, reps=30):
+def string_grabbing(tempo, string, section, reps=15):
   bow_benders(string, section)
-  swivel_and_stop(string, section)
   make_card(locals())
 
-def retuning(): make_card(locals())
-
-def bow_benders(string, section, reps=30):
+def bow_benders(string, section, reps=15):
   bow_placement(string, section)
-  make_card(locals())
-
-def swivel_and_stop(string, section, reps=5):
   make_card(locals())
 
 def bow_placement(string, section, reps=5):
   violin_hold()
+  bow_hold()
   make_card(locals())
 
 def violin_hold():
-  bow_hold()
   no_hands_swivels()
 
-def no_hands_swivels(reps=5): make_card(locals())
+def no_hands_swivels(reps=5):
+  make_card(locals())
 
 def bow_hold():
   jellyfish()
@@ -84,24 +82,25 @@ def bow_hold():
   bow_hand_resets()
 
 def bow_hand_resets(reps=5): make_card(locals())
-def itsy_bitsy_spider(): make_card(locals())
+def itsy_bitsy_spider(time=12): make_card(locals())
 def horizontal_bow_raises(reps=15): make_card(locals())
-def vertical_bow_raises(reps=30): make_card(locals())
+def vertical_bow_raises(reps=15): make_card(locals())
 def jellyfish(reps=15): make_card(locals())
+
 
 # ------ goals
 goal("the-crawl")
 for tempo in [45, 90]:
-  single_string_xings(tempo, "m", "elbow", "detache", "ss")
+  single_string_crossings(tempo, "m", "elbow", "detache", "ss")
   phrase(tempo, "li.ttle ba.by crawls.to da.nger", "ssss ssss", "00 /77 22 99")
   phrase(tempo, "scared.he turns.round in.a cir.cle", "ssss ssss", "\\22 77 /22 \\77")
   piece(tempo, "the-crawl")
 
 goal("baby-steps")
 for tempo in [45, 90]:
-  single_string_xings(tempo, "m", "elbow", "detache", "ss")
-  string_xings(tempo, 3, 4, "m", "elbow", "detache", "ssx")
-  string_xings(tempo, 2, 3, "m", "elbow", "detache", "ssx")
+  single_string_crossings(tempo, "m", "elbow", "detache", "ss")
+  string_crossings(tempo, 3, 4, "m", "elbow", "detache", "ssx")
+  string_crossings(tempo, 2, 3, "m", "elbow", "detache", "ssx")
   phrase(tempo, "left.foot.step", "sssx", "00/7")
   phrase(tempo, "right.foot.step", "sssx", "/22\\7", "U")
   phrase(tempo, "looks.for mu.mmy", "ssss", "/2299")
@@ -110,7 +109,7 @@ for tempo in [45, 90]:
 
 goal("the-car-trip")
 for tempo in [55, 110]:
-  single_string_xings(tempo, "m", "elbow", "detache", "ss")
+  single_string_crossings(tempo, "m", "elbow", "detache", "ss")
   phrase(tempo, "li.ttle.ba.by throw.ing.up", "wwws", "/77 \\00 55 /0")
   phrase(tempo, "mu.mmy.wants.to throw.up.too", "wwws", "\\55 XX /55 0")
   phrase(tempo, "pu.lling.over", "ssss", "/7\\05X")
@@ -119,7 +118,7 @@ for tempo in [55, 110]:
 
 goal("aeroplane-games")
 for tempo in [55, 110]:
-  single_string_xings(tempo, "m", "elbow", "detache", "ss")
+  single_string_crossings(tempo, "m", "elbow", "detache", "ss")
   phrase(tempo, "fly.ing.up.wards fly.ing.down.wards", "wwww", "\\X/507 7\\05X")
   phrase(tempo, "lan.ding.at.the term.i.nal", "wwws", "/550077\\0")
   piece(tempo, "baby-steps")
