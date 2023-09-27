@@ -2,7 +2,10 @@
 
 from workout import *
 
-def scale_49_major_one_octave(tempo, section, attack, rhythm):
+def scale_49_major_one_octave(tempo, section, attack, rhythm, reps=3):
+  half_scale(tempo, 2, [0,2,4,5,7], section, attack, rhythm, reps)
+  half_scale(tempo, 1, [0,2,4,5,7], section, attack, rhythm, reps)
+  hand_changes(2, [2,4,5,7], 1, [2,4,5,7])
   scale(tempo, 0,
         [2,2,2,2,2,1,1,1, 1,1,1,2,2,2,2], # strings
         [0,2,4,5,7,2,4,5, 4,2,7,5,4,2,0], # frets
@@ -10,11 +13,61 @@ def scale_49_major_one_octave(tempo, section, attack, rhythm):
         section, "elbow", attack, rhythm)
   make_card(locals())
 
-def scale(tempo, base, strings, frets, fingers, section, fulcrum, attack, rhythm):
+def scale(tempo, base, strings, frets, fingers, section, fulcrum, attack, rhythm, reps=5):
   for frm, to in zip(strings, strings[1:]):
     if frm != to: string_crossings(tempo, frm, to, section, fulcrum, attack, rhythm)
-  for i, string in enumerate(strings):
-    pitch_hitting(string, frets[i], fingers[i])
+  for i in range(0, len(fingers)):
+    if fingers[i] != 0:
+      finger_hammers(strings[i], frets[i], fingers[i])
+
+def half_scale(tempo, string, frets, section, attack, rhythm, reps=5):
+  even_bowing(tempo, string, section, attack, rhythm)
+  hand_placement(string, frets[1:])
+  for i in range(1, 4):
+    finger_hammers(string, frets[i], i)
+  del i
+  make_card(locals())
+
+def hand_changes(from_string, from_frets, to_string, to_frets, reps=5):
+  hand_placement(from_string, from_frets)
+  hand_placement(to_string, to_frets)
+  jankin_switches(from_frets, to_frets)
+  finger_wriggles(from_frets, to_frets)
+  make_card(locals())
+
+def hand_placement(string, frets, reps=5):
+  violin_hold()
+  finger_curls(frets)
+  make_card(locals())
+
+def finger_curls(frets, reps=5):
+  jankin(frets)
+  make_card(locals())
+
+def jankin(frets, reps=5):
+  finger_stretches()
+  make_card(locals())
+
+def finger_stretches():
+  make_card(locals())
+
+def jankin_switches(frm, to, reps=5):
+  if frm != to:
+    jankin(frm)
+    jankin(to)
+    make_card(locals())
+
+def finger_wriggles(frm, to, reps=5):
+  if frm != to:
+    make_card(locals())
+
+def finger_hammers(string, fret, finger, reps="15"):
+  air_hammers(finger)
+  pitch_hitting(string, fret, finger)
+  make_card(locals())
+
+def air_hammers(finger, reps="15"):
+  make_card(locals())
 
 def fret_hitting(fret, finger):
   pitch_hitting(4, fret, finger)
@@ -22,8 +75,9 @@ def fret_hitting(fret, finger):
   pitch_hitting(2, fret, finger)
   pitch_hitting(1, fret, finger)
 
-def pitch_hitting(string, fret, finger):
+def pitch_hitting(string, fret, finger, reps="5"):
   if fret != 0 and finger != 0:
+    violin_hold()
     note = decimal_to_note(note_to_decimal("5Y") - (string * 7) + fret)
     make_card(locals())
 
