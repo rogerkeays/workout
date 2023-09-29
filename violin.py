@@ -125,7 +125,7 @@ def bow_placement(string, section, reps=5):
 def violin_hold():
   no_hands_swivels()
 
-def no_hands_swivels(reps=5):
+def no_hands_swivels(reps=15):
   make_card(locals())
 
 def bow_hold():
@@ -136,9 +136,9 @@ def bow_hold():
   bow_hand_resets()
 
 def bow_hand_resets(reps=5): make_card(locals())
-def itsy_bitsy_spider(time=12): make_card(locals())
+def itsy_bitsy_spider(reps=5): make_card(locals())
 def horizontal_bow_raises(reps=15): make_card(locals())
-def vertical_bow_raises(reps=15): make_card(locals())
+def vertical_bow_raises(reps=30): make_card(locals())
 def jellyfish(reps=15): make_card(locals())
 
 
