@@ -22,29 +22,33 @@ def scale(tempo, base, strings, frets, fingers, section, fulcrum, attack, rhythm
 
 def half_scale(tempo, string, frets, section, attack, rhythm, reps=5):
   even_bowing(tempo, string, section, attack, rhythm)
-  hand_placement(string, frets[1:])
-  for i in range(1, 4):
+  hand_placement_block(string, frets[1:])
+  for i in range(1, 5):
     finger_hammers(string, frets[i], i)
   del i
   make_card(locals())
 
 def hand_changes(from_string, from_frets, to_string, to_frets, reps=5):
-  hand_placement(from_string, from_frets)
-  hand_placement(to_string, to_frets)
+  hand_placement_block(from_string, from_frets)
+  hand_placement_block(to_string, to_frets)
   jankin_switches(from_frets, to_frets)
   finger_wriggles(from_frets, to_frets)
   make_card(locals())
 
-def hand_placement(string, frets, reps=5):
+def hand_placement_block(string, frets, reps=5):
+  hand_placement_individual(string, frets)
+  make_card(locals())
+
+def hand_placement_individual(string, frets, reps=5):
   violin_hold()
   finger_curls(frets)
   make_card(locals())
 
-def finger_curls(frets, reps=5):
+def finger_curls(frets, reps=15):
   jankin(frets)
   make_card(locals())
 
-def jankin(frets, reps=5):
+def jankin(frets, reps=15):
   finger_stretches()
   make_card(locals())
 
