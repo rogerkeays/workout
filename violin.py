@@ -12,6 +12,7 @@ def scale_49_major_one_octave(tempo, section, attack, rhythm, reps=3):
         [0,1,2,3,4,1,2,3, 2,1,4,3,2,1,0], # fingers
         section, "elbow", attack, rhythm)
   make_card(locals())
+  make_metronome(tempo)
 
 def scale(tempo, base, strings, frets, fingers, section, fulcrum, attack, rhythm, reps=5):
   for frm, to in zip(strings, strings[1:]):
@@ -27,6 +28,7 @@ def half_scale(tempo, string, frets, section, attack, rhythm, reps=5):
     finger_hammers(string, frets[i], i)
   del i
   make_card(locals())
+  make_metronome(tempo)
 
 def hand_changes(from_string, from_frets, to_string, to_frets, reps=5):
   hand_placement_block(from_string, from_frets)
@@ -98,24 +100,29 @@ def string_crossings(tempo, frm, to, section, fulcrum, attack, rhythm="ss", reps
   even_bowing(tempo, to, section, attack, rhythm),
   string_switching(tempo, frm, to, section, fulcrum, reps)
   make_card(locals())
+  make_metronome(tempo)
 
 def string_switching(tempo, frm, to, section, fulcrum, reps=15):
   bow_hold()
   if frm > to: frm, to = to, frm
   make_card(locals())
+  make_metronome(tempo)
 
 def even_bowing(tempo, string, section, attack, rhythm, reps=15):
   bow_attack(tempo, string, section, attack, "D")
   bow_attack(tempo, string, section, attack, "U")
   make_card(locals())
+  make_metronome(tempo)
 
 def bow_attack(tempo, string, section, attack, dir, reps=15):
   string_grabbing(tempo, string, section)
   make_card(locals())
+  make_metronome(tempo)
 
 def string_grabbing(tempo, string, section, reps=15):
   bow_benders(string, section)
   make_card(locals())
+  make_metronome(tempo)
 
 def bow_benders(string, section, reps=15):
   bow_placement(string, section)
