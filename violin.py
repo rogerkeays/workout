@@ -113,7 +113,15 @@ def half_scale(tempo, string, frets, section, attack, rhythm, reps=5):
     finger_hammers(string, frets[i], i)
   del i
   make_card(locals())
-  make_metronome(tempo)
+  make_mp3("""
+  X:0
+  M:4/4
+  L:1/4
+  Q:100
+  K:C
+  %%MIDI program 56
+  |:CDEF|GFED|C4|
+  """, note_to_decimal("37") + ((string - 1) * 7) - note_to_decimal("40"), tempo)
 
 def string_switching(tempo, frm, to, section, fulcrum, reps=15):
   bow_hold()
