@@ -33,21 +33,6 @@ def make_card(params = {}):
       for key in params:
         f.write(key + "=" + str(params[key]) + "\n")
 
-#
-# convert an abc score to an mp3 file
-#
-def make_mp3(score, transpose=0, tempo_percent=100):
-  global outdir
-  key = str(locals())
-  if key not in mp3s:
-    mp3s.add(key)
-    outfile = outdir + "/" + str(len(cards)).zfill(4) + "B.mp3"
-    os.system("""echo '{score}' \
-          | abc2midi /dev/stdin -o /dev/stdout \
-          | timidity - --quiet --output-24bit -A800 -K{transpose} -T{tempo_percent} -Ow -o - \
-          | ffmpeg -loglevel error -i - -ac 1 -ab 64k "{outfile}"
-          """.format(**locals()))
-
 def make_metronome(tempo):
   make_mp3("""
   X:0
@@ -74,6 +59,21 @@ def make_drone(note, instrument=57):
   %%MIDI program {instrument}
   |A,,,,,|
   """.format(transpose=note_to_decimal(note), instrument=instrument - 1))
+
+#
+# convert an abc score to an mp3 file
+#
+def make_mp3(score, transpose=0, tempo_percent=100):
+  global outdir
+  key = str(locals())
+  if key not in mp3s:
+    mp3s.add(key)
+    outfile = outdir + "/" + str(len(cards)).zfill(4) + "B.mp3"
+    os.system("""echo '{score}' \
+        | abc2midi /dev/stdin -o /dev/stdout \
+        | timidity - --quiet --quiet --output-24bit -A800 -K{transpose} -T{tempo_percent} -Ow -o - \
+        | ffmpeg -loglevel error -i - -ac 1 -ab 64k "{outfile}"
+        """.format(**locals()))
 
 # add base-12 notes and intervals
 def add(note, interval):
