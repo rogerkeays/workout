@@ -60,6 +60,22 @@ def make_metronome(tempo):
   |:cccc|cccc|cccc|cccc|cccc|cccc|cccc|cccc:|
   """, 0, tempo)
 
+#
+# use MIDI instrument number (abc instrument number is zero-based)
+# default to trumpet (57), because it is closest to perfect pitch
+#
+def make_drone(note, instrument=57):
+  make_mp3("""
+  X:0
+  M:1/1
+  L:1/1
+  Q:10
+  K:C transpose={transpose}
+  %%MIDI program {instrument}
+  |A,,,,,|
+  """.format(transpose=note_to_decimal(note), instrument=instrument - 1))
+
+# add base-12 notes and intervals
 def add(note, interval):
   return decimal_to_note(note_to_decimal(note) + note_to_decimal(interval))
 

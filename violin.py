@@ -86,6 +86,7 @@ def pitch_hitting(string, fret, finger, reps="5"):
     violin_hold()
     note = decimal_to_note(note_to_decimal("5Y") - (string * 7) + fret)
     make_card(locals())
+    make_drone(note)
 
 def single_string_crossings(tempo, section, fulcrum, attack, rhythm="ss"):
   string_crossings(tempo, 3, 2, section, fulcrum, attack, rhythm)
