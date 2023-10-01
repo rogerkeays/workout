@@ -7,31 +7,45 @@ goalnum = 1
 outdir="drills"
 cards = set()
 mp3s = set()
+infile=""
+intempo=0
 
-def goal(name):
-  global outdir, goalnum
+def goal(name, _infile="", _intempo=""):
+  global outdir, goalnum, infile, intempo
   outdir="00." + str(goalnum).zfill(2) + "." + name
   os.makedirs(outdir, exist_ok=True)
   goalnum += 1
   cards.clear()
   mp3s.clear()
+  infile = _infile
+  intempo = _intempo
 
 def piece(tempo, name, reps=2):
+  global infile, intempo
   make_card(locals())
+  make_metronome(tempo)
+  if infile:
+    make_whole(infile, tempo / intempo)
 
-def phrase(tempo, lyrics, rhythm, melody, mechanics="", reps=5):
+def phrase(tempo, lyrics, rhythm, melody, mechanics="", start_secs=0, stop_secs=0, reps=5):
+  global infile, intempo
   make_card(locals())
+  make_metronome(tempo)
+  if infile:
+    make_chunk(infile, start_secs, stop_secs, tempo / intempo)
 
 def make_card(params = {}):
   name = inspect.stack()[1].function
   key = name + str(params)
   if key not in cards:
     cards.add(key)
-    drillnum = str(len(cards)).zfill(4)
-    with open(outdir + "/" + drillnum + "A.txt", "w") as f:
+    with open(outdir + "/" + drillnum() + "A.txt", "w") as f:
       f.writelines(name + "\n")
       for key in params:
         f.write(key + "=" + str(params[key]) + "\n")
+
+def drillnum():
+  return str(len(cards)).zfill(4)
 
 def make_metronome(tempo):
   make_mp3("""
@@ -68,12 +82,31 @@ def make_mp3(score, transpose=0, tempo_percent=100):
   key = str(locals())
   if key not in mp3s:
     mp3s.add(key)
-    outfile = outdir + "/" + str(len(cards)).zfill(4) + "B.mp3"
+    outfile = outdir + "/" + drillnum() + "B.mp3"
     os.system("""echo '{score}' \
         | abc2midi /dev/stdin -o /dev/stdout \
         | timidity - --quiet --quiet --output-24bit -A800 -K{transpose} -T{tempo_percent} -Ow -o - \
         | ffmpeg -loglevel error -i - -ac 1 -ab 64k "{outfile}"
         """.format(**locals()))
+
+def make_chunk(filename, start_secs, stop_secs, tempo_mult, padding=2.5, silence=5):
+  ss = start_secs - padding
+  to = stop_secs + padding
+  st = stop_secs - start_secs + padding
+  outfile = outdir + "/" + drillnum() + "C.mp3"
+  os.system("""
+  ffmpeg -nostdin -loglevel error -ss {ss} -to {to} -i {filename} -ac 1 -ar 48000 -q 4 \
+         -af afade=d={padding},afade=t=out:st={st}:d={padding},atempo={tempo_mult},adelay={silence}s:all=true \
+         "{outfile}"
+         """.format(**locals()))
+
+def make_whole(filename, tempo_mult, silence=0):
+  outfile = outdir + "/" + drillnum() + "C.mp3"
+  os.system("""
+  ffmpeg -nostdin -loglevel error -i {filename} -ac 1 -ar 48000 -q 4 \
+         -af atempo={tempo_mult},adelay={silence}s:all=true \
+         "{outfile}"
+         """.format(**locals()))
 
 # add base-12 notes and intervals
 def add(note, interval):
