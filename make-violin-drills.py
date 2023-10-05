@@ -6,12 +6,19 @@ from violin import *
 def locate(mp3):
  return os.environ['HOME'] + "/work/music/chunking/violin/" + mp3
 
-goal("the-crawl", locate("1001.the-crawl.mp3"), 90)
-for tempo in [45, 90]:
-  single_string_crossings(tempo, "m", "elbow", "detache", "ss")
-  phrase(tempo, "little baby crawls to danger", "ssss ssss", "00 /77 22 99", "", 10.16, 15.38)
-  phrase(tempo, "scared he turns round in a circle", "ssss ssss", "\\22 77 /22 \\77", "", 15.38, 21.53)
-  piece(tempo, "the-crawl")
+tempo=90
+goal("the-crawl", locate("1001.the-crawl.mp3"), tempo)
+piece(tempo, "the-crawl",
+  phrase(tempo, "little baby crawls to danger", "ssss ssss", "00 /77 22 99", "", 10.16, 15.38,
+    string_crossings(tempo, 4, 3, "m", "elbow", "detache", "ss", "ud"),
+    string_crossings(tempo, 3, 2, "m", "elbow", "detache", "ss", "ud"),
+    string_crossings(tempo, 2, 1, "m", "elbow", "detache", "ss", "ud"),
+  ),
+  phrase(tempo, "scared he turns round in a circle", "ssss ssss", "\\22 77 /22 \\77", "", 15.38, 21.53,
+    string_crossings(tempo, 2, 3, "m", "elbow", "detache", "ss", "ud"),
+    string_crossings(tempo, 3, 2, "m", "elbow", "detache", "ss", "ud"),
+  )
+)
 
 goal("baby-steps", locate("1002.baby-steps.mp3"), 90)
 for tempo in [45, 90]:

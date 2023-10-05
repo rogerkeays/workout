@@ -20,15 +20,17 @@ def goal(name, _infile="", _intempo=""):
   infile = _infile
   intempo = _intempo
 
-def piece(tempo, name, reps=2):
+def piece(tempo, name, reps=2, *deps):
   global infile, intempo
+  del deps
   make_card(locals())
   make_metronome(tempo)
   if infile:
     make_whole(infile, tempo / intempo)
 
-def phrase(tempo, lyrics, rhythm, melody, mechanics="", start_secs=0, stop_secs=0, reps=5):
+def phrase(tempo, lyrics, rhythm, melody, mechanics="", start_secs=0, stop_secs=0, *deps):
   global infile, intempo
+  del deps
   make_card(locals())
   make_metronome(tempo)
   if infile:
