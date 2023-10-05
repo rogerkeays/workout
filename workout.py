@@ -8,9 +8,9 @@ outdir="drills"
 cards = set()
 mp3s = set()
 infile=""
-intempo=0
+intempo=90
 
-def goal(name, _infile="", _intempo=""):
+def goal(name, _infile="", _intempo=90):
   global outdir, goalnum, infile, intempo
   outdir="00." + str(goalnum).zfill(2) + "." + name
   os.makedirs(outdir, exist_ok=True)
@@ -19,6 +19,8 @@ def goal(name, _infile="", _intempo=""):
   mp3s.clear()
   infile = _infile
   intempo = _intempo
+  make_metronome(intempo)
+  make_metronome(half(intempo))
 
 def piece(tempo, name, reps=2, *deps):
   global infile, intempo
@@ -84,7 +86,7 @@ def make_mp3(score, transpose=0, tempo_percent=100):
   key = str(locals())
   if key not in mp3s:
     mp3s.add(key)
-    outfile = outdir + "/" + drillnum() + "B.mp3"
+    outfile = outdir + "/" + drillnum() + "B." + str(tempo_percent) + ".mp3"
     os.system("""echo '{score}' \
         | abc2midi /dev/stdin -o /dev/stdout \
         | timidity - --quiet --quiet --output-24bit -A800 -K{transpose} -T{tempo_percent} -Ow -o - \
