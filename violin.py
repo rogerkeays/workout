@@ -5,7 +5,7 @@ from workout import *
 def jellyfish(reps=15):
   make_card(locals())
 
-def vertical_bow_raises(reps=30):
+def vertical_bow_raises(reps=15):
   make_card(locals())
 
 def horizontal_bow_raises(reps=15):
@@ -41,17 +41,20 @@ def bow_benders(string, section, reps=15):
 
 def string_grabbing(tempo, string, section, reps=15):
   bow_benders(string, section)
+  if tempo > SLOW: string_grabbing(half(tempo), string, section, reps)
   make_card(locals())
   make_metronome(tempo)
 
 def bow_attack(tempo, string, section, attack, dir, reps=15):
   string_grabbing(tempo, string, section)
+  if tempo > SLOW: bow_attack(half(tempo), string, section, attack, dir, reps)
   make_card(locals())
   make_metronome(tempo)
 
 def even_bowing(tempo, string, section, attack, rhythm, reps=15):
   bow_attack(tempo, string, section, attack, "D")
   bow_attack(tempo, string, section, attack, "U")
+  if tempo > SLOW: even_bowing(half(tempo), string, section, attack, rhythm, reps)
   make_card(locals())
   make_metronome(tempo)
 
@@ -112,6 +115,7 @@ def half_scale(tempo, string, frets, section, attack, rhythm, reps=5):
   for i in range(1, 5):
     finger_hammers(string, frets[i], i)
   del i
+  if tempo > SLOW: half_scale(half(tempo), string, frets, section, attack, rhythm, reps)
   make_card(locals())
   make_mp3("""
   X:0
@@ -126,6 +130,7 @@ def half_scale(tempo, string, frets, section, attack, rhythm, reps=5):
 def string_switching(tempo, frm, to, section, fulcrum, reps=15):
   bow_hold()
   if frm > to: frm, to = to, frm
+  if tempo > SLOW: string_switching(half(tempo), frm, to, section, fulcrum, reps)
   make_card(locals())
   make_metronome(tempo)
 
@@ -133,6 +138,7 @@ def string_crossings(tempo, frm, to, section, fulcrum, attack, rhythm="ss", mech
   even_bowing(tempo, frm, section, attack, rhythm),
   even_bowing(tempo, to, section, attack, rhythm),
   string_switching(tempo, frm, to, section, fulcrum, reps)
+  if tempo > SLOW: string_crossings(half(tempo), frm, to, section, fulcrum, attack, rhythm, mechanics, reps)
   make_card(locals())
   make_metronome(tempo)
 
@@ -160,6 +166,7 @@ def scale_49_major_one_octave(tempo, section, attack, rhythm, reps=3):
         [0,2,4,5,7,2,4,5, 4,2,7,5,4,2,0], # frets
         [0,1,2,3,4,1,2,3, 2,1,4,3,2,1,0], # fingers
         section, "elbow", attack, rhythm)
+  if tempo > SLOW: scale_49_major_one_octave(half(tempo), section, attack, rhythm, reps)
   make_card(locals())
   make_metronome(tempo)
 

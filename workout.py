@@ -2,13 +2,16 @@
 
 import os, inspect, re
 
+# constants 
+SLOW = 60
+
 # global state
 goalnum = 1
-outdir="drills"
+outdir = "drills"
 cards = set()
 mp3s = set()
-infile=""
-intempo=90
+infile = ""
+intempo = 90
 
 def goal(name, _infile="", _intempo=90):
   global outdir, goalnum, infile, intempo
@@ -24,6 +27,7 @@ def goal(name, _infile="", _intempo=90):
 
 def piece(tempo, name, reps=2, *deps):
   del deps
+  if tempo > SLOW: piece(half(tempo), name, reps)
   make_card(locals())
   make_metronome(tempo)
   if infile:
@@ -31,6 +35,7 @@ def piece(tempo, name, reps=2, *deps):
 
 def phrase(tempo, lyrics, rhythm, melody, mechanics="", start_secs=0, stop_secs=0, *deps):
   del deps
+  if tempo > SLOW: phrase(half(tempo), lyrics, rhythm, melody, mechanics, start_secs, stop_secs)
   make_card(locals())
   make_metronome(tempo)
   if infile:
