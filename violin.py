@@ -129,7 +129,7 @@ def string_switching(tempo, frm, to, section, fulcrum, reps=15):
   make_card(locals())
   make_metronome(tempo)
 
-def string_crossings(tempo, frm, to, section, fulcrum, attack, rhythm="ss", reps=15):
+def string_crossings(tempo, frm, to, section, fulcrum, attack, rhythm="ss", mechanics="du", reps=15):
   even_bowing(tempo, frm, section, attack, rhythm),
   even_bowing(tempo, to, section, attack, rhythm),
   string_switching(tempo, frm, to, section, fulcrum, reps)
