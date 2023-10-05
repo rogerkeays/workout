@@ -23,7 +23,6 @@ def goal(name, _infile="", _intempo=90):
   make_metronome(half(intempo))
 
 def piece(tempo, name, reps=2, *deps):
-  global infile, intempo
   del deps
   make_card(locals())
   make_metronome(tempo)
@@ -31,7 +30,6 @@ def piece(tempo, name, reps=2, *deps):
     make_whole(infile, tempo / intempo)
 
 def phrase(tempo, lyrics, rhythm, melody, mechanics="", start_secs=0, stop_secs=0, *deps):
-  global infile, intempo
   del deps
   make_card(locals())
   make_metronome(tempo)
@@ -82,7 +80,6 @@ def make_drone(note, instrument=57):
 # convert an abc score to an mp3 file
 #
 def make_mp3(score, transpose=0, tempo_percent=100):
-  global outdir
   key = str(locals())
   if key not in mp3s:
     mp3s.add(key)
