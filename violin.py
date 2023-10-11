@@ -40,21 +40,21 @@ def bow_benders(string, section, reps=15):
   make_card(locals())
 
 def string_grabbing(tempo, string, section, reps=15):
-  bow_benders(string, section)
   if tempo > SLOW: string_grabbing(half(tempo), string, section, reps)
+  bow_benders(string, section)
   make_card(locals())
   make_metronome(tempo)
 
 def bow_attack(tempo, string, section, attack, dir, reps=15):
-  string_grabbing(tempo, string, section)
   if tempo > SLOW: bow_attack(half(tempo), string, section, attack, dir, reps)
+  string_grabbing(tempo, string, section)
   make_card(locals())
   make_metronome(tempo)
 
 def even_bowing(tempo, string, section, attack, rhythm, reps=15):
+  if tempo > SLOW: even_bowing(half(tempo), string, section, attack, rhythm, reps)
   bow_attack(tempo, string, section, attack, "D")
   bow_attack(tempo, string, section, attack, "U")
-  if tempo > SLOW: even_bowing(half(tempo), string, section, attack, rhythm, reps)
   make_card(locals())
   make_metronome(tempo)
 
@@ -110,12 +110,12 @@ def hand_placement_block(string, frets, reps=5):
   make_card(locals())
 
 def half_scale(tempo, string, frets, section, attack, rhythm, reps=5):
+  if tempo > SLOW: half_scale(half(tempo), string, frets, section, attack, rhythm, reps)
   even_bowing(tempo, string, section, attack, rhythm)
   hand_placement_block(string, frets[1:])
   for i in range(1, 5):
     finger_hammers(string, frets[i], i)
   del i
-  if tempo > SLOW: half_scale(half(tempo), string, frets, section, attack, rhythm, reps)
   make_card(locals())
   make_mp3("""
   X:0
@@ -128,17 +128,17 @@ def half_scale(tempo, string, frets, section, attack, rhythm, reps=5):
   """, note_to_decimal("37") + ((string - 1) * 7) - note_to_decimal("40"), tempo)
 
 def string_switching(tempo, frm, to, section, fulcrum, reps=15):
+  if tempo > SLOW: string_switching(half(tempo), frm, to, section, fulcrum, reps)
   bow_hold()
   if frm > to: frm, to = to, frm
-  if tempo > SLOW: string_switching(half(tempo), frm, to, section, fulcrum, reps)
   make_card(locals())
   make_metronome(tempo)
 
 def string_crossings(tempo, frm, to, section, fulcrum, attack, rhythm="ss", mechanics="du", reps=15):
+  if tempo > SLOW: string_crossings(half(tempo), frm, to, section, fulcrum, attack, rhythm, mechanics, reps)
   even_bowing(tempo, frm, section, attack, rhythm),
   even_bowing(tempo, to, section, attack, rhythm),
   string_switching(tempo, frm, to, section, fulcrum, reps)
-  if tempo > SLOW: string_crossings(half(tempo), frm, to, section, fulcrum, attack, rhythm, mechanics, reps)
   make_card(locals())
   make_metronome(tempo)
 
@@ -158,6 +158,7 @@ def hand_jumps(from_string, from_frets, to_string, to_frets, reps=5):
   make_card(locals())
 
 def scale_49_major_one_octave(tempo, section, attack, rhythm, reps=3):
+  if tempo > SLOW: scale_49_major_one_octave(half(tempo), section, attack, rhythm, reps)
   half_scale(tempo, 2, [0,2,4,5,7], section, attack, rhythm, reps)
   half_scale(tempo, 1, [0,2,4,5,7], section, attack, rhythm, reps)
   hand_jumps(2, [2,4,5,7], 1, [2,4,5,7])
@@ -166,7 +167,6 @@ def scale_49_major_one_octave(tempo, section, attack, rhythm, reps=3):
         [0,2,4,5,7,2,4,5, 4,2,7,5,4,2,0], # frets
         [0,1,2,3,4,1,2,3, 2,1,4,3,2,1,0], # fingers
         section, "elbow", attack, rhythm)
-  if tempo > SLOW: scale_49_major_one_octave(half(tempo), section, attack, rhythm, reps)
   make_card(locals())
   make_metronome(tempo)
 

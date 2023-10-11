@@ -22,8 +22,6 @@ def goal(name, _infile="", _intempo=90):
   mp3s.clear()
   infile = _infile
   intempo = _intempo
-  make_metronome(intempo)
-  make_metronome(half(intempo))
 
 def piece(tempo, name, reps=2, *deps):
   del deps
