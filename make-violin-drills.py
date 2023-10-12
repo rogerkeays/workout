@@ -19,6 +19,7 @@ for tempo in [45, 90]:
       string_crossings(tempo, 4, 3, "m", "elbow", "detache", "ss", "ud"),
       string_crossings(tempo, 3, 2, "m", "elbow", "detache", "ss", "ud"),
       string_crossings(tempo, 2, 1, "m", "elbow", "detache", "ss", "ud"),
+      string_crossings(tempo, 1, 2, "m", "elbow", "detache", "ss", "ud"),
     ),
     phrase(tempo, "scared he turns round in a circle", "ssss ssss", "\\22 77 /22 \\77", "", 15.38, 21.53,
       string_crossings(tempo, 2, 3, "m", "elbow", "detache", "ss", "ud"),
@@ -49,12 +50,29 @@ for tempo in [45, 90]:
 
 goal("the-car-trip", 110, locate("1003.the-car-trip.mp3"))
 for tempo in [55, 110]:
-  single_string_crossings(tempo, "m", "elbow", "detache", "ss")
-  phrase(tempo, "little baby throwing up", "wwws", "/77 \\00 55 /0", "", 9.72, 12.04)
-  phrase(tempo, "mummy wants to throw up too", "wwws", "\\55 XX /55 0", "", 12.04, 14.22)
-  phrase(tempo, "pulling over", "ssss", "/7\\05X", "", 14.22, 16.52)
-  phrase(tempo, "clean it up", "sssx", "/550", "", 16.52, 19.46)
-  piece(tempo, "the-car-trip")
+  piece(tempo, "the-car-trip",
+    phrase(tempo, "little baby throwing up", "wwws", "/77 \\00 55 /0", "", 9.72, 12.04,
+      string_crossings(tempo, 1, 2, "m", "elbow", "detache", "ss", "ud"),
+      string_crossings(tempo, 2, 3, "m", "elbow", "detache", "ss", "ud"),
+      string_crossings(tempo, 3, 2, "m", "elbow", "detache", "ssx", "ud"),
+      string_crossings(tempo, 2, 3, "m", "elbow", "detache", "sxs", "du"),
+    ),
+    phrase(tempo, "mummy wants to throw up too", "wwws", "\\55 XX /55 0", "", 12.04, 14.22,
+      string_crossings(tempo, 3, 4, "m", "elbow", "detache", "ss", "du"),
+      string_crossings(tempo, 4, 3, "m", "elbow", "detache", "ss", "du"),
+      string_crossings(tempo, 3, 2, "m", "elbow", "detache", "ssx", "du"),
+      string_crossings(tempo, 2, 1, "m", "elbow", "detache", "sxs", "ud"),
+    ),
+    phrase(tempo, "pulling over", "ssss", "/7\\05X", "", 14.22, 16.52,
+      string_crossings(tempo, 1, 2, "m", "elbow", "detache", "ss", "du"),
+      string_crossings(tempo, 2, 3, "m", "elbow", "detache", "ss", "ud"),
+      string_crossings(tempo, 3, 4, "m", "elbow", "detache", "ss", "du"),
+      string_crossings(tempo, 4, 3, "m", "elbow", "detache", "ss", "ud"),
+    ),
+    phrase(tempo, "clean it up", "sssx", "/550", "", 16.52, 19.46,
+      string_crossings(tempo, 3, 2, "m", "elbow", "detache", "ss", "ud"),
+    ),
+  )
 
 goal("aeroplane-games", 110, locate("1004.aeroplane-games.mp3"))
 for tempo in [55, 110]:
