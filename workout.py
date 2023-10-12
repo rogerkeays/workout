@@ -6,7 +6,7 @@ import os, inspect, re
 SLOW = 60
 
 # global state
-goalnum = 1
+goalnum = 0
 outdir = "drills"
 cards = set()
 mp3s = set()
