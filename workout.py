@@ -39,7 +39,7 @@ def phrase(tempo, lyrics, rhythm, melody, mechanics="", start_secs=0, stop_secs=
   if infile:
     make_chunk(infile, start_secs, stop_secs, tempo / intempo)
 
-def make_card(params = {}):
+def make_card(params = {}, reps=5):
   name = inspect.stack()[1].function
   key = name + str(params)
   if key not in cards:
@@ -48,6 +48,7 @@ def make_card(params = {}):
       f.writelines(name + "\n")
       for key in params:
         f.write(key + "=" + str(params[key]) + "\n")
+      f.writelines("reps=" + str(reps))
 
 def drillnum():
   return str(len(cards)).zfill(4)
