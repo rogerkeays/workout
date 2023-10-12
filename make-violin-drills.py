@@ -6,6 +6,12 @@ from violin import *
 def locate(mp3):
  return os.environ['HOME'] + "/work/music/chunking/violin/" + mp3
 
+goal("warmup")
+make_drone("49")
+finger_stretches()
+jellyfish()
+itsy_bitsy_spider()
+
 goal("the-crawl", locate("1001.the-crawl.mp3"), 90)
 for tempo in [45, 90]:
   piece(tempo, "the-crawl",
