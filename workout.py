@@ -26,7 +26,6 @@ def goal(name, tempo=90, mp3=""):
 
 def piece(tempo, name, *deps):
   del deps
-  if tempo > SLOW: piece(half(tempo), name)
   make_card(locals(), 3)
   make_metronome(tempo)
   if goalmp3:
@@ -34,7 +33,6 @@ def piece(tempo, name, *deps):
 
 def phrase(tempo, lyrics, rhythm, melody, mechanics="", start_secs=0, stop_secs=0, *deps):
   del deps
-  if tempo > SLOW: phrase(half(tempo), lyrics, rhythm, melody, mechanics, start_secs, stop_secs)
   make_card(locals(), 3)
   make_metronome(tempo)
   if goalmp3:
