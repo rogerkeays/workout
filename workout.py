@@ -64,7 +64,7 @@ def make_metronome(tempo):
   %%MIDI program 115
   |:cccc|cccc|cccc|cccc|cccc|cccc|cccc|cccc:|
   |:cccc|cccc|cccc|cccc|cccc|cccc|cccc|cccc:|
-  """, 0, tempo)
+  """, 0, tempo, name=str(tempo))
 
 #
 # use MIDI instrument number (abc instrument number is zero-based)
@@ -79,16 +79,16 @@ def make_drone(note, instrument=57):
   K:C transpose={transpose}
   %%MIDI program {instrument}
   |C,,,,|
-  """.format(transpose=note_to_decimal(note), instrument=instrument - 1))
+  """.format(transpose=note_to_decimal(note), instrument=instrument - 1), name=note)
 
 #
 # convert an abc score to an mp3 file
 #
-def make_mp3(score, transpose=0, tempo_percent=100):
+def make_mp3(score, transpose=0, tempo_percent=100, name=""):
   key = str(locals())
   if key not in mp3s:
     mp3s.add(key)
-    outfile = goaldir + "/" + drillnum() + "B." + str(tempo_percent) + ".mp3"
+    outfile = goaldir + "/" + drillnum() + "B." + (name if name else str(tempo_percent)) + ".mp3"
     os.system("""echo '{score}' \
         | abc2midi /dev/stdin -o /dev/stdout \
         | timidity - --quiet --quiet --output-24bit -A800 -K{transpose} -T{tempo_percent} -Ow -o - \
