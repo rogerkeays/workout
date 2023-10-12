@@ -23,10 +23,10 @@ def goal(name, _infile="", _intempo=90):
   infile = _infile
   intempo = _intempo
 
-def piece(tempo, name, reps=2, *deps):
+def piece(tempo, name, *deps):
   del deps
-  if tempo > SLOW: piece(half(tempo), name, reps)
-  make_card(locals())
+  if tempo > SLOW: piece(half(tempo), name)
+  make_card(locals(), 3)
   make_metronome(tempo)
   if infile:
     make_whole(infile, tempo / intempo)
@@ -34,7 +34,7 @@ def piece(tempo, name, reps=2, *deps):
 def phrase(tempo, lyrics, rhythm, melody, mechanics="", start_secs=0, stop_secs=0, *deps):
   del deps
   if tempo > SLOW: phrase(half(tempo), lyrics, rhythm, melody, mechanics, start_secs, stop_secs)
-  make_card(locals())
+  make_card(locals(), 3)
   make_metronome(tempo)
   if infile:
     make_chunk(infile, start_secs, stop_secs, tempo / intempo)
