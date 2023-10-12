@@ -28,11 +28,12 @@ def no_hands_swivels(reps=15):
   make_card(locals())
 
 def violin_hold():
+  bow_hold()
   no_hands_swivels()
 
 def bow_placement(string, section, reps=5):
-  violin_hold()
   bow_hold()
+  violin_hold()
   make_card(locals())
 
 def bow_benders(string, section, reps=15):
