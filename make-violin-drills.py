@@ -76,10 +76,22 @@ for tempo in [55, 110]:
 
 goal("aeroplane-games", 110, locate("1004.aeroplane-games.mp3"))
 for tempo in [55, 110]:
-  single_string_crossings(tempo, "m", "elbow", "detache", "ss")
-  phrase(tempo, "flying upwards flying downwards", "wwww", "\\X/507 7\\05X", "", 9.59, 12.06)
-  phrase(tempo, "landing at the terminal", "wwws", "/550077\\0", "", 14.24, 17.01)
-  piece(tempo, "aeroplane-games")
+  piece(tempo, "aeroplane-games",
+    phrase(tempo, "flying upwards flying downwards", "wwww", "\\X/507 7\\05X", "", 9.59, 12.06,
+      string_crossings(tempo, 4, 3, "m", "elbow", "detache", "ss", "du"),
+      string_crossings(tempo, 3, 2, "m", "elbow", "detache", "ss", "ud"),
+      string_crossings(tempo, 2, 1, "m", "elbow", "detache", "ss", "du"),
+      string_crossings(tempo, 1, 2, "m", "elbow", "detache", "ss", "du"),
+      string_crossings(tempo, 2, 3, "m", "elbow", "detache", "ss", "ud"),
+      string_crossings(tempo, 3, 4, "m", "elbow", "detache", "ss", "du"),
+      string_crossings(tempo, 4, 3, "m", "elbow", "detache", "ss", "ud"),
+    ),
+    phrase(tempo, "landing at the terminal", "wwws", "/550077\\0", "", 14.24, 17.01,
+      string_crossings(tempo, 3, 2, "m", "elbow", "detache", "ss", "ud"),
+      string_crossings(tempo, 2, 1, "m", "elbow", "detache", "ss", "ud"),
+      string_crossings(tempo, 1, 2, "m", "elbow", "detache", "ssx", "ud"),
+    ),
+  )
 
 #goal("first-finger-etudes")
 #fret_hitting(2, 2)
