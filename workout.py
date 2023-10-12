@@ -77,7 +77,7 @@ def make_drone(note, instrument=57):
   Q:10
   K:C transpose={transpose}
   %%MIDI program {instrument}
-  |A,,,,,|
+  |C,,,,|
   """.format(transpose=note_to_decimal(note), instrument=instrument - 1))
 
 #
