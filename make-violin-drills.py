@@ -12,7 +12,7 @@ finger_stretches()
 jellyfish()
 itsy_bitsy_spider()
 
-goal("the-crawl", locate("1001.the-crawl.mp3"), 90)
+goal("the-crawl", 90, locate("1001.the-crawl.mp3"))
 for tempo in [45, 90]:
   piece(tempo, "the-crawl",
     phrase(tempo, "little baby crawls to danger", "ssss ssss", "00 /77 22 99", "", 10.16, 15.38,
@@ -26,7 +26,7 @@ for tempo in [45, 90]:
     )
   )
 
-goal("baby-steps", locate("1002.baby-steps.mp3"), 90)
+goal("baby-steps", 90, locate("1002.baby-steps.mp3"))
 for tempo in [45, 90]:
   piece(tempo, "baby-steps",
     phrase(tempo, "left foot step", "sssx", "00/7", "", 10.30, 13.05,
@@ -47,7 +47,7 @@ for tempo in [45, 90]:
     ),
   )
 
-goal("the-car-trip", locate("1003.the-car-trip.mp3"), 110)
+goal("the-car-trip", 110, locate("1003.the-car-trip.mp3"))
 for tempo in [55, 110]:
   single_string_crossings(tempo, "m", "elbow", "detache", "ss")
   phrase(tempo, "little baby throwing up", "wwws", "/77 \\00 55 /0", "", 9.72, 12.04)
@@ -56,24 +56,24 @@ for tempo in [55, 110]:
   phrase(tempo, "clean it up", "sssx", "/550", "", 16.52, 19.46)
   piece(tempo, "the-car-trip")
 
-goal("aeroplane-games", locate("1004.aeroplane-games.mp3"), 110)
+goal("aeroplane-games", 110, locate("1004.aeroplane-games.mp3"))
 for tempo in [55, 110]:
   single_string_crossings(tempo, "m", "elbow", "detache", "ss")
   phrase(tempo, "flying upwards flying downwards", "wwww", "\\X/507 7\\05X", "", 9.59, 12.06)
   phrase(tempo, "landing at the terminal", "wwws", "/550077\\0", "", 14.24, 17.01)
   piece(tempo, "aeroplane-games")
 
-goal("first-finger-etudes")
-fret_hitting(2, 2)
+#goal("first-finger-etudes")
+#fret_hitting(2, 2)
 
-goal("second-finger-etudes")
-fret_hitting(4, 2)
+#goal("second-finger-etudes")
+#fret_hitting(4, 2)
 
-goal("third-and-fourth-finger-etudes")
-fret_hitting(5, 3)
-fret_hitting(7, 4)
+#goal("third-and-fourth-finger-etudes")
+#fret_hitting(5, 3)
+#fret_hitting(7, 4)
 
-goal("lightly-row", locate("1024.lightly-row.mp3"), 90)
+goal("lightly-row", 90, locate("1024.lightly-row.mp3"))
 for tempo in [45, 90]:
   scale_49_major_one_octave(tempo, "m", "detache", "ss")
   phrase(tempo, "lightly row, flamingo", "sssx sssx", "/744 522", "", 6.92, 10.52)

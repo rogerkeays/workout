@@ -6,45 +6,46 @@ import os, inspect, re
 SLOW = 60
 
 # global state
+goalshome = "drills"
+goaldir = ""
 goalnum = 0
-outdir = "drills"
+goaltempo = 90
+goalmp3 = ""
 cards = set()
 mp3s = set()
-infile = ""
-intempo = 90
 
-def goal(name, _infile="", _intempo=90):
-  global outdir, goalnum, infile, intempo
-  outdir="00." + str(goalnum).zfill(2) + "." + name
-  os.makedirs(outdir, exist_ok=True)
+def goal(name, tempo=90, mp3=""):
+  global goaldir, goalnum, goalmp3, goaltempo
+  goaldir = goalshome + "/00." + str(goalnum).zfill(2) + "." + name
+  os.makedirs(goaldir, exist_ok=True)
   goalnum += 1
+  goalmp3 = mp3
+  goaltempo = tempo
   cards.clear()
   mp3s.clear()
-  infile = _infile
-  intempo = _intempo
 
 def piece(tempo, name, *deps):
   del deps
   if tempo > SLOW: piece(half(tempo), name)
   make_card(locals(), 3)
   make_metronome(tempo)
-  if infile:
-    make_whole(infile, tempo / intempo)
+  if goalmp3:
+    make_whole(goalmp3, tempo / goaltempo)
 
 def phrase(tempo, lyrics, rhythm, melody, mechanics="", start_secs=0, stop_secs=0, *deps):
   del deps
   if tempo > SLOW: phrase(half(tempo), lyrics, rhythm, melody, mechanics, start_secs, stop_secs)
   make_card(locals(), 3)
   make_metronome(tempo)
-  if infile:
-    make_chunk(infile, start_secs, stop_secs, tempo / intempo)
+  if goalmp3:
+    make_chunk(goalmp3, start_secs, stop_secs, tempo / goaltempo)
 
 def make_card(params = {}, reps=5):
   name = inspect.stack()[1].function
   key = name + str(params)
   if key not in cards:
     cards.add(key)
-    with open(outdir + "/" + drillnum() + "A.txt", "w") as f:
+    with open(goaldir + "/" + drillnum() + "A.txt", "w") as f:
       f.writelines(name + "\n")
       for key in params:
         f.write(key + "=" + str(params[key]) + "\n")
@@ -87,7 +88,7 @@ def make_mp3(score, transpose=0, tempo_percent=100):
   key = str(locals())
   if key not in mp3s:
     mp3s.add(key)
-    outfile = outdir + "/" + drillnum() + "B." + str(tempo_percent) + ".mp3"
+    outfile = goaldir + "/" + drillnum() + "B." + str(tempo_percent) + ".mp3"
     os.system("""echo '{score}' \
         | abc2midi /dev/stdin -o /dev/stdout \
         | timidity - --quiet --quiet --output-24bit -A800 -K{transpose} -T{tempo_percent} -Ow -o - \
@@ -98,7 +99,7 @@ def make_chunk(filename, start_secs, stop_secs, tempo_mult, padding=2.5, silence
   ss = start_secs - padding
   to = stop_secs + padding
   st = stop_secs - start_secs + padding
-  outfile = outdir + "/" + drillnum() + "C.mp3"
+  outfile = goaldir + "/" + drillnum() + "C.mp3"
   os.system("""
   ffmpeg -nostdin -loglevel error -ss {ss} -to {to} -i {filename} -ac 1 -ar 48000 -q 4 \
          -af afade=d={padding},afade=t=out:st={st}:d={padding},atempo={tempo_mult},adelay={silence}s:all=true \
@@ -106,7 +107,7 @@ def make_chunk(filename, start_secs, stop_secs, tempo_mult, padding=2.5, silence
          """.format(**locals()))
 
 def make_whole(filename, tempo_mult, silence=0):
-  outfile = outdir + "/" + drillnum() + "C.mp3"
+  outfile = goaldir + "/" + drillnum() + "C.mp3"
   os.system("""
   ffmpeg -nostdin -loglevel error -i {filename} -ac 1 -ar 48000 -q 4 \
          -af atempo={tempo_mult},adelay={silence}s:all=true \
