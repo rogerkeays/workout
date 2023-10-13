@@ -1,6 +1,40 @@
 #!/usr/bin/env python3
 
+import math
 from workout import *
+
+# break down a phrase into drills
+def phrase(tempo, lyrics, strings, rhythm="", direction="", section="", fulcrum="", attack="",
+    dynamics="", frets="", fingers="", start=0, stop=0):
+
+  # capture parameters
+  params = locals()
+  del params["start"]
+  del params["stop"]
+
+  # default values
+  n = len(strings)
+  if not rhythm: rhythm = "s" * n
+  if not direction: direction = "du" * math.ceil(n/2)
+  if not section: section = "m" * n
+  if not fulcrum: fulcrum = "e" * n
+  if not attack: attack = "d" * n
+  if not dynamics: dynamics = "m" * n
+  if not frets: frets = "0" * n
+  if not fingers: fingers = "0" * n
+
+  # pick out string crossings
+  for i in range(len(strings) - 1):
+    j = i + 2
+    frm = int(strings[i])
+    to = int(strings[i + 1])
+    if frm != to: string_crossings(tempo, frm, to, section[i:j], fulcrum[i], attack[i:j], rhythm[i:j], direction[i:j])
+
+  # card for this phrase
+  make_card(params, 5)
+  make_metronome(tempo)
+  if goalmp3:
+    make_chunk(goalmp3, start, stop, tempo / goaltempo)
 
 def jellyfish():
   make_card(locals(), 15)
@@ -54,8 +88,8 @@ def bow_attack(tempo, string, section, attack, dir):
 
 def even_bowing(tempo, string, section, attack, rhythm):
   if tempo > SLOW: even_bowing(half(tempo), string, section, attack, rhythm)
-  bow_attack(tempo, string, section, attack, "D")
-  bow_attack(tempo, string, section, attack, "U")
+  bow_attack(tempo, string, section[0], attack[0], "D")
+  bow_attack(tempo, string, section[0], attack[0], "U")
   make_card(locals(), 15)
   make_metronome(tempo)
 

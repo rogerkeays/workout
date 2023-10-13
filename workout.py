@@ -31,13 +31,6 @@ def piece(tempo, name, *deps):
   if goalmp3:
     make_whole(goalmp3, tempo / goaltempo)
 
-def phrase(tempo, lyrics, rhythm, melody, mechanics="", start_secs=0, stop_secs=0, *deps):
-  del deps
-  make_card(locals(), 3)
-  make_metronome(tempo)
-  if goalmp3:
-    make_chunk(goalmp3, start_secs, stop_secs, tempo / goaltempo)
-
 def make_card(params = {}, reps=5):
   name = inspect.stack()[1].function
   key = name + str(params)
@@ -46,7 +39,7 @@ def make_card(params = {}, reps=5):
     with open(goaldir + "/" + drillnum() + "A.txt", "w") as f:
       f.writelines(name + "\n")
       for key in params:
-        f.write(key + "=" + str(params[key]) + "\n")
+        if params[key]: f.write(key + "=" + str(params[key]) + "\n")
       f.writelines("reps=" + str(reps))
 
 def drillnum():
