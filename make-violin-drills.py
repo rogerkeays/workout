@@ -22,8 +22,8 @@ for tempo in [45, 90]:
 goal("baby-steps", 90, locate("1002.baby-steps.mp3"))
 for tempo in [45, 90]:
   piece(tempo, "baby-steps",
-    phrase(tempo, "left foot step (right)", "4432", "sshs", start=10.30, stop=13.05),
-    phrase(tempo, "right foot step (looks)", "2232", "sshs", "udud", start=13.05, stop=15.67),
+    phrase(tempo, "left foot step (right)", "4432", "QQHQ", start=10.30, stop=13.05),
+    phrase(tempo, "right foot step (looks)", "2232", "QQHQ", "UDUD", start=13.05, stop=15.67),
     phrase(tempo, "looks for mummy (fall)", "22112", start=15.67, stop=18.30),
     phrase(tempo, "falling down", "234", start=18.30, stop=21.75)
   )
@@ -31,17 +31,17 @@ for tempo in [45, 90]:
 goal("the-car-trip", 110, locate("1003.the-car-trip.mp3"))
 for tempo in [55, 110]:
   piece(tempo, "the-car-trip",
-    phrase(tempo, "little baby throwing up (mummy)", "11223323", "sssssshs", start=9.72, stop=12.04),
-    phrase(tempo, "mummy wants to throw up too (pull)", "33443321", "sssssshs", "udududud", start=12.04, stop=14.22),
+    phrase(tempo, "little baby throwing up (mummy)", "11223323", "QQQQQQHQ", start=9.72, stop=12.04),
+    phrase(tempo, "mummy wants to throw up too (pull)", "33443321", "QQQQQQHQ", "UDUDUDUD", start=12.04, stop=14.22),
     phrase(tempo, "pulling over (clean)", "12343", start=14.22, stop=16.52),
-    phrase(tempo, "clean it up", "332", "ssh", start=16.52, stop=19.46)
+    phrase(tempo, "clean it up", "332", "QQH", start=16.52, stop=19.46)
   )
 
 goal("aeroplane-games", 110, locate("1004.aeroplane-games.mp3"))
 for tempo in [55, 110]:
   piece(tempo, "aeroplane-games",
-    phrase(tempo, "flying upwards flying downwards (land)", "432112343", "iiiiiiiii", start=9.59, stop=12.06),
-    phrase(tempo, "landing at the terminal", "3322112", "iiiiiii", start=14.24, stop=17.01)
+    phrase(tempo, "flying upwards flying downwards (land)", "432112343", "EEEEEEEEE", start=9.59, stop=12.06),
+    phrase(tempo, "landing at the terminal", "3322112", "EEEEEEE", start=14.24, stop=17.01)
   )
 
 #goal("first-finger-etudes")
