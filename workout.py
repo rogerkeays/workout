@@ -4,6 +4,7 @@ import os, inspect, re
 
 # constants 
 SLOW = 60
+MAKE_MP3S = True
 
 # global state
 goalshome = "drills"
@@ -37,10 +38,9 @@ def make_card(params = {}, reps=5):
   if key not in cards:
     cards.add(key)
     with open(goaldir + "/" + drillnum() + "A.txt", "w") as f:
-      f.writelines(name + "\n")
+      f.writelines(name + " x" + str(reps) + "\n")
       for key in params:
         if params[key]: f.write(key + "=" + str(params[key]) + "\n")
-      f.writelines("reps=" + str(reps))
 
 def drillnum():
   return str(len(cards)).zfill(4)
@@ -76,34 +76,37 @@ def make_drone(note, instrument=57):
 # convert an abc score to an mp3 file
 #
 def make_mp3(score, transpose=0, tempo_percent=100, name=""):
-  key = str(locals())
-  if key not in mp3s:
-    mp3s.add(key)
-    outfile = goaldir + "/" + drillnum() + "B." + (name if name else str(tempo_percent)) + ".mp3"
-    os.system("""echo '{score}' \
-        | abc2midi /dev/stdin -o /dev/stdout \
-        | timidity - --quiet --quiet --output-24bit -A800 -K{transpose} -T{tempo_percent} -Ow -o - \
-        | ffmpeg -loglevel error -i - -ac 1 -ab 64k "{outfile}"
-        """.format(**locals()))
+  if MAKE_MP3S:
+    key = str(locals())
+    if key not in mp3s:
+      mp3s.add(key)
+      outfile = goaldir + "/" + drillnum() + "B." + (name if name else str(tempo_percent)) + ".mp3"
+      os.system("""echo '{score}' \
+          | abc2midi /dev/stdin -o /dev/stdout \
+          | timidity - --quiet --quiet --output-24bit -A800 -K{transpose} -T{tempo_percent} -Ow -o - \
+          | ffmpeg -loglevel error -i - -ac 1 -ab 64k "{outfile}"
+          """.format(**locals()))
 
 def make_chunk(filename, start_secs, stop_secs, tempo_mult, padding=2.5, silence=5):
-  ss = start_secs - padding
-  to = stop_secs + padding
-  st = stop_secs - start_secs + padding
-  outfile = goaldir + "/" + drillnum() + "C.mp3"
-  os.system("""
-  ffmpeg -nostdin -loglevel error -ss {ss} -to {to} -i {filename} -ac 1 -ar 48000 -q 4 \
-         -af afade=d={padding},afade=t=out:st={st}:d={padding},atempo={tempo_mult},adelay={silence}s:all=true \
-         "{outfile}"
-         """.format(**locals()))
+  if MAKE_MP3S:
+    ss = start_secs - padding
+    to = stop_secs + padding
+    st = stop_secs - start_secs + padding
+    outfile = goaldir + "/" + drillnum() + "C.mp3"
+    os.system("""
+    ffmpeg -nostdin -loglevel error -ss {ss} -to {to} -i {filename} -ac 1 -ar 48000 -q 4 \
+           -af afade=d={padding},afade=t=out:st={st}:d={padding},atempo={tempo_mult},adelay={silence}s:all=true \
+           "{outfile}"
+           """.format(**locals()))
 
 def make_whole(filename, tempo_mult, silence=0):
-  outfile = goaldir + "/" + drillnum() + "C.mp3"
-  os.system("""
-  ffmpeg -nostdin -loglevel error -i {filename} -ac 1 -ar 48000 -q 4 \
-         -af atempo={tempo_mult},adelay={silence}s:all=true \
-         "{outfile}"
-         """.format(**locals()))
+  if MAKE_MP3S:
+    outfile = goaldir + "/" + drillnum() + "C.mp3"
+    os.system("""
+    ffmpeg -nostdin -loglevel error -i {filename} -ac 1 -ar 48000 -q 4 \
+           -af atempo={tempo_mult},adelay={silence}s:all=true \
+           "{outfile}"
+           """.format(**locals()))
 
 # add base-12 notes and intervals
 def add(note, interval):
