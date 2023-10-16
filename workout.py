@@ -38,9 +38,10 @@ def make_card(params = {}, reps=5):
   if key not in cards:
     cards.add(key)
     with open(goaldir + "/" + drillnum() + "A.txt", "w") as f:
-      f.writelines(name + " x" + str(reps) + "\n")
+      f.writelines(name + "\n")
       for key in params:
         if params[key]: f.write(key + "=" + str(params[key]) + "\n")
+      f.write("reps=" + str(reps))
 
 def drillnum():
   return str(len(cards)).zfill(4)
