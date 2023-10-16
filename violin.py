@@ -116,12 +116,12 @@ def air_hammers(finger):
 
 def bow_attack(tempo, string, direction, section, fulcrum, attack, dynamic):
   if tempo > SLOW: bow_attack(half(tempo), string, direction, section, fulcrum, attack, dynamic)
-  string_grabbing(tempo, string, section)
+  string_yanking(tempo, string, direction, section)
   make_card(locals(), 15)
   make_metronome(tempo)
 
-def string_grabbing(tempo, string, section):
-  if tempo > SLOW: string_grabbing(half(tempo), string, section)
+def string_yanking(tempo, string, direction, section):
+  if tempo > SLOW: string_yanking(half(tempo), string, direction, section)
   bow_benders(string, section)
   make_card(locals(), 15)
   make_metronome(tempo)
