@@ -109,10 +109,10 @@ def drop_to_harmonic(string, finger):
 
 def finger_hammers(string, finger):
   air_hammers(finger)
-  make_card(locals(), 15)
+  make_card(locals(), 30)
 
 def air_hammers(finger):
-  make_card(locals(), 15)
+  make_card(locals(), 30)
 
 def bow_attack(tempo, string, direction, section, fulcrum, attack, dynamic):
   if tempo > SLOW: bow_attack(half(tempo), string, direction, section, fulcrum, attack, dynamic)
