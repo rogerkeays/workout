@@ -38,7 +38,7 @@ for tempo in [55, 110]:
   )
 
 goal("aeroplane-games", 110, locate("1004.aeroplane-games.mp3"))
-for tempo in [55, 110]:
+for tempo in [30, 55, 110]:
   piece(tempo, "aeroplane-games",
     phrase(tempo, "flying upwards flying downwards (land)", "432112343", "EEEEEEEEE", start=9.59, stop=12.06),
     phrase(tempo, "landing at the terminal", "3322112", "EEEEEEE", start=14.24, stop=17.01)
