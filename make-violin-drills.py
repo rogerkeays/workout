@@ -54,14 +54,14 @@ for tempo in [55, 110]:
 #fret_hitting(5, 3)
 #fret_hitting(7, 4)
 
-#goal("lightly-row", 90, locate("1024.lightly-row.mp3"))
-#for tempo in [45, 90]:
-#  scale_49_major_one_octave(tempo, "m", "detache", "ss")
-#  phrase(tempo, "lightly row, flamingo", "sssx sssx", "/744 522", "", 6.92, 10.52)
-#  phrase(tempo, "down the river we will go", "ssss sssx", "0245 777", "", 10.52, 14.12)
-#  phrase(tempo, "always rowing, never slowing", "ssss ssss", "7444 5222", "", 14.12, 17.60)
-#  phrase(tempo, "in my bright new red canoe", "ssss sssx", "0477 444", "", 17.60, 21.23)
-#  phrase(tempo, "see the fishes swimming by", "ssss sssx", "2222 245", "", 21.23, 24.85)
-#  phrase(tempo, "see the birds up in the sky", "ssss sssx", "4444 457", "", 24.85, 28.58)
-#  piece(tempo, "lightly-row")
+goal("lightly-row", 90, locate("1024.lightly-row.mp3"))
+for tempo in [45, 90]:
+  piece(tempo, "lightly-row",
+    phrase(tempo, "lightly row, flamingo", "222222", "QQHQQH", frets="744522", fingers="422311", handshapes="WWWWWW", start=6.92, stop=10.52),
+    phrase(tempo, "down the river we will go", "2222222", "QQQQQQH", frets="0245777", fingers="0123444", handshapes="WWWWWWW", start=10.52, stop=14.12),
+    phrase(tempo, "always rowing, never slowing", "22222222", "QQQQQQQQ", frets="74445222", fingers="42223111", handshapes="WWWWWWWW", start=14.12, stop=17.60),
+    phrase(tempo, "in my bright new red canoe", "2222222", "QQQQQQH", frets="0477444", fingers="0244222", handshapes="WWWWWWW", start=17.60, stop=21.23),
+    phrase(tempo, "see the fishes swimming by", "2222222", "QQQQQQH", frets="2222245", fingers="1111123", handshapes="WWWWWWW", start=21.23, stop=24.85),
+    phrase(tempo, "see the birds up in the sky", "2222222", "QQQQQQH", frets="4444457", fingers="2222234", handshapes="WWWWWWW", start=24.85, stop=28.58)
+  )
 
