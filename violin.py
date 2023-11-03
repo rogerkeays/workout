@@ -74,7 +74,7 @@ def phrase(tempo, lyrics, rhythm, strings="", handshapes="", bases="", fingers="
   make_chunk(start, stop, tempo)
 
 def string_crossings(tempo, rhythm, strings, direction, section, fulcrum, attack, dynamics):
-  if tempo > SLOW: string_crossings(half(tempo), rhythm, strings, direction, section, fulcrum, attack, dynamics)
+  #if tempo > SLOW: string_crossings(half(tempo), rhythm, strings, direction, section, fulcrum, attack, dynamics)
   bow_attack(tempo, strings[0], direction[0], section[0], fulcrum[0], attack[0], dynamics[0])
   bow_attack(tempo, strings[1], direction[1], section[1], fulcrum[1], attack[1], dynamics[1])
   string_switching(tempo, strings[0], strings[1], section, fulcrum)
@@ -82,14 +82,14 @@ def string_crossings(tempo, rhythm, strings, direction, section, fulcrum, attack
   make_metronome(tempo)
 
 def string_switching(tempo, frm, to, section, fulcrum):
-  if tempo > SLOW: string_switching(half(tempo), frm, to, section, fulcrum)
+  #if tempo > SLOW: string_switching(half(tempo), frm, to, section, fulcrum)
   if frm > to: frm, to = to, frm
   bow_hold()
   make_card(locals(), 15)
   make_metronome(tempo)
 
 def bow_changes(tempo, rhythm, string, direction, section, fulcrum, attack, dynamic):
-  if tempo > SLOW: bow_changes(half(tempo), rhythm, string, direction, section, fulcrum, attack, dynamic)
+  #if tempo > SLOW: bow_changes(half(tempo), rhythm, string, direction, section, fulcrum, attack, dynamic)
   bow_attack(tempo, string, direction[0], section[0], fulcrum[0], attack[0], dynamic[0]),
   bow_attack(tempo, string, direction[1], section[1], fulcrum[1], attack[1], dynamic[1]),
   make_card(locals(), 15)
@@ -103,7 +103,6 @@ def note(tempo, string, fret, finger, direction, section, fulcrum, attack, dynam
 
 def pitch_hitting(string, fret, finger):
   if int(fret) != 0 and int(finger) != 0:
-    bow_attack(half(goaltempo), string, "D", "M", "L", "A", "V")
     finger_placement(string, finger)
     note = decimal_to_note(note_to_decimal("5Y") - (int(string) * 7) + int(fret))
     make_card(locals(), 5)
@@ -120,13 +119,13 @@ def air_hammers(finger):
   make_card(locals(), 30)
 
 def bow_attack(tempo, string, direction, section, fulcrum, attack, dynamic):
-  if tempo > SLOW: bow_attack(half(tempo), string, direction, section, fulcrum, attack, dynamic)
+  #if tempo > SLOW: bow_attack(half(tempo), string, direction, section, fulcrum, attack, dynamic)
   string_yanking(tempo, string, direction, section)
   make_card(locals(), 15)
   make_metronome(tempo)
 
 def string_yanking(tempo, string, direction, section):
-  if tempo > SLOW: string_yanking(half(tempo), string, direction, section)
+  #if tempo > SLOW: string_yanking(half(tempo), string, direction, section)
   bow_benders(string, section)
   make_card(locals(), 15)
   make_metronome(tempo)
@@ -178,8 +177,8 @@ def hand_jumps(tempo, strings, shapes, bases):
 
 def jankin_switches(tempo, from_shape, to_shape):
   if from_shape != "N" and to_shape != "N" and from_shape != to_shape:
-    jankin(tempo, from_shape)
-    jankin(tempo, to_shape)
+    jankin(from_shape)
+    jankin(to_shape)
     make_card(locals(), 5)
 
 def finger_wriggles(tempo, from_shape, to_shape):
@@ -225,7 +224,7 @@ def finger_stretches():
 ###
 
 def scale_49_major_one_octave(tempo, section, attack, rhythm):
-  if tempo > SLOW: scale_49_major_one_octave(half(tempo), section, attack, rhythm)
+  #if tempo > SLOW: scale_49_major_one_octave(half(tempo), section, attack, rhythm)
   half_scale(tempo, 2, [0,2,4,5,7], section, attack, rhythm)
   half_scale(tempo, 1, [0,2,4,5,7], section, attack, rhythm)
   hand_jumps(2, [2,4,5,7], 1, [2,4,5,7])
@@ -245,7 +244,7 @@ def scale(tempo, base, strings, frets, fingers, section, fulcrum, attack, rhythm
       finger_hammers(strings[i], frets[i], fingers[i])
 
 def half_scale(tempo, string, frets, section, attack, rhythm):
-  if tempo > SLOW: half_scale(half(tempo), string, frets, section, attack, rhythm)
+  #if tempo > SLOW: half_scale(half(tempo), string, frets, section, attack, rhythm)
   even_bowing(tempo, string, section, attack, rhythm)
   hand_placement_block(string, frets[1:])
   for i in range(1, 5):
