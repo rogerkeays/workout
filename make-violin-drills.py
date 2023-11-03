@@ -15,11 +15,11 @@ itsy_bitsy_spider()
 goal("lightly-row", 90, locate("1024.lightly-row.mp3"))
 for tempo in [45, 90]:
   piece(tempo, "lightly-row",
-    phrase(tempo, "lightly row, flamingo", "QQHQQH", "2", "W", "744522", "422311", start=6.92, stop=10.52),
-    phrase(tempo, "down the river we will go", "QQQQQQH", "2", "W", "0245777", "0123444", start=10.52, stop=14.12),
-    phrase(tempo, "always rowing, never slowing", "QQQQQQQQ", "2", "W", "74445222", "42223111", start=14.12, stop=17.60),
-    phrase(tempo, "in my bright new red canoe", "QQQQQQH", "2", "W", "0477444", "0244222", start=17.60, stop=21.23),
-    phrase(tempo, "see the fishes swimming by", "QQQQQQH", "2", "W", "2222245", "1111123", start=21.23, stop=24.85),
-    phrase(tempo, "see the birds up in the sky", "QQQQQQH", "2", "W", "4444457", "2222234", start=24.85, stop=28.58)
+    phrase(tempo, "lightly row, flamingo", "QQHQQH", "2", "W", "2", "422311", start=6.92, stop=10.52),
+    phrase(tempo, "down the river we will go", "QQQQQQH", "2", "W", "2", "0123444", start=10.52, stop=14.12),
+    phrase(tempo, "always rowing, never slowing", "QQQQQQQQ", "2", "W", "2", "42223111", start=14.12, stop=17.60),
+    phrase(tempo, "in my bright new red canoe", "QQQQQQH", "2", "W", "2", "0244222", start=17.60, stop=21.23),
+    phrase(tempo, "see the fishes swimming by", "QQQQQQH", "2", "W", "2", "1111123", start=21.23, stop=24.85),
+    phrase(tempo, "see the birds up in the sky", "QQQQQQH", "2", "W", "2", "2222234", start=24.85, stop=28.58)
   )
 

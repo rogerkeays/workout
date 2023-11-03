@@ -3,23 +3,23 @@
 #
 # abbreviations
 #
-# strings     1234
 # rhythm      SEQHW    Sixteenth, Eight, Quarter, Half, Whole
+# strings     1234
+# handshape   PGWCADK  Porcupine, Gun, Westside, Chicken, Alien, Dog, ducK
+# frets       0..24
+# fingers     01234
 # direction   DU       Down, Up
 # section     FMT      Frog, Middle, Tip
 # fulcrum     LRI      eLbow, wRist, fIngers
 # attack      AG       detAche, leGato
 # dynamics    VC       eVen, staCcato
-# frets       0..24
-# fingers     01234
-# handshapes  npwgca   none, porcupine, westside, gun, chicken, alien
 #
 
 import math
 from workout import *
 
 # break down a phrase into drills
-def phrase(tempo, lyrics, rhythm, strings="", handshapes="", frets="", fingers="",
+def phrase(tempo, lyrics, rhythm, strings="", handshapes="", bases="", fingers="",
     direction="", section="", fulcrum="", attack="", dynamics="",
     start=0, stop=0):
 
@@ -31,26 +31,26 @@ def phrase(tempo, lyrics, rhythm, strings="", handshapes="", frets="", fingers="
   # default values
   n = len(rhythm)
   if not strings: strings = "2" * n
+  if not handshapes: handshapes = "W" * n
+  if not bases: bases = "2" * n
+  if not fingers: fingers = "0" * n
   if not direction: direction = "DU" * math.ceil(n/2)
   if not section: section = "M" * n
   if not fulcrum: fulcrum = "L" * n
   if not attack: attack = "A" * n
   if not dynamics: dynamics = "V" * n
-  if not frets: frets = "0" * n
-  if not fingers: fingers = "0" * n
-  if not handshapes: handshapes = "n" * n
 
   # expand single-value parameters
   if n > 1:
     if len(strings) == 1: strings = strings * n
     if len(handshapes) == 1: handshapes = handshapes * n
+    if len(bases) == 1: bases = bases * n
 
   # scan phrase
   for i in range(n):
 
     # atomic drills
-    pitch_hitting(strings[i], frets[i], fingers[i])
-    hand_placement_block(tempo, strings[i], handshapes[i])
+    hand_placement_block(tempo, strings[i], handshapes[i], bases[i])
 
     # transition drills
     if i > 0:
@@ -60,7 +60,7 @@ def phrase(tempo, lyrics, rhythm, strings="", handshapes="", frets="", fingers="
         bow_changes(tempo, rhythm[h:j], strings[h], direction[h:j], section[h:j], fulcrum[h:j], attack[h:j], dynamics[h:j])
       else:
         string_crossings(tempo, rhythm[h:j], strings[h:j], direction[h:j], section[h:j], fulcrum[h:j], attack[h:j], dynamics[h:j])
-        hand_jumps(tempo, strings[h:j], handshapes[h:j])
+        hand_jumps(tempo, strings[h:j], handshapes[h:j], bases[h:j])
       if handshapes[i] != handshapes[h]:
         jankin_switches(tempo, handshapes[h:j])
 
@@ -92,7 +92,7 @@ def bow_changes(tempo, rhythm, string, direction, section, fulcrum, attack, dyna
   make_card(locals(), 15)
   make_metronome(tempo)
 
-def note(tempo, string, direction, section, fulcrum, attack, dynamic, fret, finger):
+def note(tempo, string, fret, finger, direction, section, fulcrum, attack, dynamic):
   bow_attack(tempo, string, direction, section, fulcrum, attack, dynamic)
   if int(fret) != 0 and int(finger) != 0:
     pitch_hitting(string, fret, finger)
@@ -169,44 +169,51 @@ def vertical_bow_raises():
 def jellyfish():
   make_card(locals(), 15)
 
-def hand_jumps(tempo, strings, shapes):
-  if shapes[0] != "n" and shapes[1] != "n":
-    hand_placement_block(tempo, strings[0], shapes[0])
-    hand_placement_block(tempo, strings[1], shapes[1])
-    jankin_switches(tempo, shapes[0], shapes[1])
-    finger_wriggles(tempo, shapes[0], shapes[1])
-    make_card(locals(), 5)
+def hand_jumps(tempo, strings, shapes, bases):
+  hand_placement_block(tempo, strings[0], shapes[0], bases[0])
+  hand_placement_block(tempo, strings[1], shapes[1], bases[0])
+  jankin_switches(tempo, shapes[0], shapes[1])
+  finger_wriggles(tempo, shapes[0], shapes[1])
+  make_card(locals(), 5)
 
 def jankin_switches(tempo, from_shape, to_shape):
-  if from_shape != "n" and from_shape != to_shape:
+  if from_shape != to_shape:
     jankin(tempo, from_shape)
     jankin(tempo, to_shape)
     make_card(locals(), 5)
 
 def finger_wriggles(tempo, from_shape, to_shape):
-  if from_shape != "n" and from_shape != to_shape:
+  if from_shape != to_shape:
     make_card(locals(), 5)
 
-def hand_placement_block(tempo, string, shape):
-  if shape != "n":
-    hand_placement_individual(tempo, string, shape)
-    make_card(locals(), 5)
+def hand_placement_block(tempo, string, shape, base):
+  hand_placement_individual(tempo, string, shape, base)
+  make_card(locals(), 5)
 
-def hand_placement_individual(tempo, string, shape):
-  if shape != "n":
-    violin_hold()
-    handshape_curls(shape)
-    make_card(locals(), 5)
+def hand_placement_individual(tempo, string, shape, base):
+  violin_hold()
+  handshape_curls(shape)
+  if shape == "P": frets = [0, 2, 4, 6]
+  elif shape == "G": frets = [0, 1, 3, 5]
+  elif shape == "W": frets = [0, 2, 3, 5]
+  elif shape == "C": frets = [0, 2, 4, 5]
+  elif shape == "A": frets = [0, 1, 3, 4]
+  elif shape == "D": frets = [0, 1, 2, 4]
+  elif shape == "K": frets = [0, 2, 3, 4]
+  pitch_hitting(string, frets[0] + int(base), 1)
+  pitch_hitting(string, frets[1] + int(base), 2)
+  pitch_hitting(string, frets[2] + int(base), 3)
+  pitch_hitting(string, frets[3] + int(base), 4)
+  del frets
+  make_card(locals(), 5)
 
 def handshape_curls(shape):
-  if shape != "n":
-    jankin(shape)
-    make_card(locals(), 15)
+  jankin(shape)
+  make_card(locals(), 15)
 
 def jankin(shape):
-  if shape != "n":
-    finger_stretches()
-    make_card(locals(), 15)
+  finger_stretches()
+  make_card(locals(), 15)
 
 def finger_stretches():
   make_card(locals())
