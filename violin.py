@@ -19,7 +19,7 @@ import math
 from workout import *
 
 # break down a phrase into drills
-def phrase(tempo, lyrics, strings, rhythm="", direction="", section="", fulcrum="", attack="",
+def phrase(tempo, lyrics, rhythm="", strings="", direction="", section="", fulcrum="", attack="",
     dynamics="", frets="", fingers="", handshapes="", start=0, stop=0):
 
   # capture parameters
@@ -30,6 +30,7 @@ def phrase(tempo, lyrics, strings, rhythm="", direction="", section="", fulcrum=
   # default values
   n = len(strings)
   if not rhythm: rhythm = "Q" * n
+  if not strings: strings = "2" * n
   if not direction: direction = "DU" * math.ceil(n/2)
   if not section: section = "M" * n
   if not fulcrum: fulcrum = "L" * n
