@@ -19,8 +19,9 @@ import math
 from workout import *
 
 # break down a phrase into drills
-def phrase(tempo, lyrics, rhythm="", strings="", direction="", section="", fulcrum="", attack="",
-    dynamics="", frets="", fingers="", handshapes="", start=0, stop=0):
+def phrase(tempo, lyrics, rhythm, strings="", handshapes="", frets="", fingers="",
+    direction="", section="", fulcrum="", attack="", dynamics="",
+    start=0, stop=0):
 
   # capture parameters
   params = locals()
@@ -28,8 +29,7 @@ def phrase(tempo, lyrics, rhythm="", strings="", direction="", section="", fulcr
   del params["stop"]
 
   # default values
-  n = len(strings)
-  if not rhythm: rhythm = "Q" * n
+  n = len(rhythm)
   if not strings: strings = "2" * n
   if not direction: direction = "DU" * math.ceil(n/2)
   if not section: section = "M" * n
@@ -39,6 +39,11 @@ def phrase(tempo, lyrics, rhythm="", strings="", direction="", section="", fulcr
   if not frets: frets = "0" * n
   if not fingers: fingers = "0" * n
   if not handshapes: handshapes = "n" * n
+
+  # expand single-value parameters
+  if n > 1:
+    if len(strings) == 1: strings = strings * n
+    if len(handshapes) == 1: handshapes = handshapes * n
 
   # scan phrase
   for i in range(n):
