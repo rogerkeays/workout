@@ -88,11 +88,13 @@ def make_mp3(score, transpose=0, tempo_percent=100, name=""):
           | ffmpeg -loglevel error -i - -ac 1 -ab 64k "{outfile}"
           """.format(**locals()))
 
-def make_chunk(filename, start_secs, stop_secs, tempo_mult, padding=2.5, silence=5):
-  if MAKE_MP3S:
+def make_chunk(start_secs, stop_secs, tempo, padding=2.5, silence=5):
+  if MAKE_MP3S and goalmp3 and stop_secs > 0:
+    filename = goalmp3
     ss = start_secs - padding
     to = stop_secs + padding
     st = stop_secs - start_secs + padding
+    tempo_mult = tempo / goaltempo
     outfile = goaldir + "/" + drillnum() + "C.mp3"
     os.system("""
     ffmpeg -nostdin -loglevel error -ss {ss} -to {to} -i {filename} -ac 1 -ar 48000 -q 4 \

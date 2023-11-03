@@ -67,8 +67,7 @@ def phrase(tempo, lyrics, rhythm, strings="", handshapes="", bases="", fingers="
   # card for this phrase
   make_card(params, 5)
   make_metronome(tempo)
-  if goalmp3:
-    make_chunk(goalmp3, start, stop, tempo / goaltempo)
+  make_chunk(start, stop, tempo)
 
 def string_crossings(tempo, rhythm, strings, direction, section, fulcrum, attack, dynamics):
   if tempo > SLOW: string_crossings(half(tempo), rhythm, strings, direction, section, fulcrum, attack, dynamics)
