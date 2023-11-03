@@ -23,3 +23,11 @@ for tempo in [45, 90]:
     phrase(tempo, "see the birds up in the sky", "QQQQQQH", "2222221", "WWWWWWN", "2", "2222230", "UD", start=24.85, stop=28.58)
   )
 
+goal("ponies", 95, locate("1030.ponies.mp3"))
+for tempo in [95]:
+  piece(tempo, "ponies",
+    phrase(tempo, "little girls like to draw", "HQh", "3", "G", "2", "044323", start=12.68, stop=20.28),
+    phrase(tempo, "all the pretty little ponies", "HQqeeehh", "22233333", "PPPGGGG", "1112222", "24032100", start=20.28, stop=27.69),
+    phrase(tempo, "in her dreams, she walks among", "HQhQQQh", "4443333", "G", "2", "1330022", start=41.61, stop=50.63) # todo: ks_a
+  )
+
