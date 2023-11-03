@@ -49,7 +49,7 @@ def phrase(tempo, lyrics, rhythm, strings="", handshapes="", frets="", fingers="
   for i in range(n):
 
     # atomic drills
-    note(tempo, strings[i], direction[i], section[i], fulcrum[i], attack[i], dynamics[i], frets[i], fingers[i])
+    pitch_hitting(strings[i], frets[i], fingers[i])
     hand_placement_block(tempo, strings[i], handshapes[i])
 
     # transition drills
@@ -57,9 +57,9 @@ def phrase(tempo, lyrics, rhythm, strings="", handshapes="", frets="", fingers="
       h = i - 1
       j = i + 1
       if strings[i] == strings[h]:
-        bow_changes(tempo, strings[h], rhythm[h:j], direction[h:j], section[h:j], fulcrum[h:j], attack[h:j], dynamics[h:j])
+        bow_changes(tempo, rhythm[h:j], strings[h], direction[h:j], section[h:j], fulcrum[h:j], attack[h:j], dynamics[h:j])
       else:
-        string_crossings(tempo, strings[h:j], rhythm[h:j], direction[h:j], section[h:j], fulcrum[h:j], attack[h:j], dynamics[h:j])
+        string_crossings(tempo, rhythm[h:j], strings[h:j], direction[h:j], section[h:j], fulcrum[h:j], attack[h:j], dynamics[h:j])
         hand_jumps(tempo, strings[h:j], handshapes[h:j])
       if handshapes[i] != handshapes[h]:
         jankin_switches(tempo, handshapes[h:j])
@@ -70,8 +70,8 @@ def phrase(tempo, lyrics, rhythm, strings="", handshapes="", frets="", fingers="
   if goalmp3:
     make_chunk(goalmp3, start, stop, tempo / goaltempo)
 
-def string_crossings(tempo, strings, rhythm, direction, section, fulcrum, attack, dynamics):
-  if tempo > SLOW: string_crossings(half(tempo), strings, rhythm, direction, section, fulcrum, attack, dynamics)
+def string_crossings(tempo, rhythm, strings, direction, section, fulcrum, attack, dynamics):
+  if tempo > SLOW: string_crossings(half(tempo), rhythm, strings, direction, section, fulcrum, attack, dynamics)
   bow_attack(tempo, strings[0], direction[0], section[0], fulcrum[0], attack[0], dynamics[0])
   bow_attack(tempo, strings[1], direction[1], section[1], fulcrum[1], attack[1], dynamics[1])
   string_switching(tempo, strings[0], strings[1], section, fulcrum)
@@ -85,8 +85,8 @@ def string_switching(tempo, frm, to, section, fulcrum):
   make_card(locals(), 15)
   make_metronome(tempo)
 
-def bow_changes(tempo, string, rhythm, direction, section, fulcrum, attack, dynamic):
-  if tempo > SLOW: bow_changes(half(tempo), string, rhythm, direction, section, fulcrum, attack, dynamic)
+def bow_changes(tempo, rhythm, string, direction, section, fulcrum, attack, dynamic):
+  if tempo > SLOW: bow_changes(half(tempo), rhythm, string, direction, section, fulcrum, attack, dynamic)
   bow_attack(tempo, string, direction[0], section[0], fulcrum[0], attack[0], dynamic[0]),
   bow_attack(tempo, string, direction[1], section[1], fulcrum[1], attack[1], dynamic[1]),
   make_card(locals(), 15)
@@ -228,7 +228,7 @@ def scale_49_major_one_octave(tempo, section, attack, rhythm):
 
 def scale(tempo, base, strings, frets, fingers, section, fulcrum, attack, rhythm):
   for frm, to in zip(strings, strings[1:]):
-    if frm != to: string_crossings(tempo, frm, to, section, fulcrum, attack, rhythm)
+    if frm != to: string_crossings(tempo, rhythm, frm, to, section, fulcrum, attack)
   for i in range(0, len(fingers)):
     if fingers[i] != 0:
       finger_hammers(strings[i], frets[i], fingers[i])
