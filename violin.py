@@ -54,7 +54,7 @@ def phrase(tempo, lyrics, rhythm, strings="", handshapes="", bases="", fingers="
   for i in range(n):
 
     # atomic drills
-    hand_placement_block(tempo, strings[i], handshapes[i], bases[i])
+    hand_placement_block(strings[i], handshapes[i], bases[i])
 
     # transition drills
     if i > 0:
@@ -169,8 +169,8 @@ def jellyfish():
   make_card(locals(), 15)
 
 def hand_jumps(tempo, strings, shapes, bases):
-  hand_placement_block(tempo, strings[0], shapes[0], bases[0])
-  hand_placement_block(tempo, strings[1], shapes[1], bases[0])
+  hand_placement_block(strings[0], shapes[0], bases[0])
+  hand_placement_block(strings[1], shapes[1], bases[0])
   jankin_switches(tempo, shapes[0], shapes[1])
   finger_wriggles(tempo, shapes[0], shapes[1])
   make_card(locals(), 5)
@@ -185,11 +185,11 @@ def finger_wriggles(tempo, from_shape, to_shape):
   if from_shape != to_shape:
     make_card(locals(), 5)
 
-def hand_placement_block(tempo, string, shape, base):
-  hand_placement_individual(tempo, string, shape, base)
+def hand_placement_block(string, shape, base):
+  hand_placement_individual(string, shape, base)
   make_card(locals(), 5)
 
-def hand_placement_individual(tempo, string, shape, base):
+def hand_placement_individual(string, shape, base):
   violin_hold()
   handshape_curls(shape)
   if shape == "P": frets = [0, 2, 4, 6]
