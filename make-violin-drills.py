@@ -12,48 +12,6 @@ finger_stretches()
 jellyfish()
 itsy_bitsy_spider()
 
-goal("the-crawl", 90, locate("1001.the-crawl.mp3"))
-for tempo in [45, 90]:
-  piece(tempo, "the-crawl",
-    phrase(tempo, "little baby crawls to danger (scared)", strings="443322112", start=10.16, stop=15.38),
-    phrase(tempo, "scared he turns round in a circle", strings="22332233", start=15.38, stop=21.53)
-  )
-
-goal("baby-steps", 90, locate("1002.baby-steps.mp3"))
-for tempo in [45, 90]:
-  piece(tempo, "baby-steps",
-    phrase(tempo, "left foot step (right)", "QQHQ", "4432", start=10.30, stop=13.05),
-    phrase(tempo, "right foot step (looks)", "QQHQ", "2232", "UDUD", start=13.05, stop=15.67),
-    phrase(tempo, "looks for mummy (fall)", "QQQQ", "22112", start=15.67, stop=18.30),
-    phrase(tempo, "falling down", "QQH", "234", start=18.30, stop=21.75)
-  )
-
-goal("the-car-trip", 110, locate("1003.the-car-trip.mp3"))
-for tempo in [55, 110]:
-  piece(tempo, "the-car-trip",
-    phrase(tempo, "little baby throwing up (mummy)", "QQQQQQHQ", "11223323", start=9.72, stop=12.04),
-    phrase(tempo, "mummy wants to throw up too (pull)", "QQQQQQHQ", "33443321", "UDUDUDUD", start=12.04, stop=14.22),
-    phrase(tempo, "pulling over (clean)", "QQQQ", "12343", start=14.22, stop=16.52),
-    phrase(tempo, "clean it up", "QQH", "332", start=16.52, stop=19.46)
-  )
-
-goal("aeroplane-games", 110, locate("1004.aeroplane-games.mp3"))
-for tempo in [30, 55, 110]:
-  piece(tempo, "aeroplane-games",
-    phrase(tempo, "flying upwards flying downwards (land)", "EEEEEEEEE", "432112343", start=9.59, stop=12.06),
-    phrase(tempo, "landing at the terminal", "EEEEEEE", "3322112", start=14.24, stop=17.01)
-  )
-
-#goal("first-finger-etudes")
-#fret_hitting(2, 2)
-
-#goal("second-finger-etudes")
-#fret_hitting(4, 2)
-
-#goal("third-and-fourth-finger-etudes")
-#fret_hitting(5, 3)
-#fret_hitting(7, 4)
-
 goal("lightly-row", 90, locate("1024.lightly-row.mp3"))
 for tempo in [45, 90]:
   piece(tempo, "lightly-row",
