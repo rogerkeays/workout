@@ -5,7 +5,7 @@
 #
 # rhythm      SEQHW    Sixteenth, Eight, Quarter, Half, Whole
 # strings     1234
-# handshape   PGWCADK  Porcupine, Gun, Westside, Chicken, Alien, Dog, ducK
+# handshape   NPGWCADK None, Porcupine, Gun, Westside, Chicken, Alien, Dog, ducK
 # frets       0..24
 # fingers     01234
 # direction   DU       Down, Up
@@ -66,7 +66,7 @@ def phrase(tempo, lyrics, rhythm, strings="", handshapes="", bases="", fingers="
         string_crossings(tempo, rhythm[h:j], strings[h:j], direction[h:j], section[h:j], fulcrum[h:j], attack[h:j], dynamics[h:j])
         hand_jumps(tempo, strings[h:j], handshapes[h:j], bases[h:j])
       if handshapes[i] != handshapes[h]:
-        jankin_switches(tempo, handshapes[h:j])
+        jankin_switches(tempo, handshapes[h], handshapes[i])
 
   # card for this phrase
   make_card(params, 5)
@@ -169,50 +169,55 @@ def jellyfish():
   make_card(locals(), 15)
 
 def hand_jumps(tempo, strings, shapes, bases):
-  hand_placement_block(strings[0], shapes[0], bases[0])
-  hand_placement_block(strings[1], shapes[1], bases[0])
-  jankin_switches(tempo, shapes[0], shapes[1])
-  finger_wriggles(tempo, shapes[0], shapes[1])
-  make_card(locals(), 5)
+  if shapes[0] != "N" and shapes[1] != "N":
+    hand_placement_block(strings[0], shapes[0], bases[0])
+    hand_placement_block(strings[1], shapes[1], bases[0])
+    jankin_switches(tempo, shapes[0], shapes[1])
+    finger_wriggles(tempo, shapes[0], shapes[1])
+    make_card(locals(), 5)
 
 def jankin_switches(tempo, from_shape, to_shape):
-  if from_shape != to_shape:
+  if from_shape != "N" and to_shape != "N" and from_shape != to_shape:
     jankin(tempo, from_shape)
     jankin(tempo, to_shape)
     make_card(locals(), 5)
 
 def finger_wriggles(tempo, from_shape, to_shape):
-  if from_shape != to_shape:
+  if from_shape != "N" and to_shape != "N" and from_shape != to_shape:
     make_card(locals(), 5)
 
 def hand_placement_block(string, shape, base):
-  hand_placement_individual(string, shape, base)
-  make_card(locals(), 5)
+  if shape != "N":
+    hand_placement_individual(string, shape, base)
+    make_card(locals(), 5)
 
 def hand_placement_individual(string, shape, base):
-  violin_hold()
-  handshape_curls(shape)
-  if shape == "P": frets = [0, 2, 4, 6]
-  elif shape == "G": frets = [0, 1, 3, 5]
-  elif shape == "W": frets = [0, 2, 3, 5]
-  elif shape == "C": frets = [0, 2, 4, 5]
-  elif shape == "A": frets = [0, 1, 3, 4]
-  elif shape == "D": frets = [0, 1, 2, 4]
-  elif shape == "K": frets = [0, 2, 3, 4]
-  pitch_hitting(string, frets[0] + int(base), 1)
-  pitch_hitting(string, frets[1] + int(base), 2)
-  pitch_hitting(string, frets[2] + int(base), 3)
-  pitch_hitting(string, frets[3] + int(base), 4)
-  del frets
-  make_card(locals(), 5)
+  if shape != "N":
+    violin_hold()
+    handshape_curls(shape)
+    if shape == "P": frets = [0, 2, 4, 6]
+    elif shape == "G": frets = [0, 1, 3, 5]
+    elif shape == "W": frets = [0, 2, 3, 5]
+    elif shape == "C": frets = [0, 2, 4, 5]
+    elif shape == "A": frets = [0, 1, 3, 4]
+    elif shape == "D": frets = [0, 1, 2, 4]
+    elif shape == "K": frets = [0, 2, 3, 4]
+    pitch_hitting(string, frets[0] + int(base), 1)
+    pitch_hitting(string, frets[1] + int(base), 2)
+    pitch_hitting(string, frets[2] + int(base), 3)
+    pitch_hitting(string, frets[3] + int(base), 4)
+    del frets
+    make_card(locals(), 5)
 
 def handshape_curls(shape):
-  jankin(shape)
-  make_card(locals(), 15)
+  if shape != "N":
+    jankin(shape)
+    make_card(locals(), 15)
 
 def jankin(shape):
-  finger_stretches()
-  make_card(locals(), 15)
+  if shape != "N":
+    finger_stretches()
+    make_card(locals(), 15)
 
 def finger_stretches():
   make_card(locals())
