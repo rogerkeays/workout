@@ -106,11 +106,7 @@ def pitch_hitting(string, fret, finger):
     make_drone(note)
 
 def finger_placement(string, finger):
-  drop_to_harmonic(string, finger)
-
-def drop_to_harmonic(string, finger):
   finger_hammers(string, finger)
-  make_card(locals(), 15)
 
 def finger_hammers(string, finger):
   air_hammers(finger)
