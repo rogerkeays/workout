@@ -40,11 +40,15 @@ def phrase(tempo, lyrics, rhythm, strings="", handshapes="", bases="", fingers="
   if not attack: attack = "A" * n
   if not dynamics: dynamics = "V" * n
 
-  # expand single-value parameters
+  # expand abbreviated parameters
+  def repeat_to_fit(string, length):
+    return (string * math.ceil(length / len(string)))[0:length]
+
   if n > 1:
-    if len(strings) == 1: strings = strings * n
-    if len(handshapes) == 1: handshapes = handshapes * n
-    if len(bases) == 1: bases = bases * n
+    if len(strings) < n: strings = repeat_to_fit(strings, n)
+    if len(handshapes) < n : handshapes = repeat_to_fit(handshapes, n)
+    if len(bases) < n : bases = repeat_to_fit(bases, n)
+    if len(direction) < n : direction = repeat_to_fit(direction, n)
 
   # scan phrase
   for i in range(n):
