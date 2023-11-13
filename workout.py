@@ -27,7 +27,7 @@ def goal(name, tempo=90, mp3=""):
 
 def piece(tempo, name, *deps):
   del deps
-  make_card(locals(), 3)
+  make_card(locals(), 1)
   make_metronome(tempo)
   if goalmp3:
     make_whole(goalmp3, tempo / goaltempo)
