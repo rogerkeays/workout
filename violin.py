@@ -170,7 +170,7 @@ def jellyfish():
 def hand_jumps(tempo, strings, shapes, bases):
   if shapes[0] != "N" and shapes[1] != "N":
     hand_placement_block(strings[0], shapes[0], bases[0])
-    hand_placement_block(strings[1], shapes[1], bases[0])
+    hand_placement_block(strings[1], shapes[1], bases[1])
     jankin_switches(tempo, shapes[0], shapes[1])
     finger_wriggles(tempo, shapes[0], shapes[1])
     make_card(locals(), 5)
