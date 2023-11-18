@@ -9,8 +9,10 @@ def locate(mp3):
 goal("warmup")
 make_drone("49")
 finger_stretches()
+pinky_reaches()
 jellyfish()
 itsy_bitsy_spider()
+son_file()
 
 goal("lightly-row", 90, locate("1024.lightly-row.mp3"))
 for tempo in [45, 90]:

@@ -231,6 +231,13 @@ def jankin(shape):
 def finger_stretches():
   make_card(locals())
 
+def pinky_reaches():
+  make_card(locals(), 15)
+
+def son_file():
+  make_card(locals(), 4)
+  make_metronome(60)
+
 ###
 
 def scale_49_major_one_octave(tempo, section, attack, rhythm):
