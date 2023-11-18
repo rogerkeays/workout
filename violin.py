@@ -179,11 +179,11 @@ def jankin_switches(tempo, from_shape, to_shape):
   if from_shape != "N" and to_shape != "N" and from_shape != to_shape:
     jankin(from_shape)
     jankin(to_shape)
-    make_card(locals(), 5)
+    make_card(locals(), 15)
 
 def finger_wriggles(tempo, from_shape, to_shape):
   if from_shape != "N" and to_shape != "N" and from_shape != to_shape:
-    make_card(locals(), 5)
+    make_card(locals(), 30)
 
 def hand_placement_block(string, shape, base):
   if shape != "N":
