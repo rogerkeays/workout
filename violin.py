@@ -64,9 +64,9 @@ def phrase(tempo, lyrics, rhythm, strings="", handshapes="", bases="", fingers="
         bow_changes(tempo, rhythm[h:j], strings[h], direction[h:j], section[h:j], fulcrum[h:j], attack[h:j], dynamics[h:j])
       else:
         string_crossings(tempo, rhythm[h:j], strings[h:j], direction[h:j], section[h:j], fulcrum[h:j], attack[h:j], dynamics[h:j])
-        hand_jumps(tempo, strings[h:j], handshapes[h:j], bases[h:j])
+        hand_jumps_rapid(tempo, strings[h:j], handshapes[h:j], bases[h:j])
       if handshapes[i] != handshapes[h]:
-        jankin_switches(tempo, handshapes[h], handshapes[i])
+        jankin_switches(handshapes[h], handshapes[i])
 
   # card for this phrase
   make_card(params, 5)
@@ -167,26 +167,31 @@ def vertical_bow_raises():
 def jellyfish():
   make_card(locals(), 15)
 
-def hand_jumps(tempo, strings, shapes, bases):
+def hand_jumps_rapid(tempo, strings, shapes, bases):
   if shapes[0] != "N" and shapes[1] != "N":
-    hand_placement_block(strings[0], shapes[0], bases[0])
-    hand_placement_block(strings[1], shapes[1], bases[1])
-    jankin_switches(tempo, shapes[0], shapes[1])
-    finger_wriggles_curved(tempo, shapes[0], shapes[1])
+    hand_jumps_exact(strings, shapes, bases)
     make_card(locals(), 5)
 
-def jankin_switches(tempo, from_shape, to_shape):
+def hand_jumps_exact(strings, shapes, bases):
+  if shapes[0] != "N" and shapes[1] != "N":
+    finger_wriggles_curved(shapes[0], shapes[1])
+    jankin_switches(shapes[0], shapes[1])
+    hand_placement_block(strings[0], shapes[0], bases[0])
+    hand_placement_block(strings[1], shapes[1], bases[1])
+    make_card(locals(), 5)
+
+def jankin_switches(from_shape, to_shape):
   if from_shape != "N" and to_shape != "N" and from_shape != to_shape:
     jankin(from_shape)
     jankin(to_shape)
     make_card(locals(), 15)
 
-def finger_wriggles_curved(tempo, from_shape, to_shape):
+def finger_wriggles_curved(from_shape, to_shape):
   if from_shape != "N" and to_shape != "N" and from_shape != to_shape:
-    finger_wriggles_straight(tempo, from_shape, to_shape)
+    finger_wriggles_straight(from_shape, to_shape)
     make_card(locals(), 30)
 
-def finger_wriggles_straight(tempo, from_shape, to_shape):
+def finger_wriggles_straight(from_shape, to_shape):
   if from_shape != "N" and to_shape != "N" and from_shape != to_shape:
     make_card(locals(), 30)
 
@@ -232,7 +237,7 @@ def scale_49_major_one_octave(tempo, section, attack, rhythm):
   #if tempo > SLOW: scale_49_major_one_octave(half(tempo), section, attack, rhythm)
   half_scale(tempo, 2, [0,2,4,5,7], section, attack, rhythm)
   half_scale(tempo, 1, [0,2,4,5,7], section, attack, rhythm)
-  hand_jumps(2, [2,4,5,7], 1, [2,4,5,7])
+  hand_jumps_rapid(2, [2,4,5,7], 1, [2,4,5,7])
   scale(tempo, 0,
         [2,2,2,2,2,1,1,1, 1,1,1,2,2,2,2], # strings
         [0,2,4,5,7,2,4,5, 4,2,7,5,4,2,0], # frets
