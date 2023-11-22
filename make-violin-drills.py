@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
+# vim: nowrap
 
 import os
 from violin import *
 
 def locate(mp3):
- return os.environ['HOME'] + "/work/music/chunking/violin/" + mp3
+ return os.environ['HOME'] + "/library/repertoire/violin/" + mp3
 
 goal("warmup")
 make_drone("49")
@@ -14,7 +15,7 @@ jellyfish()
 itsy_bitsy_spider()
 son_file()
 
-goal("lightly-row", 90, locate("1024.lightly-row.mp3"))
+goal("lightly-row", 90, locate("00.27.lightly-row.mp3"))
 for tempo in [45, 90]:
   piece(tempo, "lightly-row",
     phrase(tempo, "lightly row, flamingo", "QQHQQH", "122222", "NWWWWW", "2", "022311", start=6.92, stop=10.52),
@@ -25,7 +26,7 @@ for tempo in [45, 90]:
     phrase(tempo, "see the birds up in the sky", "QQQQQQH", "2222221", "WWWWWWN", "2", "2222230", "UD", start=24.85, stop=28.58)
   )
 
-goal("ponies", 95, locate("1030.ponies.mp3"))
+goal("ponies", 95, locate("00.34.ponies.mp3"))
 for tempo in [95]:
   piece(tempo, "ponies",
     phrase(tempo, "little girls like to draw", "HQh", "3", "G", "2", "044323", start=12.68, stop=20.28),

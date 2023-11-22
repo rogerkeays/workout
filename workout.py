@@ -17,7 +17,7 @@ mp3s = set()
 
 def goal(name, tempo=90, mp3=""):
   global goaldir, goalnum, goalmp3, goaltempo
-  goaldir = goalshome + "/00." + str(goalnum).zfill(2) + "." + name
+  goaldir = goalshome + "/" + str(goalnum).zfill(2) + "." + name
   os.makedirs(goaldir, exist_ok=True)
   goalnum += 1
   goalmp3 = mp3
