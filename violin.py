@@ -5,7 +5,7 @@
 #
 # rhythm      SEQHW    Sixteenth, Eight, Quarter, Half, Whole
 # strings     1234
-# handshape   NPGWCADK None, Porcupine, Gun, Westside, Chicken, Alien, Dog, ducK
+# shape       NPGWCADK None, Porcupine, Gun, Westside, Chicken, Alien, Dog, ducK
 # frets       0..24
 # fingers     01234
 # direction   DU       Down, Up
@@ -19,7 +19,7 @@ import math
 from workout import *
 
 # break down a phrase into drills
-def phrase(tempo, lyrics, rhythm, strings="", handshapes="", bases="", fingers="",
+def phrase(tempo, lyrics, rhythm, strings="", shapes="", bases="", fingers="",
     direction="", section="", fulcrum="", attack="", dynamics="",
     start=0, stop=0):
 
@@ -31,7 +31,7 @@ def phrase(tempo, lyrics, rhythm, strings="", handshapes="", bases="", fingers="
   # default values
   n = len(rhythm)
   if not strings: strings = "2" * n
-  if not handshapes: handshapes = "W" * n
+  if not shapes: shapes = "W" * n
   if not bases: bases = "2" * n
   if not fingers: fingers = "0" * n
   if not direction: direction = "DU" * math.ceil(n/2)
@@ -46,7 +46,7 @@ def phrase(tempo, lyrics, rhythm, strings="", handshapes="", bases="", fingers="
 
   if n > 1:
     if len(strings) < n: strings = repeat_to_fit(strings, n)
-    if len(handshapes) < n : handshapes = repeat_to_fit(handshapes, n)
+    if len(shapes) < n : shapes = repeat_to_fit(shapes, n)
     if len(bases) < n : bases = repeat_to_fit(bases, n)
     if len(direction) < n : direction = repeat_to_fit(direction, n)
 
@@ -54,7 +54,7 @@ def phrase(tempo, lyrics, rhythm, strings="", handshapes="", bases="", fingers="
   for i in range(n):
 
     # atomic drills
-    hand_placement_block(strings[i], handshapes[i], bases[i])
+    hand_placement_block(strings[i], shapes[i], bases[i])
 
     # transition drills
     if i > 0:
@@ -64,9 +64,9 @@ def phrase(tempo, lyrics, rhythm, strings="", handshapes="", bases="", fingers="
         bow_changes(tempo, rhythm[h:j], strings[h], direction[h:j], section[h:j], fulcrum[h:j], attack[h:j], dynamics[h:j])
       else:
         string_crossings(tempo, rhythm[h:j], strings[h:j], direction[h:j], section[h:j], fulcrum[h:j], attack[h:j], dynamics[h:j])
-        hand_jumps_rapid(tempo, strings[h:j], handshapes[h:j], bases[h:j])
-      if handshapes[i] != handshapes[h]:
-        jankin_switches(handshapes[h], handshapes[i])
+        hand_jumps_rapid(tempo, strings[h:j], shapes[h:j], bases[h:j])
+      if shapes[i] != shapes[h]:
+        jankin_switches(shapes[h], shapes[i])
 
   # card for this phrase
   make_card(params, 5)
@@ -203,7 +203,7 @@ def hand_placement_block(string, shape, base):
 def hand_placement_individual(string, shape, base):
   if shape != "N":
     violin_hold()
-    handshape_curls(shape)
+    jankin_curls(shape)
     if shape == "P": frets = [0, 2, 4, 6]
     elif shape == "G": frets = [0, 1, 3, 5]
     elif shape == "W": frets = [0, 2, 3, 5]
@@ -218,7 +218,7 @@ def hand_placement_individual(string, shape, base):
     del frets
     make_card(locals(), 5)
 
-def handshape_curls(shape):
+def jankin_curls(shape):
   if shape != "N":
     jankin(shape)
     make_card(locals(), 15)
