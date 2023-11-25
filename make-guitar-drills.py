@@ -13,6 +13,6 @@ make_drone("37")
 tempo=120
 goal("horse", tempo, locate("00.01.horse.mp3"))
 piece(tempo, "horse",
-  strumming(tempo, "ma nai tai dai, mai (na)i ti dai", "QEEEEEEEEEQEEE", "DDUDUDUDUdUUDU", "eeeeeeeddddddd", start=6.92, stop=10.52),
+  strumming(tempo, "ma nai tai dai, mai (na)i ti dai", "QEEEEEEEEEQEEE", "DDUDUDUDUdUUDU", "eeeeeeeddddddd", start=14.14, stop=18.26),
 )
 
