@@ -5,10 +5,9 @@ import os
 from violin import *
 
 def locate(mp3):
- return os.environ['HOME'] + "/library/repertoire/violin/" + mp3
+ return os.environ['HOME'] + "/library/workout/violin/04.rehearse/" + mp3
 
 goal("warmup")
-make_drone("49")
 finger_stretches()
 pinky_reaches()
 jellyfish()
