@@ -59,7 +59,7 @@ for tempo in [120]:
            start = 21.93, stop = 25.84, tempo = tempo),
 
     phrase(lyrics    = "here it comes, here it comes, more free food",
-           rhythm    = "EESEESQQH",
+           rhythm    = "EEQEEQQQH",
            strings   = "222222111",
            shapes    = "W", bases = "2",
            fingers   = "234234050",
