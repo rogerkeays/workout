@@ -107,7 +107,7 @@ for tempo in [120]:
            start = 29.69, stop = 33.59, tempo = tempo),
 
     phrase(lyrics    = "big strike, think it got away",
-           rhythm    = "QQEEEEF",
+           rhythm    = "QQEEEEH",
            strings   = "1112223",
            shapes    = "W", bases = "2",
            fingers   = "0502102",
