@@ -246,6 +246,10 @@ def finger_stretches():
   make_card(locals())
 
 def pinky_reaches():
+  elbow_raises()
+  make_card(locals(), 15)
+
+def elbow_raises():
   make_card(locals(), 15)
 
 def son_file():
