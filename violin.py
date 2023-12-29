@@ -51,12 +51,30 @@ def phrase(tempo, lyrics, rhythm, strings="", shapes="", bases="", fingers="",
     if len(direction) < n : direction = repeat_to_fit(direction, n)
 
   # scan phrase
+  open_strings(tempo, rhythm, strings, direction, section, fulcrum, attack, dynamics)
   for i in range(n):
-
-    # atomic drills
     hand_placement_block(strings[i], shapes[i], bases[i])
 
     # transition drills
+    if i > 0:
+      h = i - 1
+      j = i + 1
+      if strings[i] != strings[h]:
+        hand_jumps_rapid(tempo, strings[h:j], shapes[h:j], bases[h:j])
+      if shapes[i] != shapes[h]:
+        jankin_switches(shapes[h], shapes[i])
+
+  # card for this phrase
+  if re.search("[1-4]", fingers):
+    make_card(params, 5)
+    make_metronome(tempo)
+    make_chunk(start, stop, tempo)
+
+def open_strings(tempo, rhythm, strings, direction, section, fulcrum, attack, dynamics):
+  params = locals()
+
+  # scan phrase
+  for i in range(len(rhythm)):
     if i > 0:
       h = i - 1
       j = i + 1
@@ -64,14 +82,10 @@ def phrase(tempo, lyrics, rhythm, strings="", shapes="", bases="", fingers="",
         bow_changes(tempo, rhythm[h:j], strings[h], direction[h:j], section[h:j], fulcrum[h:j], attack[h:j], dynamics[h:j])
       else:
         string_crossings(tempo, rhythm[h:j], strings[h:j], direction[h:j], section[h:j], fulcrum[h:j], attack[h:j], dynamics[h:j])
-        hand_jumps_rapid(tempo, strings[h:j], shapes[h:j], bases[h:j])
-      if shapes[i] != shapes[h]:
-        jankin_switches(shapes[h], shapes[i])
 
   # card for this phrase
   make_card(params, 5)
   make_metronome(tempo)
-  make_chunk(start, stop, tempo)
 
 def string_crossings(tempo, rhythm, strings, direction, section, fulcrum, attack, dynamics):
   #if tempo > SLOW: string_crossings(half(tempo), rhythm, strings, direction, section, fulcrum, attack, dynamics)
