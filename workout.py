@@ -43,7 +43,7 @@ def make_card(params = {}, reps=5):
       f.write("reps=" + str(reps))
 
 def drillnum():
-  return str(goalnum).zfill(2) + str(len(cards)).zfill(3)
+  return str(len(cards)).zfill(4)
 
 def make_metronome(tempo):
   make_mp3("""
@@ -55,7 +55,7 @@ def make_metronome(tempo):
   %%MIDI program 115
   |:cccc|cccc|cccc|cccc|cccc|cccc|cccc|cccc:|
   |:cccc|cccc|cccc|cccc|cccc|cccc|cccc|cccc:|
-  """, 0, tempo, filename="X" + str(tempo).zfill(5) + ".mp3")
+  """, 0, tempo, filename="X." + str(tempo).zfill(3) + ".mp3")
 
 #
 # use MIDI instrument number (abc instrument number is zero-based)
