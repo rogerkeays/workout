@@ -14,8 +14,40 @@ jellyfish()
 itsy_bitsy_spider()
 son_file()
 
+goal("the-crawl", 90, locate("00.01.the-crawl.mp3"))
+for tempo in [90]:
+  piece(tempo, "the-crawl",
+    phrase(tempo, "little baby crawls to danger (scared)", "QQQQQQQQQ", "443322112", "N", start=10.16, stop=15.38),
+    phrase(tempo, "scared he turns round in a circle", "QQQQQQQQ", "22332233", "N", start=15.38, stop=21.53)
+  )
+
+goal("baby-steps", 90, locate("00.02.baby-steps.mp3"))
+for tempo in [90]:
+  piece(tempo, "baby-steps",
+    phrase(tempo, "left foot step (right)", "QQHQ", "4432", "N", start=10.30, stop=13.05),
+    phrase(tempo, "right foot step (looks)", "QQHQ", "2232", "N", direction="UDUD", start=13.05, stop=15.67),
+    phrase(tempo, "looks for mummy (fall)", "QQQQ", "22112", "N", start=15.67, stop=18.30),
+    phrase(tempo, "falling down", "QQH", "234", "N", start=18.30, stop=21.75)
+  )
+
+goal("the-car-trip", 110, locate("00.03.the-car-trip.mp3"))
+for tempo in [110]:
+  piece(tempo, "the-car-trip",
+    phrase(tempo, "little baby throwing up (mummy)", "QQQQQQHQ", "11223323", "N", start=9.72, stop=12.04),
+    phrase(tempo, "mummy wants to throw up too (pull)", "QQQQQQHQ", "33443321", "N", direction="UDUDUDUD", start=12.04, stop=14.22),
+    phrase(tempo, "pulling over (clean)", "QQQQ", "12343", "N", start=14.22, stop=16.52),
+    phrase(tempo, "clean it up", "QQH", "332", "N", start=16.52, stop=19.46)
+  )
+
+goal("aeroplane-games", 110, locate("00.04.aeroplane-games.mp3"))
+for tempo in [110]:
+  piece(tempo, "aeroplane-games",
+    phrase(tempo, "flying upwards flying downwards (land)", "EEEEEEEEE", "432112343", "N", start=9.59, stop=12.06),
+    phrase(tempo, "landing at the terminal", "EEEEEEE", "3322112", "N", start=14.24, stop=17.01)
+  )
+
 goal("lightly-row", 90, locate("00.27.lightly-row.mp3"))
-for tempo in [45, 90]:
+for tempo in [90]:
   piece(tempo, "lightly-row",
     phrase(tempo, "lightly row, flamingo", "QQHQQH", "122222", "NWWWWW", "2", "022311", start=6.92, stop=10.52),
     phrase(tempo, "down the river we will go", "QQQQQQH", "2222111", "WWWWNNN", "2", "0123000", start=10.52, stop=14.12),
