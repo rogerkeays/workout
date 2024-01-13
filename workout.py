@@ -11,16 +11,18 @@ goalnum = 0
 goalname = ""
 goaltempo = 90
 goalmp3 = ""
+goalcards = 0
 cards = set()
 mp3s = set()
+os.makedirs(goaldir, exist_ok=True)
 
 def goal(name, tempo=90, mp3=""):
-  global goalnum, goalname, goaltempo, goalmp3
-  os.makedirs(goaldir, exist_ok=True)
+  global goalnum, goalname, goaltempo, goalmp3, goalcards
   goalnum += 1
   goalname = name
   goaltempo = tempo
   goalmp3 = mp3
+  goalcards = 0
 
 def piece(tempo, name, *deps):
   del deps
@@ -28,12 +30,15 @@ def piece(tempo, name, *deps):
   make_metronome(tempo)
   if goalmp3:
     make_whole(goalmp3, tempo / goaltempo)
+  print(name + ": " + str(goalcards) + " new cards")
 
 def make_card(params = {}, reps=5):
+  global goalcards
   name = inspect.stack()[1].function
   key = name + str(params)
   if key not in cards:
     cards.add(key)
+    goalcards += 1
     with open(goaldir + "/" + drillnum() + "A.txt", "w") as f:
       f.writelines(goalname + "\n")
       f.writelines(name + "\n")
