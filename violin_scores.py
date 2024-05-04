@@ -34,7 +34,7 @@ def the_car_trip(tempo=110):
   piece(tempo, "the-car-trip",
     phrase(tempo, "little baby throwing up (mummy)", "QQQQQQHQ", "11223323", "N", start=9.72, stop=12.04),
     phrase(tempo, "mummy wants to throw up too (pull)", "QQQQQQHQ", "33443321", "N", direction="UDUDUDUD", start=12.04, stop=14.22),
-    phrase(tempo, "pulling over (clean)", "QQQQ", "12343", "N", start=14.22, stop=16.52),
+    phrase(tempo, "pulling over (clean)", "QQQQQ", "12343", "N", start=14.22, stop=16.52),
     phrase(tempo, "clean it up", "QQH", "332", "N", start=16.52, stop=19.46)
   )
 
