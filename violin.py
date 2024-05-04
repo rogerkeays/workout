@@ -52,7 +52,7 @@ def phrase(tempo, lyrics, rhythm, strings="", shapes="", bases="", fingers="",
   # scan phrase
   open_strings(tempo, rhythm, strings, direction, section, fulcrum, attack, dynamics)
   for i in range(n):
-    hand_placement_block(strings[i], shapes[i], bases[i])
+    hand_placement(strings[i], shapes[i], bases[i])
 
     # transition drills
     if i > 0:
@@ -189,8 +189,8 @@ def hand_jumps_exact(strings, shapes, bases):
   if shapes[0] != "N" and shapes[1] != "N":
     finger_wriggles_curved(shapes[0], shapes[1])
     jankin_switches(shapes[0], shapes[1])
-    hand_placement_block(strings[0], shapes[0], bases[0])
-    hand_placement_block(strings[1], shapes[1], bases[1])
+    hand_placement(strings[0], shapes[0], bases[0])
+    hand_placement(strings[1], shapes[1], bases[1])
     make_card(locals(), 5)
 
 def jankin_switches(from_shape, to_shape):
@@ -208,12 +208,7 @@ def finger_wriggles_straight(from_shape, to_shape):
   if from_shape != "N" and to_shape != "N" and from_shape != to_shape:
     make_card(locals(), 30)
 
-def hand_placement_block(string, shape, base):
-  if shape != "N":
-    hand_placement_individual(string, shape, base)
-    make_card(locals(), 5)
-
-def hand_placement_individual(string, shape, base):
+def hand_placement(string, shape, base):
   if shape != "N":
     violin_hold()
     jankin_curls(shape)
