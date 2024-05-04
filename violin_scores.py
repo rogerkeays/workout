@@ -41,7 +41,8 @@ def the_car_trip(tempo=110):
 def aeroplane_games(tempo=110):
   goal("aeroplane-games", tempo, locate("00.04.aeroplane-games.mp3"))
   piece(tempo, "aeroplane-games",
-    phrase(tempo, "flying upwards flying downwards (land)", "EEEEEEEEE", "432112343", "N", start=9.59, stop=12.06),
+    phrase(tempo, "flying upwards (fly)", "EEEEE", "43211", "N", start=9.59, stop=10.82),
+    phrase(tempo, "flying downwards (land)", "EEEEE", "12343", "N", start=10.82, stop=12.06),
     phrase(tempo, "landing at the terminal", "EEEEEEE", "3322112", "N", start=14.24, stop=17.01)
   )
 
