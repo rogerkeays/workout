@@ -24,7 +24,7 @@ def baby_steps(tempo=90):
   goal("baby-steps", tempo, locate("00.02.baby-steps.mp3"))
   piece(tempo, "baby-steps",
     phrase(tempo, "left foot step (right)", "QQHQ", "4432", "N", start=10.30, stop=13.05),
-    phrase(tempo, "right foot step (looks)", "QQHQ", "2232", "N", direction="UDUD", start=13.05, stop=15.67),
+    phrase(tempo, "right foot step (looks)", "QQHQ", "2232", "N", bowing="53", start=13.05, stop=15.67),
     phrase(tempo, "looks for mummy (fall)", "QQQQ", "22112", "N", start=15.67, stop=18.30),
     phrase(tempo, "falling down", "QQH", "234", "N", start=18.30, stop=21.75)
   )
@@ -33,7 +33,7 @@ def the_car_trip(tempo=110):
   goal("the-car-trip", tempo, locate("00.03.the-car-trip.mp3"))
   piece(tempo, "the-car-trip",
     phrase(tempo, "little baby throwing up (mummy)", "QQQQQQHQ", "11223323", "N", start=9.72, stop=12.04),
-    phrase(tempo, "mummy wants to throw up too (pull)", "QQQQQQHQ", "33443321", "N", direction="UDUDUDUD", start=12.04, stop=14.22),
+    phrase(tempo, "mummy wants to throw up too (pull)", "QQQQQQHQ", "33443321", "N", bowing="53", start=12.04, stop=14.22),
     phrase(tempo, "pulling over (clean)", "QQQQQ", "12343", "N", start=14.22, stop=16.52),
     phrase(tempo, "clean it up", "QQH", "332", "N", start=16.52, stop=19.46)
   )
@@ -51,10 +51,10 @@ def lightly_row(tempo=90):
   piece(tempo, "lightly-row",
     phrase(tempo, "lightly row, flamingo", "QQHQQH", "122222", "NWWWWW", "2", "022311", start=6.92, stop=10.52),
     phrase(tempo, "down the river we will go", "QQQQQQH", "2222111", "WWWWNNN", "2", "0123000", start=10.52, stop=14.12),
-    phrase(tempo, "always rowing, never slowing", "QQQQQQQQ", "12222222", "NWWWWWWW", "2", "02223111", "UD", start=14.12, stop=17.60),
-    phrase(tempo, "in my bright new red canoe", "QQQQQQH", "2211222", "WWNNWWW", "2", "0200222", "UD", start=17.60, stop=21.23),
+    phrase(tempo, "always rowing, never slowing", "QQQQQQQQ", "12222222", "NWWWWWWW", "2", "02223111", "53", start=14.12, stop=17.60),
+    phrase(tempo, "in my bright new red canoe", "QQQQQQH", "2211222", "WWNNWWW", "2", "0200222", "53", start=17.60, stop=21.23),
     phrase(tempo, "see the fishes swimming by", "QQQQQQH", "2", "W", "2", "1111123", start=21.23, stop=24.85),
-    phrase(tempo, "see the birds up in the sky", "QQQQQQH", "2", "W", "2", "2222234", "UD", start=24.85, stop=28.58),
+    phrase(tempo, "see the birds up in the sky", "QQQQQQH", "2", "W", "2", "2222234", "53", start=24.85, stop=28.58),
   )
 
 def ponies(tempo=95):
@@ -62,7 +62,7 @@ def ponies(tempo=95):
   piece(tempo, "ponies",
     phrase(tempo, "little girls like to draw", "HQh", "3", "G", "2", "044323", start=12.68, stop=20.28),
     phrase(tempo, "all the pretty little ponies", "HQqEEEhh", "22233333", "PPPGGGGG", "11122222", "24032100", start=20.28, stop=27.69),
-    phrase(tempo, "in her dreams, she walks among", "HQhQQQh", "4443333", "G", "2", "1330022", "DUDUDDU", start=41.61, stop=50.63)
+    phrase(tempo, "in her dreams, she walks among", "HQhQQQh", "4443333", "G", "2", "1330022", "35353453", start=41.61, stop=50.63)
   )
 
 def musette(tempo=120):
@@ -78,7 +78,7 @@ def musette(tempo=120):
            rhythm    = "EEQQQQQQQ",
            strings   = "3", shapes = "W", bases = "2",
            fingers   = "234321420",
-           direction = "DUDUUDUDU",
+           bowing    = "3535435353",
            dynamics  = "VVVSSVVVV",
            start = 14.07, stop = 17.87, tempo = tempo),
 
@@ -86,7 +86,7 @@ def musette(tempo=120):
            rhythm    = "EEQQQQQH",
            strings   = "3", shapes = "W", bases = "2",
            fingers   = "23432140",
-           direction = "DUDUUDUD",
+           bowing    = "353543535",
            dynamics  = "VVVSSVVV",
            start = 21.93, stop = 25.84, tempo = tempo),
 
@@ -95,7 +95,7 @@ def musette(tempo=120):
            strings   = "222222111",
            shapes    = "W", bases = "2",
            fingers   = "234234050",
-           direction = "", # retake
+           bowing    = "", # retake
            dynamics  = "VVVVVSSSV",
            start = 25.84, stop = 29.69, tempo = tempo),
 
@@ -103,7 +103,7 @@ def musette(tempo=120):
            rhythm    = "EESEESQQH",
            strings   = "2", shapes = "W", bases = "2",
            fingers   = "234234050",
-           direction = "UD",
+           bowing    = "35",
            dynamics  = "VVSVVSSSV",
            start = 29.69, stop = 33.59, tempo = tempo),
 
@@ -112,7 +112,7 @@ def musette(tempo=120):
            strings   = "1112223",
            shapes    = "W", bases = "2",
            fingers   = "0502102",
-           direction = "UUDUDUD",
+           bowing    = "54353535",
            dynamics  = "SSVVVVV",
            start = 37.43, stop = 41.55, tempo = tempo),
   )
