@@ -13,8 +13,66 @@
 # dynamics    VC       eVen, staCcato
 #
 
-import math
+import math, re
 from workout import *
+
+# divide a score into phrases
+def score(title, mp3, splits, tempo, lyrics, rhythm, strings="", bowing="",
+          shapes="", bases="", fingers="", fulcrum="", attack="", dynamics=""):
+
+  # normalise params
+  def normalise_param(x): return x.replace(" ", "").replace("|", "")
+  lyrics = re.split("[- ]+", lyrics.replace("|", "").strip())
+  rhythm = normalise_param(rhythm)
+  strings = normalise_param(strings)
+  bowing = normalise_param(bowing)
+  shapes = normalise_param(shapes)
+  bases = normalise_param(bases)
+  fingers = normalise_param(fingers)
+  fulcrum = normalise_param(fulcrum)
+  attack = normalise_param(attack)
+  dynamics = normalise_param(dynamics)
+
+  # default values
+  n = len(rhythm)
+  if not strings: strings = "2" * n
+  if not bowing: bowing = "35" * math.ceil(n/2)
+  if not shapes: shapes = "W" * n
+  if not bases: bases = "2" * n
+  if not fingers: fingers = "0" * n
+  if not fulcrum: fulcrum = "L" * n
+  if not attack: attack = "A" * n
+  if not dynamics: dynamics = "V" * n
+
+  # expand abbreviated parameters
+  def repeat_to_fit(string, length): return (string * math.ceil(length / len(string)))[0:length]
+  if n > 1:
+    if len(strings) < n: strings = repeat_to_fit(strings, n)
+    if len(bowing) < n + 1 : bowing = repeat_to_fit(bowing, n + 1)
+    if len(shapes) < n : shapes = repeat_to_fit(shapes, n)
+    if len(bases) < n : bases = repeat_to_fit(bases, n)
+
+  # process phrases
+  goal(title, tempo, mp3)
+  split = 0
+  start = 0
+  for i, word in enumerate(lyrics):
+    if word[0] == ">" and i > start:
+      stop = i + 1
+      phrase(tempo, lyrics[start:stop], rhythm[start:stop], strings[start:stop],
+             shapes[start:stop], bases[start:stop], fingers[start:stop], bowing[start:stop + 1],
+             fulcrum[start:stop], attack[start:stop], dynamics[start:stop], splits[split], splits[split + 1])
+      start = i
+      split += 1 if word[1] != ">" else 2
+
+  # process last phrase
+  stop = len(lyrics)
+  phrase(tempo, lyrics[start:stop], rhythm[start:stop], strings[start:stop],
+         shapes[start:stop], bases[start:stop], fingers[start:stop], bowing[start:stop + 1],
+         fulcrum[start:stop], attack[start:stop], dynamics[start:stop], splits[split], splits[split + 1])
+
+  # card for the whole score
+  piece(tempo, title)
 
 # break down a phrase into drills
 def phrase(tempo, lyrics, rhythm, strings="", shapes="", bases="", fingers="",
@@ -26,29 +84,9 @@ def phrase(tempo, lyrics, rhythm, strings="", shapes="", bases="", fingers="",
   del params["start"]
   del params["stop"]
 
-  # default values
-  n = len(rhythm)
-  if not strings: strings = "2" * n
-  if not shapes: shapes = "W" * n
-  if not bases: bases = "2" * n
-  if not fingers: fingers = "0" * n
-  if not bowing: bowing = "35" * math.ceil(n/2)
-  if not fulcrum: fulcrum = "L" * n
-  if not attack: attack = "A" * n
-  if not dynamics: dynamics = "V" * n
-
-  # expand abbreviated parameters
-  def repeat_to_fit(string, length):
-    return (string * math.ceil(length / len(string)))[0:length]
-  if n > 1:
-    if len(strings) < n: strings = repeat_to_fit(strings, n)
-    if len(shapes) < n : shapes = repeat_to_fit(shapes, n)
-    if len(bases) < n : bases = repeat_to_fit(bases, n)
-    if len(bowing) < n + 1 : bowing = repeat_to_fit(bowing, n + 1)
-
   # scan phrase
   open_strings(tempo, rhythm, strings, bowing, fulcrum, attack, dynamics)
-  for i in range(n):
+  for i in range(len(rhythm)):
     hand_placement(strings[i], shapes[i], bases[i])
 
     # transition drills
