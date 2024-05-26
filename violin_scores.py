@@ -7,6 +7,7 @@ def locate(mp3):
  return os.environ['HOME'] + "/library/workout/violin/04.rehearse/" + mp3
 
 def warmup():
+  goal("warmup")
   finger_stretches()
   pinky_reaches()
   jellyfish()
@@ -14,51 +15,67 @@ def warmup():
   son_file()
 
 def the_crawl(tempo=90):
-  goal("the-crawl", tempo, locate("00.01.the-crawl.mp3"))
-  piece(tempo, "the-crawl",
-    phrase(tempo, "little baby crawls to danger (scared)", "QQQQQQQQQ", "443322112", "N", start=10.16, stop=15.38),
-    phrase(tempo, "scared he turns round in a circle", "QQQQQQQQ", "22332233", "N", start=15.38, stop=21.53)
+  score("the-crawl", locate("01.the-crawl.mp3"), [ 10.16, 15.38, 21.53 ], tempo,
+    lyrics  = "| >li-ttle ba-by | crawls to dan-ger | >scared he turns round | in a cir-cle",
+    rhythm  = "|  Q  Q    Q  Q  | Q      Q  Q   Q   |  Q      Q  Q     Q     | Q  Q Q   Q",
+    strings = "|  4  4    3  3  | 2      2  1   1   |  2      2  3     3     | 2  2 3   3",
+    shapes  = "|  N "
   )
 
 def baby_steps(tempo=90):
-  goal("baby-steps", tempo, locate("00.02.baby-steps.mp3"))
-  piece(tempo, "baby-steps",
-    phrase(tempo, "left foot step (right)", "QQHQ", "4432", "N", start=10.30, stop=13.05),
-    phrase(tempo, "right foot step (looks)", "QQHQ", "2232", "N", bowing="53", start=13.05, stop=15.67),
-    phrase(tempo, "looks for mummy (fall)", "QQQQ", "22112", "N", start=15.67, stop=18.30),
-    phrase(tempo, "falling down", "QQH", "234", "N", start=18.30, stop=21.75)
+  score("baby-steps", locate("02.baby-steps.mp3"), [ 10.30, 13.05, 15.67, 18.30, 21.75 ], tempo,
+    lyrics  = "| >left foot step | >right foot step | >looks for mu-mmy | >fall-ing down",
+    rhythm  = "|  Q    Q    H    |  Q     Q    H    |  Q     Q   Q  Q   |  Q    Q   H",
+    strings = "|  4    4    3    |  2     2    3    |  2     2   1  1   |  2    3   4",
+    bowing  = "|  35   3    5    |  3     5    3    |  5     3   5  3   |  5    3   5",
+    shapes  = "|  N"
   )
 
 def the_car_trip(tempo=110):
-  goal("the-car-trip", tempo, locate("00.03.the-car-trip.mp3"))
-  piece(tempo, "the-car-trip",
-    phrase(tempo, "little baby throwing up (mummy)", "QQQQQQHQ", "11223323", "N", start=9.72, stop=12.04),
-    phrase(tempo, "mummy wants to throw up too (pull)", "QQQQQQHQ", "33443321", "N", bowing="53", start=12.04, stop=14.22),
-    phrase(tempo, "pulling over (clean)", "QQQQQ", "12343", "N", start=14.22, stop=16.52),
-    phrase(tempo, "clean it up", "QQH", "332", "N", start=16.52, stop=19.46)
+  score("the-car-trip", locate("03.the-car-trip.mp3"), [ 9.72, 12.04, 14.22, 16.52, 19.46 ], tempo,
+    lyrics  = "| >li-ttle ba-by | throw-ing up | >mu-mmy wants to | throw up too | >pull-ing o-ver | >clean it up",
+    rhythm  = "|  Q  Q    Q  Q  | Q     Q   H  |  Q  Q   Q     Q  | Q     Q  H   |  Q    Q   Q Q   |  Q     Q  H",
+    strings = "|  1  1    2  2  | 3     3   2  |  3  3   4     4  | 3     3  2   |  1    2   3 4   |  3     3  2",
+    bowing  = "|  35 3    5  3  | 5     3   5  |  3  5   3     5  | 3     5  3   |  5    3   5 3   |  5     3  5",
+    shapes  = "|  N"
   )
 
 def aeroplane_games(tempo=110):
-  goal("aeroplane-games", tempo, locate("00.04.aeroplane-games.mp3"))
-  piece(tempo, "aeroplane-games",
-    phrase(tempo, "flying upwards (fly)", "EEEEE", "43211", "N", start=9.59, stop=10.82),
-    phrase(tempo, "flying downwards (land)", "EEEEE", "12343", "N", start=10.82, stop=12.06),
-    phrase(tempo, "landing at the terminal", "EEEEEEE", "3322112", "N", start=14.24, stop=17.01)
+  score("aeroplane-games", locate("04.aeroplane-games.mp3"), [ 9.59, 10.82, 12.06, 14.24, 17.01 ], tempo,
+    lyrics  = "| >fly-ing up-wards >fly-ing down-wards | >>land-ing at the term-in-al",
+    rhythm  = "|  E   E   E  E      E   E   E    E     |   E    E   E  E   E    E  Q",
+    strings = "|  4   3   2  1      1   2   3    4     |   3    3   2  2   1    1  2",
+    shapes  = "|  N"
   )
 
 def lightly_row(tempo=90):
-  goal("lightly-row", tempo, locate("00.27.lightly-row.mp3"))
-  piece(tempo, "lightly-row",
-    phrase(tempo, "lightly row, flamingo", "QQHQQH", "122222", "NWWWWW", "2", "022311", start=6.92, stop=10.52),
-    phrase(tempo, "down the river we will go", "QQQQQQH", "2222111", "WWWWNNN", "2", "0123000", start=10.52, stop=14.12),
-    phrase(tempo, "always rowing, never slowing", "QQQQQQQQ", "12222222", "NWWWWWWW", "2", "02223111", "53", start=14.12, stop=17.60),
-    phrase(tempo, "in my bright new red canoe", "QQQQQQH", "2211222", "WWNNWWW", "2", "0200222", "53", start=17.60, stop=21.23),
-    phrase(tempo, "see the fishes swimming by", "QQQQQQH", "2", "W", "2", "1111123", start=21.23, stop=24.85),
-    phrase(tempo, "see the birds up in the sky", "QQQQQQH", "2", "W", "2", "2222234", "53", start=24.85, stop=28.58),
-  )
+  lyrics   = "| >light-ly row | fla-min-go | >down the ri-ver | we will go"
+  rhythm   = "|  Q     Q  H   | Q   Q   H  |  Q    Q   Q  Q   | Q  Q    H"
+  strings  = "|  1     2  2   | 2   2   2  |  2    2   2  2   | 1  1    1"
+  bowing   = "|  35    3  5   | 3   5   3  |  5    3   5  3   | 5  3    5"
+  shapes   = "|  N     W  W   | W   W   W  |  W    W   W  W   | N  N    N"
+  fingers  = "|  0     2  2   | 3   1   1  |  0    1   2  3   | 0  0    0"
+  bases    = "|  2"
+
+  lyrics  += "| >al-ways row-ing | ne-ver slow-ing | >in my bright big | red can-oe"
+  rhythm  += "|  Q  Q    Q   Q   | Q  Q   Q    Q   |  Q  Q  Q      Q   | Q   Q   H"
+  strings += "|  1  2    2   2   | 2  2   2    2   |  2  2  1      1   | 2   2   2"
+  bowing  += "|  3  5    3   5   | 3  5   3    5   |  3  5  3      5   | 3   5   3"
+  shapes  += "|  N  W    W   W   | W  W   W    W   |  W  W  N      N   | W   W   W"
+  fingers += "|  0  2    2   2   | 3  1   1    1   |  0  2  0      0   | 2   2   2"
+
+  lyrics  += "| >see the fish-es | swim-ming by | >see the birds up | in the sky"
+  rhythm  += "|  Q   Q   Q    Q  | Q    Q    H  |  Q   Q   Q     Q  | Q   Q   H"
+  strings += "|  2   2   2    2  | 2    2    2  |  2   2   2     2  | 2   2   2"
+  bowing  += "|  5   3   5    3  | 5    3    5  |  3   5   3     5  | 3   5   3"
+  shapes  += "|  W   W   W    W  | W    W    W  |  W   W   W     W  | W   W   W"
+  fingers += "|  1   1   1    1  | 1    2    3  |  2   2   2     2  | 2   3   4"
+
+  score("lightly-row", locate("27.lightly-row.mp3"), [ 6.92, 10.52, 14.12, 17.60, 21.23, 24.85, 28.58 ], 
+        tempo, lyrics, rhythm, strings, bowing, shapes, bases, fingers)
 
 def ponies(tempo=95):
-  goal("ponies", tempo, locate("00.34.ponies.mp3"))
+  goal("ponies", tempo, locate("34.ponies.mp3"))
   piece(tempo, "ponies",
     phrase(tempo, "little girls like to draw", "HQh", "3", "G", "2", "044323", start=12.68, stop=20.28),
     phrase(tempo, "all the pretty little ponies", "HQqEEEhh", "22233333", "PPPGGGGG", "11122222", "24032100", start=20.28, stop=27.69),
@@ -66,7 +83,7 @@ def ponies(tempo=95):
   )
 
 def musette(tempo=120):
-  goal("musette", tempo, locate("00.35.musette.mp3"))
+  goal("musette", tempo, locate("35.musette.mp3"))
   piece(tempo, "musette",
     phrase(lyrics  = "i'm going fishing, i'm going fishing",
            rhythm  = "HEEEE", # "|ma..ta-i.da-i",
