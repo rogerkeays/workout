@@ -121,7 +121,7 @@ def make_whole(filename, tempo_mult, silence=0):
 
 # remove bar lines and spaces and replace repeat marks
 def normalise_tab(x):
-  raw = x.replace(" ", "").replace("|", "")
+  raw = x.replace(" ", "").replace("|", "").replace("\n", "")
   result = []
   for i, letter in enumerate(raw):
     result.append(letter if letter != "=" else result[i-1])
