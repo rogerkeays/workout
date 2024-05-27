@@ -75,62 +75,48 @@ def lightly_row(tempo=90):
         tempo, lyrics, rhythm, strings, bowing, shapes, bases, fingers)
 
 def ponies(tempo=95):
-  goal("ponies", tempo, locate("34.ponies.mp3"))
-  piece(tempo, "ponies",
-    phrase(tempo, "little girls like to draw", "HQh", "3", "G", "2", "044323", start=12.68, stop=20.28),
-    phrase(tempo, "all the pretty little ponies", "HQqEEEhh", "22233333", "PPPGGGGG", "11122222", "24032100", start=20.28, stop=27.69),
-    phrase(tempo, "in her dreams, she walks among", "HQhQQQh", "4443333", "G", "2", "1330022", "35353453", start=41.61, stop=50.63)
-  )
+  lyrics   = "| >li-ttle | girls | like to  | draw | >all the | pre-tty li-ttle | po- | nies "
+  rhythm   = "|   H   Q  |   h   |   H   Q  |  h   |   H   Q  |  q   E   =   =  |  h  |  =   "
+  strings  = "|   3   =  |   =   |   =   =  |  =   |   2   =  |  =   3   =   =  |  =  |  =   "
+  bowing   = "|  35   3  |   5   |   3   5  |  3   |   5   3  |  5   3   5   3  |  5  |  3   "
+  shapes   = "|   G   =  |   =   |   =   =  |  =   |   P   =  |  =   G   =   =  |  =  |  =   "
+  bases    = "|   2   =  |   =   |   =   =  |  =   |   1   =  |  =   2   =   =  |  =  |  =   "
+  fingers  = "|   0   4  |   =   |   3   2  |  3   |   2   4  |  0   3   2   1  |  0  |  0   "
+
+  lyrics  += "| >>in her | dreams | she walks a- | mong "
+  rhythm  += "|   H   Q  |   h    |   Q   =   =  |  h   "
+  strings += "|   4   =  |   =    |   3   =   =  |  =   "
+  bowing  += "|   5   3  |   5    |   3   4   5  |  3   "
+  shapes  += "|   G   =  |   =    |   =   =   =  |  =   "
+  fingers += "|   1   3  |   =    |   0   =   2  |  =   "
+
+  score("ponies", locate("34.ponies.mp3"), [ 12.68, 20.28, 27.69, 41.61, 50.63 ],
+        tempo, lyrics, rhythm, strings, bowing, shapes, bases, fingers)
 
 def musette(tempo=120):
-  goal("musette", tempo, locate("35.musette.mp3"))
-  piece(tempo, "musette",
-    phrase(lyrics  = "i'm going fishing, i'm going fishing",
-           rhythm  = "HEEEE", # "|ma..ta-i.da-i",
-           strings = "3", shapes = "W", bases = "2",
-           fingers = "43210", # retake second time
-           start = 9.77, stop = 14.07, tempo = tempo),
+  lyrics   = "| >i'm go-ing fish-ing | i'm go-ing fish-ing | >go-nna sit down and | choose some ta-ckle "
+  rhythm   = "|   H   E   =   =   =  |  H   E   =   =   =  |   =   =   Q   =   =  |    =   =   =   =    "
+  strings  = "|   3   =   =   =   =  |  =   =   =   =   =  |   =   =   =   =   =  |    =   =   =   =    "
+  bowing   = "|  35   3   5   3   5  |  3   5   3   5   3  |   5   3   5   4   3  |    5   3   5   3    "
+  shapes   = "|   W "
+  bases    = "|   2 "
+  fingers  = "|   4   3   2   1   0  |  4   3   2   1   0  |   2   3   4   3   2  |    1   4   2   0    "
+  attack   = "|   V   =   =   =   =  |  =   =   =   =   =  |   =   =   S   S   S  |    V   =   =   =    "
 
-    phrase(lyrics    = "gonna sit down and choose some tackle",
-           rhythm    = "EEQQQQQQQ",
-           strings   = "3", shapes = "W", bases = "2",
-           fingers   = "234321420",
-           bowing    = "3535435353",
-           dynamics  = "VVVSSVVVV",
-           start = 14.07, stop = 17.87, tempo = tempo),
+  lyrics  += "| >go-nna sit down and | choose some bait .  | >>here it comes, here it comes | more free food "
+  rhythm  += "|   E   =   Q   =   =  |    =    =    H   .  |   E    =    Q    E    =    Q   |  =    =    H   "
+  strings += "|   3   =   =   =   =  |    =    =    =   =  |   2    =    =    =    =    =   |  1    =    =   "
+  bowing  += "|   5   3   5   4   3  |    5    3    5   3  |   5    3    5    3    5    3   |  5    3    5   "
+  fingers += "|   2   3   4   3   2  |    1    4    0   -  |   2    3    4    2    3    4   |  0    5    0   "
+  attack  += "|   V   =   S   S   S  |    V    =    =   -  |   V    =    S    V    =    S   |  S    =    V   "
 
-    phrase(lyrics    = "gonna sit down and choose some bait",
-           rhythm    = "EEQQQQQH",
-           strings   = "3", shapes = "W", bases = "2",
-           fingers   = "23432140",
-           bowing    = "353543535",
-           dynamics  = "VVVSSVVV",
-           start = 21.93, stop = 25.84, tempo = tempo),
+  lyrics  += "| >care-ful-ly, care-ful-ly | ste-al it | >>big strike, think it got a- | way "
+  rhythm  += "|    E   =   Q   E   =   Q  | =   =   H |    Q    =    E    =    =    = |  W  "
+  strings += "|    2   =   =   =   =   =  | =   =   = |    1    =    =    2    =    = |  3  "
+  fingers += "|    2   3   4   2   3   4  | 0   5   0 |    0    5    0    2    1    0 |  2  "
+  bowing  += "|    3   5   3   5   3   5  | 3   5   3 |    4    3    5    3    5    3 |  5  "
+  attack  += "|    V   =   S   V   =   S  | S   =   V |    S    =    V    =    =    = |  =  "
 
-    phrase(lyrics    = "here it comes, here it comes, more free food",
-           rhythm    = "EEQEEQQQH",
-           strings   = "222222111",
-           shapes    = "W", bases = "2",
-           fingers   = "234234050",
-           bowing    = "", # retake
-           dynamics  = "VVVVVSSSV",
-           start = 25.84, stop = 29.69, tempo = tempo),
-
-    phrase(lyrics    = "carefully, carefully, steal it",
-           rhythm    = "EESEESQQH",
-           strings   = "2", shapes = "W", bases = "2",
-           fingers   = "234234050",
-           bowing    = "35",
-           dynamics  = "VVSVVSSSV",
-           start = 29.69, stop = 33.59, tempo = tempo),
-
-    phrase(lyrics    = "big strike, think it got away",
-           rhythm    = "QQEEEEH",
-           strings   = "1112223",
-           shapes    = "W", bases = "2",
-           fingers   = "0502102",
-           bowing    = "54353535",
-           dynamics  = "SSVVVVV",
-           start = 37.43, stop = 41.55, tempo = tempo),
-  )
+  score("musette", locate("35.musette.mp3"), [ 9.77, 14.07, 17.87, 21.93, 25.84, 29.69, 33.59, 37.43, 41.55 ],
+        tempo, lyrics, rhythm, strings, bowing, shapes, bases, fingers)
 
