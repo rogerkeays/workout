@@ -118,5 +118,5 @@ def musette(tempo=120):
   attack  += "|    D   =   S   D   =   S  | S   =   D |    S    =    D    =    =    = |  =  "
 
   score("musette", locate("35.musette.mp3"), [ 9.77, 14.07, 17.87, 21.93, 25.84, 29.69, 33.59, 37.43, 41.55 ],
-        tempo, lyrics, rhythm, strings, bowing, shapes, bases, fingers, "", attack)
+        tempo, lyrics, rhythm, strings, bowing, shapes, bases, fingers, attack)
 

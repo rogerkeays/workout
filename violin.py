@@ -8,9 +8,9 @@
 # frets       0..24
 # fingers     01234
 # bowing      0-8
-# fulcrum     LRI      eLbow, wRist, fIngers
 # attack      AG       detAche, leGato
 # dynamics    VC       eVen, staCcato
+# fulcrum     LRI      eLbow, wRist, fIngers
 #
 
 import math, re
@@ -18,7 +18,7 @@ from workout import *
 
 # divide a score into phrases
 def score(title, mp3, splits, tempo, lyrics, rhythm, strings="", bowing="",
-          shapes="", bases="", fingers="", fulcrum="", attack="", dynamics=""):
+          shapes="", bases="", fingers="", attack="", dynamics="", fulcrum=""):
 
   # normalise tab lines
   lyrics = re.split("[- ]+", lyrics.replace("|", "").strip())
@@ -28,9 +28,9 @@ def score(title, mp3, splits, tempo, lyrics, rhythm, strings="", bowing="",
   shapes = normalise_tab(shapes)
   bases = normalise_tab(bases)
   fingers = normalise_tab(fingers)
-  fulcrum = normalise_tab(fulcrum)
   attack = normalise_tab(attack)
   dynamics = normalise_tab(dynamics)
+  fulcrum = normalise_tab(fulcrum)
 
   # default values
   n = len(rhythm)
@@ -39,9 +39,9 @@ def score(title, mp3, splits, tempo, lyrics, rhythm, strings="", bowing="",
   if not shapes: shapes = "W" * n
   if not bases: bases = "2" * n
   if not fingers: fingers = "0" * n
-  if not fulcrum: fulcrum = "L" * n
   if not attack: attack = "A" * n
   if not dynamics: dynamics = "V" * n
+  if not fulcrum: fulcrum = "L" * n
 
   # expand abbreviated parameters
   def repeat_to_fit(string, length): return (string * math.ceil(length / len(string)))[0:length]
@@ -60,7 +60,7 @@ def score(title, mp3, splits, tempo, lyrics, rhythm, strings="", bowing="",
       stop = i + 1
       phrase(tempo, lyrics[start:stop], rhythm[start:stop], strings[start:stop],
              shapes[start:stop], bases[start:stop], fingers[start:stop], bowing[start:stop + 1],
-             fulcrum[start:stop], attack[start:stop], dynamics[start:stop], splits[split], splits[split + 1])
+             attack[start:stop], dynamics[start:stop], fulcrum[start:stop], splits[split], splits[split + 1])
       start = i
       split += 1 if word[1] != ">" else 2
 
@@ -68,15 +68,14 @@ def score(title, mp3, splits, tempo, lyrics, rhythm, strings="", bowing="",
   stop = len(lyrics)
   phrase(tempo, lyrics[start:stop], rhythm[start:stop], strings[start:stop],
          shapes[start:stop], bases[start:stop], fingers[start:stop], bowing[start:stop + 1],
-         fulcrum[start:stop], attack[start:stop], dynamics[start:stop], splits[split], splits[split + 1])
+         attack[start:stop], dynamics[start:stop], fulcrum[start:stop], splits[split], splits[split + 1])
 
   # card for the whole score
   piece(tempo, title)
 
 # break down a phrase into drills
 def phrase(tempo, lyrics, rhythm, strings="", shapes="", bases="", fingers="",
-    bowing="", fulcrum="", attack="", dynamics="",
-    start=0, stop=0):
+    bowing="", attack="", dynamics="", fulcrum="", start=0, stop=0):
 
   # capture parameters
   params = locals()
@@ -84,7 +83,7 @@ def phrase(tempo, lyrics, rhythm, strings="", shapes="", bases="", fingers="",
   del params["stop"]
 
   # scan phrase
-  open_strings(tempo, lyrics, rhythm, strings, bowing, fulcrum, attack, dynamics)
+  open_strings(tempo, lyrics, rhythm, strings, bowing, attack, dynamics, fulcrum)
   for i in range(len(rhythm)):
     hand_placement(strings[i], shapes[i], bases[i])
 
@@ -103,7 +102,7 @@ def phrase(tempo, lyrics, rhythm, strings="", shapes="", bases="", fingers="",
     make_metronome(tempo)
     make_chunk(start, stop, tempo)
 
-def open_strings(tempo, lyrics, rhythm, strings, bowing, fulcrum, attack, dynamics):
+def open_strings(tempo, lyrics, rhythm, strings, bowing, attack, dynamics, fulcrum):
   params = locals()
 
   # scan phrase
@@ -112,18 +111,18 @@ def open_strings(tempo, lyrics, rhythm, strings, bowing, fulcrum, attack, dynami
       h = i - 1
       j = i + 1
       if strings[i] == strings[h]:
-        bow_changes(tempo, rhythm[h:j], strings[h], bowing[h:j+1], fulcrum[h:j], attack[h:j], dynamics[h:j])
+        bow_changes(tempo, rhythm[h:j], strings[h], bowing[h:j+1], attack[h:j], dynamics[h:j], fulcrum[h:j])
       else:
-        string_crossings(tempo, rhythm[h:j], strings[h:j], bowing[h:j+1], fulcrum[h:j], attack[h:j], dynamics[h:j])
+        string_crossings(tempo, rhythm[h:j], strings[h:j], bowing[h:j+1], attack[h:j], dynamics[h:j], fulcrum[h:j])
 
   # card for this phrase
   make_card(params, 5)
   make_metronome(tempo)
 
-def string_crossings(tempo, rhythm, strings, bowing, fulcrum, attack, dynamics):
-  #if tempo > SLOW: string_crossings(half(tempo), rhythm, strings, bowing, fulcrum, attack, dynamics)
-  bow_attack(tempo, strings[0], bowing[0:2], fulcrum[0], attack[0], dynamics[0])
-  bow_attack(tempo, strings[1], bowing[1:3], fulcrum[1], attack[1], dynamics[1])
+def string_crossings(tempo, rhythm, strings, bowing, attack, dynamics, fulcrum):
+  #if tempo > SLOW: string_crossings(half(tempo), rhythm, strings, bowing, attack, dynamics, fulcrum)
+  bow_attack(tempo, strings[0], bowing[0:2], attack[0], dynamics[0], fulcrum[0])
+  bow_attack(tempo, strings[1], bowing[1:3], attack[1], dynamics[1], fulcrum[1])
   string_switching(tempo, strings[0], strings[1], bowing[1], fulcrum)
   make_card(locals(), 15)
   make_metronome(tempo)
@@ -135,15 +134,15 @@ def string_switching(tempo, frm, to, bowpos, fulcrum):
   make_card(locals(), 15)
   make_metronome(tempo)
 
-def bow_changes(tempo, rhythm, string, bowing, fulcrum, attack, dynamic):
-  #if tempo > SLOW: bow_changes(half(tempo), rhythm, string, bowing, fulcrum, attack, dynamic)
-  bow_attack(tempo, string, bowing[0:2], fulcrum[0], attack[0], dynamic[0]),
-  bow_attack(tempo, string, bowing[1:3], fulcrum[1], attack[1], dynamic[1]),
+def bow_changes(tempo, rhythm, string, bowing, attack, dynamic, fulcrum):
+  #if tempo > SLOW: bow_changes(half(tempo), rhythm, string, bowing, attack, dynamic, fulcrum)
+  bow_attack(tempo, string, bowing[0:2], attack[0], dynamic[0], fulcrum[0]),
+  bow_attack(tempo, string, bowing[1:3], attack[1], dynamic[1], fulcrum[1]),
   make_card(locals(), 15)
   make_metronome(tempo)
 
-def note(tempo, string, fret, finger, bowing, fulcrum, attack, dynamic):
-  bow_attack(tempo, string, bowing, fulcrum, attack, dynamic)
+def note(tempo, string, fret, finger, bowing, attack, dynamic, fulcrum):
+  bow_attack(tempo, string, bowing, attack, dynamic, fulcrum)
   if int(fret) != 0 and int(finger) != 0:
     pitch_hitting(string, fret, finger)
     make_card(locals(), 15)
@@ -165,8 +164,8 @@ def finger_hammers(string, finger):
 def air_hammers(finger):
   make_card(locals(), 30)
 
-def bow_attack(tempo, string, bowing, fulcrum, attack, dynamic):
-  #if tempo > SLOW: bow_attack(half(tempo), string, bowing, fulcrum, attack, dynamic)
+def bow_attack(tempo, string, bowing, attack, dynamic, fulcrum):
+  #if tempo > SLOW: bow_attack(half(tempo), string, bowing, attack, dynamic, fulcrum)
   string_yanking(tempo, string, bowing[0], "D" if bowing[0] < bowing[1] else "U")
   make_card(locals(), 15)
   make_metronome(tempo)
@@ -299,9 +298,9 @@ def scale_49_major_one_octave(tempo, bowing, attack, rhythm):
   make_card(locals(), 3)
   make_metronome(tempo)
 
-def scale(tempo, base, strings, frets, fingers, bowing, fulcrum, attack, rhythm):
+def scale(tempo, base, strings, frets, fingers, bowing, attack, rhythm, fulcrum):
   for frm, to in zip(strings, strings[1:]):
-    if frm != to: string_crossings(tempo, rhythm, frm, to, bowing, fulcrum, attack)
+    if frm != to: string_crossings(tempo, rhythm, frm, to, bowing, attack, fulcrum)
   for i in range(0, len(fingers)):
     if fingers[i] != 0:
       finger_hammers(strings[i], frets[i], fingers[i])
