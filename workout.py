@@ -43,7 +43,12 @@ def make_card(params = {}, reps=5):
       f.writelines(goalname + "\n")
       f.writelines(name + "\n")
       for key in params:
-        if params[key]: f.write(key + "=" + str(params[key]) + "\n")
+        if params[key]:
+          if isinstance(params[key], list):
+            value = '.'.join(params[key])
+          else:
+            value = str(params[key])
+          f.write(key + "=" + value + "\n")
       f.write("reps=" + str(reps))
 
 def drillnum():
