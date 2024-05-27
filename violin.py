@@ -84,7 +84,7 @@ def phrase(tempo, lyrics, rhythm, strings="", shapes="", bases="", fingers="",
   del params["stop"]
 
   # scan phrase
-  open_strings(tempo, rhythm, strings, bowing, fulcrum, attack, dynamics)
+  open_strings(tempo, lyrics, rhythm, strings, bowing, fulcrum, attack, dynamics)
   for i in range(len(rhythm)):
     hand_placement(strings[i], shapes[i], bases[i])
 
@@ -103,7 +103,7 @@ def phrase(tempo, lyrics, rhythm, strings="", shapes="", bases="", fingers="",
     make_metronome(tempo)
     make_chunk(start, stop, tempo)
 
-def open_strings(tempo, rhythm, strings, bowing, fulcrum, attack, dynamics):
+def open_strings(tempo, lyrics, rhythm, strings, bowing, fulcrum, attack, dynamics):
   params = locals()
 
   # scan phrase
