@@ -114,6 +114,14 @@ def make_whole(filename, tempo_mult, silence=0):
            "{outfile}"
            """.format(**locals()))
 
+# remove bar lines and spaces and replace repeat marks
+def normalise_tab(x):
+  raw = x.replace(" ", "").replace("|", "")
+  result = []
+  for i, letter in enumerate(raw):
+    result.append(letter if letter != "=" else result[i-1])
+  return ''.join(result)
+
 # add base-12 notes and intervals
 def add(note, interval):
   return decimal_to_note(note_to_decimal(note) + note_to_decimal(interval))

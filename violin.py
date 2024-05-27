@@ -20,18 +20,17 @@ from workout import *
 def score(title, mp3, splits, tempo, lyrics, rhythm, strings="", bowing="",
           shapes="", bases="", fingers="", fulcrum="", attack="", dynamics=""):
 
-  # normalise params
-  def normalise_param(x): return x.replace(" ", "").replace("|", "")
+  # normalise tab lines
   lyrics = re.split("[- ]+", lyrics.replace("|", "").strip())
-  rhythm = normalise_param(rhythm)
-  strings = normalise_param(strings)
-  bowing = normalise_param(bowing)
-  shapes = normalise_param(shapes)
-  bases = normalise_param(bases)
-  fingers = normalise_param(fingers)
-  fulcrum = normalise_param(fulcrum)
-  attack = normalise_param(attack)
-  dynamics = normalise_param(dynamics)
+  rhythm = normalise_tab(rhythm)
+  strings = normalise_tab(strings)
+  bowing = normalise_tab(bowing)
+  shapes = normalise_tab(shapes)
+  bases = normalise_tab(bases)
+  fingers = normalise_tab(fingers)
+  fulcrum = normalise_tab(fulcrum)
+  attack = normalise_tab(attack)
+  dynamics = normalise_tab(dynamics)
 
   # default values
   n = len(rhythm)
