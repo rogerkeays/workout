@@ -101,21 +101,21 @@ def musette(tempo=120):
   shapes   = "|   W "
   bases    = "|   2 "
   fingers  = "|   4   3   2   1   0  |  4   3   2   1   0  |   2   3   4   3   2  |    1   4   2   0    "
-  attack   = "|   V   =   =   =   =  |  =   =   =   =   =  |   =   =   S   S   S  |    V   =   =   =    "
+  attack   = "|   D   =   =   =   =  |  =   =   =   =   =  |   =   =   S   S   S  |    D   =   =   =    "
 
   lyrics  += "| >go-nna sit down and | choose some bait .  | >>here it comes, here it comes | more free food "
   rhythm  += "|   E   =   Q   =   =  |    =    =    H   .  |   E    =    Q    E    =    Q   |  =    =    H   "
   strings += "|   3   =   =   =   =  |    =    =    =   =  |   2    =    =    =    =    =   |  1    =    =   "
   bowing  += "|   5   3   5   4   3  |    5    3    5   3  |   5    3    5    3    5    3   |  5    3    5   "
   fingers += "|   2   3   4   3   2  |    1    4    0   -  |   2    3    4    2    3    4   |  0    5    0   "
-  attack  += "|   V   =   S   S   S  |    V    =    =   -  |   V    =    S    V    =    S   |  S    =    V   "
+  attack  += "|   D   =   S   S   S  |    D    =    =   -  |   D    =    S    D    =    S   |  S    =    D   "
 
   lyrics  += "| >care-ful-ly, care-ful-ly | ste-al it | >>big strike, think it got a- | way "
   rhythm  += "|    E   =   Q   E   =   Q  | =   =   H |    Q    =    E    =    =    = |  W  "
   strings += "|    2   =   =   =   =   =  | =   =   = |    1    =    =    2    =    = |  3  "
   fingers += "|    2   3   4   2   3   4  | 0   5   0 |    0    5    0    2    1    0 |  2  "
   bowing  += "|    3   5   3   5   3   5  | 3   5   3 |    4    3    5    3    5    3 |  5  "
-  attack  += "|    V   =   S   V   =   S  | S   =   V |    S    =    V    =    =    = |  =  "
+  attack  += "|    D   =   S   D   =   S  | S   =   D |    S    =    D    =    =    = |  =  "
 
   score("musette", locate("35.musette.mp3"), [ 9.77, 14.07, 17.87, 21.93, 25.84, 29.69, 33.59, 37.43, 41.55 ],
         tempo, lyrics, rhythm, strings, bowing, shapes, bases, fingers, "", attack)
