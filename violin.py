@@ -18,7 +18,7 @@ from workout import *
 
 # divide a score into phrases
 def score(title, mp3, splits, tempo, lyrics, rhythm, strings="", bowing="",
-          shapes="", bases="", fingers="", attack="", dynamics="", fulcrum=""):
+          shapes="", bases="", fingers="", attack="", dynamics="", fulcrum="", index=""):
 
   # normalise tab lines
   lyrics = re.split("[- ]+", lyrics.replace("|", "").strip())
