@@ -120,7 +120,6 @@ def open_strings(tempo, lyrics, rhythm, strings, bowing, attack, dynamics, fulcr
   make_metronome(tempo)
 
 def string_crossings(tempo, rhythm, strings, bowing, attack, dynamics, fulcrum):
-  #if tempo > SLOW: string_crossings(half(tempo), rhythm, strings, bowing, attack, dynamics, fulcrum)
   bow_attack(tempo, strings[0], bowing[0:2], attack[0], dynamics[0], fulcrum[0])
   bow_attack(tempo, strings[1], bowing[1:3], attack[1], dynamics[1], fulcrum[1])
   string_switching(tempo, strings[0], strings[1], bowing[1], fulcrum)
@@ -128,14 +127,12 @@ def string_crossings(tempo, rhythm, strings, bowing, attack, dynamics, fulcrum):
   make_metronome(tempo)
 
 def string_switching(tempo, frm, to, bowpos, fulcrum):
-  #if tempo > SLOW: string_switching(half(tempo), frm, to, bowpos, fulcrum)
   if frm > to: frm, to = to, frm
   bow_hold()
   make_card(locals(), 15)
   make_metronome(tempo)
 
 def bow_changes(tempo, rhythm, string, bowing, attack, dynamic, fulcrum):
-  #if tempo > SLOW: bow_changes(half(tempo), rhythm, string, bowing, attack, dynamic, fulcrum)
   bow_attack(tempo, string, bowing[0:2], attack[0], dynamic[0], fulcrum[0]),
   bow_attack(tempo, string, bowing[1:3], attack[1], dynamic[1], fulcrum[1]),
   make_card(locals(), 15)
@@ -165,13 +162,11 @@ def air_hammers(finger):
   make_card(locals(), 30)
 
 def bow_attack(tempo, string, bowing, attack, dynamic, fulcrum):
-  #if tempo > SLOW: bow_attack(half(tempo), string, bowing, attack, dynamic, fulcrum)
   string_yanking(tempo, string, bowing[0], "D" if bowing[0] < bowing[1] else "U")
   make_card(locals(), 15)
   make_metronome(tempo)
 
 def string_yanking(tempo, string, bowpos, direction):
-  #if tempo > SLOW: string_yanking(half(tempo), bowpos, direction)
   bow_benders(string, bowpos)
   make_card(locals(), 15)
   make_metronome(tempo)
