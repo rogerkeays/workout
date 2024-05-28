@@ -118,17 +118,17 @@ def open_strings(tempo, lyrics, rhythm, strings, bowing, attack, dynamics, fulcr
       h = i - 1
       j = i + 1
       if strings[i] == strings[h]:
-        bow_changes(tempo, rhythm[h:j], strings[h], bowing[h:j+1], attack[h:j], dynamics[h:j], fulcrum[h:j])
+        bow_changes(tempo, lyrics[h:j], rhythm[h:j], strings[h], bowing[h:j+1], attack[h:j], dynamics[h:j], fulcrum[h:j])
       else:
-        string_crossings(tempo, rhythm[h:j], strings[h:j], bowing[h:j+1], attack[h:j], dynamics[h:j], fulcrum[h:j])
+        string_crossings(tempo, lyrics[h:j], rhythm[h:j], strings[h:j], bowing[h:j+1], attack[h:j], dynamics[h:j], fulcrum[h:j])
 
   # card for this phrase
   make_card(params, 5)
   make_metronome(tempo)
 
-def string_crossings(tempo, rhythm, strings, bowing, attack, dynamics, fulcrum):
-  bow_attack(tempo, strings[0], bowing[0:2], attack[0], dynamics[0], fulcrum[0])
-  bow_attack(tempo, strings[1], bowing[1:3], attack[1], dynamics[1], fulcrum[1])
+def string_crossings(tempo, lyrics, rhythm, strings, bowing, attack, dynamics, fulcrum):
+  bow_attack(tempo, lyrics[0], strings[0], bowing[0:2], attack[0], dynamics[0], fulcrum[0])
+  bow_attack(tempo, lyrics[1], strings[1], bowing[1:3], attack[1], dynamics[1], fulcrum[1])
   string_switching(tempo, strings[0], strings[1], bowing[1], fulcrum)
   make_card(locals(), 15)
   make_metronome(tempo)
@@ -139,14 +139,14 @@ def string_switching(tempo, frm, to, bowpos, fulcrum):
   make_card(locals(), 15)
   make_metronome(tempo)
 
-def bow_changes(tempo, rhythm, string, bowing, attack, dynamic, fulcrum):
-  bow_attack(tempo, string, bowing[0:2], attack[0], dynamic[0], fulcrum[0]),
-  bow_attack(tempo, string, bowing[1:3], attack[1], dynamic[1], fulcrum[1]),
+def bow_changes(tempo, lyrics, rhythm, string, bowing, attack, dynamic, fulcrum):
+  bow_attack(tempo, lyrics[0], string, bowing[0:2], attack[0], dynamic[0], fulcrum[0]),
+  bow_attack(tempo, lyrics[1], string, bowing[1:3], attack[1], dynamic[1], fulcrum[1]),
   make_card(locals(), 15)
   make_metronome(tempo)
 
-def note(tempo, string, fret, finger, bowing, attack, dynamic, fulcrum):
-  bow_attack(tempo, string, bowing, attack, dynamic, fulcrum)
+def note(tempo, lyrics, string, fret, finger, bowing, attack, dynamic, fulcrum):
+  bow_attack(tempo, lyrics, string, bowing, attack, dynamic, fulcrum)
   if int(fret) != 0 and int(finger) != 0:
     pitch_hitting(string, fret, finger)
     make_card(locals(), 15)
@@ -168,7 +168,7 @@ def finger_hammers(string, finger):
 def air_hammers(finger):
   make_card(locals(), 30)
 
-def bow_attack(tempo, string, bowing, attack, dynamic, fulcrum):
+def bow_attack(tempo, lyrics, string, bowing, attack, dynamic, fulcrum):
   string_yanking(tempo, string, bowing[0], "D" if bowing[0] < bowing[1] else "U")
   make_card(locals(), 15)
   make_metronome(tempo)

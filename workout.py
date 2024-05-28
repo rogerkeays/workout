@@ -35,7 +35,9 @@ def piece(tempo, name, *deps):
 def make_card(params = {}, reps=5):
   global goalcards
   name = inspect.stack()[1].function
-  key = name + str(params)
+  keys = params.copy()
+  if "lyrics" in keys: del keys["lyrics"]
+  key = name + str(keys)
   if key not in cards:
     cards.add(key)
     goalcards += 1
