@@ -15,9 +15,9 @@ def warmup():
   son_file()
 
 def the_crawl(tempo=90):
-  score("the-crawl", locate("01.the-crawl.mp3"), [ 10.16, 15.38, 21.53 ], tempo,
-    lyrics  = """>li-ttle ba-by crawls to dan-ger
-                 >scared he turns round in a cir-cle""",
+  score("the-crawl", locate("01.the-crawl.mp3"), tempo,
+    phrases = [("li-ttle ba-by crawls to dan-ger", 10.16),
+               ("scared he turns round in a cir-cle", 15.38, 21.53)],
 
     index   = "|ltbb|ctdg|shtr|iacc",
     rhythm  = "|Q===|====|====|====",
@@ -26,11 +26,11 @@ def the_crawl(tempo=90):
   )
 
 def baby_steps(tempo=90):
-  score("baby-steps", locate("02.baby-steps.mp3"), [ 10.30, 13.05, 15.67, 18.30, 21.75 ], tempo,
-    lyrics  = """>left foot step,
-                 >right foot step,
-                 >looks for mu-mmy,
-                 >fall-ing down""",
+  score("baby-steps", locate("02.baby-steps.mp3"), tempo,
+    phrases = [("left foot step", 10.30),
+               ("right foot step", 13.05),
+               ("looks for mu-mmy", 15.67),
+               ("fall-ing down", 18.30, 21.75)],
 
     index   = "|lfs|rfs|lfmm|fid",
     rhythm  = "|Q=H|Q=H|Q===|==H",
@@ -39,11 +39,11 @@ def baby_steps(tempo=90):
   )
 
 def the_car_trip(tempo=110):
-  score("the-car-trip", locate("03.the-car-trip.mp3"), [ 9.72, 12.04, 14.22, 16.52, 19.46 ], tempo,
-    lyrics  = """>li-ttle ba-by throw-ing up
-                 >mu-mmy wants to throw up too
-                 >pull-ing o-ver
-                 >clean it up""",
+  score("the-car-trip", locate("03.the-car-trip.mp3"), tempo,
+    phrases = [("li-ttle ba-by throw-ing up", 9.72),
+               ("mu-mmy wants to throw up too", 12.04),
+               ("pull-ing o-ver", 14.22),
+               ("clean it up", 16.52, 19.46)],
 
     index   = "|ltbb|tiu|mmwt|tut|plov|ciu",
     rhythm  = "|Q===|==H|Q===|==H|Q===|==H",
@@ -52,10 +52,10 @@ def the_car_trip(tempo=110):
   )
 
 def aeroplane_games(tempo=110):
-  score("aeroplane-games", locate("04.aeroplane-games.mp3"), [ 9.59, 10.82, 12.06, 14.24, 17.01 ], tempo,
-    lyrics  = """>fly-ing up-wards
-                 >fly-ing down-wards
-                 >>land-ing at the term-in-al""",
+  score("aeroplane-games", locate("04.aeroplane-games.mp3"), tempo,
+    phrases = [("fly-ing up-wards", 9.59),
+               ("fly-ing down-wards", 10.82, 12.06),
+               ("land-ing at the term-in-al", 14.24, 17.01)],
 
     index   = "|fidwfiup|ldattmn",
     rhythm  = "|E=======|======Q",
@@ -64,13 +64,13 @@ def aeroplane_games(tempo=110):
   )
 
 def lightly_row(tempo=90):
-  score("lightly-row", locate("27.lightly-row.mp3"), [ 6.92, 10.52, 14.12, 17.60, 21.23, 24.85, 28.58 ], tempo,
-    lyrics  = """>light-ly row, fla-min-go
-                 >down the ri-ver we will go
-                 >al-ways row-ing ne-ver slow-ing
-                 >in my bright big red ca-noe
-                 >see the fish-es swim-ming by
-                 >see the birds up in the sky""",
+  score("lightly-row", locate("27.lightly-row.mp3"), tempo,
+    phrases = [("light-ly row, fla-min-go", 6.92),
+               ("down the ri-ver we will go", 10.52),
+               ("al-ways row-ing ne-ver slow-ing", 14.12),
+               ("in my bright big red ca-noe", 17.60),
+               ("see the fish-es swim-ming by", 21.23),
+               ("see the birds up in the sky", 24.85, 28.58)],
 
     index   = "|llr|fmg|dtrv|wwg|awri|nvsi|imbb|rcn|stfs|smb|stbu|its",
     rhythm  = "|Q=H|Q=H|Q===|==H|Q===|====|====|==H|Q===|==H|Q===|==H",
@@ -82,10 +82,10 @@ def lightly_row(tempo=90):
   )
 
 def ponies(tempo=95):
-  score("ponies", locate("34.ponies.mp3"), [ 12.68, 20.28, 27.69, 41.61, 50.63 ], tempo,
-    lyrics  = """>li-ttle girls like to draw
-                 >all the pre-tty li-ttle po-nies
-                 >>in her dreams she walks a-mong""",
+  score("ponies", locate("34.ponies.mp3"), tempo,
+    phrases = [("li-ttle girls like to draw", 12.68),
+               ("all the pre-tty li-ttle po-nies", 20.28, 27.69),
+               ("in her dreams she walks a-mong", 41.61, 50.63)],
 
     index   = "|lt|g|lt|d|at|ptlt|p|n|ih|d|swa|m",
     rhythm  = "|HQ|h|HQ|h|HQ|qE==|h|=|HQ|h|Q==|h",
@@ -97,13 +97,13 @@ def ponies(tempo=95):
   )
 
 def musette(tempo=120):
-  score("musette", locate("35.musette.mp3"), [ 9.77, 14.07, 17.87, 21.93, 25.84, 29.69, 33.59, 37.43, 41.55 ], tempo,
-    lyrics  = """>i'm go-ing fish-ing, i'm go-ing fish-ing
-                 >go-nna sit down and choose some ta-ckle,
-                 >>go-nna sit down and choose some bait .
-                 >here it comes, here it comes more free food
-                 >care-ful-ly, care-ful-ly ste-al it
-                 >>big strike, think it got a-way""",
+  score("musette", locate("35.musette.mp3"), tempo,
+    phrases = [("i'm go-ing fish-ing, i'm go-ing fish-ing", 9.77),
+               ("go-nna sit down and choose some ta-ckle", 14.07, 17.87),
+               ("go-nna sit down and choose some bait .", 21.93),
+               ("here it comes, here it comes more free food", 25.84),
+               ("care-ful-ly, care-ful-ly ste-al it", 29.69, 33.59),
+               ("big strike, think it got a-way", 37.43, 41.55)],
 
     index   = "|igifi|igifi|gnsda|cstk|gnsda|csb.|hichic|mff|cflcfl|sli|bstiga|w",
     rhythm  = "|HE===|HE===|==Q==|====|E=Q==|==H0|E=QE=Q|==H|E=QE=Q|==H|Q=E===|W",
