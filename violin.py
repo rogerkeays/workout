@@ -8,8 +8,8 @@
 # frets       0..24
 # fingers     01234
 # bowing      0-8
-# attack      AG       detAche, leGato
-# dynamics    VC       eVen, staCcato
+# attack      DGS      Detache, leGato, Staccato
+# dynamics    V        eVen
 # fulcrum     LRI      eLbow, wRist, fIngers
 #
 
@@ -38,7 +38,7 @@ def score(title, mp3, tempo, phrases, rhythm, strings="", bowing="",
   if not shapes: shapes = "W" * n
   if not bases: bases = "2" * n
   if not fingers: fingers = "0" * n
-  if not attack: attack = "A" * n
+  if not attack: attack = "D" * n
   if not dynamics: dynamics = "V" * n
   if not fulcrum: fulcrum = "L" * n
 
