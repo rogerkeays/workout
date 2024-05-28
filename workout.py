@@ -40,8 +40,8 @@ def make_card(params = {}, reps=5):
     cards.add(key)
     goalcards += 1
     with open(goaldir + "/" + drillnum() + "A.txt", "w") as f:
-      f.writelines(goalname + "\n")
-      f.writelines(name + "\n")
+      f.write(goalname + "\n")
+      f.write(name + " x" + str(reps) + "\n")
       for key in params:
         if params[key]:
           if isinstance(params[key], list):
@@ -49,7 +49,6 @@ def make_card(params = {}, reps=5):
           else:
             value = str(params[key])
           f.write(key + "=" + value + "\n")
-      f.write("reps=" + str(reps))
 
 def drillnum():
   return str(len(cards)).zfill(4)
