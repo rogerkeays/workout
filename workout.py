@@ -61,7 +61,17 @@ def make_card(params = {}, reps=5):
 def make_hash(name, params):
   keys = params.copy()
   if "lyrics" in keys: del keys["lyrics"]
+  if "rhythm" in keys: keys["rhythm"] = shift_rhythm(keys["rhythm"])
   return name + str(keys)
+
+# shift a rhythm pattern to start on the first beat
+def shift_rhythm(rhythm):
+  onsets = "1bar2dup3cet4mow"
+  shift = int(onsets.index(rhythm[0]) / 4) * 4
+  if shift == 0:
+    return rhythm
+  else:
+    return "".join(map(lambda c: onsets[onsets.index(c) - shift], rhythm))
 
 # format the current drill number as a zero-padded string
 def drillnum():
