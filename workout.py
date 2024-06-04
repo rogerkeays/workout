@@ -32,14 +32,16 @@ def piece(tempo, name, *deps):
     make_whole(goalmp3, tempo / goaltempo)
   print(name + ": " + str(goalcards) + " new cards")
 
+#
+# make a drill card, ensuring it is unique, and formatting
+# it appropriately as a text file
+#
 def make_card(params = {}, reps=5):
   global goalcards
   name = inspect.stack()[1].function
-  keys = params.copy()
-  if "lyrics" in keys: del keys["lyrics"]
-  key = name + str(keys)
-  if key not in cards:
-    cards.add(key)
+  hash = make_hash(name, params)
+  if hash not in cards:
+    cards.add(hash)
     goalcards += 1
     with open(goaldir + "/" + drillnum() + "A.txt", "w") as f:
       f.write(goalname + "\n")
@@ -52,6 +54,16 @@ def make_card(params = {}, reps=5):
             value = str(params[key])
           f.write(key + "=" + value + "\n")
 
+#
+# hash a drill with the given parameters, such that combinations
+# resulting in the same physics result in the same value
+#
+def make_hash(name, params):
+  keys = params.copy()
+  if "lyrics" in keys: del keys["lyrics"]
+  return name + str(keys)
+
+# format the current drill number as a zero-padded string
 def drillnum():
   return str(len(cards)).zfill(4)
 
