@@ -53,27 +53,27 @@ def score(title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2", bow
   left = 0
   for i, tupl in enumerate(phrases):
 
-      # split the lyrics, adding the first note of the next phrase if they are sequential
-      lyrics = re.split("[- ]", tupl[0])
-      right = left + len(lyrics)
-      if len(tupl) < 3 and i != len(phrases) - 1:
-          lyrics.append(re.split("[- ]", phrases[i + 1][0])[0])
-          right += 1
+    # split the lyrics, adding the first note of the next phrase if they are sequential
+    lyrics = re.split("[- ]", tupl[0])
+    right = left + len(lyrics)
+    if len(tupl) < 3 and i != len(phrases) - 1:
+        lyrics.append(re.split("[- ]", phrases[i + 1][0])[0])
+        right += 1
 
-      # calculate inferred mp3 splits
-      if len(tupl) == 3:
-        start = tupl[1]
-        stop = tupl[2]
-      elif len(tupl) == 2:
-        start = tupl[1]
-        stop = phrases[i + 1][1]
-      else:
-        start = 0
-        stop = 0
+    # calculate inferred mp3 splits
+    if len(tupl) == 3:
+      start = tupl[1]
+      stop = tupl[2]
+    elif len(tupl) == 2:
+      start = tupl[1]
+      stop = phrases[i + 1][1]
+    else:
+      start = 0
+      stop = 0
 
-      phrase(tempo, lyrics[left:right], index[left:right], rhythm[left:right + 1], strings[left:right],
-             shapes[left:right], bases[left:right], fingers[left:right], bowing[left:right + 1],
-             attack[left:right], dynamics[left:right], fulcrum[left:right], start, stop)
+    phrase(tempo, lyrics[left:right], index[left:right], rhythm[left:right + 1], strings[left:right],
+           shapes[left:right], bases[left:right], fingers[left:right], bowing[left:right + 1],
+           attack[left:right], dynamics[left:right], fulcrum[left:right], start, stop)
 
   # card for the whole score
   piece(tempo, title)
