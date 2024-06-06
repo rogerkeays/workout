@@ -2,7 +2,7 @@
 #
 # abbreviations
 #
-# rhythm      SEQHW    Sixteenth, Eight, Quarter, Half, Whole
+# rhythm      1bar2dup3cet4mow
 # strings     1234
 # shape       NPGWCADK None, Porcupine, Gun, Westside, Chicken, Alien, Dog, ducK
 # frets       0..24
@@ -19,9 +19,8 @@ from workout import *
 SHAPES = "PGWCADK"
 
 # divide a score into phrases
-def score(title, mp3, tempo, phrases, rhythm="1234", strings="2", bowing="35",
-          shapes="W", bases="2", fingers="0", attack="D", dynamics="M", 
-          fulcrum="L", index="-"):
+def score(title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2", bowing="35",
+          shapes="W", bases="2", fingers="0", attack="D", dynamics="M", fulcrum="L"):
 
   # normalise tab lines
   rhythm = normalise_tab(rhythm)
@@ -36,7 +35,7 @@ def score(title, mp3, tempo, phrases, rhythm="1234", strings="2", bowing="35",
 
   # expand abbreviated parameters
   def repeat_to_fit(string, length): return (string * math.ceil(length / len(string)))[0:length]
-  n = len(rhythm)
+  n = len(index)
   if n > 1:
     if len(strings) < n: strings = repeat_to_fit(strings, n)
     if len(bowing) < n + 1 : bowing = repeat_to_fit(bowing, n + 1)
@@ -46,6 +45,7 @@ def score(title, mp3, tempo, phrases, rhythm="1234", strings="2", bowing="35",
     if len(attack) < n: attack = repeat_to_fit(attack, n)
     if len(dynamics) < n: dynamics = repeat_to_fit(dynamics, n)
     if len(fulcrum) < n: fulcrum = repeat_to_fit(fulcrum, n)
+  rhythm += "1"
 
   # process phrases
   goal(title, tempo, mp3)
@@ -70,7 +70,7 @@ def score(title, mp3, tempo, phrases, rhythm="1234", strings="2", bowing="35",
         start = 0
         stop = 0
 
-      phrase(tempo, lyrics[left:right], rhythm[left:right], strings[left:right],
+      phrase(tempo, lyrics[left:right], rhythm[left:right + 1], strings[left:right],
              shapes[left:right], bases[left:right], fingers[left:right], bowing[left:right + 1],
              attack[left:right], dynamics[left:right], fulcrum[left:right], start, stop)
 
@@ -88,7 +88,7 @@ def phrase(tempo, lyrics, rhythm, strings="", shapes="", bases="", fingers="",
 
   # scan phrase
   open_strings(tempo, lyrics, rhythm, strings, bowing, attack, dynamics, fulcrum)
-  for i in range(len(rhythm)):
+  for i in range(len(lyrics)):
     hand_placement(strings[i], shapes[i], bases[i])
 
     # transition drills
@@ -110,14 +110,14 @@ def open_strings(tempo, lyrics, rhythm, strings, bowing, attack, dynamics, fulcr
   params = locals()
 
   # scan phrase
-  for i in range(len(rhythm)):
+  for i in range(len(lyrics)):
     if i > 0:
       h = i - 1
       j = i + 1
       if strings[i] == strings[h]:
-        bow_changes(tempo, lyrics[h:j], rhythm[h:j], strings[h], bowing[h:j+1], attack[h:j], dynamics[h:j], fulcrum[h:j])
+        bow_changes(tempo, lyrics[h:j], rhythm[h:j+1], strings[h], bowing[h:j+1], attack[h:j], dynamics[h:j], fulcrum[h:j])
       else:
-        string_crossings(tempo, lyrics[h:j], rhythm[h:j], strings[h:j], bowing[h:j+1], attack[h:j], dynamics[h:j], fulcrum[h:j])
+        string_crossings(tempo, lyrics[h:j], rhythm[h:j+1], strings[h:j], bowing[h:j+1], attack[h:j], dynamics[h:j], fulcrum[h:j])
 
   # card for this phrase
   make_card(params, 5)
