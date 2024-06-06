@@ -115,9 +115,9 @@ def open_strings(tempo, lyrics, rhythm, strings, bowing, attack, dynamics, fulcr
       h = i - 1
       j = i + 1
       if strings[i] == strings[h]:
-        bow_changes(tempo, lyrics[h:j], rhythm[h:j+1], strings[h], bowing[h:j+1], attack[h:j], dynamics[h:j], fulcrum[h:j])
+        bow_changes(tempo, lyrics[h:j], rhythm[h:j], strings[h], bowing[h:j+1], attack[h:j], dynamics[h:j], fulcrum[h:j])
       else:
-        string_crossings(tempo, lyrics[h:j], rhythm[h:j+1], strings[h:j], bowing[h:j+1], attack[h:j], dynamics[h:j], fulcrum[h:j])
+        string_crossings(tempo, lyrics[h:j], rhythm[h:j], strings[h:j], bowing[h:j+1], attack[h:j], dynamics[h:j], fulcrum[h:j])
 
   # card for this phrase
   make_card(params, 5)
