@@ -17,8 +17,9 @@ import math, re
 from workout import *
 
 # divide a score into phrases
-def score(title, mp3, tempo, phrases, rhythm, strings="", bowing="",
-          shapes="", bases="", fingers="", attack="", dynamics="", fulcrum="", index=""):
+def score(title, mp3, tempo, phrases, rhythm="1234", strings="2", bowing="35",
+          shapes="W", bases="2", fingers="0", attack="D", dynamics="M", 
+          fulcrum="L", index="-"):
 
   # normalise tab lines
   rhythm = normalise_tab(rhythm)
@@ -31,24 +32,18 @@ def score(title, mp3, tempo, phrases, rhythm, strings="", bowing="",
   dynamics = normalise_tab(dynamics)
   fulcrum = normalise_tab(fulcrum)
 
-  # default values
-  n = len(rhythm)
-  if not strings: strings = "2" * n
-  if not bowing: bowing = "35" * math.ceil(n/2)
-  if not shapes: shapes = "W" * n
-  if not bases: bases = "2" * n
-  if not fingers: fingers = "0" * n
-  if not attack: attack = "D" * n
-  if not dynamics: dynamics = "V" * n
-  if not fulcrum: fulcrum = "L" * n
-
   # expand abbreviated parameters
   def repeat_to_fit(string, length): return (string * math.ceil(length / len(string)))[0:length]
+  n = len(rhythm)
   if n > 1:
     if len(strings) < n: strings = repeat_to_fit(strings, n)
     if len(bowing) < n + 1 : bowing = repeat_to_fit(bowing, n + 1)
     if len(shapes) < n : shapes = repeat_to_fit(shapes, n)
     if len(bases) < n : bases = repeat_to_fit(bases, n)
+    if len(fingers) < n: fingers = repeat_to_fit(fingers, n)
+    if len(attack) < n: attack = repeat_to_fit(attack, n)
+    if len(dynamics) < n: dynamics = repeat_to_fit(dynamics, n)
+    if len(fulcrum) < n: fulcrum = repeat_to_fit(fulcrum, n)
 
   # process phrases
   goal(title, tempo, mp3)
