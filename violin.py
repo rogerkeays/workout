@@ -71,9 +71,10 @@ def score(title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2", bow
       start = 0
       stop = 0
 
-    phrase(tempo, lyrics[left:right], index[left:right], rhythm[left:right + 1], strings[left:right],
+    phrase(tempo, lyrics, index[left:right], rhythm[left:right + 1], strings[left:right],
            shapes[left:right], bases[left:right], fingers[left:right], bowing[left:right + 1],
            attack[left:right], dynamics[left:right], fulcrum[left:right], start, stop)
+    left += len(lyrics) - 1
 
   # card for the whole score
   piece(tempo, title)
@@ -89,7 +90,7 @@ def phrase(tempo, lyrics, index, rhythm, strings="", shapes="", bases="", finger
 
   # scan phrase
   open_strings(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics, fulcrum)
-  for i in range(len(lyrics)):
+  for i in range(len(index)):
     hand_placement(strings[i], shapes[i], bases[i])
 
     # transition drills
@@ -111,7 +112,7 @@ def open_strings(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics
   params = locals()
 
   # scan phrase
-  for i in range(len(lyrics)):
+  for i in range(len(index)):
     if i > 0:
       h = i - 1
       j = i + 1
