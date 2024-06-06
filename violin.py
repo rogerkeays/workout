@@ -16,6 +16,8 @@
 import math, re
 from workout import *
 
+SHAPES = "PGWCADK"
+
 # divide a score into phrases
 def score(title, mp3, tempo, phrases, rhythm="1234", strings="2", bowing="35",
           shapes="W", bases="2", fingers="0", attack="D", dynamics="M", 
@@ -239,7 +241,7 @@ def finger_wriggles_straight(from_shape, to_shape):
     make_card(locals(), 30)
 
 def hand_placement(string, shape, base):
-  if shape != "N":
+  if shape in SHAPES:
     violin_hold()
     jankin_curls(shape)
     if shape == "P": frets = [0, 2, 4, 6]
@@ -257,12 +259,12 @@ def hand_placement(string, shape, base):
     make_card(locals(), 5)
 
 def jankin_curls(shape):
-  if shape != "N":
+  if shape in SHAPES:
     jankin(shape)
     make_card(locals(), 15)
 
 def jankin(shape):
-  if shape != "N":
+  if shape in SHAPES:
     finger_stretches()
     make_card(locals(), 15)
 
