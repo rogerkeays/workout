@@ -23,6 +23,7 @@ def score(title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2", bow
           shapes="W", bases="2", fingers="0", attack="D", dynamics="M", fulcrum="L"):
 
   # normalise tab lines
+  index = normalise_tab(index)
   rhythm = normalise_tab(rhythm)
   strings = normalise_tab(strings)
   bowing = normalise_tab(bowing)
@@ -70,7 +71,7 @@ def score(title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2", bow
         start = 0
         stop = 0
 
-      phrase(tempo, lyrics[left:right], rhythm[left:right + 1], strings[left:right],
+      phrase(tempo, lyrics[left:right], index[left:right], rhythm[left:right + 1], strings[left:right],
              shapes[left:right], bases[left:right], fingers[left:right], bowing[left:right + 1],
              attack[left:right], dynamics[left:right], fulcrum[left:right], start, stop)
 
@@ -78,7 +79,7 @@ def score(title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2", bow
   piece(tempo, title)
 
 # break down a phrase into drills
-def phrase(tempo, lyrics, rhythm, strings="", shapes="", bases="", fingers="",
+def phrase(tempo, lyrics, index, rhythm, strings="", shapes="", bases="", fingers="",
     bowing="", attack="", dynamics="", fulcrum="", start=0, stop=0):
 
   # capture parameters
@@ -87,7 +88,7 @@ def phrase(tempo, lyrics, rhythm, strings="", shapes="", bases="", fingers="",
   del params["stop"]
 
   # scan phrase
-  open_strings(tempo, lyrics, rhythm, strings, bowing, attack, dynamics, fulcrum)
+  open_strings(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics, fulcrum)
   for i in range(len(lyrics)):
     hand_placement(strings[i], shapes[i], bases[i])
 
@@ -106,7 +107,7 @@ def phrase(tempo, lyrics, rhythm, strings="", shapes="", bases="", fingers="",
     make_metronome(tempo)
     make_chunk(start, stop, tempo)
 
-def open_strings(tempo, lyrics, rhythm, strings, bowing, attack, dynamics, fulcrum):
+def open_strings(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics, fulcrum):
   params = locals()
 
   # scan phrase
