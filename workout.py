@@ -44,15 +44,19 @@ def make_card(params = {}, reps=5):
     cards.add(hash)
     goalcards += 1
     with open(goaldir + "/" + drillnum() + "A.txt", "w") as f:
-      f.write(goalname + "\n")
+      #f.write(goalname + "\n")
       f.write(name + " x" + str(reps) + "\n")
       for key in params:
         if params[key]:
           if isinstance(params[key], list):
-            value = '.'.join(params[key])
+            value = '-'.join(params[key])
           else:
             value = str(params[key])
-          f.write(key + "=" + value + "\n")
+          f.write(key[0].upper() + " " + value + "\n")
+
+      f.write("\n")
+      for key in params:
+        f.write(key[0].upper() + " : " + key + "\n")
 
 #
 # hash a drill with the given parameters, such that combinations
