@@ -119,15 +119,20 @@ def all_of_me(meter=4, tempo=126, tonic=48):
   phrases  = [("what would i do with-o-ut your smart mouth? .", 23.51),
               ("draw-in me in a you kick-in me a-out .", 27.31),
               ("you've got my head spin-nin , no kid-din .", 31.12),
-              ("i can't , pin yo-u down .", 35.85)]
+              ("i can't , pin yo-u down .", 35.85, 38.95)]
 
   index    = "wwi|dwouys|m. dim|iaykima|o. ygm|hsn,|nkd. i|c,pyu|d. "
   rhythm   = "3e4|1a2u34|12 3e4|1a23e4o|12 u3t|13e4|13e4 o|1u3eo|1u "
-  degrees  = "24=|==24=0|0. 24=|=24=20=|9. 94=|540,|540. 0|2,429|=. "
-  strings  = "3==|======|=. ===|=======|=. ===|===,|===. =|=,===|=. "
-  bases    = "6==|======|=. ===|=======|=. ===|===,|===. =|=,===|=. "
-  bowing   ="3535|435435|3. 535|4354353|5. 353|535,|354. 3|5,353|53 "
+  degrees  = "24=|==24=0|=. 24=|=24=20=|9. 94=|540.|540. 0|2.429|=. "
+  attack   = "L==|===JL=|=. L==|=======|=. L==|===.|L==. L|=.L=J|L. "
+  dynamics = "M"
+  strings  = "3==|======|== ===|=======|4= =3=|====|==== =|=====|== "
+  bases    = "6==|======|== ===|=======|== ===|====|==== =|====0|== "
+  shapes   = "C==|======|== ===|=======|P= =C=|====|==== =|====G|== "
+  fingers  = "23=|=====1|== 23=|=23=21=|3= ===|431=|431= =|2=32=|== "
+  bowing   ="2462|423626|2= 462|4625353|7= 672|747=|153= 2|6=147|1= "
 
+  """
   phrases += [("what's go-in on in that beau-ti-ful mind? .", 38.95),
               ("i'm on your ma-gi-cal my-ste-ry r-ide .", 42.67),
               ("and i-m so di-zzy , don't kn-ow what hit me .", 46.57),
@@ -213,4 +218,8 @@ def all_of_me(meter=4, tempo=126, tonic=48):
   index   += "igya|uaua|l,om|. ou|o. "
   rhythm  += "3e4o|2u4o|u34o|3 4o|14 "
   degrees += "4570|2L09|7,4=|. 24|2. "
+  """
+
+  score("all-of-me", locate("63.all-of-me.mp3"), tempo, phrases, index, rhythm, 
+      strings, bowing, shapes, bases, fingers, attack, dynamics)
 
