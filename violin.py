@@ -16,10 +16,14 @@ import math, re
 from workout import *
 
 SHAPES = "PGWCADK"
+FAST_TEMPO = 120
 
 # divide a score into phrases
 def score(title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2", bowing="35",
           shapes="W", bases="2", fingers="0", attack="D", dynamics="M"):
+
+  # update the global state
+  goal(title, tempo, mp3)
 
   # normalise tab lines
   index = normalise_tab(index)
@@ -45,36 +49,41 @@ def score(title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2", bow
     if len(dynamics) < n: dynamics = repeat_to_fit(dynamics, n)
   rhythm += "1"
 
+  # generate slow drill cards if necessary
+  tempos = [ tempo ]
+  while tempos[0] > FAST_TEMPO:
+    tempos = [ int(tempos[0] * 0.75) ] + tempos
+
   # process phrases
-  goal(title, tempo, mp3)
-  left = 0
-  for i, tupl in enumerate(phrases):
+  for tempo in tempos:
+    left = 0
+    for i, tupl in enumerate(phrases):
 
-    # split the lyrics, adding the first note of the next phrase if they are sequential
-    lyrics = re.split("[- ]", tupl[0])
-    right = left + len(lyrics)
-    if len(tupl) < 3 and i != len(phrases) - 1:
-        lyrics.append(re.split("[- ]", phrases[i + 1][0])[0])
-        right += 1
+      # split the lyrics, adding the first note of the next phrase if they are sequential
+      lyrics = re.split("[- ]", tupl[0])
+      right = left + len(lyrics)
+      if len(tupl) < 3 and i != len(phrases) - 1:
+          lyrics.append(re.split("[- ]", phrases[i + 1][0])[0])
+          right += 1
 
-    # calculate inferred mp3 splits
-    if len(tupl) == 3:
-      start = tupl[1]
-      stop = tupl[2]
-    elif len(tupl) == 2:
-      start = tupl[1]
-      stop = phrases[i + 1][1]
-    else:
-      start = 0
-      stop = 0
+      # calculate ommitted mp3 splits
+      if len(tupl) == 3:
+        start = tupl[1]
+        stop = tupl[2]
+      elif len(tupl) == 2:
+        start = tupl[1]
+        stop = phrases[i + 1][1]
+      else:
+        start = 0
+        stop = 0
 
-    phrase(tempo, lyrics, index[left:right], rhythm[left:right + 1], strings[left:right],
-           shapes[left:right], bases[left:right], fingers[left:right], bowing[left:right + 1],
-           attack[left:right], dynamics[left:right], start, stop)
-    left += len(lyrics) - 1
+      phrase(tempo, lyrics, index[left:right], rhythm[left:right + 1], strings[left:right],
+             shapes[left:right], bases[left:right], fingers[left:right], bowing[left:right + 1],
+             attack[left:right], dynamics[left:right], start, stop)
+      left += len(lyrics) - 1
 
-  # card for the whole score
-  piece(tempo, title)
+    # card for the whole score
+    piece(tempo, title)
 
 # break down a phrase into drills
 def phrase(tempo, lyrics, index, rhythm, strings="", shapes="", bases="", fingers="",
