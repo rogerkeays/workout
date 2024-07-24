@@ -151,12 +151,6 @@ def bow_changes(tempo, lyrics, rhythm, string, bowing, attack, dynamic):
     make_card(locals(), 15)
     make_metronome(tempo)
 
-def note(tempo, lyrics, rhythm, string, fret, finger, bowing, attack, dynamic):
-  bow_attack(tempo, lyrics, rhythm, string, bowing, attack, dynamic)
-  if int(fret) != 0 and int(finger) != 0:
-    pitch_hitting(string, fret, finger)
-    make_card(locals(), 15)
-
 def pitch_hitting(string, fret, finger):
   if int(fret) != 0 and int(finger) != 0:
     finger_placement(string, finger)
@@ -252,7 +246,6 @@ def finger_wriggles_straight(from_shape, to_shape):
 def hand_placement(string, shape, base):
   if shape in SHAPES:
     violin_hold()
-    jankin_curls(shape)
     if shape == "P": frets = [0, 2, 4, 6]
     elif shape == "G": frets = [0, 1, 3, 5]
     elif shape == "W": frets = [0, 2, 3, 5]
@@ -266,11 +259,6 @@ def hand_placement(string, shape, base):
     pitch_hitting(string, frets[3] + int(base), 4)
     del frets
     make_card(locals(), 5)
-
-def jankin_curls(shape):
-  if shape in SHAPES:
-    jankin(shape)
-    make_card(locals(), 15)
 
 def jankin(shape):
   if shape in SHAPES:
