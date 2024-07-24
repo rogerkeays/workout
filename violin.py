@@ -132,8 +132,8 @@ def open_strings(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics
   make_metronome(tempo)
 
 def string_crossings(tempo, lyrics, rhythm, strings, bowing, attack, dynamics):
-  bow_attack(tempo, lyrics[0], strings[0], bowing[0:2], attack[0], dynamics[0])
-  bow_attack(tempo, lyrics[1], strings[1], bowing[1:3], attack[1], dynamics[1])
+  bow_attack(tempo, lyrics[0], rhythm[0:2], strings[0], bowing[0:2], attack[0], dynamics[0])
+  bow_attack(tempo, lyrics[1], rhythm[1:3], strings[1], bowing[1:3], attack[1], dynamics[1])
   string_switching(tempo, strings[0], strings[1], bowing[1])
   make_card(locals(), 15)
   make_metronome(tempo)
@@ -146,13 +146,13 @@ def string_switching(tempo, frm, to, bowpos):
 
 def bow_changes(tempo, lyrics, rhythm, string, bowing, attack, dynamic):
   if attack[0] != "." and attack[1] != ".":
-    bow_attack(tempo, lyrics[0], string, bowing[0:2], attack[0], dynamic[0]),
-    bow_attack(tempo, lyrics[1], string, bowing[1:3], attack[1], dynamic[1]),
+    bow_attack(tempo, lyrics[0], rhythm[0:2], string, bowing[0:2], attack[0], dynamic[0]),
+    bow_attack(tempo, lyrics[1], rhythm[1:3], string, bowing[1:3], attack[1], dynamic[1]),
     make_card(locals(), 15)
     make_metronome(tempo)
 
-def note(tempo, lyrics, string, fret, finger, bowing, attack, dynamic):
-  bow_attack(tempo, lyrics, string, bowing, attack, dynamic)
+def note(tempo, lyrics, rhythm, string, fret, finger, bowing, attack, dynamic):
+  bow_attack(tempo, lyrics, rhythm, string, bowing, attack, dynamic)
   if int(fret) != 0 and int(finger) != 0:
     pitch_hitting(string, fret, finger)
     make_card(locals(), 15)
@@ -174,7 +174,7 @@ def finger_hammers(string, finger):
 def air_hammers(finger):
   make_card(locals(), 30)
 
-def bow_attack(tempo, lyrics, string, bowing, attack, dynamic):
+def bow_attack(tempo, lyrics, rhythm, string, bowing, attack, dynamic):
   string_yanking(tempo, string, bowing[0], "D" if bowing[0] < bowing[1] else "U")
   make_card(locals(), 15)
   make_metronome(tempo)
