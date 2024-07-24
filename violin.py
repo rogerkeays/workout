@@ -260,17 +260,20 @@ def finger_stretches():
   make_card(locals())
 
 def jankin_switches(from_shape, to_shape):
+  if to_shape > from_shape: from_shape, to_shape = to_shape, from_shape
   if from_shape != "N" and to_shape != "N" and from_shape != to_shape:
     jankin(from_shape)
     jankin(to_shape)
     make_card(locals(), 15)
 
 def finger_wriggles_curved(from_shape, to_shape):
+  if to_shape > from_shape: from_shape, to_shape = to_shape, from_shape
   if from_shape != "N" and to_shape != "N" and from_shape != to_shape:
     finger_wriggles_straight(from_shape, to_shape)
     make_card(locals(), 30)
 
 def finger_wriggles_straight(from_shape, to_shape):
+  if to_shape > from_shape: from_shape, to_shape = to_shape, from_shape
   if from_shape != "N" and to_shape != "N" and from_shape != to_shape:
     make_card(locals(), 30)
 
