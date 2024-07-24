@@ -6,7 +6,7 @@ SLOW = 60
 MAKE_MP3S = True
 
 # global state
-goaldir = "practise"
+goaldir = "drills"
 goalnum = 0
 goalname = ""
 goaltempo = 90
