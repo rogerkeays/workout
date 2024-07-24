@@ -49,7 +49,7 @@ def make_card(params = {}, reps=5):
       for key in params:
         if params[key]:
           if isinstance(params[key], list):
-            value = '-'.join(params[key])
+            value = ' '.join(params[key])
           else:
             value = str(params[key])
           f.write(key[0].upper() + " " + value + "\n")
