@@ -222,30 +222,21 @@ def hand_jumps_rapid(tempo, strings, shapes, bases):
 
 def hand_jumps_exact(strings, shapes, bases):
   if shapes[0] != "N" and shapes[1] != "N":
-    finger_wriggles_curved(shapes[0], shapes[1])
-    jankin_switches(shapes[0], shapes[1])
-    hand_placement(strings[0], shapes[0], bases[0])
-    hand_placement(strings[1], shapes[1], bases[1])
+    hand_jumps_silent(strings, shapes, bases)
     make_card(locals(), 5)
 
-def jankin_switches(from_shape, to_shape):
-  if from_shape != "N" and to_shape != "N" and from_shape != to_shape:
-    jankin(from_shape)
-    jankin(to_shape)
-    make_card(locals(), 15)
-
-def finger_wriggles_curved(from_shape, to_shape):
-  if from_shape != "N" and to_shape != "N" and from_shape != to_shape:
-    finger_wriggles_straight(from_shape, to_shape)
-    make_card(locals(), 30)
-
-def finger_wriggles_straight(from_shape, to_shape):
-  if from_shape != "N" and to_shape != "N" and from_shape != to_shape:
+def hand_jumps_silent(strings, shapes, bases):
+  if shapes[0] != "N" and shapes[1] != "N":
+    hand_placement(strings[0], shapes[0], bases[0])
+    hand_placement(strings[1], shapes[1], bases[1])
+    jankin_switches(shapes[0], shapes[1])
+    finger_wriggles_curved(shapes[0], shapes[1])
     make_card(locals(), 30)
 
 def hand_placement(string, shape, base):
   if shape in SHAPES:
     violin_hold()
+    jankin(shape)
     if shape == "P": frets = [0, 2, 4, 6]
     elif shape == "G": frets = [0, 1, 3, 5]
     elif shape == "W": frets = [0, 2, 3, 5]
@@ -267,6 +258,21 @@ def jankin(shape):
 
 def finger_stretches():
   make_card(locals())
+
+def jankin_switches(from_shape, to_shape):
+  if from_shape != "N" and to_shape != "N" and from_shape != to_shape:
+    jankin(from_shape)
+    jankin(to_shape)
+    make_card(locals(), 15)
+
+def finger_wriggles_curved(from_shape, to_shape):
+  if from_shape != "N" and to_shape != "N" and from_shape != to_shape:
+    finger_wriggles_straight(from_shape, to_shape)
+    make_card(locals(), 30)
+
+def finger_wriggles_straight(from_shape, to_shape):
+  if from_shape != "N" and to_shape != "N" and from_shape != to_shape:
+    make_card(locals(), 30)
 
 def pinky_reaches():
   elbow_raises()
