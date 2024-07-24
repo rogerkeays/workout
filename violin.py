@@ -115,6 +115,7 @@ def phrase(tempo, lyrics, index, rhythm, strings="", shapes="", bases="", finger
     make_chunk(start, stop, tempo)
 
 def open_strings(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics):
+  rhythm_clapping(tempo, lyrics, rhythm)
   params = locals()
 
   # scan phrase
@@ -129,6 +130,10 @@ def open_strings(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics
 
   # card for this phrase
   make_card(params, 5)
+  make_metronome(tempo)
+
+def rhythm_clapping(tempo, lyrics, rhythm):
+  make_card(locals(), 5)
   make_metronome(tempo)
 
 def string_crossings(tempo, lyrics, rhythm, strings, bowing, attack, dynamics):
@@ -146,6 +151,7 @@ def string_switching(tempo, frm, to, bowpos):
 
 def bow_changes(tempo, lyrics, rhythm, string, bowing, attack, dynamic):
   if attack[0] != "." and attack[1] != ".":
+    rhythm_clapping(tempo, lyrics, rhythm)
     bow_attack(tempo, lyrics[0], rhythm[0:2], string, bowing[0:2], attack[0], dynamic[0]),
     bow_attack(tempo, lyrics[1], rhythm[1:3], string, bowing[1:3], attack[1], dynamic[1]),
     make_card(locals(), 15)
@@ -167,6 +173,7 @@ def air_hammers(finger):
 
 def bow_attack(tempo, lyrics, rhythm, string, bowing, attack, dynamic):
   string_yanking(tempo, string, bowing[0], "D" if bowing[0] < bowing[1] else "U")
+  rhythm_clapping(tempo, lyrics, rhythm)
   make_card(locals(), 15)
   make_metronome(tempo)
 
