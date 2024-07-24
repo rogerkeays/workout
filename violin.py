@@ -140,7 +140,7 @@ def string_crossings(tempo, lyrics, rhythm, strings, bowing, attack, dynamics):
   bow_attack(tempo, lyrics[0], rhythm[0:2], strings[0], bowing[0:2], attack[0], dynamics[0])
   bow_attack(tempo, lyrics[1], rhythm[1:3], strings[1], bowing[1:3], attack[1], dynamics[1])
   string_switching(tempo, strings[0], strings[1], bowing[1])
-  make_card(locals(), 15)
+  make_card(locals(), 5)
   make_metronome(tempo)
 
 def string_switching(tempo, frm, to, bowpos):
@@ -154,7 +154,7 @@ def bow_changes(tempo, lyrics, rhythm, string, bowing, attack, dynamic):
     rhythm_clapping(tempo, lyrics, rhythm)
     bow_attack(tempo, lyrics[0], rhythm[0:2], string, bowing[0:2], attack[0], dynamic[0]),
     bow_attack(tempo, lyrics[1], rhythm[1:3], string, bowing[1:3], attack[1], dynamic[1]),
-    make_card(locals(), 15)
+    make_card(locals(), 5)
     make_metronome(tempo)
 
 def pitch_hitting(string, fret, finger):
@@ -166,7 +166,7 @@ def pitch_hitting(string, fret, finger):
 
 def finger_hammers(string, fret, finger):
   air_hammers(finger)
-  make_card(locals(), 30)
+  make_card(locals(), 15)
 
 def air_hammers(finger):
   make_card(locals(), 30)
@@ -174,7 +174,7 @@ def air_hammers(finger):
 def bow_attack(tempo, lyrics, rhythm, string, bowing, attack, dynamic):
   string_yanking(tempo, string, bowing[0], "D" if bowing[0] < bowing[1] else "U")
   rhythm_clapping(tempo, lyrics, rhythm)
-  make_card(locals(), 15)
+  make_card(locals(), 5)
   make_metronome(tempo)
 
 def string_yanking(tempo, string, bowpos, direction):
@@ -195,7 +195,7 @@ def violin_hold():
   no_hands_swivels()
 
 def no_hands_swivels():
-  make_card(locals(), 15)
+  make_card(locals(), 10)
 
 def bow_hold():
   jellyfish()
@@ -211,13 +211,13 @@ def itsy_bitsy_spider():
   make_card(locals(), 5)
 
 def horizontal_bow_raises():
-  make_card(locals(), 15)
+  make_card(locals(), 10)
 
 def vertical_bow_raises():
-  make_card(locals(), 15)
+  make_card(locals(), 10)
 
 def jellyfish():
-  make_card(locals(), 15)
+  make_card(locals(), 10)
 
 def hand_jumps_rapid(tempo, strings, shapes, bases):
   if shapes[0] != "N" and shapes[1] != "N":
@@ -235,7 +235,7 @@ def hand_jumps_silent(strings, shapes, bases):
     hand_placement(strings[1], shapes[1], bases[1])
     jankin_switches(shapes[0], shapes[1])
     finger_wriggles_curved(shapes[0], shapes[1])
-    make_card(locals(), 30)
+    make_card(locals(), 15)
 
 def hand_placement(string, shape, base):
   if shape in SHAPES:
@@ -253,7 +253,7 @@ def hand_placement(string, shape, base):
     pitch_hitting(string, frets[2] + int(base), 3)
     pitch_hitting(string, frets[3] + int(base), 4)
     del frets
-    make_card(locals(), 5)
+    make_card(locals(), 60)
 
 def jankin(shape):
   if shape in SHAPES:
@@ -283,12 +283,12 @@ def finger_wriggles_straight(from_shape, to_shape):
 
 def pinky_reaches():
   elbow_raises()
-  make_card(locals(), 15)
+  make_card(locals(), 30)
 
 def elbow_raises():
-  make_card(locals(), 15)
+  make_card(locals(), 30)
 
 def son_file():
-  make_card(locals(), 4)
+  make_card(locals(), 0)
   make_metronome(60)
 
