@@ -115,7 +115,6 @@ def phrase(tempo, lyrics, index, rhythm, strings="", shapes="", bases="", finger
     make_chunk(start, stop, tempo)
 
 def open_strings(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics):
-  rhythm_clapping(tempo, lyrics, rhythm)
   params = locals()
 
   # scan phrase
@@ -129,6 +128,7 @@ def open_strings(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics
         string_crossings(tempo, lyrics[h:j], rhythm[h:j+1], strings[h:j], bowing[h:j+1], attack[h:j], dynamics[h:j])
 
   # card for this phrase
+  rhythm_clapping(tempo, lyrics, rhythm)
   make_card(params, 5)
   make_metronome(tempo)
 
@@ -151,9 +151,9 @@ def string_switching(tempo, frm, to, bowpos):
 
 def bow_changes(tempo, lyrics, rhythm, string, bowing, attack, dynamic):
   if attack[0] != "." and attack[1] != ".":
-    rhythm_clapping(tempo, lyrics, rhythm)
     bow_attack(tempo, lyrics[0], rhythm[0:2], string, bowing[0:2], attack[0], dynamic[0]),
     bow_attack(tempo, lyrics[1], rhythm[1:3], string, bowing[1:3], attack[1], dynamic[1]),
+    rhythm_clapping(tempo, lyrics, rhythm)
     make_card(locals(), 5)
     make_metronome(tempo)
 
@@ -184,7 +184,7 @@ def string_yanking(tempo, string, bowpos, direction):
 
 def bow_benders(string, bowpos):
   bow_placement(string, bowpos)
-  make_card(locals(), 15)
+  make_card(locals(), 10)
 
 def bow_placement(string, bowpos):
   bow_hold()
@@ -217,7 +217,7 @@ def vertical_bow_raises():
   make_card(locals(), 10)
 
 def jellyfish():
-  make_card(locals(), 10)
+  make_card(locals(), 5)
 
 def hand_jumps_rapid(tempo, strings, shapes, bases):
   if shapes[0] != "N" and shapes[1] != "N":
@@ -289,6 +289,6 @@ def elbow_raises():
   make_card(locals(), 30)
 
 def son_file():
-  make_card(locals(), 0)
+  make_card(locals(), 4)
   make_metronome(60)
 
