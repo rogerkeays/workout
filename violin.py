@@ -153,15 +153,12 @@ def bow_changes(tempo, lyrics, rhythm, string, bowing, attack, dynamic):
 
 def pitch_hitting(string, fret, finger):
   if int(fret) != 0 and int(finger) != 0:
-    finger_placement(string, finger)
+    finger_hammers(string, fret, finger)
     note = decimal_to_note(note_to_decimal("5Y") - (int(string) * 7) + int(fret))
     make_card(locals(), 5)
     make_drone(note)
 
-def finger_placement(string, finger):
-  finger_hammers(string, finger)
-
-def finger_hammers(string, finger):
+def finger_hammers(string, fret, finger):
   air_hammers(finger)
   make_card(locals(), 30)
 
