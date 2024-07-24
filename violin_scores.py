@@ -10,7 +10,6 @@ def warmup():
   goal("warmup")
   finger_stretches()
   pinky_reaches()
-  jellyfish()
   itsy_bitsy_spider()
   son_file()
 
