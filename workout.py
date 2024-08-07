@@ -4,46 +4,27 @@ import os, inspect, re
 # constants 
 SLOW = 60
 MAKE_MP3S = True
+GOALDIR = "practise"
 
 # global state
-goaldir = "drills"
-goaltempo = 90
-goalmp3 = ""
-cards = set()
-mp3s = set()
-counter = [0]
-os.makedirs(goaldir, exist_ok=True)
-os.chdir(goaldir)
-
-def goal(name, tempo=90, mp3=""):
-  global goaltempo, goalmp3
-  goaltempo = tempo
-  goalmp3 = mp3
-
-def piece(tempo, name):
-  make_card(locals(), 1, tempo)
-  if goalmp3:
-    make_whole(goalmp3, tempo / goaltempo)
+os.mkdir(GOALDIR)
+os.chdir(GOALDIR)
+seen = set()
 
 #
 # make a drill card, ensuring it is unique, and formatting
 # it appropriately as a text file
 #
-def make_card(params={}, reps=5, tempo=0, start=0, stop=0):
-  global counter
+def make_card(params={}, reps=5, reset=False):
+
+  # check for duplicates
+  if reset: seen.clear()
   name = inspect.stack()[1].function
   hash = make_hash(name, params)
-  if hash in cards:
-    return False
-  cards.add(hash)
+  if hash in seen: return False
+  seen.add(hash)
 
-  drillnum = counter[-1] + 1
-  dirname = pad2(drillnum) + "." + name + "/00"
-  os.makedirs(dirname)
-  os.chdir(dirname)
-  counter[-1] = drillnum
-  counter += [0]
-
+  # build card text
   score = ""
   legend = ""
   for key in params:
@@ -55,20 +36,12 @@ def make_card(params={}, reps=5, tempo=0, start=0, stop=0):
         score += " ".join(params[key]) + "\n"
       else:
         score += str(params[key]) + "\n"
-        dirname += "." + letter + str(params[key])
 
-  with open(strdrillnum() + ".txt", "w") as f:
+  # write card
+  with open(cardnum() + "A.txt", "w") as f:
     f.write(name + " x" + str(reps) + "\n" + score + "\n" + legend + "\n")
 
-  if tempo > 0: make_metronome(tempo)
-  if start > 0: make_chunk(tempo, start, stop)
-  os.chdir("..")
   return True
-
-def end_card():
-  global counter
-  os.chdir("..")
-  counter = counter[0:-1]
 
 #
 # hash a drill with the given parameters, such that combinations
@@ -90,10 +63,8 @@ def shift_rhythm(rhythm):
     return "".join(map(lambda c: onsets[onsets.index(c) - shift], rhythm))
 
 # format the current drill number as a zero-padded string
-def strdrillnum():
-  return str(len(cards)).zfill(4)
-
-def pad2(num): return str(num).zfill(2)
+def cardnum():
+  return str(len(seen)).zfill(4)
 
 def make_metronome(tempo):
   make_mp3("""
@@ -105,7 +76,7 @@ def make_metronome(tempo):
   %%MIDI program 115
   |:cccc|cccc|cccc|cccc|cccc|cccc|cccc|cccc:|
   |:cccc|cccc|cccc|cccc|cccc|cccc|cccc|cccc:|
-  """, 0, tempo, filename="01.metronome." + str(tempo).zfill(3) + ".mp3")
+  """, 0, tempo, "T" + str(tempo).zfill(4) + ".mp3")
 
 #
 # use MIDI instrument number (abc instrument number is zero-based)
@@ -128,36 +99,31 @@ def make_drone(note, instrument=57):
 def make_mp3(score, transpose=0, tempo_percent=100, filename=""):
   if MAKE_MP3S:
     key = str(locals())
-    if key not in mp3s:
-      mp3s.add(key)
-      outfile = filename if filename else "02.backing.mp3"
-      os.system("""echo '{score}' \
-          | abc2midi /dev/stdin -o /dev/stdout \
-          | timidity - --quiet --quiet --output-24bit -A800 -K{transpose} -T{tempo_percent} -Ow -o - \
-          | ffmpeg -loglevel error -i - -ac 1 -ab 64k "{outfile}"
-          """.format(**locals()))
+    outfile = filename if filename else cardnum() + "B.mp3"
+    os.system("""echo '{score}' \
+        | abc2midi /dev/stdin -o /dev/stdout \
+        | timidity - --quiet --quiet --output-24bit -A800 -K{transpose} -T{tempo_percent} -Ow -o - \
+        | ffmpeg -loglevel error -i - -ac 1 -ab 64k "{outfile}"
+        """.format(**locals()))
 
-def make_chunk(tempo, start_secs, stop_secs, padding=2.5, silence=5):
-  if MAKE_MP3S and goalmp3 and stop_secs > 0:
-    filename = goalmp3
+def make_chunk(mp3, speed, start_secs, stop_secs, padding=2.5, silence=5):
+  if MAKE_MP3S and stop_secs > 0:
     ss = start_secs - padding
     to = stop_secs + padding
     st = stop_secs - start_secs + padding
-    tempo_mult = tempo / goaltempo
-    outfile = "02.backing.mp3"
+    outfile = cardnum() + "B.mp3"
     os.system("""
-    ffmpeg -nostdin -loglevel error -ss {ss} -to {to} -i {filename} -ac 1 -ar 48000 -q 4 \
-           -af afade=d={padding},afade=t=out:st={st}:d={padding},atempo={tempo_mult},adelay={silence}s:all=true \
+    ffmpeg -nostdin -loglevel error -ss {ss} -to {to} -i {mp3} -ac 1 -ar 48000 -q 4 \
+           -af afade=d={padding},afade=t=out:st={st}:d={padding},atempo={speed},adelay={silence}s:all=true \
            "{outfile}"
            """.format(**locals()))
 
-def make_whole(filename, tempo_mult, silence=0):
+def make_whole(mp3, speed, silence=0):
   if MAKE_MP3S:
-    outfile = "00/02.backing.mp3"
+    outfile = cardnum() + "B.mp3"
     os.system("""
-    ffmpeg -nostdin -loglevel error -i {filename} -ac 1 -ar 48000 -q 4 \
-           -af atempo={tempo_mult},adelay={silence}s:all=true \
-           "{outfile}"
+    ffmpeg -nostdin -loglevel error -i {mp3} -ac 1 -ar 48000 -q 4 \
+           -af atempo={speed},adelay={silence}s:all=true "{outfile}"
            """.format(**locals()))
 
 # remove bar lines and spaces and replace repeat marks
