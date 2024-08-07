@@ -6,13 +6,6 @@ from violin import *
 def locate(mp3):
  return os.environ['HOME'] + "/library/workout/violin/03.pieces/" + mp3
 
-def warmup():
-  goal("warmup")
-  finger_stretches()
-  pinky_reaches()
-  itsy_bitsy_spider()
-  son_file()
-
 def the_crawl(meter=4, tempo=90, tonic=37):
   score("the-crawl", locate("01.the-crawl.mp3"), tempo,
     phrases = [("li-ttle ba-by crawls to dan-ger", 10.16),
