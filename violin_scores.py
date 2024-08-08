@@ -7,7 +7,7 @@ def locate(mp3):
  return os.environ['HOME'] + "/library/workout/violin/03.pieces/" + mp3
 
 def the_crawl(meter=4, tempo=90, tonic=37):
-  score("the-crawl", locate("01.the-crawl.mp3"), tempo,
+  piece(1, "the-crawl", locate("01.the-crawl.mp3"), tempo,
     phrases = [("li-ttle ba-by crawls to dan-ger", 10.16),
                ("scared he turns round in a cir-cle", 15.38, 21.53)],
 
@@ -18,7 +18,7 @@ def the_crawl(meter=4, tempo=90, tonic=37):
   )
 
 def baby_steps(meter=4, tempo=90, tonic=37):
-  score("baby-steps", locate("02.baby-steps.mp3"), tempo,
+  piece(2, "baby-steps", locate("02.baby-steps.mp3"), tempo,
     phrases = [("left foot step", 10.30),
                ("right foot step", 13.05),
                ("looks for mu-mmy", 15.67),
@@ -31,7 +31,7 @@ def baby_steps(meter=4, tempo=90, tonic=37):
   )
 
 def the_car_trip(meter=4, tempo=110, tonic=37):
-  score("the-car-trip", locate("03.the-car-trip.mp3"), tempo,
+  piece(3, "the-car-trip", locate("03.the-car-trip.mp3"), tempo,
     phrases = [("li-ttle ba-by throw-ing up", 9.72),
                ("mu-mmy wants to throw up too", 12.04),
                ("pull-ing o-ver", 14.22),
@@ -44,7 +44,7 @@ def the_car_trip(meter=4, tempo=110, tonic=37):
   )
 
 def aeroplane_games(meter=4, tempo=110, tonic=37):
-  score("aeroplane-games", locate("04.aeroplane-games.mp3"), tempo,
+  piece(4, "aeroplane-games", locate("04.aeroplane-games.mp3"), tempo,
     phrases = [("fly-ing up-wards", 9.59),
                ("fly-ing down-wards", 10.82, 12.06),
                ("land-ing at the term-in-al", 14.24, 17.01)],
@@ -56,7 +56,7 @@ def aeroplane_games(meter=4, tempo=110, tonic=37):
   )
 
 def lightly_row(meter=4, tempo=90, tonic=49):
-  score("lightly-row", locate("27.lightly-row.mp3"), tempo,
+  piece(27, "lightly-row", locate("27.lightly-row.mp3"), tempo,
     phrases = [("light-ly row, fla-min-go", 6.92),
                ("down the ri-ver we will go", 10.52),
                ("al-ways row-ing ne-ver slow-ing", 14.12),
@@ -74,7 +74,7 @@ def lightly_row(meter=4, tempo=90, tonic=49):
   )
 
 def ponies(meter=3, tempo=95, tonic=42):
-  score("ponies", locate("34.ponies.mp3"), tempo,
+  piece(34, "ponies", locate("34.ponies.mp3"), tempo,
     phrases = [("li-ttle girls like to draw", 12.68),
                ("all the pre-tty li-ttle po-nies", 20.28, 27.69),
                ("in her dreams she walks a-mong", 41.61, 50.63)],
@@ -89,7 +89,7 @@ def ponies(meter=3, tempo=95, tonic=42):
   )
 
 def musette(meter=4, tempo=120, tonic=42):
-  score("musette", locate("35.musette.mp3"), tempo,
+  piece(35, "musette", locate("35.musette.mp3"), tempo,
     phrases = [("i'm go-ing fish-ing, i'm go-ing fish-ing", 9.77),
                ("go-nna sit down and choose some ta-ckle", 14.07, 17.87),
                ("go-nna sit down and choose some bait .", 21.93),
@@ -212,6 +212,6 @@ def all_of_me(meter=4, tempo=126, tonic=48):
   degrees += "4570|2L09|7,4=|. 24|2. "
   """
 
-  score("all-of-me", locate("63.all-of-me.mp3"), tempo, phrases, index, rhythm, 
+  piece(63, "all-of-me", locate("63.all-of-me.mp3"), tempo, phrases, index, rhythm, 
       strings, bowing, shapes, bases, fingers, attack, dynamics)
 

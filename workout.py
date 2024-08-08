@@ -3,7 +3,7 @@ import os, inspect, re
 
 # constants 
 SLOW = 60
-MAKE_MP3S = True
+MAKE_MP3S = False
 GOALDIR = "practise"
 
 # global state
@@ -12,13 +12,23 @@ os.chdir(GOALDIR)
 seen = set()
 
 #
+# Make a new directory of cards and change into that directory.
+# The caller of this function is responsible for changing back
+# to the original directory when the cards have been generated.
+# This function resets the set of seen cards.
+#
+def mcd(dirname):
+  os.makedirs(dirname)
+  os.chdir(dirname)
+  seen.clear()
+
+#
 # make a drill card, ensuring it is unique, and formatting
 # it appropriately as a text file
 #
-def make_card(params={}, reps=5, reset=False):
+def make_card(params={}, reps=5):
 
   # check for duplicates
-  if reset: seen.clear()
   name = inspect.stack()[1].function
   hash = make_hash(name, params)
   if hash in seen: return False
@@ -64,7 +74,7 @@ def shift_rhythm(rhythm):
 
 # format the current drill number as a zero-padded string
 def cardnum():
-  return str(len(seen)).zfill(4)
+  return str(len(seen)).zfill(2)
 
 def make_metronome(tempo):
   make_mp3("""
@@ -76,7 +86,7 @@ def make_metronome(tempo):
   %%MIDI program 115
   |:cccc|cccc|cccc|cccc|cccc|cccc|cccc|cccc:|
   |:cccc|cccc|cccc|cccc|cccc|cccc|cccc|cccc:|
-  """, 0, tempo, "T" + str(tempo).zfill(4) + ".mp3")
+  """, 0, tempo, "T" + str(tempo).zfill(3) + ".mp3")
 
 #
 # use MIDI instrument number (abc instrument number is zero-based)
@@ -91,7 +101,8 @@ def make_drone(note, instrument=57):
   K:C transpose={transpose}
   %%MIDI program {instrument}
   |C,,,,|
-  """.format(transpose=note_to_decimal(note), instrument=instrument - 1))
+  """.format(transpose=note_to_decimal(note), instrument=instrument - 1), 
+  0, 100, "../../../P0" + note + ".mp3")
 
 #
 # convert an abc score to an mp3 file
