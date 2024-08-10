@@ -18,9 +18,13 @@ from workout import *
 SHAPES = "PGWCADK"
 FAST_TEMPO = 120
 
+# globals
+dirnum = 0
+
 # divide a score into phrases
 def piece(num, title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2", bowing="35",
           shapes="W", bases="2", fingers="0", attack="D", dynamics="M"):
+  global dirnum
 
   # normalise tab lines
   index = normalise_tab(index)
@@ -52,15 +56,10 @@ def piece(num, title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2"
     tempos = [ int(tempos[0] * 0.75) ] + tempos
   for tempo in tempos:
 
-    # descend the directory hierarchy
-    dirname = "." + title + ("." + str(tempo).zfill(3) if len(tempos) > 1 else "") + "/"
-    mcd(str(num).zfill(2) + dirname + "00" + dirname)
-
-    # piece drills
-    speed = tempo / tempos[0]
-    make_card({"title": title, "tempo": tempo}, 1)
-    make_whole(mp3, speed)
-    os.chdir("..")
+    # one folder per piece
+    dirnum = 0
+    speed = tempo / tempos[-1]
+    mcd(str(num).zfill(3) + "." + title + ("." + str(tempo).zfill(3) if len(tempos) > 1 else ""))
     make_metronome(tempo)
 
     # process phrases
@@ -85,55 +84,60 @@ def piece(num, title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2"
         start = 0
         stop = 0
 
-      phrase(i + 1, tempo, mp3, speed, start, stop, lyrics,
+      phrase(tempo, mp3, speed, start, stop, lyrics,
              index[left:right], rhythm[left:right + 1], strings[left:right],
              shapes[left:right], bases[left:right], fingers[left:right], bowing[left:right + 1],
              attack[left:right], dynamics[left:right])
       left += len(lyrics) - 1
 
-    os.chdir("..")
+    # piece drills
+    mcd(str(dirnum).zfill(3) + "." + title)
+    make_card({"title": title, "tempo": tempo}, 1)
+    make_whole(mp3, speed)
+    os.chdir("../..")
 
 # break down a phrase into drills
-def phrase(num, tempo, mp3, speed, start, stop, lyrics,
+def phrase(tempo, mp3, speed, start, stop, lyrics,
     index, rhythm, strings="", shapes="", bases="", fingers="", bowing="", attack="", dynamics=""):
+  global dirnum
 
-  # descend the directory hierarchy
+  # capture params
   params = locals()
-  del params["num"]
   del params["mp3"]
   del params["speed"]
   del params["start"]
   del params["stop"]
-  dirname = "." + "-".join(lyrics) + "/"
-  mcd(str(num).zfill(2) + dirname + "00" + dirname)
-
-  # phrase drills
-  make_card(params, 5)
-  make_chunk(mp3, speed, start, stop)
-  open_strings(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics)
-  rhythm_clapping(tempo, lyrics, rhythm)
 
   # process words
-  os.chdir("..")
   for i in range(len(index)):
     if i > 0:
       h = i - 1
       j = i + 1
-      word(i, tempo, lyrics[h:j], index[h:j], rhythm[h:j+1], strings[h:j], shapes[h:j], bases[h:j],
+      word(tempo, lyrics[h:j], index[h:j], rhythm[h:j+1], strings[h:j], shapes[h:j], bases[h:j],
            fingers[h:j], bowing[h:j+1], attack[h:j], dynamics[h:j])
 
+  # phrase drills
+  mcd(str(dirnum).zfill(3) + "." + "-".join(lyrics))
+  make_card(params, 5)
+  make_chunk(mp3, speed, start, stop)
+  open_strings(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics)
+  rhythm_clapping(tempo, lyrics, rhythm)
   os.chdir("..")
+  dirnum += 1
 
-def word(num, tempo, lyrics, index, rhythm, strings, shapes, bases, fingers, bowing, attack, dynamics):
+def word(tempo, lyrics, index, rhythm, strings, shapes, bases, fingers, bowing, attack, dynamics):
+  global dirnum
 
-  # descend the directory hierarchy
-  params = locals()
-  del params["num"]
-  dirname = "." + "-".join(lyrics) + "/"
-  mcd(str(num).zfill(2) + dirname + "00" + dirname)
+  # process notes
+  if dirnum == 0:
+    note(tempo, lyrics[0], rhythm[0:2], strings[0], shapes[0], bases[0], fingers[0],
+         bowing[0:2], attack[0], dynamics[0])
+  note(tempo, lyrics[1], rhythm[1:3], strings[1], shapes[1], bases[1], fingers[1],
+       bowing[1:3], attack[1], dynamics[1])
 
   # word drills
-  make_card(params, 5)
+  mcd(str(dirnum).zfill(3) + "." + "-".join(lyrics))
+  make_card(locals(), 5)
   if strings[0] == strings[1]:
     bow_changes(tempo, lyrics[0:2], rhythm[0:3], strings[0],
                 bowing[0:3], attack[0:2], dynamics[0:2])
@@ -144,27 +148,19 @@ def word(num, tempo, lyrics, index, rhythm, strings, shapes, bases, fingers, bow
   if shapes[0] != shapes[1]:
     jankin_switches(shapes[0], shapes[1])
   rhythm_clapping(tempo, lyrics, rhythm)
-
-  # process notes
   os.chdir("..")
-  note(1, tempo, lyrics[0], rhythm[0:2], strings[0], shapes[0], bases[0], fingers[0],
-       bowing[0:2], attack[0], dynamics[0])
-  note(2, tempo, lyrics[1], rhythm[1:3], strings[1], shapes[1], bases[1], fingers[1],
-       bowing[1:3], attack[1], dynamics[1])
-  os.chdir("..")
+  dirnum += 1
 
-def note(num, tempo, lyric, rhythm, string, shape, base, finger, bowing, attack, dynamic):
-
-  # descend the directory hierarchy
-  params = locals()
-  del params["num"]
-  mcd(str(num).zfill(2) + "." + lyric)
+def note(tempo, lyric, rhythm, string, shape, base, finger, bowing, attack, dynamic):
+  global dirnum
 
   # note drills
-  make_card(params)
+  mcd(str(dirnum).zfill(3) + "." + lyric)
+  make_card(locals())
   bow_attack(tempo, lyric, rhythm, string, bowing, attack, dynamic)
   hand_placement(string, shape, base)
   os.chdir("..")
+  dirnum += 1
 
 def open_strings(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics):
   make_card(locals(), 5)

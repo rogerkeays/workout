@@ -3,7 +3,7 @@ import os, inspect, re
 
 # constants 
 SLOW = 60
-MAKE_MP3S = False
+MAKE_MP3S = True
 GOALDIR = "practise"
 
 # global state
@@ -102,7 +102,7 @@ def make_drone(note, instrument=57):
   %%MIDI program {instrument}
   |C,,,,|
   """.format(transpose=note_to_decimal(note), instrument=instrument - 1), 
-  0, 100, "../../../P0" + note + ".mp3")
+  0, 100, "../P0" + note + ".mp3")
 
 #
 # convert an abc score to an mp3 file
