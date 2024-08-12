@@ -2,9 +2,9 @@
 import os, inspect, re
 
 # constants 
-SLOW = 60
 MAKE_MP3S = True
 GOALDIR = "practise"
+DRILLNUM_PADDING = 4
 
 # global state
 os.mkdir(GOALDIR)
@@ -60,6 +60,7 @@ def make_card(params={}, reps=5):
 def make_hash(name, params):
   keys = params.copy()
   if "lyrics" in keys: del keys["lyrics"]
+  if "index" in keys: del keys["index"]
   if "rhythm" in keys: keys["rhythm"] = shift_rhythm(keys["rhythm"])
   return name + str(keys)
 
@@ -74,7 +75,7 @@ def shift_rhythm(rhythm):
 
 # format the current drill number as a zero-padded string
 def cardnum():
-  return str(len(seen)).zfill(2)
+  return str(len(seen)).zfill(DRILLNUM_PADDING)
 
 def make_metronome(tempo):
   make_mp3("""
@@ -86,7 +87,7 @@ def make_metronome(tempo):
   %%MIDI program 115
   |:cccc|cccc|cccc|cccc|cccc|cccc|cccc|cccc:|
   |:cccc|cccc|cccc|cccc|cccc|cccc|cccc|cccc:|
-  """, 0, tempo, "T" + str(tempo).zfill(3) + ".mp3")
+  """, 0, tempo, "T" + str(tempo).zfill(DRILLNUM_PADDING - 1) + ".mp3")
 
 #
 # use MIDI instrument number (abc instrument number is zero-based)
@@ -111,13 +112,14 @@ def make_mp3(score, transpose=0, tempo_percent=100, filename=""):
   if MAKE_MP3S:
     key = str(locals())
     outfile = filename if filename else cardnum() + "B.mp3"
-    os.system("""echo '{score}' \
-        | abc2midi /dev/stdin -o /dev/stdout \
-        | timidity - --quiet --quiet --output-24bit -A800 -K{transpose} -T{tempo_percent} -Ow -o - \
-        | ffmpeg -loglevel error -i - -ac 1 -ab 64k "{outfile}"
-        """.format(**locals()))
+    if not os.path.exists(filename):
+      os.system("""echo '{score}' \
+          | abc2midi /dev/stdin -o /dev/stdout \
+          | timidity - --quiet --quiet --output-24bit -A800 -K{transpose} -T{tempo_percent} -Ow -o - \
+          | ffmpeg -loglevel error -i - -ac 1 -ab 64k "{outfile}"
+          """.format(**locals()))
 
-def make_chunk(mp3, speed, start_secs, stop_secs, padding=2.5, silence=5):
+def make_chunk(mp3, start_secs, stop_secs, speed=1, padding=2.5, silence=5):
   if MAKE_MP3S and stop_secs > 0:
     ss = start_secs - padding
     to = stop_secs + padding
@@ -129,7 +131,7 @@ def make_chunk(mp3, speed, start_secs, stop_secs, padding=2.5, silence=5):
            "{outfile}"
            """.format(**locals()))
 
-def make_whole(mp3, speed, silence=0):
+def make_whole(mp3, speed=1, silence=0):
   if MAKE_MP3S:
     outfile = cardnum() + "B.mp3"
     os.system("""
