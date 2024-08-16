@@ -3,56 +3,67 @@ import os, inspect, re
 
 # constants 
 MAKE_MP3S = True
-GOALDIR = "practise/"
-MP3DIR = "mp3s/"
-DRILLNUM_PADDING = 4
+TARGET_DIR = "target/"
+DRILLS_DIR = "02.drills/"
+BRACKETS_DIR = "03.practise/"
+NUM_PADDING = 4
 
 # global state
-os.mkdir(GOALDIR)
-os.chdir(GOALDIR)
-os.mkdir(MP3DIR)
-seen = set()
+os.mkdir(TARGET_DIR)
+os.chdir(TARGET_DIR)
+os.mkdir(DRILLS_DIR)
+os.mkdir(BRACKETS_DIR)
+drills = set()
+brackets = 0
 
 #
 # Make a new directory of cards and change into that directory.
 # The caller of this function is responsible for changing back
 # to the original directory when the cards have been generated.
-# This function resets the set of seen cards.
 #
 def mcd(dirname):
   os.makedirs(dirname)
   os.chdir(dirname)
-  seen.clear()
+
+def make_bracket(title, tempo, params={}, reps=5):
+  global brackets
+  brackets += 1
+  if "title" in params: del params["title"]
+  if "tempo" in params: del params["tempo"]
+
+  # write card text
+  with open(BRACKETS_DIR + bracketnum() + "A.txt", "w") as f:
+    f.write("TIT " + title + " @" + str(tempo) + "\n")
+    for key in params:
+      if params[key]:
+        f.write(key[0:3].upper() + " ")
+        if isinstance(params[key], list):
+          f.write(" ".join(params[key]) + "\n")
+        else:
+          f.write(str(params[key]) + "\n")
 
 #
 # make a drill card, ensuring it is unique, and formatting
 # it appropriately as a text file
 #
-def make_card(params={}, reps=5):
+def make_drill(params={}, reps=5):
 
   # check for duplicates
   name = inspect.stack()[1].function
   hash = make_hash(name, params)
-  if hash in seen: return False
-  seen.add(hash)
+  if hash in drills: return False
+  drills.add(hash)
 
-  # build card text
-  score = ""
-  legend = ""
-  for key in params:
-    if params[key]:
-      letter = key[0].upper()
-      score += key[0:3].upper() + " "
-      legend += letter + " " + key + "\n"
-      if isinstance(params[key], list):
-        score += " ".join(params[key]) + "\n"
-      else:
-        score += str(params[key]) + "\n"
-
-  # write card
-  with open(cardnum() + "A.txt", "w") as f:
-    f.write(name + " x" + str(reps) + "\n" + score + "\n")
-    #f.write(score + "\n")
+  # write card text
+  with open(DRILLS_DIR + drillnum() + "A.txt", "w") as f:
+    f.write(name + " x" + str(reps) + "\n")
+    for key in params:
+      if params[key]:
+        f.write(key[0:3].upper() + " ")
+        if isinstance(params[key], list):
+          f.write(" ".join(params[key]) + "\n")
+        else:
+          f.write(str(params[key]) + "\n")
 
   return True
 
@@ -77,8 +88,8 @@ def shift_rhythm(rhythm):
     return "".join(map(lambda c: onsets[onsets.index(c) - shift], rhythm))
 
 # format the current drill number as a zero-padded string
-def cardnum():
-  return str(len(seen)).zfill(DRILLNUM_PADDING)
+def drillnum(): return str(len(drills)).zfill(NUM_PADDING)
+def bracketnum(): return str(brackets).zfill(NUM_PADDING)
 
 def make_metronome(tempo):
   make_mp3("""
@@ -90,7 +101,7 @@ def make_metronome(tempo):
   %%MIDI program 115
   |:cccc|cccc|cccc|cccc|cccc|cccc|cccc|cccc:|
   |:cccc|cccc|cccc|cccc|cccc|cccc|cccc|cccc:|
-  """, 0, tempo, "T" + str(tempo).zfill(DRILLNUM_PADDING - 1) + ".mp3")
+  """, DRILLS_DIR + "T" + str(tempo).zfill(NUM_PADDING - 1) + ".mp3", 0, tempo)
 
 #
 # use MIDI instrument number (abc instrument number is zero-based)
@@ -106,20 +117,19 @@ def make_drone(note, instrument=57):
   %%MIDI program {instrument}
   |C,,,,|
   """.format(transpose=note_to_decimal(note), instrument=instrument - 1), 
-  0, 100, "P0" + note + ".mp3")
+  DRILLS_DIR + "P0" + note + ".mp3", 0, 100)
 
 #
 # convert an abc score to an mp3 file
 #
-def make_mp3(score, transpose=0, tempo_percent=100, filename=""):
+def make_mp3(score, filename, transpose=0, tempo_percent=100):
   if MAKE_MP3S:
     key = str(locals())
-    outfile = MP3DIR + (filename if filename else cardnum() + "B.mp3")
     if not os.path.exists(filename):
       os.system("""echo '{score}' \
           | abc2midi /dev/stdin -o /dev/stdout \
           | timidity - --quiet --quiet --output-24bit -A800 -K{transpose} -T{tempo_percent} -Ow -o - \
-          | ffmpeg -loglevel error -i - -ac 1 -ab 64k "{outfile}"
+          | ffmpeg -loglevel error -i - -ac 1 -ab 64k "{filename}"
           """.format(**locals()))
 
 def make_chunk(mp3, start_secs, stop_secs, speed=1, padding=2.5, silence=5):
@@ -127,7 +137,7 @@ def make_chunk(mp3, start_secs, stop_secs, speed=1, padding=2.5, silence=5):
     ss = start_secs - padding
     to = stop_secs + padding
     st = stop_secs - start_secs + padding
-    outfile = MP3DIR + cardnum() + "B.mp3"
+    outfile = BRACKETS_DIR + bracketnum() + "B.mp3"
     os.system("""
     ffmpeg -nostdin -loglevel error -ss {ss} -to {to} -i {mp3} -ac 1 -ar 48000 -q 4 \
            -af afade=d={padding},afade=t=out:st={st}:d={padding},atempo={speed},adelay={silence}s:all=true \
@@ -136,7 +146,7 @@ def make_chunk(mp3, start_secs, stop_secs, speed=1, padding=2.5, silence=5):
 
 def make_whole(mp3, speed=1, silence=0):
   if MAKE_MP3S:
-    outfile = MP3DIR + cardnum() + "B.mp3"
+    outfile = BRACKETS_DIR + bracketnum() + "B.mp3"
     os.system("""
     ffmpeg -nostdin -loglevel error -i {mp3} -ac 1 -ar 48000 -q 4 \
            -af atempo={speed},adelay={silence}s:all=true "{outfile}"
