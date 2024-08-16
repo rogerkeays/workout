@@ -3,12 +3,14 @@ import os, inspect, re
 
 # constants 
 MAKE_MP3S = True
-GOALDIR = "practise"
+GOALDIR = "practise/"
+MP3DIR = "mp3s/"
 DRILLNUM_PADDING = 4
 
 # global state
 os.mkdir(GOALDIR)
 os.chdir(GOALDIR)
+os.mkdir(MP3DIR)
 seen = set()
 
 #
@@ -40,7 +42,7 @@ def make_card(params={}, reps=5):
   for key in params:
     if params[key]:
       letter = key[0].upper()
-      score += letter + " "
+      score += key[0:3].upper() + " "
       legend += letter + " " + key + "\n"
       if isinstance(params[key], list):
         score += " ".join(params[key]) + "\n"
@@ -49,7 +51,8 @@ def make_card(params={}, reps=5):
 
   # write card
   with open(cardnum() + "A.txt", "w") as f:
-    f.write(name + " x" + str(reps) + "\n" + score + "\n" + legend + "\n")
+    f.write(name + " x" + str(reps) + "\n" + score + "\n")
+    #f.write(score + "\n")
 
   return True
 
@@ -103,7 +106,7 @@ def make_drone(note, instrument=57):
   %%MIDI program {instrument}
   |C,,,,|
   """.format(transpose=note_to_decimal(note), instrument=instrument - 1), 
-  0, 100, "../P0" + note + ".mp3")
+  0, 100, "P0" + note + ".mp3")
 
 #
 # convert an abc score to an mp3 file
@@ -111,7 +114,7 @@ def make_drone(note, instrument=57):
 def make_mp3(score, transpose=0, tempo_percent=100, filename=""):
   if MAKE_MP3S:
     key = str(locals())
-    outfile = filename if filename else cardnum() + "B.mp3"
+    outfile = MP3DIR + (filename if filename else cardnum() + "B.mp3")
     if not os.path.exists(filename):
       os.system("""echo '{score}' \
           | abc2midi /dev/stdin -o /dev/stdout \
@@ -124,7 +127,7 @@ def make_chunk(mp3, start_secs, stop_secs, speed=1, padding=2.5, silence=5):
     ss = start_secs - padding
     to = stop_secs + padding
     st = stop_secs - start_secs + padding
-    outfile = cardnum() + "B.mp3"
+    outfile = MP3DIR + cardnum() + "B.mp3"
     os.system("""
     ffmpeg -nostdin -loglevel error -ss {ss} -to {to} -i {mp3} -ac 1 -ar 48000 -q 4 \
            -af afade=d={padding},afade=t=out:st={st}:d={padding},atempo={speed},adelay={silence}s:all=true \
@@ -133,7 +136,7 @@ def make_chunk(mp3, start_secs, stop_secs, speed=1, padding=2.5, silence=5):
 
 def make_whole(mp3, speed=1, silence=0):
   if MAKE_MP3S:
-    outfile = cardnum() + "B.mp3"
+    outfile = MP3DIR + cardnum() + "B.mp3"
     os.system("""
     ffmpeg -nostdin -loglevel error -i {mp3} -ac 1 -ar 48000 -q 4 \
            -af atempo={speed},adelay={silence}s:all=true "{outfile}"
