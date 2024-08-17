@@ -33,7 +33,7 @@ def make_bracket(title, tempo, params={}, reps=5):
 
   # write card text
   with open(BRACKETS_DIR + bracketnum() + "A.txt", "w") as f:
-    f.write("TIT " + title + " @" + str(tempo) + "\n")
+    f.write("TIT " + title + " @" + str(int(tempo)) + "\n")
     for key in params:
       if params[key]:
         f.write(key[0:3].upper() + " ")
@@ -101,7 +101,7 @@ def make_metronome(tempo):
   %%MIDI program 115
   |:cccc|cccc|cccc|cccc|cccc|cccc|cccc|cccc:|
   |:cccc|cccc|cccc|cccc|cccc|cccc|cccc|cccc:|
-  """, DRILLS_DIR + "T" + str(tempo).zfill(NUM_PADDING - 1) + ".mp3", 0, tempo)
+  """, DRILLS_DIR + "=T" + str(int(tempo)).zfill(NUM_PADDING - 1) + ".mp3", 0, tempo)
 
 #
 # use MIDI instrument number (abc instrument number is zero-based)
@@ -117,7 +117,7 @@ def make_drone(note, instrument=57):
   %%MIDI program {instrument}
   |C,,,,|
   """.format(transpose=note_to_decimal(note), instrument=instrument - 1), 
-  DRILLS_DIR + "P0" + note + ".mp3", 0, 100)
+  DRILLS_DIR + "=P0" + note + ".mp3", 0, 100)
 
 #
 # convert an abc score to an mp3 file
