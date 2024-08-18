@@ -6,10 +6,11 @@ MAKE_MP3S = True
 TARGET_DIR = "target/"
 DRILLS_DIR = "02.drills/"
 BRACKETS_DIR = "03.practise/"
-DRILL_LENGTH_MINS = 5
 NUM_PADDING = 4
+DRILL_LENGTH_MINS = 5
 METRONOME_INSTRUMENT = 116 - 1 # woodblock
-ALARM_INSTRUMENT = 128 - 1 # gunshot
+ALARM_INSTRUMENT = 128 - 1     # gunshot
+DRONE_INSTRUMENT = 57 - 1      # trumpet (closest to perfect pitch)
 
 # global state
 os.mkdir(TARGET_DIR)
@@ -118,20 +119,22 @@ def make_metronome(tempo):
     DRILLS_DIR + filename, tempo_percent=25)
 
 #
-# use MIDI instrument number (abc instrument number is zero-based)
-# default to trumpet (57), because it is closest to perfect pitch
+# make a drone of a single pitch which lasts for DRILL_LENGTH_MINS
+# and finishes with an alarm
 #
-def make_drone(note, instrument=57):
-  make_mp3("""
-  X:0
-  M:1/1
-  L:1/1
-  Q:10
-  K:C transpose={transpose}
-  %%MIDI program {instrument}
-  |C,,,,|
-  """.format(transpose=note_to_decimal(note), instrument=instrument - 1), 
-  DRILLS_DIR + "=P0" + note + ".mp3", 0, 100)
+def make_drone(note):
+  make_mp3(("""
+    X:0
+    M:4/4
+    L:1/4
+    Q:4
+    K:C transpose={t}
+    %%MIDI program {I}
+    """ + ("|C,,,,C,,,,C,,,,C,,,," * DRILL_LENGTH_MINS) + """
+    %%MIDI program {A}
+    Q:60
+    |CCCC|z4""").format(t=note_to_decimal(note), I=DRONE_INSTRUMENT, A=ALARM_INSTRUMENT),
+    DRILLS_DIR + "=P0" + note + ".mp3")
 
 #
 # convert an abc score to an mp3 file
