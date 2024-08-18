@@ -6,7 +6,10 @@ MAKE_MP3S = True
 TARGET_DIR = "target/"
 DRILLS_DIR = "02.drills/"
 BRACKETS_DIR = "03.practise/"
+DRILL_LENGTH_MINS = 5
 NUM_PADDING = 4
+METRONOME_INSTRUMENT = 116 - 1 # woodblock
+ALARM_INSTRUMENT = 128 - 1 # gunshot
 
 # global state
 os.mkdir(TARGET_DIR)
@@ -91,17 +94,28 @@ def shift_rhythm(rhythm):
 def drillnum(): return str(len(drills)).zfill(NUM_PADDING)
 def bracketnum(): return str(brackets).zfill(NUM_PADDING)
 
+#
+# make a metronome with the given tempo which goes for DRILL_LENGTH_MINS
+# before sounding an alarm
+#
+# note: abc2midi miscalculates when tempo < 4, so we multiply the tempo by 4
+# and set the midi speed to 25%
+#
 def make_metronome(tempo):
-  make_mp3("""
-  X:0
-  M:4/4
-  L:1/4
-  Q:100
-  K:C
-  %%MIDI program 115
-  |:cccc|cccc|cccc|cccc|cccc|cccc|cccc|cccc:|
-  |:cccc|cccc|cccc|cccc|cccc|cccc|cccc|cccc:|
-  """, DRILLS_DIR + "=T" + str(int(tempo)).zfill(NUM_PADDING - 1) + ".mp3", 0, tempo)
+  num_notes = int(DRILL_LENGTH_MINS * tempo)
+  filename = "=T" + str(int(tempo)).zfill(NUM_PADDING - 1) + ".mp3"
+  make_mp3(("""
+    X:0
+    M:1/4
+    L:1/4
+    Q:{t}
+    K:C
+    %%MIDI program {M}
+    """ + ("|c" * num_notes) + """"
+    %%MIDI program {A}
+    Q:240
+    |C|C|C|C|z|z|z|z""").format(t=tempo*4, M=METRONOME_INSTRUMENT, A=ALARM_INSTRUMENT),
+    DRILLS_DIR + filename, tempo_percent=25)
 
 #
 # use MIDI instrument number (abc instrument number is zero-based)

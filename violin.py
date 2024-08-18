@@ -48,6 +48,7 @@ def piece(num, title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2"
 
   # piece drills
   make_bracket(title, tempo, {}, 1)
+  make_metronome(1)
   make_metronome(tempo)
   make_whole(mp3)
 
