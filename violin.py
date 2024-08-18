@@ -50,9 +50,6 @@ def piece(num, title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2"
   make_bracket(title, tempo, {}, 1)
   make_metronome(tempo)
   make_whole(mp3)
-  make_bracket(title, tempo / 2, {}, 1)
-  make_metronome(tempo / 2)
-  make_whole(mp3, 0.5)
 
   # process phrases
   left = 0
@@ -105,16 +102,14 @@ def phrase(title, tempo, mp3, start, stop, lyrics,
   del params["start"]
   del params["stop"]
   make_bracket(title, tempo, params, 5)
-  make_chunk(mp3, start, stop)
-  make_bracket(title, tempo / 2, params, 5)
-  make_chunk(mp3, start, stop, 0.5)
+  make_chunk(mp3, start, stop, 1, "B")
+  make_chunk(mp3, start, stop, 0.5, "C")
   if re.search("[1-4]", fingers):
     open_strings(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics)
 
 # word drills
 def word(title, tempo, lyrics, rhythm, strings, shapes, bases, fingers, bowing, attack, dynamics):
   make_bracket(title, tempo, locals(), 5)
-  make_bracket(title, tempo / 2, locals(), 5)
   if strings[0] == strings[1]:
     bow_changes(tempo, lyrics, rhythm, strings, bowing, attack, dynamics)
   else:
@@ -126,7 +121,6 @@ def word(title, tempo, lyrics, rhythm, strings, shapes, bases, fingers, bowing, 
 # note drills
 def note(title, tempo, lyrics, rhythm, string, shape, base, finger, bowing, attack, dynamic):
   make_bracket(title, tempo, locals(), 5)
-  make_bracket(title, tempo / 2, locals(), 5)
   hand_placement(string, shape, base)
 
 

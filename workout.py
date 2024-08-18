@@ -132,21 +132,21 @@ def make_mp3(score, filename, transpose=0, tempo_percent=100):
           | ffmpeg -loglevel error -i - -ac 1 -ab 64k "{filename}"
           """.format(**locals()))
 
-def make_chunk(mp3, start_secs, stop_secs, speed=1, padding=2.5, silence=5):
+def make_chunk(mp3, start_secs, stop_secs, speed=1, suffix="B", padding=2.5, silence=5):
   if MAKE_MP3S and stop_secs > 0:
     ss = start_secs - padding
     to = stop_secs + padding
     st = stop_secs - start_secs + padding
-    outfile = BRACKETS_DIR + bracketnum() + "B.mp3"
+    outfile = BRACKETS_DIR + bracketnum() + suffix + ".mp3"
     os.system("""
     ffmpeg -nostdin -loglevel error -ss {ss} -to {to} -i {mp3} -ac 1 -ar 48000 -q 4 \
            -af afade=d={padding},afade=t=out:st={st}:d={padding},atempo={speed},adelay={silence}s:all=true \
            "{outfile}"
            """.format(**locals()))
 
-def make_whole(mp3, speed=1, silence=0):
+def make_whole(mp3, speed=1, silence=0, suffix="B"):
   if MAKE_MP3S:
-    outfile = BRACKETS_DIR + bracketnum() + "B.mp3"
+    outfile = BRACKETS_DIR + bracketnum() + suffix + ".mp3"
     os.system("""
     ffmpeg -nostdin -loglevel error -i {mp3} -ac 1 -ar 48000 -q 4 \
            -af atempo={speed},adelay={silence}s:all=true "{outfile}"
