@@ -51,15 +51,15 @@ def piece(num, title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2"
   make_metronome(tempo)
   make_whole(mp3)
 
-  # process phrases
-  left = 0
+  # process phrases in reverse order
   lyrics = []
-  for i, tupl in enumerate(phrases):
+  right = len(index)
+  for i, tupl in reversed(list(enumerate(phrases))):
 
     # split the lyrics, adding the first note of the next phrase if they are sequential
     phrase_lyrics = re.split("[- ]", tupl[0])
-    right = left + len(phrase_lyrics)
-    lyrics += phrase_lyrics
+    left = right - len(phrase_lyrics)
+    lyrics = phrase_lyrics + lyrics
     if len(tupl) < 3 and i != len(phrases) - 1:
         phrase_lyrics.append(re.split("[- ]", phrases[i + 1][0])[0])
         right += 1
@@ -79,22 +79,22 @@ def piece(num, title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2"
            index[left:right], rhythm[left:right + 1], strings[left:right],
            shapes[left:right], bases[left:right], fingers[left:right], bowing[left:right + 1],
            attack[left:right], dynamics[left:right])
-    left += len(phrase_lyrics) - 1
+    right -= len(phrase_lyrics)
 
-  # process words
-  for i in range(len(index)):
+  # process words in reverse order
+  for i in reversed(range(len(index))):
     if i > 0:
       h = i - 1
       j = i + 1
       word(title, tempo, lyrics[h:j], rhythm[h:j+1], strings[h:j], shapes[h:j], bases[h:j],
            fingers[h:j], bowing[h:j+1], attack[h:j], dynamics[h:j])
 
-  # process notes
-  for i in range(len(index)):
+  # process notes in reverse order
+  for i in reversed(range(len(index))):
     note(title, tempo, lyrics[i], rhythm[i:i+2], strings[i], shapes[i], bases[i], fingers[i],
          bowing[i:i+2], attack[i], dynamics[i])
 
-# break down a phrase into drills
+# phrase drills
 def phrase(title, tempo, mp3, start, stop, lyrics,
     index, rhythm, strings="", shapes="", bases="", fingers="", bowing="", attack="", dynamics=""):
   params = locals()
