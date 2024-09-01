@@ -93,7 +93,9 @@ def shift_rhythm(rhythm):
 
 # format the current drill number as a zero-padded string
 def drillnum(): return str(len(drills)).zfill(NUM_PADDING)
-def bracketnum(): return str(brackets).zfill(NUM_PADDING)
+def bracketnum():
+  depth = len(inspect.stack()) - 5
+  return str(depth) + str(brackets).zfill(NUM_PADDING - 1)
 
 #
 # make a metronome with the given tempo which goes for DRILL_LENGTH_MINS

@@ -15,8 +15,8 @@
 import math, re
 from workout import *
 
-SHAPES = "PGWCADK"
 FAST_TEMPO = 120
+SHAPES = "PGWCADK"
 
 # divide a score into phrases
 def piece(num, title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2", bowing="35",
@@ -45,12 +45,6 @@ def piece(num, title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2"
     if len(attack) < n: attack = repeat_to_fit(attack, n)
     if len(dynamics) < n: dynamics = repeat_to_fit(dynamics, n)
   rhythm += "1"
-
-  # piece drills
-  make_bracket(title, tempo, {}, 1)
-  make_metronome(1)
-  make_metronome(tempo)
-  make_whole(mp3)
 
   # process phrases in reverse order
   lyrics = []
@@ -82,6 +76,19 @@ def piece(num, title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2"
            attack[left:right], dynamics[left:right])
     right -= len(phrase_lyrics)
 
+  # piece bracket
+  make_bracket(title, tempo, {}, 1)
+  make_metronome(1)
+  make_metronome(tempo)
+  make_whole(mp3)
+
+def phrase(title, tempo, mp3, start, stop, lyrics,
+    index, rhythm, strings="", shapes="", bases="", fingers="", bowing="", attack="", dynamics=""):
+  params = locals()
+  del params["mp3"]
+  del params["start"]
+  del params["stop"]
+
   # process words in reverse order
   for i in reversed(range(len(index))):
     if i > 0:
@@ -90,39 +97,38 @@ def piece(num, title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2"
       word(title, tempo, lyrics[h:j], rhythm[h:j+1], strings[h:j], shapes[h:j], bases[h:j],
            fingers[h:j], bowing[h:j+1], attack[h:j], dynamics[h:j])
 
-  # process notes in reverse order
-  for i in reversed(range(len(index))):
-    note(title, tempo, lyrics[i], rhythm[i:i+2], strings[i], shapes[i], bases[i], fingers[i],
-         bowing[i:i+2], attack[i], dynamics[i])
-
-# phrase drills
-def phrase(title, tempo, mp3, start, stop, lyrics,
-    index, rhythm, strings="", shapes="", bases="", fingers="", bowing="", attack="", dynamics=""):
-  params = locals()
-  del params["mp3"]
-  del params["start"]
-  del params["stop"]
+  # phrase drills
+  if re.search("[1-4]", fingers):
+    open_strings(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics)
   make_bracket(title, tempo, params, 5)
   make_chunk(mp3, start, stop, 1, "B")
   make_chunk(mp3, start, stop, 0.5, "C")
-  if re.search("[1-4]", fingers):
-    open_strings(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics)
 
-# word drills
 def word(title, tempo, lyrics, rhythm, strings, shapes, bases, fingers, bowing, attack, dynamics):
-  make_bracket(title, tempo, locals(), 5)
+
+  # process notes in reverse order
+  note(title, tempo, lyrics[1], rhythm[1:3], strings[1], shapes[1], bases[1], fingers[1],
+       bowing[1:3], attack[1], dynamics[1])
+  note(title, tempo, lyrics[0], rhythm[0:2], strings[0], shapes[0], bases[0], fingers[0],
+       bowing[0:2], attack[0], dynamics[0])
+
+  # word drills
   if strings[0] == strings[1]:
     bow_changes(tempo, lyrics, rhythm, strings, bowing, attack, dynamics)
   else:
     string_crossings(tempo, lyrics, rhythm, strings, bowing, attack, dynamics)
-    hand_jumps_rapid(tempo, strings[0:2], shapes[0:2], bases[0:2])
   if shapes[0] != shapes[1]:
     jankin_switches(shapes[0], shapes[1])
-
-# note drills
-def note(title, tempo, lyrics, rhythm, string, shape, base, finger, bowing, attack, dynamic):
+  if strings[0] != strings[1]:
+    hand_jumps_rapid(tempo, strings[0:2], shapes[0:2], bases[0:2])
   make_bracket(title, tempo, locals(), 5)
-  hand_placement(string, shape, base)
+
+def note(title, tempo, lyrics, rhythm, string, shape, base, finger, bowing, attack, dynamic):
+  if attack != ".":
+    bow_attack(tempo, lyrics, rhythm, string, bowing, attack, dynamic)
+    hand_placement(string, shape, base)
+    pitch_hitting(string, fret(shape, base, finger), finger)
+    make_drill(locals(), 5)
 
 
 ##################
@@ -163,8 +169,7 @@ def bow_changes(tempo, lyrics, rhythm, string, bowing, attack, dynamic):
 def pitch_hitting(string, fret, finger):
   if int(fret) != 0 and int(finger) != 0:
     finger_hammers(string, fret, finger)
-    note = decimal_to_note(note_to_decimal("5Y") - (int(string) * 7) + int(fret))
-    make_drone(note)
+    make_drone(note_at(string, fret))
     make_drill(locals(), 5)
 
 def finger_hammers(string, fret, finger):
@@ -175,9 +180,10 @@ def air_hammers(finger):
   make_drill( locals(), 30)
 
 def bow_attack(tempo, lyrics, rhythm, string, bowing, attack, dynamic):
-  string_yanking(tempo, string, bowing[0], "D" if bowing[0] < bowing[1] else "U")
-  rhythm_clapping(tempo, lyrics, rhythm)
-  make_drill(locals(), 5)
+  if attack != ".":
+    string_yanking(tempo, string, bowing[0], "D" if bowing[0] < bowing[1] else "U")
+    rhythm_clapping(tempo, lyrics, rhythm)
+    make_drill(locals(), 5)
 
 def string_yanking(tempo, string, bowpos, direction):
   bow_benders(string, bowpos)
@@ -240,21 +246,10 @@ def hand_jumps_silent(strings, shapes, bases):
 
 def hand_placement(string, shape, base):
   if shape in SHAPES:
-    violin_hold()
     jankin(shape)
-    params = locals()
-    if shape == "P": frets = [0, 2, 4, 6]
-    elif shape == "G": frets = [0, 1, 3, 5]
-    elif shape == "W": frets = [0, 2, 3, 5]
-    elif shape == "C": frets = [0, 2, 4, 5]
-    elif shape == "A": frets = [0, 1, 3, 4]
-    elif shape == "D": frets = [0, 1, 2, 4]
-    elif shape == "K": frets = [0, 2, 3, 4]
-    pitch_hitting(string, frets[0] + int(base), 1)
-    pitch_hitting(string, frets[1] + int(base), 2)
-    pitch_hitting(string, frets[2] + int(base), 3)
-    pitch_hitting(string, frets[3] + int(base), 4)
-    make_drill(params, 60)
+    pitch_hitting(string, base, 1)
+    make_drill(locals(), 60)
+    make_drone(note_at(string, base))
 
 def jankin(shape):
   if shape in SHAPES:
@@ -292,4 +287,17 @@ def elbow_raises():
 def son_file():
   make_metronome(60)
   make_drill(locals(), 4)
+
+def fret(shape, base, finger):
+    if shape == "P": frets = [0, 2, 4, 6]
+    elif shape == "G": frets = [0, 1, 3, 5]
+    elif shape == "W": frets = [0, 2, 3, 5]
+    elif shape == "C": frets = [0, 2, 4, 5]
+    elif shape == "A": frets = [0, 1, 3, 4]
+    elif shape == "D": frets = [0, 1, 2, 4]
+    elif shape == "K": frets = [0, 2, 3, 4]
+    return frets[int(finger) - 1] + int(base)
+
+def note_at(string, fret):
+    return decimal_to_note(note_to_decimal("5Y") - (int(string) * 7) + int(fret))
 
