@@ -114,7 +114,7 @@ def word(title, tempo, lyrics, rhythm, strings, shapes, bases, fingers, bowing, 
 
   # word drills
   if strings[0] == strings[1]:
-    bow_changes(tempo, lyrics, rhythm, strings, bowing, attack, dynamics)
+    bow_changes(tempo, lyrics, rhythm, strings[0], bowing, attack, dynamics)
   else:
     string_crossings(tempo, lyrics, rhythm, strings, bowing, attack, dynamics)
   if shapes[0] != shapes[1]:
