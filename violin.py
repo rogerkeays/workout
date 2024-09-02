@@ -199,7 +199,11 @@ def bow_placement(string, bowpos):
   make_drill(locals(), 5)
 
 def violin_hold():
+  stretches()
   no_hands_swivels()
+
+def stretches():
+  make_drill(locals(), 1)
 
 def no_hands_swivels():
   make_drill(locals(), 10)
