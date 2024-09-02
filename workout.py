@@ -136,7 +136,7 @@ def make_drone(note):
     %%MIDI program {A}
     Q:60
     |CCCC|z4""").format(t=note_to_decimal(note), I=DRONE_INSTRUMENT, A=ALARM_INSTRUMENT),
-    DRILLS_DIR + "=P0" + note + ".mp3")
+    DRILLS_DIR + drillnum() + "B.mp3")
 
 #
 # convert an abc score to an mp3 file

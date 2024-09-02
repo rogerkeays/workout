@@ -169,8 +169,8 @@ def bow_changes(tempo, lyrics, rhythm, string, bowing, attack, dynamic):
 def pitch_hitting(string, fret, finger):
   if int(fret) != 0 and int(finger) != 0:
     finger_hammers(string, fret, finger)
-    make_drone(note_at(string, fret))
-    make_drill(locals(), 5)
+    if make_drill(locals(), 5):
+      make_drone(note_at(string, fret))
 
 def finger_hammers(string, fret, finger):
   air_hammers(finger)
@@ -252,8 +252,8 @@ def hand_placement(string, shape, base):
   if shape in SHAPES:
     jankin(shape)
     pitch_hitting(string, base, 1)
-    make_drill(locals(), 60)
-    make_drone(note_at(string, base))
+    if make_drill(locals(), 60):
+      make_drone(note_at(string, base))
 
 def jankin(shape):
   if shape in SHAPES:
