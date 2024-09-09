@@ -1,5 +1,5 @@
 
-import os, inspect, re
+import os, inspect, re, tempfile, math
 
 # constants 
 MAKE_MP3S = True
@@ -151,12 +151,44 @@ def make_mp3(score, filename, transpose=0, tempo_percent=100):
           | ffmpeg -loglevel error -i - -ac 1 -ab 64k "{filename}"
           """.format(**locals()))
 
-def make_chunk(mp3, start_secs, stop_secs, speed=1, suffix="B", padding=2.5, silence=5):
+def make_chunk(mp3, start_secs, stop_secs, padding=2.5, silence=5):
+  if MAKE_MP3S and stop_secs > 0:
+    with tempfile.TemporaryDirectory() as tmpdir:
+
+      # make chunks at different tempos
+      cut_chunk(mp3, start_secs, stop_secs, 0.5, tmpdir + "/050.mp3", padding, silence);
+      cut_chunk(mp3, start_secs, stop_secs, 1.0, tmpdir + "/100.mp3", padding, silence);
+      make_mp3(("""
+        X:0
+        M:4/4
+        L:1/4
+        Q:4
+        K:C
+        %%MIDI program {A}
+        Q:60
+        |cccc|z4""").format(A=ALARM_INSTRUMENT), tmpdir + "/alarm.mp3")
+
+      # repeat for five minutes
+      chunk_length = padding + stop_secs - start_secs + padding
+      combo_length = silence + chunk_length + silence + 2 * chunk_length
+      reps = math.ceil(300 / combo_length)
+      with open(tmpdir + "/list", "w") as f:
+        for i in range(reps):
+          f.write("file {tmpdir}/050.mp3\nfile {tmpdir}/100.mp3\n".format(tmpdir=tmpdir))
+        f.write("file {tmpdir}/alarm.mp3\n".format(tmpdir=tmpdir))
+
+      # concatenate the chunks
+      outfile = BRACKETS_DIR + bracketnum() + "B.mp3"
+      os.system("""
+      ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
+             -codec copy "{outfile}"
+             """.format(**locals()))
+
+def cut_chunk(mp3, start_secs, stop_secs, speed, outfile, padding, silence):
   if MAKE_MP3S and stop_secs > 0:
     ss = start_secs - padding
     to = stop_secs + padding
     st = stop_secs - start_secs + padding
-    outfile = BRACKETS_DIR + bracketnum() + suffix + ".mp3"
     os.system("""
     ffmpeg -nostdin -loglevel error -ss {ss} -to {to} -i {mp3} -ac 1 -ar 48000 -q 4 \
            -af afade=d={padding},afade=t=out:st={st}:d={padding},atempo={speed},adelay={silence}s:all=true \

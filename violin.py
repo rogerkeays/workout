@@ -76,11 +76,9 @@ def piece(num, title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2"
            attack[left:right], dynamics[left:right])
     right -= len(phrase_lyrics)
 
-  # piece bracket
-  make_bracket(title, tempo, {}, 1)
+  # general purpose metronomes
   make_metronome(1)
   make_metronome(tempo)
-  make_whole(mp3)
 
 def phrase(title, tempo, mp3, start, stop, lyrics,
     index, rhythm, strings="", shapes="", bases="", fingers="", bowing="", attack="", dynamics=""):
@@ -101,8 +99,7 @@ def phrase(title, tempo, mp3, start, stop, lyrics,
   if re.search("[1-4]", fingers):
     open_strings(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics)
   make_bracket(title, tempo, params, 5)
-  make_chunk(mp3, start, stop, 1, "B")
-  make_chunk(mp3, start, stop, 0.5, "C")
+  make_chunk(mp3, start, stop)
 
 def word(title, tempo, lyrics, rhythm, strings, shapes, bases, fingers, bowing, attack, dynamics):
 
