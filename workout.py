@@ -11,6 +11,8 @@ DRILL_LENGTH_MINS = 5
 METRONOME_INSTRUMENT = 116 - 1 # woodblock
 ALARM_INSTRUMENT = 128 - 1     # gunshot
 DRONE_INSTRUMENT = 57 - 1      # trumpet (closest to perfect pitch)
+CHUNK_FADE_SECS = 2.5
+CHUNK_DELAY_SECS = 5
 
 # global state
 os.mkdir(TARGET_DIR)
@@ -107,65 +109,62 @@ def bracketnum():
 def make_metronome(tempo):
   num_notes = int(DRILL_LENGTH_MINS * tempo)
   filename = "=T" + str(int(tempo)).zfill(NUM_PADDING - 1) + ".mp3"
-  make_mp3(("""
+  make_mp3(f"""
     X:0
     M:1/4
     L:1/4
-    Q:{t}
+    Q:{tempo*4}
     K:C
-    %%MIDI program {M}
-    """ + ("|c" * num_notes) + """"
-    %%MIDI program {A}
+    %%MIDI program {METRONOME_INSTRUMENT}
+    {"|c" * num_notes}
+    %%MIDI program {ALARM_INSTRUMENT}
     Q:240
-    |C|C|C|C|z|z|z|z""").format(t=tempo*4, M=METRONOME_INSTRUMENT, A=ALARM_INSTRUMENT),
-    DRILLS_DIR + filename, tempo_percent=25)
+    |C|C|C|C|z|z|z|z""", DRILLS_DIR + filename, tempo_percent=25)
 
 #
 # make a drone of a single pitch which lasts for DRILL_LENGTH_MINS
 # and finishes with an alarm
 #
 def make_drone(note):
-  make_mp3(("""
+  make_mp3(f"""
     X:0
     M:4/4
     L:1/4
     Q:4
-    K:C transpose={t}
-    %%MIDI program {I}
-    """ + ("|C,,,,C,,,,C,,,,C,,,," * DRILL_LENGTH_MINS) + """
-    %%MIDI program {A}
+    K:C transpose={note_to_decimal(note)}
+    %%MIDI program {DRONE_INSTRUMENT}
+    {"|C,,,,C,,,,C,,,,C,,,," * DRILL_LENGTH_MINS}
+    %%MIDI program {ALARM_INSTRUMENT}
     Q:60
-    |CCCC|z4""").format(t=note_to_decimal(note), I=DRONE_INSTRUMENT, A=ALARM_INSTRUMENT),
-    DRILLS_DIR + drillnum() + "B.mp3")
+    |CCCC|z4""", DRILLS_DIR + drillnum() + "B.mp3")
 
 #
 # convert an abc score to an mp3 file
 #
 def make_mp3(score, filename, transpose=0, tempo_percent=100):
   if MAKE_MP3S:
-    key = str(locals())
     if not os.path.exists(filename):
-      os.system("""echo '{score}' \
+      os.system(f"""echo '{score}' \
           | abc2midi /dev/stdin -o /dev/stdout \
           | timidity - --quiet --quiet --output-24bit -A800 -K{transpose} -T{tempo_percent} -Ow -o - \
           | ffmpeg -loglevel error -i - -ac 1 -ab 64k "{filename}"
-          """.format(**locals()))
+          """)
 
 def make_whole(mp3, speed=1, silence=0, suffix="B"):
   if MAKE_MP3S:
     outfile = BRACKETS_DIR + bracketnum() + suffix + ".mp3"
-    os.system("""
+    os.system(f"""
     ffmpeg -nostdin -loglevel error -i {mp3} -ac 1 -ar 48000 -q 4 \
            -af atempo={speed},adelay={silence}s:all=true "{outfile}"
-           """.format(**locals()))
+           """)
 
-def make_chunk(mp3, start_secs, stop_secs, padding=2.5, silence=5):
+def make_chunk(mp3, start_secs, stop_secs):
   if MAKE_MP3S and stop_secs > 0:
     with tempfile.TemporaryDirectory() as tmpdir:
 
       # make chunks at different tempos
-      cut_chunk(mp3, start_secs, stop_secs, 0.5, tmpdir + "/050.mp3", padding, silence);
-      cut_chunk(mp3, start_secs, stop_secs, 1.0, tmpdir + "/100.mp3", padding, silence);
+      cut_chunk(mp3, start_secs, stop_secs, 0.5, tmpdir + "/050.mp3");
+      cut_chunk(mp3, start_secs, stop_secs, 1.0, tmpdir + "/100.mp3");
       make_mp3(("""
         X:0
         M:4/4
@@ -177,8 +176,8 @@ def make_chunk(mp3, start_secs, stop_secs, padding=2.5, silence=5):
         |cccc|z4""").format(A=ALARM_INSTRUMENT), tmpdir + "/alarm.mp3")
 
       # repeat for five minutes
-      chunk_length = padding + stop_secs - start_secs + padding
-      combo_length = silence + chunk_length + silence + 2 * chunk_length
+      chunk_length = CHUNK_FADE_SECS + stop_secs - start_secs + CHUNK_FADE_SECS
+      combo_length = CHUNK_DELAY_SECS + chunk_length + CHUNK_DELAY_SECS + 2 * chunk_length
       reps = math.ceil(300 / combo_length)
       with open(tmpdir + "/list", "w") as f:
         for i in range(reps):
@@ -187,21 +186,22 @@ def make_chunk(mp3, start_secs, stop_secs, padding=2.5, silence=5):
 
       # concatenate the chunks
       outfile = BRACKETS_DIR + bracketnum() + "B.mp3"
-      os.system("""
+      os.system(f"""
       ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
-             -codec copy "{outfile}"
-             """.format(**locals()))
+             -codec copy "{outfile}" """)
 
-def cut_chunk(mp3, start_secs, stop_secs, speed, outfile, padding, silence):
+def cut_chunk(mp3, start_secs, stop_secs, speed, outfile):
   if MAKE_MP3S and stop_secs > 0:
+    padding = CHUNK_DELAY_SECS
+    delay = CHUNK_DELAY_SECS
     ss = start_secs - padding
     to = stop_secs + padding
     st = stop_secs - start_secs + padding
-    os.system("""
+    os.system(f"""
     ffmpeg -nostdin -loglevel error -ss {ss} -to {to} -i {mp3} -ac 1 -ar 48000 -q 4 \
-           -af afade=d={padding},afade=t=out:st={st}:d={padding},atempo={speed},adelay={silence}s:all=true \
+           -af afade=d={padding},afade=t=out:st={st}:d={padding},atempo={speed},adelay={delay}s:all=true \
            "{outfile}"
-           """.format(**locals()))
+           """)
 
 # remove bar lines and spaces and replace repeat marks
 def normalise_tab(x):
