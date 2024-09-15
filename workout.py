@@ -1,11 +1,11 @@
 
-import os, inspect, re, tempfile, math
+import os, inspect, re, tempfile, math, shutil
 
 # constants 
 MAKE_MP3S = True
 TARGET_DIR = "target/"
 DRILLS_DIR = "02.drills/"
-BRACKETS_DIR = "03.practise/"
+BRACKETS_DIR = "03.brackets/"
 NUM_PADDING = 4
 DRILL_LENGTH_MINS = 5
 METRONOME_INSTRUMENT = 116 - 1 # woodblock
@@ -95,9 +95,7 @@ def shift_rhythm(rhythm):
 
 # format the current drill number as a zero-padded string
 def drillnum(): return str(len(drills)).zfill(NUM_PADDING)
-def bracketnum():
-  depth = len(inspect.stack()) - 5
-  return str(depth) + str(brackets).zfill(NUM_PADDING - 1)
+def bracketnum(): return str(brackets).zfill(NUM_PADDING)
 
 #
 # make a metronome with the given tempo which goes for DRILL_LENGTH_MINS
@@ -107,19 +105,21 @@ def bracketnum():
 # and set the midi speed to 25%
 #
 def make_metronome(tempo):
-  num_notes = int(DRILL_LENGTH_MINS * tempo)
-  filename = "=T" + str(int(tempo)).zfill(NUM_PADDING - 1) + ".mp3"
-  make_mp3(f"""
-    X:0
-    M:1/4
-    L:1/4
-    Q:{tempo*4}
-    K:C
-    %%MIDI program {METRONOME_INSTRUMENT}
-    {"|c" * num_notes}
-    %%MIDI program {ALARM_INSTRUMENT}
-    Q:240
-    |C|C|C|C|z|z|z|z""", DRILLS_DIR + filename, tempo_percent=25)
+  if MAKE_MP3S:
+    num_notes = int(DRILL_LENGTH_MINS * tempo)
+    filename = "=T" + str(int(tempo)).zfill(NUM_PADDING - 1) + ".mp3"
+    make_mp3(f"""
+      X:0
+      M:1/4
+      L:1/4
+      Q:{tempo*4}
+      K:C
+      %%MIDI program {METRONOME_INSTRUMENT}
+      {"|c" * num_notes}
+      %%MIDI program {ALARM_INSTRUMENT}
+      Q:240
+      |C|C|C|C|z|z|z|z""", DRILLS_DIR + filename, tempo_percent=25)
+    shutil.copy(DRILLS_DIR + filename, BRACKETS_DIR)
 
 #
 # make a drone of a single pitch which lasts for DRILL_LENGTH_MINS
@@ -158,27 +158,19 @@ def make_whole(mp3, speed=1, silence=0, suffix="B"):
            -af atempo={speed},adelay={silence}s:all=true "{outfile}"
            """)
 
-def make_chunk(mp3, start_secs, stop_secs):
+def make_mixed_chunk(mp3, start_secs, stop_secs):
   if MAKE_MP3S and stop_secs > 0:
     with tempfile.TemporaryDirectory() as tmpdir:
 
-      # make chunks at different tempos
+      # generate chunks for repetition
       cut_chunk(mp3, start_secs, stop_secs, 0.5, tmpdir + "/050.mp3");
       cut_chunk(mp3, start_secs, stop_secs, 1.0, tmpdir + "/100.mp3");
-      make_mp3(("""
-        X:0
-        M:4/4
-        L:1/4
-        Q:4
-        K:C
-        %%MIDI program {A}
-        Q:60
-        |cccc|z4""").format(A=ALARM_INSTRUMENT), tmpdir + "/alarm.mp3")
+      cut_alarm(tmpdir + "/alarm.mp3")
 
-      # repeat for five minutes
+      # repeat for the duration of the drill
       chunk_length = CHUNK_FADE_SECS + stop_secs - start_secs + CHUNK_FADE_SECS
       combo_length = CHUNK_DELAY_SECS + chunk_length + CHUNK_DELAY_SECS + 2 * chunk_length
-      reps = math.ceil(300 / combo_length)
+      reps = math.ceil(DRILL_LENGTH_MINS * 60 / combo_length)
       with open(tmpdir + "/list", "w") as f:
         for i in range(reps):
           f.write("file {tmpdir}/050.mp3\nfile {tmpdir}/100.mp3\n".format(tmpdir=tmpdir))
@@ -190,9 +182,30 @@ def make_chunk(mp3, start_secs, stop_secs):
       ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
              -codec copy "{outfile}" """)
 
+def make_chunk(mp3, start_secs, stop_secs, speed):
+  if MAKE_MP3S and stop_secs > 0:
+    with tempfile.TemporaryDirectory() as tmpdir:
+
+      # generate chunks for repetition
+      cut_chunk(mp3, start_secs, stop_secs, speed, tmpdir + "/chunk.mp3");
+      cut_alarm(tmpdir + "/alarm.mp3")
+
+      # repeat for the duration of the drill
+      length = CHUNK_DELAY_SECS + (CHUNK_FADE_SECS + stop_secs - start_secs + CHUNK_FADE_SECS) / speed
+      reps = math.ceil(DRILL_LENGTH_MINS * 60 / length)
+      with open(tmpdir + "/list", "w") as f:
+        for i in range(reps):
+          f.write(f"file {tmpdir}/chunk.mp3\n")
+        f.write(f"file {tmpdir}/alarm.mp3\n")
+
+      # concatenate the chunks
+      outfile = BRACKETS_DIR + bracketnum() + "B.mp3"
+      os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
+                           -codec copy "{outfile}" """)
+
 def cut_chunk(mp3, start_secs, stop_secs, speed, outfile):
   if MAKE_MP3S and stop_secs > 0:
-    padding = CHUNK_DELAY_SECS
+    padding = CHUNK_FADE_SECS
     delay = CHUNK_DELAY_SECS
     ss = start_secs - padding
     to = stop_secs + padding
@@ -202,6 +215,16 @@ def cut_chunk(mp3, start_secs, stop_secs, speed, outfile):
            -af afade=d={padding},afade=t=out:st={st}:d={padding},atempo={speed},adelay={delay}s:all=true \
            "{outfile}"
            """)
+
+def cut_alarm(outfile):
+  make_mp3(f"""
+    X:0
+    M:4/4
+    L:1/4
+    Q:60
+    K:C
+    %%MIDI program {ALARM_INSTRUMENT}
+    |cccc|z4""", outfile)
 
 # remove bar lines and spaces and replace repeat marks
 def normalise_tab(x):

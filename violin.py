@@ -46,6 +46,11 @@ def piece(num, title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2"
     if len(dynamics) < n: dynamics = repeat_to_fit(dynamics, n)
   rhythm += "1"
 
+  # general purpose metronomes
+  make_metronome(1)
+  make_metronome(tempo/2)
+  make_metronome(tempo)
+
   # process phrases in reverse order
   lyrics = []
   right = len(index)
@@ -76,10 +81,6 @@ def piece(num, title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2"
            attack[left:right], dynamics[left:right])
     right -= len(phrase_lyrics)
 
-  # general purpose metronomes
-  make_metronome(1)
-  make_metronome(tempo)
-
 def phrase(title, tempo, mp3, start, stop, lyrics,
     index, rhythm, strings="", shapes="", bases="", fingers="", bowing="", attack="", dynamics=""):
   params = locals()
@@ -98,8 +99,10 @@ def phrase(title, tempo, mp3, start, stop, lyrics,
   # phrase drills
   if re.search("[1-4]", fingers):
     open_strings(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics)
+  make_bracket(title, tempo / 2, params, 5)
+  make_chunk(mp3, start, stop, 0.5)
   make_bracket(title, tempo, params, 5)
-  make_chunk(mp3, start, stop)
+  make_chunk(mp3, start, stop, 1.0)
 
 def word(title, tempo, lyrics, rhythm, strings, shapes, bases, fingers, bowing, attack, dynamics):
 
@@ -118,7 +121,7 @@ def word(title, tempo, lyrics, rhythm, strings, shapes, bases, fingers, bowing, 
     jankin_switches(shapes[0], shapes[1])
   if strings[0] != strings[1]:
     hand_jumps_rapid(tempo, strings[0:2], shapes[0:2], bases[0:2])
-  make_bracket(title, tempo, locals(), 5)
+  make_drill(locals(), 5)
 
 def note(title, tempo, lyrics, rhythm, string, shape, base, finger, bowing, attack, dynamic):
   if attack != ".":
@@ -133,6 +136,7 @@ def note(title, tempo, lyrics, rhythm, string, shape, base, finger, bowing, atta
 ##################
 
 def open_strings(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics):
+  params = locals()
   for i in range(len(index)):
     if i > 0:
       h = i - 1
@@ -142,8 +146,18 @@ def open_strings(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics
       else:
         string_crossings(tempo, lyrics[h:j], rhythm[h:j+1], strings[h:j], bowing[h:j+1], attack[h:j], dynamics[h:j])
 
-  rhythm_clapping(tempo, lyrics, rhythm)
-  make_drill(locals(), 5)
+  rhythm_solfege(tempo, lyrics, rhythm)
+  make_bracket("open strings", tempo/2, params, 5)
+  make_bracket("open strings", tempo, params, 5)
+
+def rhythm_solfege(tempo, lyrics, rhythm):
+  rhythm_clapping_bracket(tempo, lyrics, rhythm)
+  make_bracket("rhythm solfege", tempo/2, locals(), 5)
+  make_bracket("rhythm solfege", tempo, locals(), 5)
+
+def rhythm_clapping_bracket(tempo, lyrics, rhythm):
+  make_bracket("rhythm clapping", tempo/2, locals(), 5)
+  make_bracket("rhythm clapping", tempo, locals(), 5)
 
 def rhythm_clapping(tempo, lyrics, rhythm):
   make_drill(locals(), 5)
