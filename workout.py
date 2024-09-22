@@ -38,7 +38,7 @@ def make_bracket(title, tempo, params={}, reps=5):
   if "tempo" in params: del params["tempo"]
 
   # write card text
-  with open(BRACKETS_DIR + bracketnum() + "A.txt", "w") as f:
+  with open(BRACKETS_DIR + str(int(tempo)).zfill(3) + bracketnum() + "A.txt", "w") as f:
     f.write("TIT " + title + " @" + str(int(tempo)) + "\n")
     for key in params:
       if params[key]:
