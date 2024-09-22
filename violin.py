@@ -99,9 +99,9 @@ def phrase(title, tempo, mp3, start, stop, lyrics,
   # phrase drills
   if re.search("[1-4]", fingers):
     open_strings(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics)
-  make_bracket(title, tempo / 2, params, 5)
+  make_bracket("phrase", tempo / 2, params, 5)
   make_chunk(mp3, start, stop, 0.5)
-  make_bracket(title, tempo, params, 5)
+  make_bracket("phrase", tempo, params, 5)
   make_chunk(mp3, start, stop, 1.0)
 
 def word(title, tempo, lyrics, rhythm, strings, shapes, bases, fingers, bowing, attack, dynamics):
@@ -146,21 +146,26 @@ def open_strings(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics
       else:
         string_crossings(tempo, lyrics[h:j], rhythm[h:j+1], strings[h:j], bowing[h:j+1], attack[h:j], dynamics[h:j])
 
-  rhythm_solfege(tempo, lyrics, rhythm)
+  rhythm_clapping_bracket(tempo, lyrics, rhythm)
+  bowing_visualisation(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics);
   make_bracket("open strings", tempo/2, params, 5)
   make_bracket("open strings", tempo, params, 5)
 
-def rhythm_solfege(tempo, lyrics, rhythm):
-  rhythm_clapping_bracket(tempo, lyrics, rhythm)
-  make_bracket("rhythm solfege", tempo/2, locals(), 5)
-  make_bracket("rhythm solfege", tempo, locals(), 5)
+def rhythm_clapping(tempo, lyrics, rhythm):
+  make_drill(locals(), 5)
 
 def rhythm_clapping_bracket(tempo, lyrics, rhythm):
+  rhythm_solfege(tempo, lyrics, rhythm)
   make_bracket("rhythm clapping", tempo/2, locals(), 5)
   make_bracket("rhythm clapping", tempo, locals(), 5)
 
-def rhythm_clapping(tempo, lyrics, rhythm):
-  make_drill(locals(), 5)
+def rhythm_solfege(tempo, lyrics, rhythm):
+  make_bracket("rhythm solfege", tempo/2, locals(), 5)
+  make_bracket("rhythm solfege", tempo, locals(), 5)
+
+def bowing_visualisation(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics):
+  make_bracket("bowing visualisation", tempo/2, locals(), 5)
+  make_bracket("bowing visualisation", tempo, locals(), 5)
 
 def string_crossings(tempo, lyrics, rhythm, strings, bowing, attack, dynamics):
   make_drill(locals(), 5)
