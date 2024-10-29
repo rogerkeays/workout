@@ -93,10 +93,10 @@ def phrase(title, tempo, mp3, start, stop, lyrics,
   e = n + 1
   for i in reversed(range(n - 1)):
     if attack[i] != ".":
-      note(lyrics[i], rhythm[i:i+2], strings[i], shapes[i], bases[i], fingers[i], bowing[i:i+2], attack[i], dynamics[i])
-      bracket(lyrics[i:e], rhythm[i:e], strings[i:e], shapes[i:e], bases[i:e], fingers[i:e], bowing[i:e], attack[i:e], dynamics[i:e])
+      note(lyrics[i], rhythm[i:i+2], strings[i], bowing[i:i+2], attack[i], dynamics[i], shapes[i], bases[i], fingers[i])
+      bracket(lyrics[i:e], rhythm[i:e], strings[i:e], bowing[i:e], attack[i:e], dynamics[i:e], shapes[i:e], bases[i:e], fingers[i:e])
 
-def bracket(lyrics, rhythm, strings, shapes, bases, fingers, bowings, attack, dynamics):
+def bracket(lyrics, rhythm, strings, bowings, attack, dynamics, shapes, bases, fingers):
   make_drill(locals(), 5, """
 bowing_visualisation
   open_strings
@@ -110,7 +110,7 @@ hand_jumps_rapid
           finger_wriggles_straight
   """)
 
-def note(lyrics, rhythm, string, shape, base, finger, bowing, attack, dynamic):
+def note(lyrics, rhythm, string, bowing, attack, dynamic, shape, base, finger):
   make_drill(locals(), 5, """
 bow_attack
   string_yanking
