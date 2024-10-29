@@ -98,43 +98,45 @@ def phrase(title, tempo, mp3, start, stop, lyrics,
 
 def bracket(lyrics, rhythm, strings, bowings, attack, dynamics, shapes, bases, fingers):
   make_drill(locals(), 5, """
-bowing_visualisation
-  open_strings
-    string_switching
-
-hand_jumps_rapid
-  hand_jumps_exact
-    hand_jumps_silent
-      jankin_switches
-        finger_wriggles_curved
-          finger_wriggles_straight
+00 mirror
+01 eyes_closed
+02 eyes_open +6
+03 bowing_visual
+04 open_strings
+05 string_switching .
+06 hand_jumps_rapid
+07 hand_jumps_exact
+08 hand_jumps_silent
+09 jankin_switches
+10 friggles_curved
+11 friggles_straight .
   """)
 
 def note(lyrics, rhythm, string, bowing, attack, dynamic, shape, base, finger):
   make_drill(locals(), 5, """
-bow_attack
-  string_yanking
-  bow_benders
-    bow_placement
-      bow_hand_resets
-      itsy_bitsy_spider
-      horizontal_bow_raises
-      vertical_bow_raises
-      jellyfish
-
-pitch_hitting
-  hand_placement
-    pinky_reaches
-      elbow_raises
-    jankin
-      finger_stretches
-  finger_hammers
-    air_hammers
-
-rhythm_clapping
-  rhythm_solfege
-
-no_hands_swivels
+00 mirror
+01 eyes_closed
+02 eyes_open +12 20
+03 bow_attack
+04 string_yanking +6
+05 bow_benders
+06 bow_placement ..10 22
+07 bow_hand_resets
+08 itsy_bitsy_spider .
+09 horz_bow_raises .
+10 vert_bow_raises .
+11 jellyfish .
+12 pitch_hitting +18
+13 hand_placement +16
+14 pinky_reaches
+15 elbow_raises .
+16 jankin
+17 finger_stretches .
+18 finger_hammers
+19 air_hammers
+20 rhythm_clapping
+21 rhythm_solfege .
+22 no_hands_swivels .
   """)
   #make_drone(note_at(string, fret(shape, base, finger)))
 
