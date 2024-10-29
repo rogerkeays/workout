@@ -52,7 +52,7 @@ def make_bracket(title, tempo, params={}, reps=5):
 # make a drill card, ensuring it is unique, and formatting
 # it appropriately as a text file
 #
-def make_drill(params={}, reps=5):
+def make_drill(params={}, reps=5, levels=""):
 
   # check for duplicates
   name = inspect.stack()[1].function
@@ -62,7 +62,7 @@ def make_drill(params={}, reps=5):
 
   # write card text
   with open(DRILLS_DIR + drillnum() + "A.txt", "w") as f:
-    f.write(name + " x" + str(reps) + "\n")
+    #f.write(name + " x" + str(reps) + "\n")
     for key in params:
       if params[key]:
         f.write(key[0:3].upper() + " ")
@@ -70,6 +70,7 @@ def make_drill(params={}, reps=5):
           f.write(" ".join(params[key]) + "\n")
         else:
           f.write(str(params[key]) + "\n")
+    f.write(levels)
 
   return True
 
@@ -182,7 +183,7 @@ def make_mixed_chunk(mp3, start_secs, stop_secs):
       ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
              -codec copy "{outfile}" """)
 
-def make_chunk(mp3, start_secs, stop_secs, speed):
+def make_chunk(mp3, start_secs, stop_secs, speed, suffix="B"):
   if MAKE_MP3S and stop_secs > 0:
     with tempfile.TemporaryDirectory() as tmpdir:
 
@@ -199,9 +200,14 @@ def make_chunk(mp3, start_secs, stop_secs, speed):
         f.write(f"file {tmpdir}/alarm.mp3\n")
 
       # concatenate the chunks
-      outfile = BRACKETS_DIR + bracketnum() + "B.mp3"
+      outfile = DRILLS_DIR + drillnum() + suffix + ".mp3"
       os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
                            -codec copy "{outfile}" """)
+
+def make_chunks(mp3, start, stop):
+  make_chunk(mp3, start, stop, 1.00, "B")
+  make_chunk(mp3, start, stop, 0.75, "C")
+  make_chunk(mp3, start, stop, 0.50, "D")
 
 def cut_chunk(mp3, start_secs, stop_secs, speed, outfile):
   if MAKE_MP3S and stop_secs > 0:

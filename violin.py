@@ -47,8 +47,8 @@ def piece(num, title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2"
   rhythm += "1"
 
   # general purpose metronomes
-  make_metronome(1)
   make_metronome(tempo/2)
+  make_metronome(tempo/1.5)
   make_metronome(tempo)
 
   # process phrases in reverse order
@@ -82,6 +82,63 @@ def piece(num, title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2"
     right -= len(phrase_lyrics)
 
 def phrase(title, tempo, mp3, start, stop, lyrics,
+    index, rhythm, strings="", shapes="", bases="", fingers="", bowing="", attack="", dynamics=""):
+
+  # backing tracks for this phrase
+  make_drill({"title":title, "tempo":tempo, "lyrics":lyrics}, 0)
+  make_chunks(mp3, start, stop)
+
+  # process in reverse order
+  n = len(index)
+  e = n + 1
+  for i in reversed(range(n - 1)):
+    if attack[i] != ".":
+      note(lyrics[i], rhythm[i:i+2], strings[i], shapes[i], bases[i], fingers[i], bowing[i:i+2], attack[i], dynamics[i])
+      bracket(lyrics[i:e], rhythm[i:e], strings[i:e], shapes[i:e], bases[i:e], fingers[i:e], bowing[i:e], attack[i:e], dynamics[i:e])
+
+def bracket(lyrics, rhythm, strings, shapes, bases, fingers, bowings, attack, dynamics):
+  make_drill(locals(), 5, """
+bowing_visualisation
+  open_strings
+    string_switching
+
+hand_jumps_rapid
+  hand_jumps_exact
+    hand_jumps_silent
+      jankin_switches
+        finger_wriggles_curved
+          finger_wriggles_straight
+  """)
+
+def note(lyrics, rhythm, string, shape, base, finger, bowing, attack, dynamic):
+  make_drill(locals(), 5, """
+bow_attack
+  string_yanking
+  bow_benders
+    bow_placement
+      bow_hand_resets
+      itsy_bitsy_spider
+      horizontal_bow_raises
+      vertical_bow_raises
+      jellyfish
+
+pitch_hitting
+  hand_placement
+    pinky_reaches
+      elbow_raises
+    jankin
+      finger_stretches
+  finger_hammers
+    air_hammers
+
+rhythm_clapping
+  rhythm_solfege
+
+no_hands_swivels
+  """)
+  #make_drone(note_at(string, fret(shape, base, finger)))
+
+def phrasex(title, tempo, mp3, start, stop, lyrics,
     index, rhythm, strings="", shapes="", bases="", fingers="", bowing="", attack="", dynamics=""):
   params = locals()
   del params["mp3"]
@@ -123,7 +180,7 @@ def word(title, tempo, lyrics, rhythm, strings, shapes, bases, fingers, bowing, 
     hand_jumps_rapid(tempo, strings[0:2], shapes[0:2], bases[0:2])
   make_drill(locals(), 5)
 
-def note(title, tempo, lyrics, rhythm, string, shape, base, finger, bowing, attack, dynamic):
+def notex(title, tempo, lyrics, rhythm, string, shape, base, finger, bowing, attack, dynamic):
   if attack != ".":
     bow_attack(tempo, lyrics, rhythm, string, bowing, attack, dynamic)
     hand_placement(string, shape, base)
