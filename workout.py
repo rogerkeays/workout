@@ -39,7 +39,7 @@ def make_bracket(params={}, reps=5):
   with open(BRACKETS_DIR + bracketnum() + ".txt", "w") as f:
     for key in params:
       if params[key]:
-        f.write(key[0:3].upper() + " ")
+        f.write(key[0:3].upper() + (" " if key == "bowing" else "  "))
         if isinstance(params[key], list):
           f.write(" ".join(params[key]) + "\n")
         else:
@@ -62,7 +62,7 @@ def make_drill(params={}, reps=5):
     f.write(name + " x" + str(reps) + "\n")
     for key in params:
       if params[key]:
-        f.write(key[0:3].upper() + " ")
+        f.write(key[0:3].upper() + (" " if key == "bowing" else "  "))
         if isinstance(params[key], list):
           f.write(" ".join(params[key]) + "\n")
         else:
