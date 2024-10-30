@@ -4,10 +4,10 @@
 #
 # rhythm      1bar2dup3cet4mow
 # strings     1234
+# bowing      0-8
 # shape       NPGWCADK None, Porcupine, Gun, Westside, Chicken, Alien, Dog, ducK
 # frets       0..24
 # fingers     01234
-# bowing      0-8
 # attack      DGS      Detache, leGato, Staccato
 # dynamics    V        eVen
 #
@@ -76,13 +76,13 @@ def piece(num, title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2"
       stop = 0
 
     phrase(title, tempo, mp3, start, stop, phrase_lyrics,
-           index[left:right], rhythm[left:right + 1], strings[left:right],
-           shapes[left:right], bases[left:right], fingers[left:right], bowing[left:right + 1],
+           index[left:right], rhythm[left:right + 1], strings[left:right], bowing[left:right + 1],
+           shapes[left:right], bases[left:right], fingers[left:right],
            attack[left:right], dynamics[left:right])
     right -= len(phrase_lyrics)
 
-def phrase(title, tempo, mp3, start, stop, lyrics,
-    index, rhythm, strings="", shapes="", bases="", fingers="", bowing="", attack="", dynamics=""):
+def phrase(title, tempo, mp3, start, stop, lyrics, index, rhythm, strings="", bowing="", 
+           shapes="", bases="", fingers="", attack="", dynamics=""):
   params = locals()
   del params["mp3"]
   del params["start"]
@@ -96,29 +96,30 @@ def phrase(title, tempo, mp3, start, stop, lyrics,
   e = n + 1
   for i in reversed(range(n - 1)):
     if attack[i] != ".":
-      bracket(lyrics[i:e], rhythm[i:e], strings[i:e], bowing[i:e], attack[i:e], shapes[i:e], bases[i:e], fingers[i:e])
+      bracket(lyrics[i:e], rhythm[i:e], strings[i:e], bowing[i:e],
+              shapes[i:e], bases[i:e], fingers[i:e], attack[i:e], dynamics[i:e])
 
     # word drills
     if i > 0:
       h = i - 1
       j = i + 1
-      word(title, tempo, lyrics[h:j], rhythm[h:j+1], strings[h:j], shapes[h:j], bases[h:j],
-           fingers[h:j], bowing[h:j+1], attack[h:j], dynamics[h:j])
+      word(title, tempo, lyrics[h:j], rhythm[h:j+1], strings[h:j], bowing[h:j+1],
+           shapes[h:j], bases[h:j], fingers[h:j], attack[h:j], dynamics[h:j])
 
   # phrase drills
   if re.search("[1-4]", fingers):
     open_strings(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics)
 
-def bracket(lyrics, rhythm, strings, bowings, attack, shapes, bases, fingers):
+def bracket(lyrics, rhythm, strings, bowing, shapes, bases, fingers, attack, dynamics):
   make_bracket(locals(), 5)
 
-def word(title, tempo, lyrics, rhythm, strings, shapes, bases, fingers, bowing, attack, dynamics):
+def word(title, tempo, lyrics, rhythm, strings, bowing, shapes, bases, fingers, attack, dynamics):
 
   # process notes in reverse order
-  note(title, tempo, lyrics[1], rhythm[1:3], strings[1], shapes[1], bases[1], fingers[1],
-       bowing[1:3], attack[1], dynamics[1])
-  note(title, tempo, lyrics[0], rhythm[0:2], strings[0], shapes[0], bases[0], fingers[0],
-       bowing[0:2], attack[0], dynamics[0])
+  note(title, tempo, lyrics[1], rhythm[1:3], strings[1], bowing[1:3],
+       shapes[1], bases[1], fingers[1], attack[1], dynamics[1])
+  note(title, tempo, lyrics[0], rhythm[0:2], strings[0], bowing[0:2], 
+       shapes[0], bases[0], fingers[0], attack[0], dynamics[0])
 
   # word drills
   if strings[0] == strings[1]:
@@ -130,9 +131,9 @@ def word(title, tempo, lyrics, rhythm, strings, shapes, bases, fingers, bowing, 
   if strings[0] != strings[1]:
     hand_jumps_rapid(tempo, strings[0:2], shapes[0:2], bases[0:2])
 
-def note(title, tempo, lyrics, rhythm, string, shape, base, finger, bowing, attack, dynamic):
+def note(title, tempo, lyrics, rhythm, string, bowing, shape, base, finger, attack, dynamics):
   if attack != ".":
-    bow_attack(tempo, lyrics, rhythm, string, bowing, attack, dynamic)
+    bow_attack(tempo, lyrics, rhythm, string, bowing, attack, dynamics)
     hand_placement(string, shape, base)
     pitch_hitting(string, fret(shape, base, finger), finger)
 
@@ -172,10 +173,10 @@ def string_switching(tempo, frm, to, bowpos):
   bow_hold()
   make_drill(locals(), 15)
 
-def bow_changes(tempo, lyrics, rhythm, string, bowing, attack, dynamic):
+def bow_changes(tempo, lyrics, rhythm, string, bowing, attack, dynamics):
   if attack[0] != "." and attack[1] != ".":
-    bow_attack(tempo, lyrics[0], rhythm[0:2], string, bowing[0:2], attack[0], dynamic[0]),
-    bow_attack(tempo, lyrics[1], rhythm[1:3], string, bowing[1:3], attack[1], dynamic[1]),
+    bow_attack(tempo, lyrics[0], rhythm[0:2], string, bowing[0:2], attack[0], dynamics[0]),
+    bow_attack(tempo, lyrics[1], rhythm[1:3], string, bowing[1:3], attack[1], dynamics[1]),
     rhythm_clapping(tempo, lyrics, rhythm)
     make_drill(locals(), 5)
 
@@ -192,7 +193,7 @@ def finger_hammers(string, fret, finger):
 def air_hammers(finger):
   make_drill( locals(), 30)
 
-def bow_attack(tempo, lyrics, rhythm, string, bowing, attack, dynamic):
+def bow_attack(tempo, lyrics, rhythm, string, bowing, attack, dynamics):
   if attack != ".":
     string_yanking(tempo, string, bowing[0], "D" if bowing[0] < bowing[1] else "U")
     rhythm_clapping(tempo, lyrics, rhythm)
