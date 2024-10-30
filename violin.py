@@ -96,7 +96,7 @@ def phrase(title, tempo, mp3, start, stop, lyrics, index, rhythm, strings="", bo
   e = n + 1
   for i in reversed(range(n - 1)):
     if attack[i] != ".":
-      bracket(lyrics[i:e], rhythm[i:e], strings[i:e], bowing[i:e],
+      bracket(index[i:e], rhythm[i:e], strings[i:e], bowing[i:e],
               shapes[i:e], bases[i:e], fingers[i:e], attack[i:e], dynamics[i:e])
 
     # word drills
@@ -110,7 +110,7 @@ def phrase(title, tempo, mp3, start, stop, lyrics, index, rhythm, strings="", bo
   if re.search("[1-4]", fingers):
     open_strings(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics)
 
-def bracket(lyrics, rhythm, strings, bowing, shapes, bases, fingers, attack, dynamics):
+def bracket(index, rhythm, strings, bowing, shapes, bases, fingers, attack, dynamics):
   make_bracket(locals(), 5)
 
 def word(title, tempo, lyrics, rhythm, strings, bowing, shapes, bases, fingers, attack, dynamics):
