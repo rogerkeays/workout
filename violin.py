@@ -83,72 +83,22 @@ def piece(num, title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2"
 
 def phrase(title, tempo, mp3, start, stop, lyrics,
     index, rhythm, strings="", shapes="", bases="", fingers="", bowing="", attack="", dynamics=""):
+  params = locals()
+  del params["mp3"]
+  del params["start"]
+  del params["stop"]
 
   # backing tracks for this phrase
-  make_drill({"title":title, "tempo":tempo, "lyrics":lyrics}, 0)
-  make_chunks(mp3, start, stop)
+  make_chunk(mp3, start, stop)
 
   # process in reverse order
   n = len(index)
   e = n + 1
   for i in reversed(range(n - 1)):
     if attack[i] != ".":
-      note(lyrics[i], rhythm[i:i+2], strings[i], bowing[i:i+2], attack[i], dynamics[i], shapes[i], bases[i], fingers[i])
-      bracket(lyrics[i:e], rhythm[i:e], strings[i:e], bowing[i:e], attack[i:e], dynamics[i:e], shapes[i:e], bases[i:e], fingers[i:e])
+      bracket(lyrics[i:e], rhythm[i:e], strings[i:e], bowing[i:e], attack[i:e], shapes[i:e], bases[i:e], fingers[i:e])
 
-def bracket(lyrics, rhythm, strings, bowings, attack, dynamics, shapes, bases, fingers):
-  make_drill(locals(), 5, """
-00 mirror
-01 eyes_closed
-02 eyes_open +6
-03 bowing_visual
-04 open_strings
-05 string_switching .
-06 hand_jumps_rapid
-07 hand_jumps_exact
-08 hand_jumps_silent
-09 jankin_switches
-10 friggles_curved
-11 friggles_straight .
-  """)
-
-def note(lyrics, rhythm, string, bowing, attack, dynamic, shape, base, finger):
-  make_drill(locals(), 5, """
-00 mirror
-01 eyes_closed
-02 eyes_open +12 20
-03 bow_attack
-04 string_yanking +6
-05 bow_benders
-06 bow_placement ..10 22
-07 bow_hand_resets
-08 itsy_bitsy_spider .
-09 horz_bow_raises .
-10 vert_bow_raises .
-11 jellyfish .
-12 pitch_hitting +18
-13 hand_placement +16
-14 pinky_reaches
-15 elbow_raises .
-16 jankin
-17 finger_stretches .
-18 finger_hammers
-19 air_hammers
-20 rhythm_clapping
-21 rhythm_solfege .
-22 no_hands_swivels .
-  """)
-  #make_drone(note_at(string, fret(shape, base, finger)))
-
-def phrasex(title, tempo, mp3, start, stop, lyrics,
-    index, rhythm, strings="", shapes="", bases="", fingers="", bowing="", attack="", dynamics=""):
-  params = locals()
-  del params["mp3"]
-  del params["start"]
-  del params["stop"]
-
-  # process words in reverse order
-  for i in reversed(range(len(index))):
+    # word drills
     if i > 0:
       h = i - 1
       j = i + 1
@@ -158,10 +108,9 @@ def phrasex(title, tempo, mp3, start, stop, lyrics,
   # phrase drills
   if re.search("[1-4]", fingers):
     open_strings(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics)
-  make_bracket("phrase", tempo / 2, params, 5)
-  make_chunk(mp3, start, stop, 0.5)
-  make_bracket("phrase", tempo, params, 5)
-  make_chunk(mp3, start, stop, 1.0)
+
+def bracket(lyrics, rhythm, strings, bowings, attack, shapes, bases, fingers):
+  make_bracket(locals(), 5)
 
 def word(title, tempo, lyrics, rhythm, strings, shapes, bases, fingers, bowing, attack, dynamics):
 
@@ -180,15 +129,12 @@ def word(title, tempo, lyrics, rhythm, strings, shapes, bases, fingers, bowing, 
     jankin_switches(shapes[0], shapes[1])
   if strings[0] != strings[1]:
     hand_jumps_rapid(tempo, strings[0:2], shapes[0:2], bases[0:2])
-  make_drill(locals(), 5)
 
-def notex(title, tempo, lyrics, rhythm, string, shape, base, finger, bowing, attack, dynamic):
+def note(title, tempo, lyrics, rhythm, string, shape, base, finger, bowing, attack, dynamic):
   if attack != ".":
     bow_attack(tempo, lyrics, rhythm, string, bowing, attack, dynamic)
     hand_placement(string, shape, base)
     pitch_hitting(string, fret(shape, base, finger), finger)
-    make_drill(locals(), 5)
-
 
 ##################
 ## BEGIN DRILLS ##
@@ -205,26 +151,18 @@ def open_strings(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics
       else:
         string_crossings(tempo, lyrics[h:j], rhythm[h:j+1], strings[h:j], bowing[h:j+1], attack[h:j], dynamics[h:j])
 
-  rhythm_clapping_bracket(tempo, lyrics, rhythm)
+  rhythm_clapping(tempo, lyrics, rhythm)
   bowing_visualisation(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics);
-  make_bracket("open strings", tempo/2, params, 5)
-  make_bracket("open strings", tempo, params, 5)
+  make_drill(params, 5)
 
 def rhythm_clapping(tempo, lyrics, rhythm):
   make_drill(locals(), 5)
 
-def rhythm_clapping_bracket(tempo, lyrics, rhythm):
-  rhythm_solfege(tempo, lyrics, rhythm)
-  make_bracket("rhythm clapping", tempo/2, locals(), 5)
-  make_bracket("rhythm clapping", tempo, locals(), 5)
-
 def rhythm_solfege(tempo, lyrics, rhythm):
-  make_bracket("rhythm solfege", tempo/2, locals(), 5)
-  make_bracket("rhythm solfege", tempo, locals(), 5)
+  make_drill(locals(), 5)
 
 def bowing_visualisation(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics):
-  make_bracket("bowing visualisation", tempo/2, locals(), 5)
-  make_bracket("bowing visualisation", tempo, locals(), 5)
+  make_drill(locals(), 5)
 
 def string_crossings(tempo, lyrics, rhythm, strings, bowing, attack, dynamics):
   make_drill(locals(), 5)

@@ -1,5 +1,5 @@
 
-import os, inspect, re, tempfile, math, shutil
+import os, inspect, re, tempfile, math
 
 # constants 
 MAKE_MP3S = True
@@ -31,15 +31,12 @@ def mcd(dirname):
   os.makedirs(dirname)
   os.chdir(dirname)
 
-def make_bracket(title, tempo, params={}, reps=5):
+def make_bracket(params={}, reps=5):
   global brackets
   brackets += 1
-  if "title" in params: del params["title"]
-  if "tempo" in params: del params["tempo"]
 
   # write card text
-  with open(BRACKETS_DIR + str(int(tempo)).zfill(3) + bracketnum() + "A.txt", "w") as f:
-    f.write("TIT " + title + " @" + str(int(tempo)) + "\n")
+  with open(BRACKETS_DIR + bracketnum() + ".txt", "w") as f:
     for key in params:
       if params[key]:
         f.write(key[0:3].upper() + " ")
@@ -52,7 +49,7 @@ def make_bracket(title, tempo, params={}, reps=5):
 # make a drill card, ensuring it is unique, and formatting
 # it appropriately as a text file
 #
-def make_drill(params={}, reps=5, levels=""):
+def make_drill(params={}, reps=5):
 
   # check for duplicates
   name = inspect.stack()[1].function
@@ -62,7 +59,7 @@ def make_drill(params={}, reps=5, levels=""):
 
   # write card text
   with open(DRILLS_DIR + drillnum() + "A.txt", "w") as f:
-    #f.write(name + " x" + str(reps) + "\n")
+    f.write(name + " x" + str(reps) + "\n")
     for key in params:
       if params[key]:
         f.write(key[0:3].upper() + " ")
@@ -70,7 +67,6 @@ def make_drill(params={}, reps=5, levels=""):
           f.write(" ".join(params[key]) + "\n")
         else:
           f.write(str(params[key]) + "\n")
-    f.write(levels)
 
   return True
 
@@ -96,7 +92,7 @@ def shift_rhythm(rhythm):
 
 # format the current drill number as a zero-padded string
 def drillnum(): return str(len(drills)).zfill(NUM_PADDING)
-def bracketnum(): return str(brackets).zfill(NUM_PADDING)
+def bracketnum(offset=0): return str(brackets + offset).zfill(NUM_PADDING)
 
 #
 # make a metronome with the given tempo which goes for DRILL_LENGTH_MINS
@@ -120,7 +116,6 @@ def make_metronome(tempo):
       %%MIDI program {ALARM_INSTRUMENT}
       Q:240
       |C|C|C|C|z|z|z|z""", DRILLS_DIR + filename, tempo_percent=25)
-    shutil.copy(DRILLS_DIR + filename, BRACKETS_DIR)
 
 #
 # make a drone of a single pitch which lasts for DRILL_LENGTH_MINS
@@ -151,9 +146,9 @@ def make_mp3(score, filename, transpose=0, tempo_percent=100):
           | ffmpeg -loglevel error -i - -ac 1 -ab 64k "{filename}"
           """)
 
-def make_whole(mp3, speed=1, silence=0, suffix="B"):
+def make_whole(mp3, speed=1, silence=0):
   if MAKE_MP3S:
-    outfile = BRACKETS_DIR + bracketnum() + suffix + ".mp3"
+    outfile = BRACKETS_DIR + bracketnum() + ".mp3"
     os.system(f"""
     ffmpeg -nostdin -loglevel error -i {mp3} -ac 1 -ar 48000 -q 4 \
            -af atempo={speed},adelay={silence}s:all=true "{outfile}"
@@ -178,12 +173,12 @@ def make_mixed_chunk(mp3, start_secs, stop_secs):
         f.write("file {tmpdir}/alarm.mp3\n".format(tmpdir=tmpdir))
 
       # concatenate the chunks
-      outfile = BRACKETS_DIR + bracketnum() + "B.mp3"
+      outfile = BRACKETS_DIR + bracketnum() + ".mp3"
       os.system(f"""
       ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
              -codec copy "{outfile}" """)
 
-def make_chunk(mp3, start_secs, stop_secs, speed, suffix="B"):
+def make_chunk(mp3, start_secs, stop_secs, speed=1.0):
   if MAKE_MP3S and stop_secs > 0:
     with tempfile.TemporaryDirectory() as tmpdir:
 
@@ -200,14 +195,9 @@ def make_chunk(mp3, start_secs, stop_secs, speed, suffix="B"):
         f.write(f"file {tmpdir}/alarm.mp3\n")
 
       # concatenate the chunks
-      outfile = DRILLS_DIR + drillnum() + suffix + ".mp3"
+      outfile = BRACKETS_DIR + bracketnum(1) + ".mp3"
       os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
                            -codec copy "{outfile}" """)
-
-def make_chunks(mp3, start, stop):
-  make_chunk(mp3, start, stop, 1.00, "B")
-  make_chunk(mp3, start, stop, 0.75, "C")
-  make_chunk(mp3, start, stop, 0.50, "D")
 
 def cut_chunk(mp3, start_secs, stop_secs, speed, outfile):
   if MAKE_MP3S and stop_secs > 0:
