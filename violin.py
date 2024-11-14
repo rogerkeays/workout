@@ -5,7 +5,7 @@
 # rhythm      1bar2dup3cet4mow
 # strings     1234
 # bowing      0-8
-# shape       NPGWCADK None, Porcupine, Gun, Westside, Chicken, Alien, Dog, ducK
+# shape       NPGWCADKH None, Porcupine, Gun, Westside, Chicken, Alien, Dog, ducK, Huddle
 # frets       0..24
 # fingers     01234
 # attack      DGS      Detache, leGato, Staccato
@@ -16,7 +16,10 @@ import math, re
 from workout import *
 
 FAST_TEMPO = 120
-SHAPES = "PGWCADK"
+SHAPES = "PGWCADKH"
+
+def locate(mp3):
+ return os.environ['HOME'] + "/library/workout/violin/03.pieces/" + mp3
 
 # divide a score into phrases
 def piece(num, title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2", bowing="35",
@@ -132,7 +135,7 @@ def word(title, tempo, lyrics, rhythm, strings, bowing, shapes, bases, fingers, 
     hand_jumps_rapid(tempo, strings[0:2], shapes[0:2], bases[0:2])
 
 def note(title, tempo, lyrics, rhythm, string, bowing, shape, base, finger, attack, dynamics):
-  if attack != ".":
+  if lyrics != "." and lyrics != "," and attack != ".":
     bow_attack(tempo, lyrics, rhythm, string, bowing, attack, dynamics)
     hand_placement(string, shape, base)
     pitch_hitting(string, fret(shape, base, finger), finger)
@@ -307,13 +310,14 @@ def son_file():
   make_drill(locals(), 4)
 
 def fret(shape, base, finger):
-    if shape == "P": frets = [0, 2, 4, 6]
-    elif shape == "G": frets = [0, 1, 3, 5]
-    elif shape == "W": frets = [0, 2, 3, 5]
-    elif shape == "C": frets = [0, 2, 4, 5]
-    elif shape == "A": frets = [0, 1, 3, 4]
-    elif shape == "D": frets = [0, 1, 2, 4]
-    elif shape == "K": frets = [0, 2, 3, 4]
+    if shape == "P": frets = [0, 2, 4, 6]   # porcupine
+    elif shape == "G": frets = [0, 1, 3, 5] # gun
+    elif shape == "W": frets = [0, 2, 3, 5] # westside
+    elif shape == "C": frets = [0, 2, 4, 5] # chicken
+    elif shape == "A": frets = [0, 1, 3, 4] # alien
+    elif shape == "D": frets = [0, 1, 2, 4] # dog
+    elif shape == "K": frets = [0, 2, 3, 4] # duck
+    elif shape == "H": frets = [0, 1, 2, 3] # huddle
     return frets[int(finger) - 1] + int(base)
 
 def note_at(string, fret):
