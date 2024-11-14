@@ -36,17 +36,16 @@ def piece(num, title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2"
   attack = normalise_tab(attack)
   dynamics = normalise_tab(dynamics)
 
-  # expand abbreviated parameters
-  def repeat_to_fit(string, length): return (string * math.ceil(length / len(string)))[0:length]
+  # pad short lines using defaults
   n = len(index)
   if n > 1:
-    if len(strings) < n: strings = repeat_to_fit(strings, n)
-    if len(bowing) < n + 1 : bowing = repeat_to_fit(bowing, n + 1)
-    if len(shapes) < n : shapes = repeat_to_fit(shapes, n)
-    if len(bases) < n : bases = repeat_to_fit(bases, n)
-    if len(fingers) < n: fingers = repeat_to_fit(fingers, n)
-    if len(attack) < n: attack = repeat_to_fit(attack, n)
-    if len(dynamics) < n: dynamics = repeat_to_fit(dynamics, n)
+    if len(strings) < n: strings = strings.ljust(n, "2")
+    if len(bowing) < n + 1 : bowing = bowing.ljust(n, "4")
+    if len(shapes) < n : shapes = shapes.ljust(n, "W")
+    if len(bases) < n : bases = bases.ljust(n, "0")
+    if len(fingers) < n: fingers = fingers.ljust(n, "0")
+    if len(attack) < n: attack = attack.ljust(n, "D")
+    if len(dynamics) < n: dynamics = dynamics.ljust(n, "M")
   rhythm += "1"
 
   # general purpose metronomes
