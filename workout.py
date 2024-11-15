@@ -154,6 +154,10 @@ def make_whole(mp3, speed=1, silence=0):
            -af atempo={speed},adelay={silence}s:all=true "{outfile}"
            """)
 
+def make_chunk(mp3, start_secs, stop_secs, speed=1.0):
+  if MAKE_MP3S and stop_secs > 0:
+    cut_chunk(mp3, start_secs, stop_secs, speed, BRACKETS_DIR + bracketnum(1) + ".mp3");
+
 def make_mixed_chunk(mp3, start_secs, stop_secs):
   if MAKE_MP3S and stop_secs > 0:
     with tempfile.TemporaryDirectory() as tmpdir:
@@ -178,7 +182,7 @@ def make_mixed_chunk(mp3, start_secs, stop_secs):
       ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
              -codec copy "{outfile}" """)
 
-def make_chunk(mp3, start_secs, stop_secs, speed=1.0):
+def make_repeating_chunk(mp3, start_secs, stop_secs, speed=1.0):
   if MAKE_MP3S and stop_secs > 0:
     with tempfile.TemporaryDirectory() as tmpdir:
 
