@@ -49,6 +49,7 @@ def piece(num, title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2"
   rhythm += "1"
 
   # general purpose metronomes
+  make_metronome(1)
   make_metronome(tempo/2)
   make_metronome(tempo/1.5)
   make_metronome(tempo)
