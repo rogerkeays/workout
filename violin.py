@@ -267,7 +267,7 @@ def hand_jumps_silent(strings, shapes, bases):
 def hand_placement(string, shape, base):
   if shape in SHAPES:
     jankin(shape)
-    pitch_hitting(string, base, 1)
+    pitch_hitting(string, base, "1")
     if make_drill(locals(), 60):
       make_drone(note_at(string, base))
 
@@ -317,7 +317,7 @@ def fret(shape, base, finger):
     elif shape == "D": frets = [0, 1, 2, 4] # dog
     elif shape == "K": frets = [0, 2, 3, 4] # duck
     elif shape == "H": frets = [0, 1, 2, 3] # huddle
-    return frets[int(finger) - 1] + int(base)
+    return str(frets[int(finger) - 1] + int(base))
 
 def note_at(string, fret):
     return decimal_to_note(note_to_decimal("5Y") - (int(string) * 7) + int(fret))
