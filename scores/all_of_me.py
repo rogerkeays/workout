@@ -4,28 +4,32 @@ import sys; sys.path.append("..")
 from violin import *
 
 meter=4; tempo=126; tonic=48
+phrases=[]; index=""; rhythm=""; degrees=""
+fingers=""; strings=""; bases=""; shapes=""
+bowing=""; attack=""; dynamics=""
 
-phrases   = [("what would i do with-o-ut your smart mouth? .", 23.51)] ##1
-index     = "wwi dwouys m."
-rhythm    = "3e4 1a2u34 12"
-degrees   = "24= ==24=0 =."
-fingers   = "23= ==23=1 =="
-strings   = "3== ====== =="
-bases     = "6== ====== =="
-shapes    = "C== ====== =="
-bowing    = "642 646426 26"
-attack    = "L== ====== =."
-dynamics  = "M== ====== =="
+"""
+phrases  += [("what would i do with-o-ut your smart mouth? .", 23.51)] ##1
+index    += "wwi dwouys m."
+rhythm   += "3e4 1a2u34 12"
+degrees  += "24= ==24=0 =."
+fingers  += "23= ==23=1 =="
+strings  += "3== ====== =="
+bases    += "6== ====== =="
+shapes   += "C== ====== =="
+bowing   += "642 642462 62"
+attack   += "L== ====== =."
+dynamics += "M== ====== =="
 
 phrases  += [("draw-in me in a you kick-in me a-out .", 27.31)] ##1
 index    += "dim iaykima o."
 rhythm   += "3e4 1a23e4o 12"
+bowing   += "642 6426424 62"
 degrees  += "24= =24=20= 9."
 fingers  += "23= =23=21= 3="
 strings  += "3== ======= 4="
 bases    += "6== ======= =="
 shapes   += "C== ======= P="
-bowing   += "642 6426353 51"
 attack   += "L== ======= =."
 dynamics += "M== ======= =="
 
@@ -331,25 +335,33 @@ fingers  += " 2143 432=1 ="
 strings  += " 2=32 ===== ="
 bases    += " 6=== ===== ="
 shapes   += " C=== ===== =" #.
+"""
 
 phrases  += [("i give you a-u-a-u-a-ll , of me .", 265.26)] ##1
 index    += "igya uaua l,om ."
 rhythm   += "3e4o 2u4o u34o 3"
 degrees  += "4570 2Y09 7.4= ."
-fingers  += "3414 1342 1=3= ="
-strings  += "3=2= 12== ==3= ="
-bases    += "6=== ==== ==== ="
-shapes   += "C=== NC== ==== ="
+fingers  += "2343 4231 4=2= ="
+strings  += "2==1 ==== 2=== ="
+bases    += "1=== ==== ==== ="
+shapes   += "W=== ==== ==== ="
+bowing   += "1246 3256 31=4 1"
+attack   += "L=== ==== ==== ."
+dynamics += "V=== ==== ==== ="
 
 phrases  += [("o-u-oh .", 279.42, 282.03)] ##1
 index    += "ou o."
 rhythm   += "4o 14"
 degrees  += "24 2."
-fingers  += "23 2="
-strings  += "3= =="
-bases    += "6= =="
-shapes   += "C= ==" #.
+fingers  += "12 1="
+strings  += "2= =="
+bases    += "1= =="
+shapes   += "W= =="
+bowing   += "12 37"
+attack   += "L= =."
+dynamics += "V= =="
+#.
 
 piece(63, "all-of-me", locate("63.all-of-me.mp3"), tempo, phrases, index, rhythm,
-    strings, bowing, shapes, bases, fingers, attack, dynamics)
+      strings, bowing, shapes, bases, fingers, attack, dynamics)
 
