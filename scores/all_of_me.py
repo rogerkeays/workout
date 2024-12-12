@@ -201,24 +201,8 @@ strings  += "3== ===== 4="
 bases    += "6== ===== =="
 shapes   += "C== ===== P=" #.
 
-phrases  += [("cause i give you a-u-i-a-a-ll , of me .", 97.70)] ##1
-index    += "cigya uiaa l,om . "
-rhythm   += "u3e4o up3o u34o u "
-degrees  += "4=570 Y0Y9 7.4= . "
-fingers  += "3=414 3432 1=3= = "
-strings  += "3==2= ==== ==3= = "
-bases    += "6==== ==== ==== = "
-shapes   += "C==== ==== ==== = "
-
-phrases  += [("and you give me a-u-i-a-a-ll , of you .", 105.28)] ##1
-index    += "aygma uiaa l,oy ."
-rhythm   += "u3e4o up3o u34o u"
-degrees  += "4=570 Y0Y9 7.4= ."
-fingers  += "3=414 3432 1=3= ="
-strings  += "3==2= ==== ==3= ="
-bases    += "6==== ==== ==== ="
-shapes   += "C==== ==== ==== ="
-
+# phrases  += [("cause i give you a-u-i-a-a-ll , of me .", 97.70)] ##1
+# phrases  += [("and you give me a-u-i-a-a-ll , of you .", 105.28)] ##1
 phrases  += [("oh-o .", 111.83)] ##1
 index    += "oo ."
 rhythm   += "4o 3"
@@ -300,7 +284,16 @@ strings  += "3 ===== =="
 bases    += "6 ===== =="
 shapes   += "C ====K C=" #.
 
-phrases  += [("i'll give m-y all to you .", 178.75, 181.63)] ##1
+146.365397	146.365397	B2.1.di : underwater
+150.288617	150.288617	B2.4.ma : breathing
+153.911973	153.911973	B2.6.ma : crazy
+159.740505	159.740505	C2.A.0.di : all-me
+162.634141	162.634141	C2.A.2.ta : all-you
+166.382440	166.382440	C2.A.4.ta : curves
+170.370187	170.370187	C2.A.6.ta : imperfections
+174.053959	174.053959	C2.B.0.ta : give-your
+
+phrases  += [("i'll give m-y all to you .", 177.75, 181.63)] ##1
 index    += "igmy aty ."
 rhythm   += "u3eo 14o 2"
 degrees  += "40Y9 =74 ."
@@ -308,6 +301,11 @@ fingers  += "3432 =13 ="
 strings  += "32== ==3 ="
 bases    += "6=== === ="
 shapes   += "C=== === =" #.
+
+181.625154	181.625154	C2.B.4.ta : end
+185.648328	185.648328	C2.B.6.ta : lose
+189.196718	189.196718	O2.0.ta : i-give
+196.793272	196.793272	O2.4.ta : you-give
 
 phrases  += [("give me a-ll of you o-u-o-u-oh .", 204.06)] ##1
 index    += "gmaloy ououo . "
@@ -335,8 +333,26 @@ fingers  += " 2143 432=1 ="
 strings  += " 2=32 ===== ="
 bases    += " 6=== ===== ="
 shapes   += " C=== ===== =" #.
-"""
 
+220.543129	220.543129	C3.A.0.di : all-me
+223.518599	223.518599	C3.A.2.ta : all-you
+227.341864	227.341864	C3.A.4.ta : curves
+231.315062	231.315062	C3.A.6.ta : imperfections
+235.152196	235.152196	C3.B.0.ta : give-your
+238.654694	238.654694	C3.B.2.ni : give-my
+242.602902	242.602902	C3.B.4.ta : end
+246.551111	246.551111	C3.B.6.ta : lose
+
+phrases  += [("cause i give you a-u-i-a-a-ll , of me .", 250.20, 257.77)] ##1
+index    += "cigya uiaa l,om . "
+rhythm   += "u3e4o up3o u34o u "
+degrees  += "4=570 Y0Y9 7.4= . "
+fingers  += "3=414 3432 1=3= = "
+strings  += "3==2= ==== ==3= = "
+bases    += "6==== ==== ==== = "
+shapes   += "C==== ==== ==== = " #.
+"""
+# phrases  += [("and you give me a-u-i-a-a-ll , of you .", 257.77)] ##1
 phrases  += [("i give you a-u-a-u-a-ll , of me .", 265.26)] ##1
 index    += "igya uaua l,om ."
 rhythm   += "3e4o 2u4o u34o 3"
@@ -348,6 +364,15 @@ shapes   += "W=== ==== ==== ="
 bowing   += "1246 3256 31=4 1"
 attack   += "L=== ==== ==== ."
 dynamics += "V=== ==== ==== ="
+
+phrases  += [("and you give me a-u-i-a-a-ll , of you .", 273.04)] ##1
+index    += "aygma uiaa l,oy ."
+rhythm   += "u3e4o up3o u34o u"
+degrees  += "4=570 Y0Y9 7.4= ."
+fingers  += "3=414 3432 1=3= ="
+strings  += "3==2= ==== ==3= ="
+bases    += "6==== ==== ==== ="
+shapes   += "C==== ==== ==== ="
 
 phrases  += [("o-u-oh .", 279.42, 282.03)] ##1
 index    += "ou o."
