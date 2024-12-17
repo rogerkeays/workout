@@ -19,7 +19,7 @@ FAST_TEMPO = 120
 SHAPES = "PGWCADKH"
 
 def locate(mp3):
- return os.environ['HOME'] + "/library/workout/violin/03.pieces/" + mp3
+ return os.environ['HOME'] + "/library/workout/violin/04.pieces/" + mp3
 
 # divide a score into phrases
 def piece(num, title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2", bowing="35",
