@@ -254,13 +254,16 @@ phrases  += [("i'll give m-y all to you .", 177.75, 181.63)] ##1 =^give-my
 """
 
 phrases  += [("give me a-ll of you o-u-o-u-oh .", 204.06)] ##1
-index    += "gmaloy ououo . "
-rhythm   += "a2u3e4 up3ce 1 "
-degrees  += "57Y0Y9 75420 . "
-fingers  += "342321 43214 = "
-strings  += "2=1=== 2===1 = "
-bases    += "1===== ===== = "
-shapes   += "W===== ====C = "
+index    += "gmaloy ououo ."
+rhythm   += "a2u3e4 up3ce 1"
+degrees  += "57Y0Y9 75420 ."
+fingers  += "342321 43214 ="
+strings  += "2=1=== 2===1 ="
+bases    += "1===== ===== ="
+shapes   += "W===== ====C ="
+bowing   += "535435 23456 7"
+attack   += "L===== ===== ."
+dynamics += "V===== ===== ="
 
 phrases  += [("cards o-n the t-a-b-le, w-e're both sh-o-w-ing hearts .", 207.59)] ##1
 index    += "contt ablweb sowih ."
@@ -270,6 +273,9 @@ fingers  += "214=3 432=1= 43=2= ="
 strings  += "12==1 ====2= ===== ="
 bases    += "1==== ====== ===== ="
 shapes   += "W==== ====== ===== ="
+bowing   += "53452 464246 24642 6"
+attack   += "L==== ====== ===== ."
+dynamics += "V==== ====== ===== ="
 
 phrases  += [("ris-king it a-ll, th-ough it's hard .", 215.01, 220.54)] ##1
 index    += "rkia ltoih ."
@@ -278,7 +284,10 @@ degrees  += "975Y 0Y9=7 ."
 fingers  += "1432 321=4 ="
 strings  += "12=1 ====2 ="
 bases    += "1=== ===== ="
-shapes   += "W=== ===== =" #.
+shapes   += "W=== ===== ="
+bowing   += "6236 52362 6"
+attack   += "L=== ===== ."
+dynamics += "V=== ===== =" #.
 
 phrases  += [("cause a-a-ll of m-e .", 220.54)] ##1
 index    += "c aalom e."
