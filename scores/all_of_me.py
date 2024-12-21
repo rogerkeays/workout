@@ -240,15 +240,17 @@ attack   += "L=== === =."
 dynamics += "V=== === =="
 
 166.382440	166.382440	C2.A.4.ta : curves ##1
-170.370187	170.370187	C2.A.6.ta : imperfections
+170.370187	170.370187	C2.A.6.ta : imperfections ##1
+#.
 
-174.053959	174.053959	C2.B.0.ta : give-your
+174.053959	174.053959	C2.B.0.ta : give-your ##1
 phrases  += [("i'll give m-y all to you .", 177.75, 181.63)] ##1 =^give-my
 181.625154	181.625154	C2.B.4.ta : end ##1
-185.648328	185.648328	C2.B.6.ta : lose
+185.648328	185.648328	C2.B.6.ta : lose ##1
+#.
 
-189.196718	189.196718	O2.0.ta : i-give
-196.793272	196.793272	O2.4.ta : you-give
+189.196718	189.196718	O2.0.ta : i-give ##1
+196.793272	196.793272	O2.4.ta : you-give ##1
 
 phrases  += [("give me a-ll of you o-u-o-u-oh .", 204.06)] ##1
 index    += "gmaloy ououo . "
@@ -286,8 +288,11 @@ fingers  += "2 =4=24 1="
 strings  += "2 ===== 1="
 bases    += "1 ===== =="
 shapes   += "W ===== =="
+bowing   += "4 65263 64"
+attack   += "L ===== =."
+dynamics += "V ===== =="
 
-phrases  += [("loves all of y-ou .", 223.52)] ##1
+phrases  += [("loves all of y-ou .", 223.52, 227.34)] ##1
 index    += "l aoy u."
 rhythm   += "3 14o 12"
 degrees  += "4 202 4."
@@ -295,6 +300,9 @@ fingers  += "3 213 3="
 strings  += "2 =12 =="
 bases    += "1 === =="
 shapes   += "W =CW =="
+bowing   += "4 624 2="
+attack   += "L === =."
+dynamics += "V === =="
 
 # phrases  += [("love you-r curves and all your ed-ges .", 227.34)] ##1 =end
 # phrases  += [("all you-r per-fect im-per-fec-tions .", 231.31)] ##1 =end
