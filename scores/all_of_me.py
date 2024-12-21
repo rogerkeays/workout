@@ -251,34 +251,34 @@ phrases  += [("i'll give m-y all to you .", 177.75, 181.63)] ##1 =^give-my
 
 189.196718	189.196718	O2.0.ta : i-give ##1
 196.793272	196.793272	O2.4.ta : you-give ##1
+"""
 
 phrases  += [("give me a-ll of you o-u-o-u-oh .", 204.06)] ##1
 index    += "gmaloy ououo . "
 rhythm   += "a2u3e4 up3ce 1 "
 degrees  += "57Y0Y9 75420 . "
-fingers  += "413432 14321 = "
-strings  += "32==== =3=== = "
-bases    += "6===== ===== = "
-shapes   += "C===== ===== = "
+fingers  += "342321 43214 = "
+strings  += "2=1=== 2===1 = "
+bases    += "1===== ===== = "
+shapes   += "W===== ====C = "
 
 phrases  += [("cards o-n the t-a-b-le, w-e're both sh-o-w-ing hearts .", 207.59)] ##1
 index    += "contt ablweb sowih ."
 rhythm   += "1u3eo 1u3e4o u3e4o e"
 degrees  += "975=Y 0Y9=7= 54=2= ."
 fingers  += "214=3 432=1= 43=2= ="
-strings  += "2=3=2 ====== 3==== ="
-bases    += "6==== ====== ===== ="
-shapes   += "C==== ====== ===== ="
+strings  += "12==1 ====2= ===== ="
+bases    += "1==== ====== ===== ="
+shapes   += "W==== ====== ===== ="
 
 phrases  += [("ris-king it a-ll, th-ough it's hard .", 215.01, 220.54)] ##1
-index    += " rkia ltoih ."
-rhythm   += " 1u3o 1u3eo 3"
-degrees  += " 975Y 0Y9=7 ."
-fingers  += " 2143 432=1 ="
-strings  += " 2=32 ===== ="
-bases    += " 6=== ===== ="
-shapes   += " C=== ===== =" #.
-"""
+index    += "rkia ltoih ."
+rhythm   += "1u3o 1u3eo 3"
+degrees  += "975Y 0Y9=7 ."
+fingers  += "1432 321=4 ="
+strings  += "12=1 ====2 ="
+bases    += "1=== ===== ="
+shapes   += "W=== ===== =" #.
 
 phrases  += [("cause a-a-ll of m-e .", 220.54)] ##1
 index    += "c aalom e."
