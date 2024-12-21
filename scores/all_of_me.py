@@ -276,43 +276,29 @@ fingers  += " 2143 432=1 ="
 strings  += " 2=32 ===== ="
 bases    += " 6=== ===== ="
 shapes   += " C=== ===== =" #.
+"""
 
 phrases  += [("cause a-a-ll of m-e .", 220.54)] ##1
 index    += "c aalom e."
 rhythm   += "o 1b34o 12"
 degrees  += "4 =7=47 9."
-fingers  += "3 =1=31 2="
-strings  += "3 =2=32 =="
-bases    += "6 ===== =="
-shapes   += "C ===== =="
+fingers  += "2 =4=24 1="
+strings  += "2 ===== 1="
+bases    += "1 ===== =="
+shapes   += "W ===== =="
 
 phrases  += [("loves all of y-ou .", 223.52)] ##1
 index    += "l aoy u."
 rhythm   += "3 14o 12"
 degrees  += "4 202 4."
 fingers  += "3 213 3="
-strings  += "3 === =="
-bases    += "6 ==8 6="
-shapes   += "C ==N C="
+strings  += "2 =12 =="
+bases    += "1 === =="
+shapes   += "W =CW =="
 
-phrases  += [("love you-r curves and all your ed-ges .", 227.34)] ##1
-index    += "lyr caaye g."
-rhythm   += "3eo 1234o 12"
-degrees  += "4=2 ===02 9."
-fingers  += "3=2 ===12 3="
-strings  += "3== ===== 4="
-bases    += "6== ===== =="
-shapes   += "C== ===== P="
-
-phrases  += [("all you-r per-fect im-per-fec-tions .", 231.31)] ##1
-index    += "ayr pfipf t."
-rhythm   += "3eo 1234o 12"
-degrees  += "4=2 ===02 9."
-fingers  += "3=2 ===12 3="
-strings  += "3== ===== 4="
-bases    += "6== ===== =="
-shapes   += "C== ===== P=" #.
-"""
+# phrases  += [("love you-r curves and all your ed-ges .", 227.34)] ##1 =end
+# phrases  += [("all you-r per-fect im-per-fec-tions .", 231.31)] ##1 =end
+#.
 
 phrases  += [("give your a-ll to m-e .", 235.15)] ##1
 index    += "gy altm e."
@@ -330,7 +316,7 @@ phrases  += [("i'll give m-y all to you .", 238.65)] ##1
 index    += "igmy aty ."
 rhythm   += "u3eo 14o 2"
 degrees  += "40Y9 =74 ."
-fingers  += "3432 =13 ="
+fingers  += "2321 =42 ="
 strings  += "21== =2= ="
 bases    += "1=== === ="
 shapes   += "W=== === ="
@@ -340,7 +326,7 @@ dynamics += "V=== === ="
 
 phrases  += [("you're m-y end and my be-gin-ning .", 242.60, 246.55)] ##1 :end
 index    += "ymy eambg n."
-rhythm   += "3eo 1234o 1a"
+rhythm   += "3eo 1234o 12"
 degrees  += "4=2 ===02 9."
 fingers  += "2=1 ===41 2="
 strings  += "2== ===32 3="
