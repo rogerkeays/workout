@@ -1,7 +1,8 @@
 
 import os, inspect, re, tempfile, math
+from dataclasses import dataclass
 
-# constants 
+# configuration
 MAKE_MP3S = True
 TARGET_DIR = "target/"
 DRILLS_DIR = "02.drills/"
@@ -22,6 +23,40 @@ os.mkdir(BRACKETS_DIR)
 drills = set()
 brackets = 0
 
+@dataclass
+class Note:
+  beat: str
+  degree: str
+  attack: str
+  dynamics: str
+  lyrics: str
+
+@dataclass
+class Phrase:
+  start_secs: float
+  stop_secs: float
+  notes: list[Note]
+
+@dataclass
+class Section:
+  meter: int
+  tempo: int
+  tonic: str
+  phrases: list[Phrase]
+
+@dataclass
+class Piece:
+  name: str
+  mp3: str
+  sections: list[Section]
+
+def parse_note(text: str):
+  """
+    field order: beat degree attack dynamic " " lyrics
+    example: "10LM twinkle"
+  """
+  return Note(text[0], text[1], text[2], text[3], text[5:], {})
+
 #
 # Make a new directory of cards and change into that directory.
 # The caller of this function is responsible for changing back
@@ -31,19 +66,11 @@ def mcd(dirname):
   os.makedirs(dirname)
   os.chdir(dirname)
 
-def make_bracket(params={}, reps=5):
+def make_bracket(notes, reps=5):
   global brackets
   brackets += 1
-
-  # write card text
   with open(BRACKETS_DIR + bracketnum() + ".txt", "w") as f:
-    for key in params:
-      if params[key]:
-        f.write(key[0:3].upper() + " ")
-        if isinstance(params[key], list):
-          f.write(" ".join(params[key]) + "\n")
-        else:
-          f.write(str(params[key]) + "\n")
+    for note in notes: f.write(note.to_string() + "\n")
 
 #
 # make a drill card, ensuring it is unique, and formatting
@@ -60,13 +87,16 @@ def make_drill(params={}, reps=5):
   # write card text
   with open(DRILLS_DIR + drillnum() + "A.txt", "w") as f:
     f.write(name + " x" + str(reps) + "\n")
-    for key in params:
-      if params[key]:
-        f.write(key[0:3].upper() + " ")
-        if isinstance(params[key], list):
-          f.write(" ".join(params[key]) + "\n")
-        else:
-          f.write(str(params[key]) + "\n")
+    if isinstance(params, list):
+      for item in params: f.write(item.to_string() + "\n")
+    else:
+      for key in params:
+        if params[key]:
+          f.write(key[0:3].upper() + " ")
+          if isinstance(params[key], list):
+            f.write(" ".join(params[key]) + "\n")
+          else:
+            f.write(str(params[key]) + "\n")
 
   return True
 

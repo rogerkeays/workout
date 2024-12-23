@@ -14,161 +14,124 @@
 
 import math, re
 from workout import *
+from dataclasses import dataclass
 
+MP3_DIR = os.environ['HOME'] + "/library/workout/violin/04.pieces/"
 FAST_TEMPO = 120
 SHAPES = "PGWCADKH"
 
-def locate(mp3):
- return os.environ['HOME'] + "/library/workout/violin/04.pieces/" + mp3
+@dataclass
+class ViolinNote(Note):
+  base: int
+  shape: str
+  finger: int
+  string: str
+  bowing: str
 
-# divide a score into phrases
-def piece(num, title, mp3, tempo, phrases, index="-", rhythm="1234", strings="2", bowing="35",
-          shapes="W", bases="2", fingers="0", attack="D", dynamics="M"):
+  def to_string(self):
+    return f"{self.beat} {self.degree} {self.base}{self.shape}{self.finger} {self.string}{self.bowing}{self.attack}{self.dynamics} {self.lyrics}"
 
-  # normalise tab lines
-  index = normalise_tab(index)
-  rhythm = normalise_tab(rhythm)
-  strings = normalise_tab(strings)
-  bowing = normalise_tab(bowing)
-  shapes = normalise_tab(shapes)
-  bases = normalise_tab(bases)
-  fingers = normalise_tab(fingers)
-  attack = normalise_tab(attack)
-  dynamics = normalise_tab(dynamics)
+def parse_violin_note(text: str) -> Note:
+  """
+    field order: rhythm degree " " string bowing attack dynamic " " base shape finger " " lyrics
+    example: "1 0 0W0 23DM twinkle"
+  """
+  return ViolinNote(
+    beat = text[0],
+    degree = text[2],
+    base = text[4],
+    shape = text[5],
+    finger = text[6],
+    string = text[8],
+    bowing = text[9],
+    attack = text[10],
+    dynamics = text[11],
+    lyrics = text[13:])
 
-  # pad short lines using defaults
-  n = len(index)
-  if n > 1:
-    if len(strings) < n: strings = strings.ljust(n, "2")
-    if len(bowing) < n + 1 : bowing = bowing.ljust(n, "4")
-    if len(shapes) < n : shapes = shapes.ljust(n, "W")
-    if len(bases) < n : bases = bases.ljust(n, "0")
-    if len(fingers) < n: fingers = fingers.ljust(n, "0")
-    if len(attack) < n: attack = attack.ljust(n, "D")
-    if len(dynamics) < n: dynamics = dynamics.ljust(n, "M")
-  rhythm += "1"
+def parse_violin_notes(text: str) -> list[Note]:
+  """
+    parse a block of notes line by line and return an array of ViolinNotes
+  """
+  return list(map(parse_violin_note, filter(lambda x: len(x) > 0, map(str.strip, text.split("\n")))))
 
-  # general purpose metronomes
+def copy_note_defaults(to, frm):
+  if to.degree == "=": to.degree = frm.degree
+  if to.attack == "=": to.attack = frm.attack
+  if to.dynamics == "=": to.dynamics = frm.dynamics
+  if to.string == "=": to.string = frm.string
+  if to.bowing == "=": to.bowing = frm.bowing
+  if to.base == "=": to.base = frm.base
+  if to.shape == "=": to.shape = frm.shape
+  if to.finger == "=": to.finger = frm.finger
+
+def process_piece(piece):
   make_metronome(1)
-  make_metronome(tempo/2)
-  make_metronome(tempo/1.5)
-  make_metronome(tempo)
 
-  # process phrases in reverse order
-  lyrics = []
-  right = len(index)
-  for i, tupl in reversed(list(enumerate(phrases))):
+  # set defaults
+  for section in piece.sections:
+    for phrase in section.phrases:
+      for i, note in enumerate(phrase.notes):
+        if i > 0: copy_note_defaults(note, phrase.notes[i - 1])
 
-    # split the lyrics, adding the first note of the next phrase if they are sequential
-    phrase_lyrics = re.split("[- ]", tupl[0])
-    left = right - len(phrase_lyrics)
-    lyrics = phrase_lyrics + lyrics
-    if len(tupl) < 3 and i != len(phrases) - 1:
-        phrase_lyrics.append(re.split("[- ]", phrases[i + 1][0])[0])
-        right += 1
+  # process sections
+  for section in reversed(piece.sections): process_section(piece, section)
 
-    # calculate ommitted mp3 splits
-    if len(tupl) == 3:
-      start = tupl[1]
-      stop = tupl[2]
-    elif len(tupl) == 2:
-      start = tupl[1]
-      stop = phrases[i + 1][1]
-    else:
-      start = 0
-      stop = 0
+def process_section(piece, section):
+  make_metronome(section.tempo/2)
+  make_metronome(section.tempo/1.5)
+  make_metronome(section.tempo)
+  for phrase in reversed(section.phrases): process_phrase(piece, section, phrase)
 
-    phrase(title, tempo, mp3, start, stop, phrase_lyrics,
-           index[left:right], rhythm[left:right + 1], strings[left:right], bowing[left:right + 1],
-           shapes[left:right], bases[left:right], fingers[left:right],
-           attack[left:right], dynamics[left:right])
-    right -= len(phrase_lyrics)
-
-def phrase(title, tempo, mp3, start, stop, lyrics, index, rhythm, strings="", bowing="", 
-           shapes="", bases="", fingers="", attack="", dynamics=""):
-  params = locals()
-  del params["mp3"]
-  del params["start"]
-  del params["stop"]
-
-  # backing tracks for this phrase
-  make_chunk(mp3, start, stop)
-
-  # process in reverse order
-  n = len(index)
-  e = n + 1
-  for i in reversed(range(n - 1)):
-    if attack[i] != ".":
-      bracket(index[i:e], rhythm[i:e], strings[i:e], bowing[i:e],
-              shapes[i:e], bases[i:e], fingers[i:e], attack[i:e], dynamics[i:e])
-
-    # word drills
-    if i > 0:
-      h = i - 1
-      j = i + 1
-      word(title, tempo, lyrics[h:j], rhythm[h:j+1], strings[h:j], bowing[h:j+1],
-           shapes[h:j], bases[h:j], fingers[h:j], attack[h:j], dynamics[h:j])
-
-  # phrase drills
-  if re.search("[1-4]", fingers):
-    open_strings(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics)
-
-def bracket(index, rhythm, strings, bowing, shapes, bases, fingers, attack, dynamics):
-  make_bracket(locals(), 5)
-
-def word(title, tempo, lyrics, rhythm, strings, bowing, shapes, bases, fingers, attack, dynamics):
+def process_phrase(piece, section, phrase):
+  make_chunk(MP3_DIR + piece.mp3, phrase.start_secs, phrase.stop_secs)
 
   # process notes in reverse order
-  note(title, tempo, lyrics[1], rhythm[1:3], strings[1], bowing[1:3],
-       shapes[1], bases[1], fingers[1], attack[1], dynamics[1])
-  note(title, tempo, lyrics[0], rhythm[0:2], strings[0], bowing[0:2], 
-       shapes[0], bases[0], fingers[0], attack[0], dynamics[0])
+  notes = phrase.notes
+  for i in reversed(range(len(notes))):
+    if notes[i].attack != ".": make_bracket(notes[i:], 5)
+    if i > 0: process_note(section.tempo, notes[i - 1], notes[i])
 
-  # word drills
-  if strings[0] == strings[1]:
-    bow_changes(tempo, lyrics, rhythm, strings[0], bowing, attack, dynamics)
+  # phrase drills
+  open_strings(section.tempo, phrase.notes)
+
+def process_note(tempo, note, next):
+  if note.lyrics != "." and note.lyrics != "," and note.attack != ".":
+    bow_attack(tempo, note.beat + next.beat, note.string, note.bowing + next.bowing, note.attack, note.dynamics)
+    hand_placement(note.string, note.shape, note.base)
+    pitch_hitting(note.string, fret(note.shape, note.base, note.finger), note.finger)
+  if note.string == next.string:
+    bow_changes(tempo, note.beat + next.beat, note.string, note.bowing + next.bowing, 
+                note.attack + next.attack, note.dynamics + next.dynamics)
   else:
-    string_crossings(tempo, lyrics, rhythm, strings, bowing, attack, dynamics)
-  if shapes[0] != shapes[1]:
-    jankin_switches(shapes[0], shapes[1])
-  if strings[0] != strings[1]:
-    hand_jumps_rapid(tempo, strings[0:2], shapes[0:2], bases[0:2])
+    string_crossings(tempo, note.beat + next.beat, note.string + next.string, note.bowing + next.bowing, 
+                     note.attack + next.attack, note.dynamics + next.dynamics)
+  if note.shape != next.shape:
+    jankin_switches(note.shape, next.shape)
+  if note.string != next.string:
+    hand_jumps_rapid(tempo, note.string + next.string, note.shape + next.shape, note.base + next.base)
 
-def note(title, tempo, lyrics, rhythm, string, bowing, shape, base, finger, attack, dynamics):
-  if lyrics != "." and lyrics != "," and attack != ".":
-    bow_attack(tempo, lyrics, rhythm, string, bowing, attack, dynamics)
-    hand_placement(string, shape, base)
-    pitch_hitting(string, fret(shape, base, finger), finger)
+###################
+## PHRASE DRILLS ##
+###################
 
-##################
-## BEGIN DRILLS ##
-##################
+def open_strings(tempo, notes):
+  rhythm_clapping(tempo, notes)
+  bowing_visualisation(tempo, notes);
+  make_drill(notes, 5)
 
-def open_strings(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics):
-  params = locals()
-  for i in range(len(index)):
-    if i > 0:
-      h = i - 1
-      j = i + 1
-      if strings[i] == strings[h]:
-        bow_changes(tempo, lyrics[h:j], rhythm[h:j+1], strings[h], bowing[h:j+1], attack[h:j], dynamics[h:j])
-      else:
-        string_crossings(tempo, lyrics[h:j], rhythm[h:j+1], strings[h:j], bowing[h:j+1], attack[h:j], dynamics[h:j])
+def rhythm_clapping(tempo, notes):
+  make_drill(notes, 5)
 
-  rhythm_clapping(tempo, lyrics, rhythm)
-  bowing_visualisation(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics);
-  make_drill(params, 5)
+def bowing_visualisation(tempo, notes):
+  make_drill(notes, 5)
 
-def rhythm_clapping(tempo, lyrics, rhythm):
-  make_drill(locals(), 5)
+#################
+## NOTE DRILLS ##
+#################
 
-def rhythm_solfege(tempo, lyrics, rhythm):
-  make_drill(locals(), 5)
-
-def bowing_visualisation(tempo, lyrics, index, rhythm, strings, bowing, attack, dynamics):
-  make_drill(locals(), 5)
-
-def string_crossings(tempo, lyrics, rhythm, strings, bowing, attack, dynamics):
+def string_crossings(tempo, rhythm, strings, bowing, attack, dynamics):
+  string_switching(tempo, strings[0], strings[1], bowing[1])
+  note_clapping(tempo, rhythm)
   make_drill(locals(), 5)
 
 def string_switching(tempo, frm, to, bowpos):
@@ -176,11 +139,12 @@ def string_switching(tempo, frm, to, bowpos):
   bow_hold()
   make_drill(locals(), 15)
 
-def bow_changes(tempo, lyrics, rhythm, string, bowing, attack, dynamics):
+def note_clapping(tempo, rhythm):
+  make_drill(locals(), 5)
+
+def bow_changes(tempo, rhythm, string, bowing, attack, dynamics):
   if attack[0] != "." and attack[1] != ".":
-    bow_attack(tempo, lyrics[0], rhythm[0:2], string, bowing[0:2], attack[0], dynamics[0]),
-    bow_attack(tempo, lyrics[1], rhythm[1:3], string, bowing[1:3], attack[1], dynamics[1]),
-    rhythm_clapping(tempo, lyrics, rhythm)
+    note_clapping(tempo, rhythm)
     make_drill(locals(), 5)
 
 def pitch_hitting(string, fret, finger):
@@ -196,10 +160,10 @@ def finger_hammers(string, fret, finger):
 def air_hammers(finger):
   make_drill( locals(), 30)
 
-def bow_attack(tempo, lyrics, rhythm, string, bowing, attack, dynamics):
+def bow_attack(tempo, rhythm, string, bowing, attack, dynamics):
   if attack != ".":
     string_yanking(tempo, string, bowing[0], "D" if bowing[1] > bowing[0] else "U")
-    rhythm_clapping(tempo, lyrics, rhythm)
+    note_clapping(tempo, rhythm)
     make_drill(locals(), 5)
 
 def string_yanking(tempo, string, bowpos, direction):
@@ -310,6 +274,7 @@ def son_file():
   make_drill(locals(), 4)
 
 def fret(shape, base, finger):
+    if shape == "N": return base
     if shape == "P": frets = [0, 2, 4, 6]   # porcupine
     elif shape == "G": frets = [0, 1, 3, 5] # gun
     elif shape == "W": frets = [0, 2, 3, 5] # westside
