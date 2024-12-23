@@ -89,26 +89,34 @@ def process_phrase(piece, section, phrase):
   notes = phrase.notes
   for i in reversed(range(len(notes))):
     if notes[i].attack != ".": make_bracket(notes[i:], 5)
-    if i > 0: process_note(section.tempo, notes[i - 1], notes[i])
+    if i > 0: process_note(section.tempo, notes[i-1], notes[i])
+    if i > 0 and i < len(notes) - 1: process_transition(section.tempo, notes[i-1], notes[i], notes[i+1])
 
   # phrase drills
   open_strings(section.tempo, phrase.notes)
+
+def process_transition(tempo, note, next, stop):
+  rhythm = note.beat + next.beat + stop.beat
+  strings = note.string + next.string
+  bowing = note.bowing + next.bowing + stop.bowing
+  attack = note.attack + next.attack
+  dynamics = note.dynamics + next.dynamics
+
+  # transition drills
+  if note.string == next.string:
+    bow_changes(tempo, rhythm, note.string, bowing, attack, dynamics)
+  else:
+    string_crossings(tempo, rhythm, strings, bowing, attack, dynamics)
+  if note.shape != next.shape:
+    jankin_switches(note.shape, next.shape)
+  if note.string != next.string:
+    hand_jumps_rapid(tempo, strings, note.shape + next.shape, note.base + next.base)
 
 def process_note(tempo, note, next):
   if note.lyrics != "." and note.lyrics != "," and note.attack != ".":
     bow_attack(tempo, note.beat + next.beat, note.string, note.bowing + next.bowing, note.attack, note.dynamics)
     hand_placement(note.string, note.shape, note.base)
     pitch_hitting(note.string, fret(note.shape, note.base, note.finger), note.finger)
-  if note.string == next.string:
-    bow_changes(tempo, note.beat + next.beat, note.string, note.bowing + next.bowing, 
-                note.attack + next.attack, note.dynamics + next.dynamics)
-  else:
-    string_crossings(tempo, note.beat + next.beat, note.string + next.string, note.bowing + next.bowing, 
-                     note.attack + next.attack, note.dynamics + next.dynamics)
-  if note.shape != next.shape:
-    jankin_switches(note.shape, next.shape)
-  if note.string != next.string:
-    hand_jumps_rapid(tempo, note.string + next.string, note.shape + next.shape, note.base + next.base)
 
 ###################
 ## PHRASE DRILLS ##
