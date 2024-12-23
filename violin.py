@@ -198,7 +198,7 @@ def air_hammers(finger):
 
 def bow_attack(tempo, lyrics, rhythm, string, bowing, attack, dynamics):
   if attack != ".":
-    string_yanking(tempo, string, bowing[0], "D" if bowing[1] < bowing[0] else "U")
+    string_yanking(tempo, string, bowing[0], "D" if bowing[1] > bowing[0] else "U")
     rhythm_clapping(tempo, lyrics, rhythm)
     make_drill(locals(), 5)
 
