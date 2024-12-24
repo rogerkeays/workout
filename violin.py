@@ -93,16 +93,16 @@ def process_phrase(piece, section, phrase):
   notes = phrase.notes
   for i in reversed(range(len(notes))):
     if notes[i].attack != ".": make_bracket(notes[i:], 5)
-    if i > 0: process_note(section.tempo, notes[i-1], notes[i])
-    if i > 0 and i < len(notes) - 1: process_transition(section.tempo, notes[i-1], notes[i], notes[i+1])
+    process_note(section.tempo, notes[i])
+    if i < len(notes) - 1: process_transition(section.tempo, notes[i], notes[i+1])
 
   # phrase drills
   open_strings(section.tempo, phrase.notes)
 
-def process_transition(tempo, note, next, stop):
-  rhythm = note.start_beat + next.start_beat + stop.start_beat
+def process_transition(tempo, note, next):
+  rhythm = note.start_beat + note.stop_beat + next.start_beat + next.stop_beat
   strings = note.string + next.string
-  bowing = note.start_bow + next.start_bow + stop.start_bow
+  bowing = note.start_bow + note.stop_bow + next.start_bow + next.stop_bow
   attack = note.attack + next.attack
   dynamics = note.dynamics + next.dynamics
 
@@ -116,7 +116,7 @@ def process_transition(tempo, note, next, stop):
   if note.string != next.string:
     hand_jumps_rapid(tempo, strings, note.shape + next.shape, note.base + next.base)
 
-def process_note(tempo, note, next):
+def process_note(tempo, note):
   if note.lyrics != "." and note.lyrics != "," and note.attack != ".":
     bow_attack(tempo, note.start_beat + note.stop_beat, note.string, note.start_bow + note.stop_bow, note.attack, note.dynamics)
     hand_placement(note.string, note.shape, note.base)
