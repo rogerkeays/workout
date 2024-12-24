@@ -22,27 +22,27 @@ SHAPES = "PGWCADKH"
 
 @dataclass
 class ViolinNote(Note):
+  string: str
   base: int
   shape: str
   finger: int
-  string: str
   bowing: str
 
-  def to_string(self):
-    return f"{self.beat} {self.degree} {self.base}{self.shape}{self.finger} {self.string}{self.bowing}{self.attack}{self.dynamics} {self.lyrics}"
+  def to_string(n):
+    return f"{n.beat} {n.degree} {n.string}{n.base}{n.shape}{n.finger} {n.bowing}{n.attack}{n.dynamics} {n.lyrics}"
 
 def parse_violin_note(text: str) -> Note:
   """
-    field order: rhythm degree " " string bowing attack dynamic " " base shape finger " " lyrics
-    example: "1 0 0W0 23DM twinkle"
+    field order: rhythm degree (string bowing attack dynamic) (base shape finger) lyrics
+    example: "1 0 20W0 3LM twinkle"
   """
   return ViolinNote(
     beat = text[0],
     degree = text[2],
-    base = text[4],
-    shape = text[5],
-    finger = text[6],
-    string = text[8],
+    string = text[4],
+    base = text[5],
+    shape = text[6],
+    finger = text[7],
     bowing = text[9],
     attack = text[10],
     dynamics = text[11],
