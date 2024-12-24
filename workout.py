@@ -25,7 +25,8 @@ brackets = 0
 
 @dataclass
 class Note:
-  beat: str
+  start_beat: str
+  stop_beat: str
   degree: str
   attack: str
   dynamics: str

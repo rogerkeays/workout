@@ -4,10 +4,9 @@
 #
 # rhythm      1bar2dup3cet4mow
 # strings     1234
-# bowing      0-8
 # shape       NPGWCADKH None, Porcupine, Gun, Westside, Chicken, Alien, Dog, ducK, Huddle
-# frets       0..24
 # fingers     01234
+# bowing      0-8
 # attack      DGS      Detache, leGato, Staccato
 # dynamics    V        eVen
 #
@@ -26,27 +25,30 @@ class ViolinNote(Note):
   base: int
   shape: str
   finger: int
-  bowing: str
+  start_bow: str
+  stop_bow: str
 
   def to_string(n):
-    return f"{n.beat} {n.degree} {n.string}{n.base}{n.shape}{n.finger} {n.bowing}{n.attack}{n.dynamics} {n.lyrics}"
+    return f"{n.start_beat}{n.stop_beat} {n.degree} {n.string}{n.base}{n.shape}{n.finger} {n.start_bow}{n.stop_bow}{n.attack}{n.dynamics} {n.lyrics}"
 
 def parse_violin_note(text: str) -> Note:
   """
-    field order: rhythm degree (string bowing attack dynamic) (base shape finger) lyrics
-    example: "1 0 20W0 3LM twinkle"
+    field order: (start_beat stop_beat) degree (string base shape finger) (start_bow stop_bow attack dynamic) lyrics
+    example: "12 0 20W0 35LM twinkle"
   """
   return ViolinNote(
-    beat = text[0],
-    degree = text[2],
-    string = text[4],
-    base = text[5],
-    shape = text[6],
-    finger = text[7],
-    bowing = text[9],
-    attack = text[10],
-    dynamics = text[11],
-    lyrics = text[13:])
+    start_beat = text[0],
+    stop_beat = text[1],
+    degree = text[3],
+    string = text[5],
+    base = text[6],
+    shape = text[7],
+    finger = text[8],
+    start_bow = text[10],
+    stop_bow = text[11],
+    attack = text[12],
+    dynamics = text[13],
+    lyrics = text[15:])
 
 def parse_violin_notes(text: str) -> list[Note]:
   """
@@ -54,24 +56,26 @@ def parse_violin_notes(text: str) -> list[Note]:
   """
   return list(map(parse_violin_note, filter(lambda x: len(x) > 0, map(str.strip, text.split("\n")))))
 
-def copy_note_defaults(to, frm):
-  if to.degree == "=": to.degree = frm.degree
-  if to.attack == "=": to.attack = frm.attack
-  if to.dynamics == "=": to.dynamics = frm.dynamics
-  if to.string == "=": to.string = frm.string
-  if to.bowing == "=": to.bowing = frm.bowing
-  if to.base == "=": to.base = frm.base
-  if to.shape == "=": to.shape = frm.shape
-  if to.finger == "=": to.finger = frm.finger
+def calculate_note_defaults(note, next):
+  if note.stop_beat == "=": note.stop_beat = next.start_beat
+  if note.stop_bow == "=": note.stop_bow = next.start_bow
+  if next.degree == "=": next.degree = note.degree
+  if next.attack == "=": next.attack = note.attack
+  if next.dynamics == "=": next.dynamics = note.dynamics
+  if next.string == "=": next.string = note.string
+  if next.start_bow == "=": next.start_bow = note.stop_bow
+  if next.base == "=": next.base = note.base
+  if next.shape == "=": next.shape = note.shape
+  if next.finger == "=": next.finger = note.finger
 
 def process_piece(piece):
   make_metronome(1)
 
-  # set defaults
+  # calculate defaults
   for section in piece.sections:
     for phrase in section.phrases:
       for i, note in enumerate(phrase.notes):
-        if i > 0: copy_note_defaults(note, phrase.notes[i - 1])
+        if i < len(phrase.notes) - 1: calculate_note_defaults(note, phrase.notes[i + 1])
 
   # process sections
   for section in reversed(piece.sections): process_section(piece, section)
@@ -96,9 +100,9 @@ def process_phrase(piece, section, phrase):
   open_strings(section.tempo, phrase.notes)
 
 def process_transition(tempo, note, next, stop):
-  rhythm = note.beat + next.beat + stop.beat
+  rhythm = note.start_beat + next.start_beat + stop.start_beat
   strings = note.string + next.string
-  bowing = note.bowing + next.bowing + stop.bowing
+  bowing = note.start_bow + next.start_bow + stop.start_bow
   attack = note.attack + next.attack
   dynamics = note.dynamics + next.dynamics
 
@@ -114,7 +118,7 @@ def process_transition(tempo, note, next, stop):
 
 def process_note(tempo, note, next):
   if note.lyrics != "." and note.lyrics != "," and note.attack != ".":
-    bow_attack(tempo, note.beat + next.beat, note.string, note.bowing + next.bowing, note.attack, note.dynamics)
+    bow_attack(tempo, note.start_beat + note.stop_beat, note.string, note.start_bow + note.stop_bow, note.attack, note.dynamics)
     hand_placement(note.string, note.shape, note.base)
     pitch_hitting(note.string, fret(note.shape, note.base, note.finger), note.finger)
 
