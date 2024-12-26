@@ -3,7 +3,7 @@ import os, inspect, re, tempfile, math
 from dataclasses import dataclass
 
 # configuration
-MAKE_MP3S = True
+MAKE_MP3S = False
 TARGET_DIR = "target/"
 DRILLS_DIR = "02.drills/"
 BRACKETS_DIR = "03.brackets/"
