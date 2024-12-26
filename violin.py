@@ -81,9 +81,9 @@ def process_piece(piece):
   for section in reversed(piece.sections): process_section(piece, section)
 
 def process_section(piece, section):
-  make_metronome(section.tempo/2)
-  make_metronome(section.tempo/1.5)
-  make_metronome(section.tempo)
+  make_metronome(piece.tempo/2)
+  make_metronome(piece.tempo/1.5)
+  make_metronome(piece.tempo)
   for phrase in reversed(section.phrases): process_phrase(piece, section, phrase)
 
 def process_phrase(piece, section, phrase):
@@ -93,11 +93,11 @@ def process_phrase(piece, section, phrase):
   notes = phrase.notes
   for i in reversed(range(len(notes))):
     if notes[i].attack != ".": make_bracket(notes[i:], 5)
-    process_note(section.tempo, notes[i])
-    if i < len(notes) - 1: process_transition(section.tempo, notes[i], notes[i+1])
+    process_note(piece.tempo, notes[i])
+    if i < len(notes) - 1: process_transition(piece.tempo, notes[i], notes[i+1])
 
   # phrase drills
-  open_strings(section.tempo, phrase.notes)
+  open_strings(piece.tempo, phrase.notes)
 
 def process_transition(tempo, note, next):
   rhythm = note.start_beat + note.stop_beat + next.start_beat + next.stop_beat

@@ -3,8 +3,8 @@
 import sys; sys.path.append("..")
 from violin import *
 
-process_piece(Piece("the-crawl", "01.the-crawl.mp3", [
-  Section("table", 4, 90, "37", [
+process_piece(Piece("the-crawl", 4, 90, "37", [
+  Section("table", "V", [
     Phrase("crawls", parse_violin_notes("""
       1= 0 40N0 3=LM li-
       2= = ==== 5=== ttle
@@ -26,5 +26,5 @@ process_piece(Piece("the-crawl", "01.the-crawl.mp3", [
       41 = ==== 53== cle"""), 15.38, 21.53
     ),
   ])
-]))
+], "01.the-crawl.mp3"))
 

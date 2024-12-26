@@ -41,17 +41,18 @@ class Phrase:
 
 @dataclass
 class Section:
+  function: str
   label: str
-  meter: int
-  tempo: int
-  tonic: str
   phrases: list[Phrase]
 
 @dataclass
 class Piece:
   name: str
-  mp3: str
+  meter: int
+  tempo: int
+  tonic: str
   sections: list[Section]
+  mp3: str
 
 def parse_note(text: str):
   """
