@@ -4,8 +4,8 @@ import sys; sys.path.append("..")
 from violin import *
 
 process_piece(Piece("the-crawl", "01.the-crawl.mp3", [
-  Section(4, 90, "37", [
-    Phrase(10.16, 15.38, parse_violin_notes("""
+  Section("table", 4, 90, "37", [
+    Phrase("crawls", 10.16, 15.38, parse_violin_notes("""
       1= 0 40N0 3=LM li-
       2= = ==== 5=== ttle
       3= 7 3=== 3=== ba-
@@ -15,7 +15,7 @@ process_piece(Piece("the-crawl", "01.the-crawl.mp3", [
       3= 9 1=== 3=== dan-
       41 = ==== 53== ger""")
     ),
-    Phrase(15.38, 21.53, parse_violin_notes("""
+    Phrase("scared", 15.38, 21.53, parse_violin_notes("""
       1= 2 20N0 3=LM scared
       2= = ==== 5=== he
       3= 7 3=== 3=== turns

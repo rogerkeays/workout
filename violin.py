@@ -29,11 +29,11 @@ class ViolinNote(Note):
   stop_bow: str
 
   def to_string(n):
-    return f"{n.start_beat}{n.stop_beat} {n.degree} {n.string}{n.base}{n.shape}{n.finger} {n.start_bow}{n.stop_bow}{n.attack}{n.dynamics} {n.lyrics}"
+    return f"{n.start_beat}{n.stop_beat} {n.degree} {n.string}{n.base}{n.shape}{n.finger} {n.start_bow}{n.stop_bow}{n.attack}{n.dynamics} {n.label}"
 
 def parse_violin_note(text: str) -> Note:
   """
-    field order: (start_beat stop_beat) degree (string base shape finger) (start_bow stop_bow attack dynamic) lyrics
+    field order: (start_beat stop_beat) degree (string base shape finger) (start_bow stop_bow attack dynamic) label
     example: "12 0 20W0 35LM twinkle"
   """
   return ViolinNote(
@@ -48,7 +48,7 @@ def parse_violin_note(text: str) -> Note:
     stop_bow = text[11],
     attack = text[12],
     dynamics = text[13],
-    lyrics = text[15:])
+    label = text[15:])
 
 def parse_violin_notes(text: str) -> list[Note]:
   """
@@ -117,7 +117,7 @@ def process_transition(tempo, note, next):
     hand_jumps_rapid(tempo, strings, note.shape + next.shape, note.base + next.base)
 
 def process_note(tempo, note):
-  if note.lyrics != "." and note.lyrics != "," and note.attack != ".":
+  if note.label != "." and note.label != "," and note.attack != ".":
     bow_attack(tempo, note.start_beat + note.stop_beat, note.string, note.start_bow + note.stop_bow, note.attack, note.dynamics)
     hand_placement(note.string, note.shape, note.base)
     pitch_hitting(note.string, fret(note.shape, note.base, note.finger), note.finger)

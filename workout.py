@@ -30,16 +30,18 @@ class Note:
   degree: str
   attack: str
   dynamics: str
-  lyrics: str
+  label: str
 
 @dataclass
 class Phrase:
+  label: str
   start_secs: float
   stop_secs: float
   notes: list[Note]
 
 @dataclass
 class Section:
+  label: str
   meter: int
   tempo: int
   tonic: str
@@ -53,8 +55,8 @@ class Piece:
 
 def parse_note(text: str):
   """
-    field order: beat degree attack dynamic " " lyrics
-    example: "10LM twinkle"
+    field order: beat degree attack dynamic " " label
+    example: "10LM twin- 10LM kl"
   """
   return Note(text[0], text[1], text[2], text[3], text[5:], {})
 
