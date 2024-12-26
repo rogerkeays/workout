@@ -35,9 +35,9 @@ class Note:
 @dataclass
 class Phrase:
   label: str
+  notes: list[Note]
   start_secs: float
   stop_secs: float
-  notes: list[Note]
 
 @dataclass
 class Section:
