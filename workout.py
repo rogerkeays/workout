@@ -1,5 +1,5 @@
 
-import os, inspect, re, tempfile, math
+import os, inspect, re, tempfile, math, shutil
 from dataclasses import dataclass
 
 # configuration
@@ -70,11 +70,13 @@ def mcd(dirname):
   os.makedirs(dirname)
   os.chdir(dirname)
 
-def make_bracket(notes, reps=5):
+def make_bracket(name, tempo, notes, reps=5):
+  if len(notes) == 0: return
   global brackets
   brackets += 1
-  with open(BRACKETS_DIR + bracketnum() + ".txt", "w") as f:
-    for note in notes: f.write(note.to_string() + "\n")
+  with open(BRACKETS_DIR + bracketnum() + "A.txt", "w") as f:
+    f.write(f"{name} @{tempo} x{reps}\n")
+    for note in reversed(notes): f.write(note.to_string() + "\n")
 
 #
 # make a drill card, ensuring it is unique, and formatting
@@ -126,7 +128,7 @@ def shift_rhythm(rhythm):
 
 # format the current drill number as a zero-padded string
 def drillnum(): return str(len(drills)).zfill(NUM_PADDING)
-def bracketnum(offset=0): return str(brackets + offset).zfill(NUM_PADDING)
+def bracketnum(): return str(brackets).zfill(NUM_PADDING)
 
 #
 # make a metronome with the given tempo which goes for DRILL_LENGTH_MINS
@@ -135,7 +137,7 @@ def bracketnum(offset=0): return str(brackets + offset).zfill(NUM_PADDING)
 # note: abc2midi miscalculates when tempo < 4, so we multiply the tempo by 4
 # and set the midi speed to 25%
 #
-def make_metronome(tempo):
+def make_metronome(tempo, copy=False):
   if MAKE_MP3S:
     num_notes = int(DRILL_LENGTH_MINS * tempo)
     filename = "=T" + str(int(tempo)).zfill(NUM_PADDING - 1) + ".mp3"
@@ -150,6 +152,7 @@ def make_metronome(tempo):
       %%MIDI program {ALARM_INSTRUMENT}
       Q:240
       |C|C|C|C|z|z|z|z""", DRILLS_DIR + filename, tempo_percent=25)
+    if copy: shutil.copy(DRILLS_DIR + filename, BRACKETS_DIR + filename)
 
 #
 # make a drone of a single pitch which lasts for DRILL_LENGTH_MINS
@@ -190,7 +193,7 @@ def make_whole(mp3, speed=1, silence=0):
 
 def make_chunk(mp3, start_secs, stop_secs, speed=1.0):
   if MAKE_MP3S and stop_secs > 0:
-    cut_chunk(mp3, start_secs, stop_secs, speed, BRACKETS_DIR + bracketnum(1) + ".mp3");
+    cut_chunk(mp3, start_secs, stop_secs, speed, BRACKETS_DIR + bracketnum() + "B.mp3");
 
 def make_mixed_chunk(mp3, start_secs, stop_secs):
   if MAKE_MP3S and stop_secs > 0:
@@ -233,7 +236,7 @@ def make_repeating_chunk(mp3, start_secs, stop_secs, speed=1.0):
         f.write(f"file {tmpdir}/alarm.mp3\n")
 
       # concatenate the chunks
-      outfile = BRACKETS_DIR + bracketnum(1) + ".mp3"
+      outfile = BRACKETS_DIR + bracketnum() + ".mp3"
       os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
                            -codec copy "{outfile}" """)
 
