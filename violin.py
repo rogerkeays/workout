@@ -133,7 +133,7 @@ def process_note(tempo, note):
 
 def string_crossings(tempo, rhythm, strings, bowing, attack, dynamics):
   string_switching(tempo, strings[0], strings[1], bowing[1])
-  note_clapping(tempo, rhythm)
+  beat_clapping(tempo, rhythm)
   make_drill(locals(), 5)
 
 def string_switching(tempo, frm, to, bowpos):
@@ -141,12 +141,12 @@ def string_switching(tempo, frm, to, bowpos):
   bow_hold()
   make_drill(locals(), 15)
 
-def note_clapping(tempo, rhythm):
+def beat_clapping(tempo, rhythm):
   make_drill(locals(), 5)
 
 def bow_changes(tempo, rhythm, string, bowing, attack, dynamics):
   if attack[0] != "." and attack[1] != ".":
-    note_clapping(tempo, rhythm)
+    beat_clapping(tempo, rhythm)
     make_drill(locals(), 5)
 
 def pitch_hitting(string, fret, finger):
@@ -165,7 +165,7 @@ def air_hammers(finger):
 def bow_attack(tempo, rhythm, string, bowing, attack, dynamics):
   if attack != ".":
     string_yanking(tempo, string, bowing[0], "D" if bowing[1] > bowing[0] else "U")
-    note_clapping(tempo, rhythm)
+    beat_clapping(tempo, rhythm)
     make_drill(locals(), 5)
 
 def string_yanking(tempo, string, bowpos, direction):
