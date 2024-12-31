@@ -81,23 +81,27 @@ def process_piece(piece):
   for section in reversed(piece.sections): process_section(piece, section)
 
 def process_section(piece, section):
-  make_metronome(piece.tempo/2)
-  make_metronome(piece.tempo/1.5)
-  make_metronome(piece.tempo)
   for phrase in reversed(section.phrases): process_phrase(piece, section, phrase)
+  make_metronome(piece.tempo, copy=True)
 
 def process_phrase(piece, section, phrase):
-  make_chunk(MP3_DIR + piece.mp3, phrase.start_secs, phrase.stop_secs)
 
   # process notes in reverse order
   notes = phrase.notes
   for i in reversed(range(len(notes))):
-    if notes[i].attack != ".": make_bracket(notes[i:], 5)
     process_note(piece.tempo, notes[i])
     if i < len(notes) - 1: process_transition(piece.tempo, notes[i], notes[i+1])
 
   # phrase drills
-  open_strings(piece.tempo, phrase.notes)
+  tempo = piece.tempo
+  make_bracket("rhythm_clapping", tempo, notes)
+  make_bracket("bowing_vis", tempo, notes)
+  make_bracket("open_strings", tempo, notes)
+  make_bracket("fingering_vis", tempo, notes)
+  make_bracket("phrase_vis", tempo, notes)
+  make_bracket("phrase_clicks", tempo, notes)
+  make_bracket("phrase_mp3", tempo, notes)
+  make_chunk(MP3_DIR + piece.mp3, phrase.start_secs, phrase.stop_secs)
 
 def process_transition(tempo, note, next):
   rhythm = note.start_beat + note.stop_beat + next.start_beat + next.stop_beat
@@ -122,24 +126,10 @@ def process_note(tempo, note):
     hand_placement(note.string, note.shape, note.base)
     pitch_hitting(note.string, fret(note.shape, note.base, note.finger), note.finger)
 
-###################
-## PHRASE DRILLS ##
-###################
 
-def open_strings(tempo, notes):
-  rhythm_clapping(tempo, notes)
-  bowing_visualisation(tempo, notes);
-  make_drill(notes, 5)
-
-def rhythm_clapping(tempo, notes):
-  make_drill(notes, 5)
-
-def bowing_visualisation(tempo, notes):
-  make_drill(notes, 5)
-
-#################
-## NOTE DRILLS ##
-#################
+############
+## DRILLS ##
+############
 
 def string_crossings(tempo, rhythm, strings, bowing, attack, dynamics):
   string_switching(tempo, strings[0], strings[1], bowing[1])
