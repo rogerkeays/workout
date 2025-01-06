@@ -73,7 +73,7 @@ def mcd(dirname):
 def make_bracket(tempo, notes):
   if len(notes) == 0: return
   global brackets
-  with open(BRACKETS_DIR + bracketnum() + "A." + notes[0].label + ".txt", "w") as f:
+  with open(BRACKETS_DIR + bracketnum() + "B." + notes[0].label + ".txt", "w") as f:
     for note in reversed(notes): f.write(note.to_string() + "\n")
   brackets += 1
 
@@ -200,7 +200,7 @@ def make_whole(mp3, speed=1, silence=0):
 
 def make_chunk(mp3, start_secs, stop_secs, speed=1.0):
   if MAKE_MP3S and stop_secs > 0:
-    cut_chunk(mp3, start_secs, stop_secs, speed, BRACKETS_DIR + bracketnum() + ".mp3");
+    cut_chunk(mp3, start_secs, stop_secs, speed, BRACKETS_DIR + bracketnum() + "A.mp3");
 
 def make_mixed_chunk(mp3, start_secs, stop_secs):
   if MAKE_MP3S and stop_secs > 0:
