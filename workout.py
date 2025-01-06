@@ -1,9 +1,9 @@
 
-import os, inspect, re, tempfile, math, shutil
+import os, inspect, re, tempfile, math
 from dataclasses import dataclass
 
 # configuration
-MAKE_MP3S = False
+MAKE_MP3S = True
 TARGET_DIR = "target/"
 DRILLS_DIR = "02.drills/"
 BRACKETS_DIR = "03.brackets/"
@@ -70,11 +70,22 @@ def mcd(dirname):
   os.makedirs(dirname)
   os.chdir(dirname)
 
-def make_bracket(name, tempo, notes, reps=5):
+def make_bracket(tempo, notes):
   if len(notes) == 0: return
   global brackets
+  with open(BRACKETS_DIR + bracketnum() + "A." + notes[0].label + ".txt", "w") as f:
+    for note in reversed(notes): f.write(note.to_string() + "\n")
   brackets += 1
-  with open(BRACKETS_DIR + bracketnum() + "A.txt", "w") as f:
+
+def make_phrase_drill(name, tempo, notes, reps=5):
+  if len(notes) == 0: return
+
+  # check for duplicates
+  hash = make_hash(name, {"tempo":tempo, "notes":notes })
+  if hash in drills: return False
+  drills.add(hash)
+
+  with open(DRILLS_DIR + drillnum() + "A.txt", "w") as f:
     f.write(f"{name} @{tempo} x{reps}\n")
     for note in reversed(notes): f.write(note.to_string() + "\n")
 
@@ -93,16 +104,13 @@ def make_drill(params={}, reps=5):
   # write card text
   with open(DRILLS_DIR + drillnum() + "A.txt", "w") as f:
     f.write(name + " x" + str(reps) + "\n")
-    if isinstance(params, list):
-      for item in params: f.write(item.to_string() + "\n")
-    else:
-      for key in params:
-        if params[key]:
-          f.write(key[0:3].upper() + " ")
-          if isinstance(params[key], list):
-            f.write(" ".join(params[key]) + "\n")
-          else:
-            f.write(str(params[key]) + "\n")
+    for key in params:
+      if params[key]:
+        f.write(key[0:3].upper() + " ")
+        if isinstance(params[key], list):
+          f.write(" ".join(params[key]) + "\n")
+        else:
+          f.write(str(params[key]) + "\n")
 
   return True
 
@@ -137,7 +145,7 @@ def bracketnum(): return str(brackets).zfill(NUM_PADDING)
 # note: abc2midi miscalculates when tempo < 4, so we multiply the tempo by 4
 # and set the midi speed to 25%
 #
-def make_metronome(tempo, copy=False):
+def make_metronome(tempo):
   if MAKE_MP3S:
     num_notes = int(DRILL_LENGTH_MINS * tempo)
     filename = "=T" + str(int(tempo)).zfill(NUM_PADDING - 1) + ".mp3"
@@ -152,7 +160,6 @@ def make_metronome(tempo, copy=False):
       %%MIDI program {ALARM_INSTRUMENT}
       Q:240
       |C|C|C|C|z|z|z|z""", DRILLS_DIR + filename, tempo_percent=25)
-    if copy: shutil.copy(DRILLS_DIR + filename, BRACKETS_DIR + filename)
 
 #
 # make a drone of a single pitch which lasts for DRILL_LENGTH_MINS
@@ -193,7 +200,7 @@ def make_whole(mp3, speed=1, silence=0):
 
 def make_chunk(mp3, start_secs, stop_secs, speed=1.0):
   if MAKE_MP3S and stop_secs > 0:
-    cut_chunk(mp3, start_secs, stop_secs, speed, BRACKETS_DIR + bracketnum() + "B.mp3");
+    cut_chunk(mp3, start_secs, stop_secs, speed, BRACKETS_DIR + bracketnum() + ".mp3");
 
 def make_mixed_chunk(mp3, start_secs, stop_secs):
   if MAKE_MP3S and stop_secs > 0:

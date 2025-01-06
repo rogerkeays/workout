@@ -82,26 +82,26 @@ def process_piece(piece):
 
 def process_section(piece, section):
   for phrase in reversed(section.phrases): process_phrase(piece, section, phrase)
-  make_metronome(piece.tempo, copy=True)
+  make_metronome(piece.tempo)
 
 def process_phrase(piece, section, phrase):
 
   # process notes in reverse order
   notes = phrase.notes
+  make_chunk(MP3_DIR + piece.mp3, phrase.start_secs, phrase.stop_secs)
   for i in reversed(range(len(notes))):
+    make_bracket(piece.tempo, notes[i:])
     process_note(piece.tempo, notes[i])
     if i < len(notes) - 1: process_transition(piece.tempo, notes[i], notes[i+1])
 
   # phrase drills
   tempo = piece.tempo
-  make_bracket("rhythm_clapping", tempo, notes)
-  make_bracket("bowing_vis", tempo, notes)
-  make_bracket("open_strings", tempo, notes)
-  make_bracket("fingering_vis", tempo, notes)
-  make_bracket("phrase_vis", tempo, notes)
-  make_bracket("phrase_clicks", tempo, notes)
-  make_bracket("phrase_mp3", tempo, notes)
-  make_chunk(MP3_DIR + piece.mp3, phrase.start_secs, phrase.stop_secs)
+  make_phrase_drill("rhythm_clapping", tempo, notes)
+  make_phrase_drill("bowing_vis", tempo, notes)
+  make_phrase_drill("open_strings", tempo, notes)
+  make_phrase_drill("fingering_vis", tempo, notes)
+  make_phrase_drill("phrase_vis", tempo, notes)
+  make_phrase_drill("phrase_clicks", tempo, notes)
 
 def process_transition(tempo, note, next):
   rhythm = note.start_beat + note.stop_beat + next.start_beat + next.stop_beat
