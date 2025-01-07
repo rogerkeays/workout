@@ -74,7 +74,7 @@ def make_bracket(tempo, notes):
   if len(notes) == 0: return
   global brackets
   with open(BRACKETS_DIR + bracketnum() + "B." + notes[0].label + ".txt", "w") as f:
-    for note in reversed(notes): f.write(note.to_string() + "\n")
+    for note in notes: f.write(note.to_string() + "\n")
   brackets += 1
 
 def make_phrase_drill(name, tempo, notes, reps=5):
@@ -87,7 +87,7 @@ def make_phrase_drill(name, tempo, notes, reps=5):
 
   with open(DRILLS_DIR + drillnum() + "A.txt", "w") as f:
     f.write(f"{name} @{tempo} x{reps}\n")
-    for note in reversed(notes): f.write(note.to_string() + "\n")
+    for note in notes: f.write(note.to_string() + "\n")
 
 #
 # make a drill card, ensuring it is unique, and formatting
