@@ -412,8 +412,8 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       3= Y ===2 4=== a-
       o= 9 ===1 2=== a-
       u3 7 2==4 5=== ll
-      4= 4 ==== 7=== of
-      ou = ===2 46== you"""), 273.04, 279.42
+      4= 4 ===2 7=== of
+      ou = ==== 46== you"""), 273.04, 279.42
     ),
     Phrase("ouo", parse_violin_notes("""
       4= 2 21W1 6=LM o-
