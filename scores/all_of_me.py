@@ -158,99 +158,111 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
   Section("altar", "O", [
     #Phrase("i-give", clone(), 97.70)
     #Phrase("you-give", clone(), 105.28)
-    Phrase("oo", parse_violin_notesx("""
-      phrases  += [("oh-o .", 111.83)] ##1 :oo
-      index    += "oo ."
-      rhythm   += "4o 3"
-      degrees  += "42 ."
-      fingers  += "32 ="
-      strings  += "3= ="
-      bases    += "6= ="
-      shapes   += "C= =" #. """), 111.83, 115.05
+    Phrase("oo", parse_violin_notes("""
+      4= 4 21W2 ==== oh-
+      o3 2 ===1 ==== -o"""), 111.83, 115.05
     )
   ]),
   Section("bedroom", "V3", [
-    Phrase("times", parse_violin_notesx("""
-      phrases  += [("how ma-n-y t-imes do i have to tell you .", 115.05)] ##1
-      index    += "hmny tidihtt y."
-      rhythm   += "3e4m 1a2u3e4 12"
-      degrees  += "2424 24=2420 =."
-      fingers  += "2323 23=2321 =="
-      strings  += "3=== ======= =="
-      bases    += "6=== ======= =="
-      shapes   += "C=== ======= ==" """), 115.05, 118.98
+    Phrase("times", parse_violin_notes("""
+      3= 2 21W1 ==== how
+      e= 4 ===2 ==== ma-
+      4= 2 ===1 ==== -ni-
+      m= 4 ===2 ==== -y
+      1= 2 ===1 ==== t-
+      a= 4 ===2 ==== imes
+      2= = ==== ==== do
+      u= 2 ===1 ==== i
+      3= 4 ===2 ==== have
+      e= 2 ===1 ==== to
+      4= 0 3=C4 ==== tell
+      12 = ==== ==== you?"""), 115.05, 118.98
     ),
-    Phrase("crying", parse_violin_notesx("""
-      phrases  += [("e-ven when you're c-ry-ing you're beau-ti-ful t-oo .", 118.98)] ##1
-      index    += "evwy criybtft o."
-      rhythm   += "3e4o 1b2u3e4o 12"
-      degrees  += "4=== 5754=20= 9."
-      fingers  += "3=== 4143=21= 3="
-      strings  += "3=== =23===== 4="
-      bases    += "6=== ======== =="
-      shapes   += "C=== ======== P=" """), 118.98, 122.55
+    Phrase("crying", parse_violin_notes("""
+      3= 4 21W2 ==== e-
+      e= = ==== ==== ven
+      4= = ==== ==== when
+      o= = ==== ==== you're
+      1= 5 ===3 ==== c-
+      b= 7 ===4 ==== -ry-
+      2= 5 ===3 ==== -ing
+      u= 4 ===2 ==== you're
+      3= = ==== ==== beau-
+      e= 2 ===1 ==== ti-
+      4= 0 1=C4 ==== -ful
+      o= = ==== ==== t-
+      12 9 ===2 ==== -oo"""), 118.98, 122.55
     ),
-    Phrase("beating", parse_violin_notesx("""
-      phrases  += [("the w-orld is bea-t-i-ng you d-own i-m a-round .", 122.55)] ##1
-      index    += "twoi btinyd oimar ."
-      rhythm   += "u3ct 1up3eo 1ue4o 2"
-      degrees  += "024= 545404 540=2 ."
-      fingers  += "123= 434313 431=2 ="
-      strings  += "3=== ====== ===== ="
-      bases    += "6=== ====== ===== ="
-      shapes   += "C=== ====== ===== =" """), 122.55, 128.17
+    Phrase("beating", parse_violin_notes("""
+      u= 0 31C4 ==== the
+      3= 2 2=W1 ==== w-
+      c= 4 ===2 ==== -orld
+      t= = ==== ==== is
+      1= 5 ===3 ==== bea-
+      u= 4 ===2 ==== -t-
+      p= 5 ===3 ==== -i-
+      3= 4 ===2 ==== -ng
+      e= 0 3=C4 ==== you
+      o= 4 2=W2 ==== d-
+      1= 5 ===3 ==== -own
+      u= 4 ===2 ==== i-
+      e= 0 3=C4 ==== -m
+      4= = ==== ==== a-
+      o2 2 2=W1 ==== -round"""), 122.55, 128.17
     ),
-    Phrase("mood", parse_violin_notesx("""
-      phrases  += [("through e-ve-ry mood .", 128.17)] ##1
-      index    += "tevrm ."
-      rhythm   += "u3e4o 2"
-      degrees  += "242=9 ."
-      fingers  += "232=3 ="
-      strings  += "3===4 ="
-      bases    += "6==== ="
-      shapes   += "C===P =" #. """), 128.17, 130.19
+    Phrase("mood", parse_violin_notes("""
+      u= 2 21W1 ==== through
+      3= 4 ===2 ==== e-
+      e= 2 ===1 ==== -ve-
+      4= = ==== ==== -ry
+      o2 9 3=C2 ==== mood"""), 128.17, 130.19
     )
   ]),
   Section("garage", "V4", [
-    Phrase("downfall", parse_violin_notesx("""
-      phrases  += [("you're my down-fall, you're my muse .", 130.19)] ##1
-      index    += "ymd fymm ."
-      rhythm   += "peo a3eo a"
-      degrees  += "74= 0744 ."
-      fingers  += "13= 1=3= ="
-      strings  += "23= =23= ="
-      bases    += "6== ==== ="
-      shapes   += "C== ==== =" """), 130.19, 133.97
+    Phrase("downfall", parse_violin_notes("""
+      p= 7 21W4 ==== you're
+      e= 4 ===2 ==== my
+      o= = ==== ==== down-
+      a= 0 3=C4 ==== fall,
+      3= 7 2=W= ==== you're
+      e= 4 ===2 ==== my
+      oa = ==== ==== muse"""), 130.19, 133.97
     ),
-    Phrase("distraction", parse_violin_notesx("""
-      phrases  += [("my w-orst dis-tr-ac-tion, my rhy-thm n blues .", 133.97)] ##1
-      index    += "mwodt atmrtnb ."
-      rhythm   += "u3e4o 1au3e4o 2"
-      degrees  += "0574= 2==4249 ."
-      fingers  += "1413= 2==323= ="
-      strings  += "3=23= ======4 ="
-      bases    += "6==== ======= ="
-      shapes   += "C==== ======P =" """), 133.97, 137.69
+    Phrase("distraction", parse_violin_notes("""
+      u= 0 31C4 ==== my
+      3= 5 2=W3 ==== w-
+      e= 7 ===4 ==== orst
+      4= 4 ===2 ==== dis-
+      o= = ==== ==== tra-
+      1= 2 ===1 ==== ac-
+      a= = ==== ==== tion,
+      u= = ==== ==== my
+      3= 4 ===2 ==== rhy-
+      e= 2 ===1 ==== thm
+      4= 4 ===2 ==== n
+      o2 9 31C4 ==== blues"""), 133.97, 137.69
     ),
-    Phrase("singing", parse_violin_notesx("""
-      phrases  += [("i can't stop si-ng-ing it's , r-i-ng-ing in .", 137.69)] ##1
-      index    += "ics snii,r inii."
-      rhythm   += "u3t 1u3e4o 1u3e4"
-      degrees  += "4== 540=.4 540=."
-      fingers  += "3== 431==3 431=="
-      strings  += "3== ====== ====="
-      bases    += "6== ====== ====="
-      shapes   += "C== ====== =====" """), 137.69, 142.49
+    Phrase("singing", parse_violin_notes("""
+      u= 4 21W2 ==== i
+      3= = ==== ==== can't
+      t= = ==== ==== stop
+      1= 5 ===3 ==== si-
+      u= 4 ===2 ==== ngi-
+      3= 0 3=C4 ==== ing
+      e4 = ==== ==== it's,
+      o= 4 2=W2 ==== ri-
+      1= 5 ===3 ==== -i-
+      u= 4 ===2 ==== ngi-
+      3= 0 3=C4 ==== ing
+      e4 = ==== ==== in"""), 137.69, 142.49
     ),
-    Phrase("head", parse_violin_notesx("""
-      phrases  += [("my , h-ead for y-ou .", 142.49, 150.28)] ##1
-      index    += "m ,hefy o."
-      rhythm   += "o 2ue4o 14"
-      degrees  += "2 .42=4 5."
-      fingers  += "2 =32=4 =="
-      strings  += "3 ===== =="
-      bases    += "6 ===== =="
-      shapes   += "C ====K C=" #. """), 142.49, 150.28
+    Phrase("head", parse_violin_notes("""
+      o2 2 21W1 ==== my,
+      u= 4 ===2 ==== h-
+      e= 2 ===1 ==== -ead
+      4= = ==== ==== for
+      o= 4 ===2 ==== y-
+      14 5 ===3 ==== -ou"""), 142.49, 150.28
     )
   ]),
   Section("show", "B", [
@@ -266,19 +278,16 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
   ]),
   Section("church/sepulchre", "CB", [
     #Phrase("give-your", clone(), 174.05)
-    Phrase("give-my", parse_violin_notesx("""
-      phrases  += [("i'll give m-y all to yo-u .", 162.63)] ##1 :_give-my
-      index    += "igmy aty u."
-      rhythm   += "u3eo 14o 12"
-      degrees  += "2942 =02 4."
-      fingers  += "1121 =41 2="
-      strings  += "212= =32 =="
-      bases    += "1=== === =="
-      shapes   += "W=== =CW =="
-      bowing   += "6354 376 35"
-      attack   += "L=== === =."
-      dynamics += "V=== === ==" """),  177.75, 181.63
-    )
+    Phrase("give-my", parse_violin_notes("""
+      u= 2 21W1 6=LM i'll
+      3= 9 1=== 3=== give
+      e= 4 2==2 5=== m-
+      o= 2 ===1 4=== y
+      1= = ==== 3=== all
+      4= 0 3=C4 7=== to
+      o= 2 2=W1 6=== yo-
+      12 4 ===2 35== u"""), 177.75, 181.63
+    ),
     #Phrase("end", clone(), 181.63)
     #Phrase("lose", clone(), 185.64)
   ]),
@@ -299,7 +308,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       p= 5 ===3 5=== u-
       3= 4 ===2 3=== o-
       c= 2 ===1 3=== u-
-      e1 0 1==4 21== oh"""), 204.06, 207.59
+      e1 0 3=C4 21== oh"""), 204.06, 207.59
     ),
     Phrase("cards", parse_violin_notes("""
       1= 9 11W2 3=LM cards
@@ -344,7 +353,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
     Phrase("all-you", parse_violin_notes("""
       3= 4 21W3 4=LM loves
       1= 2 ===2 2=== all
-      4= 0 1=C1 6=== of
+      4= 0 3=C4 6=== of
       o= 2 2=W3 4=== y-
       12 4 ==== 56== ou"""), 223.52, 227.34
     )
