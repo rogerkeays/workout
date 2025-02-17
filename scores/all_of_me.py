@@ -7,140 +7,134 @@ def parse_violin_notesx(text: str): return []
 
 process_piece(Piece("all-of-me", 4, 126, "48", [
   Section("art-desk", "V1", [
-    Phrase("mouth", parse_violin_notesx("""
-      phrases  += [("what would i do with-o-ut your smart mouth? .", 23.51)]
-      index    += "wwi dwouys m."
-      rhythm   += "3e4 1a2u34 12"
-      degrees  += "24= ==24=0 =."
-      fingers  += "23= ==23=1 =="
-      strings  += "3== ====== =="
-      bases    += "6== ====== =="
-      shapes   += "C== ====== =="
-      bowing   += "246 246426 26"
-      attack   += "L== ====== =."
-      dynamics += "M== ====== ==" """), 23.51, 27.31
+    Phrase("mouth", parse_violin_notes("""
+      3= 2 21W1 2=LM what
+      e= 4 ===2 4=== would
+      4= = ==== 6=== i
+      1= = ==== 2=== do
+      a= = ==== 4=== with
+      2= 2 ===1 6=== o
+      u= 4 ===2 4=== -ut
+      3= = ==== 2=== your
+      4= 0 3=C4 6=== smart
+      12 = ==== 26== mouth?"""), 23.51, 27.31
     ),
-    Phrase("drawin'", parse_violin_notesx("""
-      phrases  += [("draw-in me in a you kick-in me a-out .", 27.31)] ##1
-      index    += "dim iaykima o."
-      rhythm   += "3e4 1a23e4o 12"
-      bowing   += "246 2462464 26"
-      degrees  += "24= =24=20= 9."
-      fingers  += "23= =23=21= 3="
-      strings  += "3== ======= 4="
-      bases    += "6== ======= =="
-      shapes   += "C== ======= P="
-      attack   += "L== ======= =."
-      dynamics += "M== ======= ==" """), 27.31, 31.12
+    Phrase("drawin'", parse_violin_notes("""
+      3= 2 21W1 2=LM draw
+      e= 4 ===2 4=== -in
+      4= = ==== 6=== me
+      1= = ==== 2=== in
+      a= 2 ===1 4=== a
+      2= 4 ===2 6=== you
+      3= = ==== 2=== kick
+      e= 2 ===1 4=== -in
+      4= 0 3=C4 6=== me
+      o= = ==== 4=== a
+      12 9 ===2 26== -out"""), 27.31, 31.12
     ),
-    Phrase("spinnin'", parse_violin_notesx("""
-      phrases  += [("you've got my head spin-nin , no kid-din .", 31.12)] ##1
-      index    += "ygm hsn, nkd."
-      rhythm   += "u3t 13e4 13e4"
-      degrees  += "94= 540. 540."
-      fingers  += "3== 431= 431="
-      strings  += "43= ==== ===="
-      bases    += "6== ==== ===="
-      shapes   += "PC= ==== ===="
-      bowing   += "767 2747 =153"
-      attack   += "L== ===. L==."
-      dynamics += "M== ==== ====" """), 31.12, 35.85
+    Phrase("spinnin'", parse_violin_notes("""
+      u= 9 31C2 7=LM you've
+      3= 4 2=W2 6=== got
+      t= = ==== 7=== my
+      1= 5 ===3 2=== head
+      3= 4 ===2 7=== spin
+      e4 0 3=C4 4=== -nin,
+      1= 5 2=W3 7=== no
+      3= 4 ===2 1=== kid
+      e4 0 3=C4 53== -din"""), 31.12, 35.85
     ),
-    Phrase("pin", parse_violin_notesx("""
-      phrases  += [("i can't , pin yo-u down .", 35.85)] ##1
-      index    += "i c,pyu d."
-      rhythm   += "o 1u3eo 1u"
-      degrees  += "0 2.429 =."
-      fingers  += "1 2=323 =="
-      strings  += "3 ====4 =="
-      bases    += "6 ===== =="
-      shapes   += "C ====P =="
-      bowing   += "3 26=46 72"
-      attack   += "L =.L== =."
-      dynamics += "M ===== ==" """), 35.85, 38.95
+    Phrase("pin", parse_violin_notes("""
+      o= 0 31C4 3=== i
+      1u 2 2=W1 2=== can't,
+      3= 4 ===2 6=== pin
+      e= 2 ===1 4=== yo
+      o= 9 3=C2 6=== -u
+      1u = ==== 72== down"""),  35.85, 38.95
     )
   ]),
   Section("disneyland", "V2", [
-    Phrase("mind", parse_violin_notesx("""
-      phrases  += [("what's go-in on in that beau-ti-ful mind? .", 38.95)] ##1
-      index    += "wgi oitbtfm ."
-      rhythm   += "3e4 1a23e4w 2"
-      degrees  += "24= =24=20= ."
-      fingers  += "23= =23=21= ="
-      strings  += "3== ======= ="
-      bases    += "6== ======= ="
-      shapes   += "C== ======= ="
-      bowing   += "246 2462535 2"
-      attack   += "L== ======= ."
-      dynamics += "M== ======= =" """), 38.95, 42.67
+    Phrase("mind", parse_violin_notes("""
+      3= 2 21W1 2=LM what's
+      e= 4 ===2 4=== go
+      4= = ==== 6=== -in
+      1= = ==== 2=== on
+      a= 2 ===1 4=== in
+      2= 4 ===2 6=== that
+      3= = ==== 2=== beau
+      e= 2 ===1 5=== ti
+      4= 0 3=C4 3=== ful
+      w2 = ==== 52== mind?"""), 38.95, 42.67
     ),
-    Phrase("ride", parse_violin_notesx("""
-      phrases  += [("i'm on your ma-gi-cal mys-te-ry r-ide .", 42.67)] ##1
-      index    += "ioy mgcmtrr i."
-      rhythm   += "3e4 1a23e4o 1u"
-      degrees  += "4== 754=20= 9."
-      fingers  += "3== 143=21= 3="
-      strings  += "3== 23===== 4="
-      bases    += "6== ======= =="
-      shapes   += "C== ======= P="
-      bowing   += "242 5353535 37"
-      attack   += "L== ======= =."
-      dynamics += "M== ======= ==" """), 42.67, 46.57
+    Phrase("ride", parse_violin_notes("""
+      3= 4 21W2 2=LM i'm
+      e= = ==== 4=== on
+      4= = ==== 2=== your
+      1= 7 ===4 5=== ma
+      a= 5 ===3 3=== gi
+      2= 4 ===2 5=== cal
+      3= = ==== 3=== mys
+      e= 2 ===1 5=== te
+      4= 0 3=C4 3=== ry
+      o= = ==== 5=== r
+      1u 9 ===2 37== -ide"""), 42.67, 46.57
     ),
-    Phrase("dizzy", parse_violin_notesx("""
-      phrases  += [("and i'm so di-zzy , don't kn-ow what hit me .", 46.57)] ##1
-      index    += "ai sdz,d kowhm."
-      rhythm   += "3e 13e4o 1b23e4"
-      degrees  += "4= 540.= 45=40."
-      fingers  += "3= 431== 4==31="
-      strings  += "3= ===== ======"
-      bases    += "6= ===== ======"
-      shapes   += "C= ===== KC===="
-      bowing   += "== ===== ======"
-      attack   += "L= ===.L =====."
-      dynamics += "M= ===== ======" """), 46.57, 51.03
+    Phrase("dizzy", parse_violin_notes("""
+      3= 4 21W2 ==== and
+      e= = ==== ==== i'm
+      1= 5 ===3 ==== so
+      3= 4 ===2 ==== di
+      e4 0 3=C4 ==== zzy,
+      o= = ==== ==== don't
+      1= 4 2=W2 ==== kn
+      b= 5 ===3 ==== -ow
+      2= = ==== ==== what
+      3= 4 ===2 ==== hit
+      e4 0 3==4 ==== me"""), 46.57, 51.03
     ),
-    Phrase("alright", parse_violin_notesx("""
-      phrases  += [("but i'll be a-l-right .", 51.03, 54.92)]  ##1
-      index    += "b ibal r."
-      rhythm   += "o 13eo 1e"
-      degrees  += "0 242= 5."
-      fingers  += "1 232= 4="
-      strings  += "3 ==== =="
-      bases    += "6 ==== =="
-      shapes   += "C ==== ==" #."""), 51.03, 54.92
+    Phrase("alright", parse_violin_notes("""
+      o= 0 31C4 ==== but
+      1= 2 2=W1 ==== i'll
+      3= 4 ===2 ==== be
+      e= 2 ===1 ==== a
+      o= = ==== ==== -l
+      1e 5 ===3 ==== right"""), 51.03, 54.92
     )
   ]),
   Section("show", "B", [
-    Phrase("underwater", parse_violin_notesx("""
-      phrases  += [("my h-ead's u-n-de-r-wa-te-r but .", 54.92)] ##1
-      index    += "m heundrw trb."
-      rhythm   += "o 1bu3e4o u3e4"
-      degrees  += "0 7975=4= 20=."
-      fingers  += "1 1214=3= 21=="
-      strings  += "3 4==3=== ===="
-      bases    += "6 ======= ===="
-      shapes   += "C ======= ====" """), 54.92, 58.71
+    Phrase("underwater", parse_violin_notes("""
+      o= 0 33W3 6=LM my
+      1= 7 2=G3 2=== h
+      b= 9 ===4 4=== -ead's
+      u= 7 ===3 6=== u
+      3= 5 ===2 4=== -n
+      e= = ==== 2=== de
+      4= 4 ===1 4=== -r
+      o= = ==== 6=== wa
+      u= 2 3=W4 2=== te
+      3= 0 ===3 4=== -r
+      e4 = ==== 62== but"""), 54.92, 58.71
     ),
-    Phrase("breathin'", parse_violin_notesx("""
-      phrases  += [("i'm br-ea-th-in fine .", 58.71)] ##1
-      index    += "i betif ."
-      rhythm   += "o u3e4o u"
-      degrees  += "Y 97=9= ."
-      fingers  += "4 32=3= ="
-      strings  += "4 ===== ="
-      bases    += "6 ===== ="
-      shapes   += "P ===== =" """), 58.71, 62.57
+    Phrase("breathin'", parse_violin_notes("""
+      o= Y 31C3 2=LM i'm
+      u= 9 ===2 6=== br
+      3= 7 ===1 4=== -ea
+      e= = ==== 2=== th
+      4= 9 ===2 4=== -in
+      ou = ==== 62== fine"""), 58.71, 62.57
     ),
-    Phrase("crazy'", parse_violin_notesx("""
-      phrases  += [("y-ou're cr-a-zy and i'm o-ut of my mind .", 62.57)] ##1
-      index    += "yo cazai otomm ."
-      rhythm   += "ow u3e4o u3e4o 3"
-      degrees  += "79 =7=54 =2=02 ."
-      fingers  += "12 =1=43 =2=12 ="
-      strings  += "2= ===3= ===== ="
-      bases    += "6= ===== ===== ="
-      shapes   += "C= ===== ===== =" #. """), 62.57, 68.21
+    Phrase("crazy'", parse_violin_notes("""
+      o= 7 21W4 ==== y
+      w= 9 1==1 ==== -ou're
+      u= = ==== ==== cr
+      3= 7 2==4 ==== -a
+      e= = ==== ==== zy
+      4= 5 ===3 ==== and
+      o= 4 ===2 ==== i'm
+      u= = ==== ==== o
+      3= 2 ===1 ==== -ut
+      e= = ==== ==== of
+      4= 0 3=C4 ==== my
+      o3 2 2=W1 ==== mind"""), 62.57, 68.21
     )
   ]),
   Section("church/mirrors", "CA", [
@@ -295,7 +289,6 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
     #Phrase("i-give", clone(), 189.20)
     #Phrase("you-give", clone(), 196.79)
   ]),
-  ###
   Section("casino", "M", [
     Phrase("give-me", parse_violin_notes("""
       a= 5 21W3 3=LM give
