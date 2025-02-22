@@ -293,3 +293,6 @@ def decimal_to_note(note):
 
 def half(val): return int(val / 2)
 
+# stubs
+def clone(*params): return []
+
