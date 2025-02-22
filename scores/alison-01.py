@@ -6,24 +6,24 @@ from violin import *
 process_piece(Piece("the-crawl", 4, 90, "37", [
   Section("table", "V", [
     Phrase("crawls", parse_violin_notes("""
-      1= 0 40N0 3=LM li-
-      2= = ==== 5=== ttle
-      3= 7 3=== 3=== ba-
-      4= = ==== 5=== by
-      1= 2 2=== 3=== crawls
-      2= = ==== 5=== to
-      3= 9 1=== 3=== dan-
-      41 = ==== 53== ger"""), 10.16, 15.38
+      1= 0 40N0 3v=LM li-
+      2= = ==== 5^=== ttle
+      3= 7 3=== 3v=== ba-
+      4= = ==== 5^=== by
+      1= 2 2=== 3v=== crawls
+      2= = ==== 5^=== to
+      3= 9 1=== 3v=== dan-
+      41 = ==== 5^3== ger"""), 10.16, 15.38
     ),
     Phrase("scared", parse_violin_notes("""
-      1= 2 20N0 3=LM scared
-      2= = ==== 5=== he
-      3= 7 3=== 3=== turns
-      4= = ==== 5=== round
-      1= 2 2=== 3=== in
-      2= = ==== 5=== a
-      3= 7 3=== 3=== cir-
-      41 = ==== 53== cle"""), 15.38, 21.53
+      1= 2 20N0 3v=LM scared
+      2= = ==== 5^=== he
+      3= 7 3=== 3v=== turns
+      4= = ==== 5^=== round
+      1= 2 2=== 3v=== in
+      2= = ==== 5^=== a
+      3= 7 3=== 3v=== cir-
+      41 = ==== 5^3== cle"""), 15.38, 21.53
     ),
   ])
 ], "01.the-crawl.mp3"))
