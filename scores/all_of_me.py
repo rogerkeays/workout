@@ -3,8 +3,6 @@
 import sys; sys.path.append("..")
 from violin import *
 
-def parse_violin_notesx(text: str): return []
-
 process_piece(Piece("all-of-me", 4, 126, "48", [
   Section("art-desk", "V1", [
     Phrase("mouth", parse_violin_notes("""
@@ -137,20 +135,74 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
     )
   ]),
   Section("church/mirrors", "CA", [
-    #Phrase("all-me", clone(), 68.21)
-    #Phrase("all-you", clone(), 71.10)
-    #Phrase("curves", clone(), 74.86)
-    #Phrase("imperfections", clone(), 78.86)
+    Phrase("all-me", parse_violin_notes("""
+      o= 4 21W2 4^=LM cause
+      1= = ==== 2v=== a-
+      b= 7 ===4 3v=== a-
+      3= = ==== 6^=== ll
+      4= 4 ===2 2v=== of
+      o= 7 ===4 5^=== m-
+      12 9 1==1 2v4== e"""), 68.21, 71.10
+    ),
+    Phrase("all-you", parse_violin_notes("""
+      3= 4 21W3 4^=LM loves
+      1= 2 ===2 2v=== all
+      4= 0 3=C4 6^=== of
+      o= 2 2=W3 4v=== y-
+      12 4 ==== 5v6== ou"""), 71.10, 74.68
+    ),
+    Phrase("curves", parse_violin_notes("""
+      3= 4 21W2 5v=LM love
+      e= = ==== 6^=== you-
+      o= 2 ===1 5^=== r
+      1= = ==== 3v=== curves
+      2= = ==== 5^=== and
+      3= = ==== 3v=== all
+      4= 0 3=C4 5^=== your
+      o= 2 2=W1 4^=== ed-
+      12 9 3=C2 3v5== ges"""), 74.86, 78.86
+    ),
+    Phrase("imperfections", clone("curves", "all you-r per-fect im-per-fec-tions"), 78.86, 82.63 )
   ]),
   Section("church/sepulchre", "CB", [
-    #Phrase("give-your", clone(), 82.63)
-    #Phrase("give-my", clone(), 86.35)
-    #Phrase("end", clone(), 90.10)
-    #Phrase("lose", clone(), 94.17)
+    Phrase("give-your", parse_violin_notes("""
+      3= 4 21W2 3v=LM give
+      e= = ==== 5^=== your
+      1= = ==== 3v=== a-
+      b= 7 ===4 4v=== ll
+      4= 4 ===2 7^=== to
+      o= 7 ===4 6^=== m-
+      12 9 1==1 3v6== e"""), 82.63, 86.35
+    ),
+    Phrase("give-my", parse_violin_notes("""
+      u= 2 21W1 6^=LM i'll
+      3= 9 1=== 3v=== give
+      e= 4 2==2 5^=== m-
+      o= 2 ===1 4^=== y
+      1= = ==== 3v=== all
+      4= 0 3=C4 7^=== to
+      o= 2 2=W1 6^=== yo-
+      12 4 ===2 3v5== u"""), 86.35, 90.10
+    ),
+    Phrase("end", clone("curves", "you're m-y end and my be-gin-ing"), 90.10, 94.17 ),
+    Phrase("lose", clone("curves", "e-ve-n when i lose i'm win-ning"), 94.17, 97.70 )
   ]),
   Section("altar", "O", [
-    #Phrase("i-give", clone(), 97.70)
-    #Phrase("you-give", clone(), 105.28)
+    Phrase("i-give", parse_violin_notes("""
+      u= 4 21W2 6v=LM cause
+      3= = ==== 7^=== i
+      e= 5 ===3 6^=== give
+      4= 7 ===4 4^=== you
+      o= 0 1==3 2v=== a-
+      u= Y ===2 6^=== u-
+      p= 0 ===3 5^=== i-
+      3= Y ===2 4^=== a-
+      o= 9 ===1 2v=== a-
+      u3 7 2==4 5v=== ll
+      4= 4 ===2 7^=== of
+      ou = ==== 4v6== me"""), 97.70, 105.29
+    ),
+    Phrase("you-give", clone("i-give", "and you give me a-u-i-a-a-ll of you"), 105.29, 111.83 ),
     Phrase("oo", parse_violin_notes("""
       4= 4 21W2 ===== oh-
       o3 2 ===1 ===== -o"""), 111.83, 115.05
@@ -259,34 +311,25 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
     )
   ]),
   Section("show", "B", [
-    #Phrase("underwater", clone(), 146.37)
-    #Phrase("breathing", clone(), 150.29)
-    #Phrase("crazy", clone(), 153.91)
+    Phrase("underwater", clone(), 146.37, 150.29 ),
+    Phrase("breathing", clone(), 150.29, 152.91 ),
+    Phrase("crazy", clone(), 153.91, 159.74 )
   ]),
   Section("church/mirrors", "CA", [
-    #Phrase("all-me", clone(), 159.74)
-    #Phrase("all-you", clone(), 162.63)
-    #Phrase("curves", clone(), 166.38)
-    #Phrase("imperfections", clone(), 170.37)
+    Phrase("all-me", clone(), 159.74, 162.63 ),
+    Phrase("all-you", clone(), 162.63, 166.38 ),
+    Phrase("curves", clone(), 166.38, 170.37 ),
+    Phrase("imperfections", clone(), 170.37, 174.05 )
   ]),
   Section("church/sepulchre", "CB", [
-    #Phrase("give-your", clone(), 174.05)
-    Phrase("give-my", parse_violin_notes("""
-      u= 2 21W1 6^=LM i'll
-      3= 9 1=== 3v=== give
-      e= 4 2==2 5^=== m-
-      o= 2 ===1 4^=== y
-      1= = ==== 3v=== all
-      4= 0 3=C4 7^=== to
-      o= 2 2=W1 6^=== yo-
-      12 4 ===2 3v5== u"""), 177.75, 181.63
-    ),
-    #Phrase("end", clone(), 181.63)
-    #Phrase("lose", clone(), 185.64)
+    Phrase("give-your", clone(), 174.05, 177.75 ),
+    Phrase("give-my", clone(), 177.75, 181.63 ),
+    Phrase("end", clone(), 181.63, 185.64 ),
+    Phrase("lose", clone(), 185.64, 189.20 )
   ]),
   Section("altar", "O", [
-    #Phrase("i-give", clone(), 189.20)
-    #Phrase("you-give", clone(), 196.79)
+    Phrase("i-give", clone(), 189.20, 196.79 ),
+    Phrase("you-give", clone(), 196.79, 204.06 )
   ]),
   Section("casino", "M", [
     Phrase("give-me", parse_violin_notes("""
@@ -333,35 +376,13 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
     )
   ]),
   Section("church/mirrors", "CA", [
-    Phrase("all-me", parse_violin_notes("""
-      o= 4 21W2 4^=LM cause
-      1= = ==== 2v=== a-
-      b= 7 ===4 3v=== a-
-      3= = ==== 6^=== ll
-      4= 4 ===2 2v=== of
-      o= 7 ===4 5^=== m-
-      12 9 1==1 2v4== e"""), 220.54, 223.52
-    ),
-    Phrase("all-you", parse_violin_notes("""
-      3= 4 21W3 4^=LM loves
-      1= 2 ===2 2v=== all
-      4= 0 3=C4 6^=== of
-      o= 2 2=W3 4v=== y-
-      12 4 ==== 5v6== ou"""), 223.52, 227.34
-    )
-    #Phrase("curves", clone("end", "love you-r curves and all your ed-ges .", 227.34)
-    #Phrase("imperfections", clone("end", "all you-r per-fect im-per-fec-tions .", 231.31)
+    Phrase("all-me", clone(), 220.54, 223.52 ),
+    Phrase("all-you", clone(), 223.52, 227.34 ),
+    Phrase("curves", clone(), 227.34, 231.31 ),
+    Phrase("imperfections", clone(), 231.31, 235.15 )
   ]),
   Section("church/sepulchre", "CB", [
-    Phrase("give-your", parse_violin_notes("""
-      3= 4 21W2 3v=LM give
-      e= = ==== 5^=== your
-      1= = ==== 3v=== a-
-      b= 7 ===4 4v=== ll
-      4= 4 ===2 7^=== to
-      o= 7 ===4 6^=== m-
-      12 9 1==1 3v6== e"""), 235.15, 238.65
-    ),
+    Phrase("give-your", clone(), 235.15, 238.65 ),
     Phrase("give-my^", parse_violin_notes("""
       u= 4 21W2 6^=LM i'll
       3= 0 1==3 3v=== give
@@ -371,22 +392,12 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       4= 7 2==4 7^=== to
       o2 4 ===2 3v5== you"""), 238.65, 242.60
     ),
-    Phrase("end", parse_violin_notes("""
-      3= 4 21W2 5v=LM you're
-      e= = ==== 6^=== m-
-      o= 2 ===1 5^=== y
-      1= = ==== 3v=== end
-      2= = ==== 5^=== and
-      3= = ==== 3v=== my
-      4= 0 3=C4 5^=== be-
-      o= 2 2=W1 4^=== gin-
-      12 9 3=C2 3v5== ning"""), 242.60, 246.55
-    )
-    #Phrase("lose", clone("end", "e-ve-n when i lose i'm win-ning ."), 246.55)
+    Phrase("end", clone(), 242.60, 246.55 ),
+    Phrase("lose", clone(), 246.55, 250.20 )
   ]),
   Section("altar", "O", [
-    #Phrase("i-give", clone("you-give", "cause i give you a-u-i-a-a-ll , of me ."), 250.20)
-    #Phrase("you-give", clone(), 257.77)
+    Phrase("i-give", clone(), 250.20, 257.77 ),
+    Phrase("you-give", clone(), 257.77, 265.26 )
   ]),
   Section("altar", "O", [
     Phrase("auaua", parse_violin_notes("""
@@ -402,20 +413,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       4= 4 ===2 7^=== of
       o3 = ==== 4v6== me"""), 265.26, 273.04
     ),
-    Phrase("you-give", parse_violin_notes("""
-      u= 4 21W2 6v=LM and
-      3= = ==== 7^=== you
-      e= 5 ===3 6^=== give
-      4= 7 ===4 4^=== me
-      o= 0 1==3 2v=== a-
-      u= Y ===2 6^=== u-
-      p= 0 ===3 5^=== i-
-      3= Y ===2 4^=== a-
-      o= 9 ===1 2v=== a-
-      u3 7 2==4 5v=== ll
-      4= 4 ===2 7^=== of
-      ou = ==== 4v6== you"""), 273.04, 279.42
-    ),
+    Phrase("you-give", clone(), 273.04, 279.42 ),
     Phrase("ouo", parse_violin_notes("""
       4= 2 21W1 6^=LM o-
       o= 4 ===2 5^=== u-
