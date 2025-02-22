@@ -101,39 +101,39 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
   ]),
   Section("show", "B", [
     Phrase("underwater", parse_violin_notes("""
-      o= 0 33W3 6=LM my
-      1= 7 2=G3 2=== h
+      o= 0 33G3 6=LM my
+      1= 7 2=W3 2=== h
       b= 9 ===4 4=== -ead's
       u= 7 ===3 6=== u
       3= 5 ===2 4=== -n
       e= = ==== 2=== de
       4= 4 ===1 4=== -r
       o= = ==== 6=== wa
-      u= 2 3=W4 2=== te
-      3= 0 ===3 4=== -r
-      e4 = ==== 62== but"""), 54.92, 58.71
+      u= 2 3=G4 2=== te
+      3= 0 ===3 4=== -r"""), 54.92, 58.71
     ),
     Phrase("breathin'", parse_violin_notes("""
-      o= Y 31C3 2=LM i'm
-      u= 9 ===2 6=== br
+      e4 = 33G3 62LM but
+      o= Y ===2 2=== i'm
+      u= 9 =1=2 6=== br
       3= 7 ===1 4=== -ea
       e= = ==== 2=== th
       4= 9 ===2 4=== -in
       ou = ==== 62== fine"""), 58.71, 62.57
     ),
     Phrase("crazy'", parse_violin_notes("""
-      o= 7 21W4 ==== y
-      w= 9 1==1 ==== -ou're
-      u= = ==== ==== cr
-      3= 7 2==4 ==== -a
-      e= = ==== ==== zy
-      4= 5 ===3 ==== and
-      o= 4 ===2 ==== i'm
+      o= 7 25P2 2=== y
+      w= 9 ===3 4=== -ou're
+      u= = ==== 6=== cr
+      3= 7 ===2 4=== -a
+      e= = ==== 2=== zy
+      4= 5 ===1 ==== and
+      o= 4 3=G4 ==== i'm
       u= = ==== ==== o
-      3= 2 ===1 ==== -ut
+      3= 2 ===3 ==== -ut
       e= = ==== ==== of
-      4= 0 3=C4 ==== my
-      o3 2 2=W1 ==== mind"""), 62.57, 68.21
+      4= 0 ===2 ==== my
+      o3 2 ===3 ==== mind"""), 62.57, 68.21
     )
   ]),
   Section("church/mirrors", "CA", [
