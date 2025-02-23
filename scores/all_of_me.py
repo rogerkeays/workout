@@ -10,8 +10,8 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       e= 4 ===2 4v=== would
       4= = ==== 6^=== i
       1= = ==== 2v=== do
-      a= = ==== 4v=== with
-      2= 2 ===1 6^=== o
+      a= = ==== 4^=== with
+      2= 2 ===1 2v=== o
       u= 4 ===2 4^=== -ut
       3= = ==== 2v=== your
       4= 0 3=C4 6^=== smart
@@ -25,8 +25,8 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       a= 2 ===1 4v=== a
       2= 4 ===2 6^=== you
       3= = ==== 2v=== kick
-      e= 2 ===1 4v=== -in
-      4= 0 3=C4 6^=== me
+      e= 2 ===1 4^=== -in
+      4= 0 3=C4 2v=== me
       o= = ==== 4^=== a
       12 9 ===2 2v6== -out"""), 27.31, 31.12
     ),
@@ -119,19 +119,19 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       4= 9 ===2 4v=== -in
       ou = ==== 6^2== fine"""), 58.71, 62.57
     ),
-    Phrase("crazy'", parse_violin_notes("""
-      o= 7 25P2 2==== y
-      w= 9 ===3 4==== -ou're
-      u= = ==== 6==== cr
-      3= 7 ===2 4==== -a
-      e= = ==== 2==== zy
-      4= 5 ===1 ===== and
-      o= 4 3=G4 ===== i'm
-      u= = ==== ===== o
-      3= 2 ===3 ===== -ut
-      e= = ==== ===== of
-      4= 0 ===2 ===== my
-      o3 2 ===3 ===== mind"""), 62.57, 68.21
+    Phrase("crazy", parse_violin_notes("""
+      o= 7 25P2 2v=== y
+      w= 9 ===3 4v=== -ou're
+      u= = ==== 6^=== cr
+      3= 7 ===2 4^=== -a
+      e= = ==== 2v=== zy
+      4= 5 ===1 6^=== and
+      o= 4 3=G4 2v=== i'm
+      u= = ==== 6^=== o
+      3= 2 ===3 4^=== -ut
+      e= = ==== 2v=== of
+      4= 0 ===2 4^=== my
+      o3 2 ===3 2v6== mind"""), 62.57, 68.21
     )
   ]),
   Section("church/mirrors", "CA", [
@@ -148,11 +148,11 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       3= 4 21W3 4^=LM loves
       1= 2 ===2 2v=== all
       4= 0 3=C4 6^=== of
-      o= 2 2=W3 4v=== y-
-      12 4 ==== 5v6== ou"""), 71.10, 74.68
+      o= 2 2=W3 4^=== y-
+      12 4 ==== 2v6== ou"""), 71.10, 74.68
     ),
     Phrase("curves", parse_violin_notes("""
-      3= 4 21W2 5v=LM love
+      3= 4 21W2 2v=LM love
       e= = ==== 6^=== you-
       o= 2 ===1 5^=== r
       1= = ==== 3v=== curves
