@@ -64,7 +64,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       w2 = ==== 2v6== mind?"""), 38.95, 42.67
     ),
     Phrase("ride", parse_violin_notes("""
-      3= 4 21W2 2v=LM i'm
+      3= 4 21W2 6^=LM i'm
       e= = ==== 4v=== on
       4= = ==== 6^=== your
       1= 7 ===4 2v=== ma
@@ -204,8 +204,8 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
     ),
     Phrase("you-give", clone("i-give", "and you give me a-u-i-a-a-ll of you"), 105.29, 111.83 ),
     Phrase("oo", parse_violin_notes("""
-      4= 4 21W2 ===== oh-
-      o3 2 ===1 ===== -o"""), 111.83, 115.05
+      4= 4 21W2 6v=== oh-
+      o3 2 ===1 2^6== -o"""), 111.83, 115.05
     )
   ]),
   Section("bedroom", "V3", [
