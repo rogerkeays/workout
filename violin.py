@@ -21,8 +21,8 @@ SHAPES = "PGWCADKH"
 
 @dataclass
 class ViolinNote(Note):
-  string: str
   base: int
+  string: str
   shape: str
   finger: int
   start_bow: str
@@ -30,19 +30,19 @@ class ViolinNote(Note):
   stop_bow: str
 
   def to_string(n):
-    return f"{n.start_beat}{n.stop_beat} {n.degree} {n.string}{n.base}{n.shape}{n.finger} {n.start_bow}{n.bow_direction}{n.stop_bow}{n.attack}{n.dynamics} {n.label}"
+    return f"{n.start_beat}{n.stop_beat} {n.degree} {n.base}{n.string}{n.shape}{n.finger} {n.start_bow}{n.bow_direction}{n.stop_bow}{n.attack}{n.dynamics} {n.label}"
 
 def parse_violin_note(text: str) -> Note:
   """
-    field order: (start_beat stop_beat) degree (string base shape finger) (start_bow bow_direction stop_bow attack dynamic) label
-    example: "12 0 20W0 3v5LM twinkle"
+    field order: (start_beat stop_beat) degree (base string shape finger) (start_bow bow_direction stop_bow attack dynamic) label
+    example: "12 0 02W0 3v5LM twin-"
   """
   return ViolinNote(
     start_beat = text[0],
     stop_beat = text[1],
     degree = text[3],
-    string = text[5],
-    base = text[6],
+    base = text[5],
+    string = text[6],
     shape = text[7],
     finger = text[8],
     start_bow = text[10],
