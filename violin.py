@@ -86,11 +86,16 @@ def process_section(piece, section):
   for phrase in reversed(section.phrases): process_phrase(piece, section, phrase)
   make_metronome(piece.tempo)
 
+seen_phrases = set()
 def process_phrase(piece, section, phrase):
+
+  # check for duplicates
+  if phrase.label in seen_phrases: return
+  seen_phrases.add(phrase.label)
 
   # process notes in reverse order
   notes = phrase.notes
-  make_chunk(MP3_DIR + piece.mp3, phrase.start_secs, phrase.stop_secs)
+  if len(notes) > 0: make_chunk(MP3_DIR + piece.mp3, phrase.start_secs, phrase.stop_secs)
   for i in reversed(range(len(notes))):
     make_bracket(piece.tempo, notes[i:])
     process_note(piece.tempo, notes[i])
