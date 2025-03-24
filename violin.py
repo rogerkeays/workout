@@ -99,11 +99,11 @@ def process_phrase(piece, section, phrase):
   # phrase drills
   tempo = piece.tempo
   make_phrase_drill("rhythm_clapping", tempo, notes)
-  make_phrase_drill("bowing_vis", tempo, notes)
-  make_phrase_drill("open_strings", tempo, notes)
-  make_phrase_drill("fingering_vis", tempo, notes)
-  make_phrase_drill("phrase_vis", tempo, notes)
-  make_phrase_drill("phrase_clicks", tempo, notes)
+  #make_phrase_drill("bowing_vis", tempo, notes)
+  #make_phrase_drill("open_strings", tempo, notes)
+  #make_phrase_drill("fingering_vis", tempo, notes)
+  #make_phrase_drill("phrase_vis", tempo, notes)
+  #make_phrase_drill("phrase_clicks", tempo, notes)
 
 def process_transition(tempo, note, next):
   rhythm = note.start_beat + note.stop_beat + next.start_beat + next.stop_beat
