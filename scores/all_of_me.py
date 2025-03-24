@@ -144,7 +144,7 @@ curves = Phrase("curves", parse_violin_notes("""
       4= 0 =3C4 5^=== your
       o= 2 =2W1 4^=== ed-
       12 9 =3C2 3v5== ges"""), 74.86, 78.86)
-imperfections = Phrase("imperfections", clone("curves", "all you-r per-fect im-per-fec-tions"), 78.86, 82.63)
+imperfections = clone(curves, "all you-r per-fect im-per-fec-tions", 78.86, 82.63)
 
 give_your = Phrase("give-your", parse_violin_notes("""
       3= 4 12W2 3v=LM give
@@ -163,8 +163,8 @@ give_my = Phrase("give-my", parse_violin_notes("""
       4= 0 =3C4 7^=== to
       o= 2 =2W1 6^=== yo-
       12 4 ===2 3v5== u"""), 86.35, 90.10)
-end = Phrase("end", clone("curves", "you're m-y end and my be-gin-ing"), 90.10, 94.17)
-lose = Phrase("lose", clone("curves", "e-ve-n when i lose i'm win-ning"), 94.17, 97.70)
+end = clone(curves, "you're m-y end and my be-gin-ing", 90.10, 94.17)
+lose = clone(curves, "e-ve-n when i lose i'm win-ning", 94.17, 97.70)
 
 i_give = Phrase("i-give", parse_violin_notes("""
       u= 4 12W2 6v=LM cause
@@ -179,7 +179,7 @@ i_give = Phrase("i-give", parse_violin_notes("""
       u3 7 =2=4 5v=== ll
       4= 4 ===2 7^=== of
       ou = ==== 4v6== me"""), 97.70, 105.29)
-you_give = Phrase("you-give", clone("i-give", "and you give me a-u-i-a-a-ll of you"), 105.29, 111.83)
+you_give = clone(i_give, "and you give me a-u-i-a-a-ll of you", 105.29, 111.83)
 oo = Phrase("oo", parse_violin_notes("""
       4= 4 12W2 6v=== oh-
       o3 2 ===1 2^6== -o"""), 111.83, 115.05)

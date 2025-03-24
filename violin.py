@@ -297,3 +297,21 @@ def fret(shape, base, finger):
 def note_at(string, fret):
     return decimal_to_note(note_to_decimal("5Y") - (int(string) * 7) + int(fret))
 
+# clone a phrase, but with different lyrics and different start and stops
+def clone(phrase, lyrics, start, stop):
+    split_lyrics = re.split("[- ]", lyrics)
+    return Phrase(phrase.label, list(map(lambda z: ViolinNote(
+        start_beat = z[0].start_beat,
+        stop_beat = z[0].stop_beat,
+        degree = z[0].degree,
+        base = z[0].base,
+        string = z[0].string,
+        shape = z[0].shape,
+        finger = z[0].finger,
+        start_bow = z[0].start_bow,
+        bow_direction = z[0].bow_direction,
+        stop_bow = z[0].stop_bow,
+        attack = z[0].attack,
+        dynamics = z[0].dynamics,
+        label = z[1]), zip(phrase.notes, split_lyrics))), start, stop)
+
