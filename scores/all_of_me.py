@@ -88,19 +88,19 @@ alright = Phrase("alright", parse_violin_notes("""
       1e 5 ===3 2v6== -right"""), 51.03, 54.92)
 
 underwater = Phrase("underwater", parse_violin_notes("""
-      o= 0 33G3 6^=LM my
-      1= 7 =2W3 2v=== h
+      o= 0 33W3 6^=LM my
+      1= 7 =2G3 2v=== h
       b= 9 ===4 4v=== -ead's
       u= 7 ===3 6^=== u
       3= 5 ===2 4^=== -n
       e= = ==== 2v=== de
       4= 4 ===1 4v=== -r
       o= = ==== 6^=== wa
-      u= 2 =3G4 2v=== te
+      u= 2 =3W4 2v=== te
       3= 0 ===3 4v=== -r
       e4 = ===3 6^2== but"""), 54.92, 58.71)
 breathin = Phrase("breathin'", parse_violin_notes("""
-      o= Y 33G2 2v=LM i'm
+      o= Y 33W2 2v=LM i'm
       u= 9 1==2 6^=== br
       3= 7 ===1 4^=== -ea
       e= = ==== 2v=== th
@@ -254,7 +254,7 @@ distraction = Phrase("distraction", parse_violin_notes("""
       3= 4 ===2 4^=== rhy-
       e= 2 ===1 2v=== thm
       4= 4 ===2 4^=== n
-      o2 9 =3C4 2v6== blues"""), 133.97, 137.69)
+      o2 9 =3C2 2v6== blues"""), 133.97, 137.69)
 singing = Phrase("singing", parse_violin_notes("""
       u= 4 12W2 6^=== i
       3= = ==== 4v=== can't
@@ -309,7 +309,7 @@ risk = Phrase("risk", parse_violin_notes("""
       1= 9 11W1 2v=LM ris-
       u= 7 =2=4 6^=== king
       3= 5 ===3 5^=== it
-      o= Y =1=2 2v=== a-
+      o= 5 =1=2 2v=== a-
       1= 0 ===3 3v=== ll
       u= Y ===2 6^=== th-
       3= 9 ===1 5^=== ough
