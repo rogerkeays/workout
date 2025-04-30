@@ -107,13 +107,13 @@ breathin = Phrase("breathin'", parse_violin_notes("""
       4= 9 ===2 4v=== -in
       ou = ==== 6^2== fine"""), 58.71, 62.57)
 crazy = Phrase("crazy", parse_violin_notes("""
-      o= 7 52P2 2v=== y
+      o= 7 42P2 2v=== y
       w= 9 ===3 4v=== -ou're
       u= = ==== 6^=== cr
       3= 7 ===2 4^=== -a
       e= = ==== 2v=== zy
       4= 5 ===1 6^=== and
-      o= 4 =3G4 2v=== i'm
+      o= 4 53G4 2v=== i'm
       u= = ==== 6^=== o
       3= 2 ===3 4^=== -ut
       e= = ==== 2v=== of
