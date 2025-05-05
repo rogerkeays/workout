@@ -207,10 +207,10 @@ crying = Phrase("crying", parse_violin_notes("""
       2= 5 ===3 6^=== -ing
       u= 4 ===2 4^=== you're
       3= = ==== 2v=== beau-
-      e= 2 ===1 4^=== ti-
-      4= 0 =1C4 6v=== -ful
-      o= = ==== 2^=== t-
-      12 9 ===2 2v6== -oo"""), 118.98, 122.55)
+      e= 2 ===1 4v=== ti-
+      4= 0 =1C4 6^=== -ful
+      o= = ==== 4v=== t-
+      12 9 ===2 6^4== -oo"""), 118.98, 122.55)
 beating = Phrase("beating", parse_violin_notes("""
       u= 0 13C4 6^=== the
       3= 2 =2W1 2v=== w-
