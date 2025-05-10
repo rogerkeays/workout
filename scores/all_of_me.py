@@ -64,10 +64,10 @@ ride = Phrase("ride", parse_violin_notes("""
       a= 5 ===3 4v=== gi
       2= 4 ===2 6^=== cal
       3= = ==== 2v=== mys
-      e= 2 ===1 5^=== te
-      4= 0 =3C4 3v=== ry
-      o= = ==== 5^=== r
-      1u 9 ===2 3v7== -ide"""), 42.67, 46.57)
+      e= 2 ===1 4v=== te
+      4= 0 =3C4 6^=== ry
+      o= = ==== 4v=== r
+      1u 9 ===2 6^2== -ide"""), 42.67, 46.57)
 dizzy = Phrase("dizzy", parse_violin_notes("""
       3= 4 12W2 2v=== and
       e= = ==== 6^=== i'm
