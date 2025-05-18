@@ -6,7 +6,7 @@ from dataclasses import dataclass
 MAKE_MP3S = True
 TARGET_DIR = "target/"
 DRILLS_DIR = "02.drills/"
-BRACKETS_DIR = "03.brackets/"
+PHRASES_DIR = "03.phrases/"
 NUM_PADDING = 4
 DRILL_LENGTH_MINS = 5
 METRONOME_INSTRUMENT = 116 - 1 # woodblock
@@ -19,9 +19,9 @@ CHUNK_DELAY_SECS = 5
 os.mkdir(TARGET_DIR)
 os.chdir(TARGET_DIR)
 os.mkdir(DRILLS_DIR)
-os.mkdir(BRACKETS_DIR)
+os.mkdir(PHRASES_DIR)
 drills = set()
-brackets = 0
+phrases = 0
 
 @dataclass
 class Note:
@@ -70,12 +70,12 @@ def mcd(dirname):
   os.makedirs(dirname)
   os.chdir(dirname)
 
-def make_bracket(label, tempo, notes):
+def make_phrase(label, tempo, notes):
   if len(notes) == 0: return
-  global brackets
-  with open(BRACKETS_DIR + bracketnum() + "B." + label + ".txt", "w") as f:
+  global phrases
+  with open(PHRASES_DIR + phrasenum() + "B." + label + ".txt", "w") as f:
     for note in notes: f.write(note.to_string() + "\n")
-  brackets += 1
+  phrases += 1
 
 def make_phrase_drill(name, tempo, notes, reps=5):
   if len(notes) == 0: return
@@ -136,7 +136,7 @@ def shift_rhythm(rhythm):
 
 # format the current drill number as a zero-padded string
 def drillnum(): return str(len(drills)).zfill(NUM_PADDING)
-def bracketnum(): return str(brackets).zfill(NUM_PADDING)
+def phrasenum(): return str(phrases).zfill(NUM_PADDING)
 
 #
 # make a metronome with the given tempo which goes for DRILL_LENGTH_MINS
@@ -192,7 +192,7 @@ def make_mp3(score, filename, transpose=0, tempo_percent=100):
 
 def make_whole(mp3, speed=1, silence=0):
   if MAKE_MP3S:
-    outfile = BRACKETS_DIR + bracketnum() + ".mp3"
+    outfile = PHRASES_DIR + phrasenum() + ".mp3"
     os.system(f"""
     ffmpeg -nostdin -loglevel error -i {mp3} -ac 1 -ar 48000 -q 4 \
            -af atempo={speed},adelay={silence}s:all=true "{outfile}"
@@ -200,7 +200,7 @@ def make_whole(mp3, speed=1, silence=0):
 
 def make_chunk(mp3, start_secs, stop_secs, speed=1.0):
   if MAKE_MP3S and stop_secs > 0:
-    cut_chunk(mp3, start_secs, stop_secs, speed, BRACKETS_DIR + bracketnum() + "A.mp3");
+    cut_chunk(mp3, start_secs, stop_secs, speed, PHRASES_DIR + phrasenum() + "A.mp3");
 
 def make_mixed_chunk(mp3, start_secs, stop_secs):
   if MAKE_MP3S and stop_secs > 0:
@@ -221,7 +221,7 @@ def make_mixed_chunk(mp3, start_secs, stop_secs):
         f.write("file {tmpdir}/alarm.mp3\n".format(tmpdir=tmpdir))
 
       # concatenate the chunks
-      outfile = BRACKETS_DIR + bracketnum() + ".mp3"
+      outfile = PHRASES_DIR + phrasenum() + ".mp3"
       os.system(f"""
       ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
              -codec copy "{outfile}" """)
@@ -243,7 +243,7 @@ def make_repeating_chunk(mp3, start_secs, stop_secs, speed=1.0):
         f.write(f"file {tmpdir}/alarm.mp3\n")
 
       # concatenate the chunks
-      outfile = BRACKETS_DIR + bracketnum() + ".mp3"
+      outfile = PHRASES_DIR + phrasenum() + ".mp3"
       os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
                            -codec copy "{outfile}" """)
 
