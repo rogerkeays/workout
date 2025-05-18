@@ -96,7 +96,7 @@ def process_phrase(piece, section, phrase):
 
   # process notes in reverse order
   notes = phrase.notes
-  make_chunk(MP3_DIR + piece.mp3, phrase.start_secs, phrase.stop_secs)
+  make_chunk(MP3_DIR + piece.mp3, phrase.label, phrase.start_secs, phrase.stop_secs)
   make_phrase(phrase.label, piece.tempo, notes)
   for i in reversed(range(len(notes))):
     process_note(piece.tempo, notes[i])

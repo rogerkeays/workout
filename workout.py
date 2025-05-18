@@ -198,9 +198,9 @@ def make_whole(mp3, speed=1, silence=0):
            -af atempo={speed},adelay={silence}s:all=true "{outfile}"
            """)
 
-def make_chunk(mp3, start_secs, stop_secs, speed=1.0):
+def make_chunk(mp3, label, start_secs, stop_secs, speed=1.0):
   if MAKE_MP3S and stop_secs > 0:
-    cut_chunk(mp3, start_secs, stop_secs, speed, PHRASES_DIR + phrasenum() + "A.mp3");
+    cut_chunk(mp3, start_secs, stop_secs, speed, PHRASES_DIR + "M" + phrasenum() + "." + label + ".mp3");
 
 def make_mixed_chunk(mp3, start_secs, stop_secs):
   if MAKE_MP3S and stop_secs > 0:
