@@ -70,10 +70,10 @@ def mcd(dirname):
   os.makedirs(dirname)
   os.chdir(dirname)
 
-def make_bracket(tempo, notes):
+def make_bracket(label, tempo, notes):
   if len(notes) == 0: return
   global brackets
-  with open(BRACKETS_DIR + bracketnum() + "B." + notes[0].label + ".txt", "w") as f:
+  with open(BRACKETS_DIR + bracketnum() + "B." + label + ".txt", "w") as f:
     for note in notes: f.write(note.to_string() + "\n")
   brackets += 1
 
