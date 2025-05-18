@@ -346,18 +346,18 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
   Section("art-desk", "V1", [ mouth, drawin, spinnin, pin ]),
   Section("disneyland", "V2", [ mind, ride, dizzy, alright ]),
   Section("show", "B", [ underwater, breathin, crazy ]),
-  Section("church/mirrors", "CA", [ all_me, all_you, curves, imperfections ]),
-  Section("church/sepulchre", "CB", [ give_your, give_my, end, lose ]),
+  Section("church.mirrors", "CA", [ all_me, all_you, curves, imperfections ]),
+  Section("church.sepulchre", "CB", [ give_your, give_my, end, lose ]),
   Section("altar", "O", [ i_give, you_give, oo ]),
   Section("bedroom", "V3", [ times, crying, beating, mood ]),
   Section("garage", "V4", [ downfall, distraction, singing, head ]),
   Section("show", "B", [ underwater, breathin, crazy ]), # 146.37, 150.29, 153.91
-  Section("church/mirrors", "CA", [ all_me, all_you, curves, imperfections ]), # 159.74, 162.63, 166.38, 170.37
-  Section("church/sepulchre", "CB", [ give_your, give_my, end, lose ]), # 175.05, 177.75, 181.63, 185.64
+  Section("church.mirrors", "CA", [ all_me, all_you, curves, imperfections ]), # 159.74, 162.63, 166.38, 170.37
+  Section("church.sepulchre", "CB", [ give_your, give_my, end, lose ]), # 175.05, 177.75, 181.63, 185.64
   Section("altar", "O", [ i_give, you_give ]), # 189.20, 196.79
   Section("casino", "M", [ give_me, cards, risk ]),
-  Section("church/mirrors", "CA", [ all_me, all_you, curves, imperfections ]), # 220.54, 223.52, 227.34, 231.31
-  Section("church/sepulchre", "CB", [ give_your, give_myx, end, lose ]), # 235.15, 238.65, 242.60, 246.55
+  Section("church.mirrors", "CA", [ all_me, all_you, curves, imperfections ]), # 220.54, 223.52, 227.34, 231.31
+  Section("church.sepulchre", "CB", [ give_your, give_myx, end, lose ]), # 235.15, 238.65, 242.60, 246.55
   Section("altar", "O", [ i_give, you_give ]), # 250.20, 257.77
   Section("altar", "O", [ i_givex, you_give, ouo ]) # 265.26, 273.04, >279.42
 ], "63.all-of-me.mp3"))
