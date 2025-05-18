@@ -7,7 +7,7 @@ MAKE_MP3S = True
 TARGET_DIR = "target/"
 DRILLS_DIR = "02.drills/"
 PHRASES_DIR = "03.phrases/"
-NUM_PADDING = 4
+NUM_PADDING = 3
 DRILL_LENGTH_MINS = 5
 METRONOME_INSTRUMENT = 116 - 1 # woodblock
 ALARM_INSTRUMENT = 128 - 1     # gunshot
@@ -73,7 +73,7 @@ def mcd(dirname):
 def make_phrase(label, tempo, notes):
   if len(notes) == 0: return
   global phrases
-  with open(PHRASES_DIR + phrasenum() + "B." + label + ".txt", "w") as f:
+  with open(PHRASES_DIR + "00" + phrasenum() + "." + label + ".txt", "w") as f:
     for note in notes: f.write(note.to_string() + "\n")
   phrases += 1
 
@@ -200,7 +200,7 @@ def make_whole(mp3, speed=1, silence=0):
 
 def make_chunk(mp3, label, start_secs, stop_secs, speed=1.0):
   if MAKE_MP3S and stop_secs > 0:
-    cut_chunk(mp3, start_secs, stop_secs, speed, PHRASES_DIR + "M" + phrasenum() + "." + label + ".mp3");
+    cut_chunk(mp3, start_secs, stop_secs, speed, PHRASES_DIR + "99" + phrasenum() + "." + label + ".mp3");
 
 def make_mixed_chunk(mp3, start_secs, stop_secs):
   if MAKE_MP3S and stop_secs > 0:
