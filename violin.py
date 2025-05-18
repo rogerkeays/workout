@@ -82,7 +82,18 @@ def process_piece(piece):
   # process sections
   for section in reversed(piece.sections): process_section(piece, section)
 
+seen_sections = set()
 def process_section(piece, section):
+
+  # create section practise cards
+  if section.label not in seen_sections:
+    notes = [note for phrase in section.phrases for note in phrase.notes]
+    mp3 = SECTIONS_DIR + "99" + sectionnum() + "." + section.label + ".mp3"
+    cut_chunk(MP3_DIR + piece.mp3, section.phrases[0].start_secs, section.phrases[-1].stop_secs, 1.0, mp3);
+    make_section(section.label, piece.tempo, notes)
+    seen_sections.add(section.label)
+
+  # process phrases in reverse
   for phrase in reversed(section.phrases): process_phrase(piece, section, phrase)
   make_metronome(piece.tempo)
 
@@ -94,10 +105,13 @@ def process_phrase(piece, section, phrase):
   if phrase.label in seen_phrases: return
   seen_phrases.add(phrase.label)
 
-  # process notes in reverse order
+  # create phrase practise cards
   notes = phrase.notes
-  make_chunk(MP3_DIR + piece.mp3, phrase.label, phrase.start_secs, phrase.stop_secs)
+  mp3 = PHRASES_DIR + "99" + phrasenum() + "." + phrase.label + ".mp3"
+  cut_chunk(MP3_DIR + piece.mp3, phrase.start_secs, phrase.stop_secs, 1.0, mp3);
   make_phrase(phrase.label, piece.tempo, notes)
+
+  # process notes in reverse order
   for i in reversed(range(len(notes))):
     process_note(piece.tempo, notes[i])
     if i < len(notes) - 1: process_transition(piece.tempo, notes[i], notes[i+1])

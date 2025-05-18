@@ -7,6 +7,7 @@ MAKE_MP3S = True
 TARGET_DIR = "target/"
 DRILLS_DIR = "02.drills/"
 PHRASES_DIR = "03.phrases/"
+SECTIONS_DIR = "04.sections/"
 NUM_PADDING = 3
 DRILL_LENGTH_MINS = 5
 METRONOME_INSTRUMENT = 116 - 1 # woodblock
@@ -20,8 +21,10 @@ os.mkdir(TARGET_DIR)
 os.chdir(TARGET_DIR)
 os.mkdir(DRILLS_DIR)
 os.mkdir(PHRASES_DIR)
-drills = set()
+os.mkdir(SECTIONS_DIR)
+sections = 0
 phrases = 0
+drills = set()
 
 @dataclass
 class Note:
@@ -41,8 +44,8 @@ class Phrase:
 
 @dataclass
 class Section:
-  function: str
   label: str
+  function: str
   phrases: list[Phrase]
 
 @dataclass
@@ -69,6 +72,13 @@ def parse_note(text: str):
 def mcd(dirname):
   os.makedirs(dirname)
   os.chdir(dirname)
+
+def make_section(label, tempo, notes):
+  if len(notes) == 0: return
+  global sections
+  with open(SECTIONS_DIR + "00" + sectionnum() + "." + label + ".txt", "w") as f:
+    for note in notes: f.write(note.to_string() + "\n")
+  sections += 1
 
 def make_phrase(label, tempo, notes):
   if len(notes) == 0: return
@@ -137,6 +147,7 @@ def shift_rhythm(rhythm):
 # format the current drill number as a zero-padded string
 def drillnum(): return str(len(drills)).zfill(NUM_PADDING)
 def phrasenum(): return str(phrases).zfill(NUM_PADDING)
+def sectionnum(): return str(sections).zfill(NUM_PADDING)
 
 #
 # make a metronome with the given tempo which goes for DRILL_LENGTH_MINS
