@@ -313,9 +313,9 @@ def note_at(string, fret):
     return decimal_to_note(note_to_decimal("5Y") - (int(string) * 7) + int(fret))
 
 # clone a phrase, but with different lyrics and different start and stops
-def clone(phrase, lyrics, start, stop):
+def clone(phrase, label, lyrics, start, stop):
     split_lyrics = re.split("[- ]", lyrics)
-    return Phrase(phrase.label, list(map(lambda z: ViolinNote(
+    return Phrase(label, list(map(lambda z: ViolinNote(
         start_beat = z[0].start_beat,
         stop_beat = z[0].stop_beat,
         degree = z[0].degree,
