@@ -143,7 +143,7 @@ curves = Phrase("curves", parse_violin_notes("""
       3= = ==== v3=== all
       4= 0 3=C4 ^5=== your
       o= 2 2=W1 ^4=== ed-
-      12 9 3=C2 v35== ges"""), 74.86, 78.86)
+      12 0 3=C4 v35== ges"""), 74.86, 78.86)
 imperfections = clone(curves, "all you-r per-fect im-per-fec-tions", 78.86, 82.63)
 
 give_your = Phrase("give-your", parse_violin_notes("""
