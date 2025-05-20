@@ -28,3 +28,41 @@ process_piece(Piece("the-crawl", 4, 90, "37", [
   ])
 ], "01.the-crawl.mp3"))
 
+def baby_steps(meter=4, tempo=90, tonic=37):
+  piece(2, "baby-steps", locate("02.baby-steps.mp3"), tempo,
+    phrases = [("left foot step", 10.30),
+               ("right foot step", 13.05),
+               ("looks for mu-mmy", 15.67),
+               ("fall-ing down", 18.30, 21.75)],
+
+    index   = "|lfs |rfs |lfmm |fid",
+    rhythm  = "|123 |123 |1234 |123",
+    strings = "|4=3 |2=3 |2=1= |234",
+    shapes  = "|N== |=== |==== |==="
+  )
+
+def the_car_trip(meter=4, tempo=110, tonic=37):
+  piece(3, "the-car-trip", locate("03.the-car-trip.mp3"), tempo,
+    phrases = [("li-ttle ba-by throw-ing up", 9.72),
+               ("mu-mmy wants to throw up too", 12.04),
+               ("pull-ing o-ver", 14.22),
+               ("clean it up", 16.52, 19.46)],
+
+    index   = "|ltbb|tiu |mmwt|tut |plov|ciu",
+    rhythm  = "|1234|123 |1234|123 |1234|123",
+    strings = "|1=2=|3=2 |3=4=|3=2 |1234|3=2",
+    shapes  = "|N===|=== |====|=== |====|==="
+  )
+
+def aeroplane_games(meter=4, tempo=110, tonic=37):
+  piece(4, "aeroplane-games", locate("04.aeroplane-games.mp3"), tempo,
+    phrases = [("fly-ing up-wards", 9.59),
+               ("fly-ing down-wards", 10.82, 12.06),
+               ("land-ing at the term-in-al", 14.24, 17.01)],
+
+    index   = "|fidw fiup |ldattmn",
+    rhythm  = "|1a2u 3e4o |1a2u3e4",
+    strings = "|4321 1234 |3=2=1=2",
+    shapes  = "|N=== ==== |======="
+  )
+
