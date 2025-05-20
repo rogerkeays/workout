@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $(dirname $0)/drills.lib
+source $(dirname $0)/workout.sh
 
 INSTRUMENT=1
 DIR=intervals

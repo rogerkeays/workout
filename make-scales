@@ -2,7 +2,7 @@
 
 INSTRUMENT=57
 
-source drills.lib
+source workout.sh
 
 generate_scales scales/major-1 "
   X:0

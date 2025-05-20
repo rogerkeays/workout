@@ -2,7 +2,7 @@
 
 INSTRUMENT=116 # woodblock
 
-source drills.lib
+source workout.sh
 
 PAT=cGEC
 generate_tempos metronome/4x64 "

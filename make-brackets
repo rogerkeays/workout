@@ -6,10 +6,10 @@ usage: $(basename $0) name
 name.mp3 is the source file in the current directory
 name.txt contains a list of timestamps where the audio should be split
 
-the first line in the audio is the start of the first chunk
+the first line in the audio is the start of the first bracket
 timestamps are in seconds, like the labels files exported from audacity
-practise files include the previous chunk, so include an intro chunk
-the last line of the timestamp file is the end of the last chunk
+practise files include the previous bracket, so include an intro bracket
+the last line of the timestamp file is the end of the last bracket
 start a new voice with a numeric-only label
 "
 [ ! $1 ] && echo "$USAGE" && exit 1
@@ -18,7 +18,7 @@ start a new voice with a numeric-only label
 calc() { echo "$*" | bc -l ; }
 
 #
-# cut a single chunk at the given tempo from the input file
+# cut a single bracket at the given tempo from the input file
 #
 # current timestamp
 # next timestamp
@@ -27,7 +27,7 @@ calc() { echo "$*" | bc -l ; }
 #
 # note: -nostdin must be specified or ffmpeg consumes bytes from the data source (!!)
 #
-cut_chunk() {
+cut_bracket() {
   ffmpeg -nostdin -loglevel error \
          -ss $(calc $1-$padding) -to $(calc $2+$padding) \
          -i $name.$format -f $format -ac 1 -ar 48000 -q 4 \
@@ -60,16 +60,16 @@ while read next x nextlabel; do
     count=1
   elif expr match "$label" "^[^X]" > /dev/null; then
 
-    # cut practise chunks at different tempos
-    cut_chunk $current $next 0.50 "$tmp/050.$format"
-    cut_chunk $current $next 1.00 "$tmp/100.$format"
+    # cut practise brackets at different tempos
+    cut_bracket $current $next 0.50 "$tmp/050.$format"
+    cut_bracket $current $next 1.00 "$tmp/100.$format"
 
-    # concatenate the practise chunks
+    # concatenate the practise brackets
     output="$outputdir/00.$voice$(printf %02d $count).$label.$format"
     ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "$tmp/list" -codec copy "$output"
 
     count=$((count + 1))
-    echo "chunked $name: $label"
+    echo "cut $name: $label"
     rm "$tmp"/???.$format
   fi
   prev=$current; current=$next; label=$nextlabel;
