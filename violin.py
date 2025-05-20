@@ -11,7 +11,7 @@
 # dynamics    V        eVen
 #
 
-import math, re
+import math, re, shutil
 from workout import *
 from dataclasses import dataclass
 
@@ -71,7 +71,6 @@ def calculate_note_defaults(note, next):
   if next.finger == "=": next.finger = note.finger
 
 def process_piece(piece):
-  make_metronome(1)
 
   # calculate defaults
   for section in piece.sections:
@@ -79,36 +78,34 @@ def process_piece(piece):
       for i, note in enumerate(phrase.notes):
         if i < len(phrase.notes) - 1: calculate_note_defaults(note, phrase.notes[i + 1])
 
+  mcd(piece.name)
+  shutil.copy(MP3_DIR + piece.mp3, ".")
+
   # process sections
   for section in reversed(piece.sections): process_section(piece, section)
+  os.chdir("..")
+  make_metronome(piece.tempo)
+  make_metronome(1)
 
-seen_sections = set()
 def process_section(piece, section):
 
-  # create section practise cards
-  if section.label not in seen_sections:
-    notes = [note for phrase in section.phrases for note in phrase.notes]
-    mp3 = SECTIONS_DIR + "00" + sectionnum() + "." + section.label + ".mp3"
-    cut_chunk(MP3_DIR + piece.mp3, section.phrases[0].start_secs, section.phrases[-1].stop_secs, 1.0, mp3);
-    make_section(section.label, piece.tempo, notes)
-    seen_sections.add(section.label)
+  # create section practise mp3s
+  mcd("00" + sectionnum() + "." + section.label)
+  cut_chunk(MP3_DIR + piece.mp3, section.phrases[0].start_secs, section.phrases[-1].stop_secs, 1.0, section.label + ".mp3");
+  notes = [note for phrase in section.phrases for note in phrase.notes]
+  make_section(section.label, piece.tempo, notes)
 
   # process phrases in reverse
   for phrase in reversed(section.phrases): process_phrase(piece, section, phrase)
-  make_metronome(piece.tempo)
+  os.chdir("..")
 
-seen_phrases = set()
 def process_phrase(piece, section, phrase):
   if len(phrase.notes) == 0: return
 
-  # check for duplicates
-  if phrase.label in seen_phrases: return
-  seen_phrases.add(phrase.label)
-
   # create phrase practise cards
+  mcd("00" + phrasenum() + "." + phrase.label)
+  cut_chunk(MP3_DIR + piece.mp3, phrase.start_secs, phrase.stop_secs, 1.0, phrase.label + ".mp3");
   notes = phrase.notes
-  mp3 = PHRASES_DIR + "00" + phrasenum() + "." + phrase.label + ".mp3"
-  cut_chunk(MP3_DIR + piece.mp3, phrase.start_secs, phrase.stop_secs, 1.0, mp3);
   make_phrase(phrase.label, piece.tempo, notes)
 
   # process notes in reverse order
@@ -124,6 +121,7 @@ def process_phrase(piece, section, phrase):
   #make_phrase_drill("fingering_vis", tempo, notes)
   #make_phrase_drill("phrase_vis", tempo, notes)
   #make_phrase_drill("phrase_clicks", tempo, notes)
+  os.chdir("..")
 
 def process_transition(tempo, note, next):
   rhythm = note.start_beat + note.stop_beat + next.start_beat + next.stop_beat

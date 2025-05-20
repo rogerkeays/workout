@@ -20,8 +20,6 @@ CHUNK_DELAY_SECS = 5
 os.mkdir(TARGET_DIR)
 os.chdir(TARGET_DIR)
 os.mkdir(DRILLS_DIR)
-os.mkdir(PHRASES_DIR)
-os.mkdir(SECTIONS_DIR)
 sections = 0
 phrases = 0
 drills = set()
@@ -76,14 +74,14 @@ def mcd(dirname):
 def make_section(label, tempo, notes):
   if len(notes) == 0: return
   global sections
-  with open(SECTIONS_DIR + "00" + sectionnum() + "." + label + ".txt", "w") as f:
+  with open(label + ".txt", "w") as f:
     for note in notes: f.write(note.to_string() + "\n")
   sections += 1
 
 def make_phrase(label, tempo, notes):
   if len(notes) == 0: return
   global phrases
-  with open(PHRASES_DIR + "00" + phrasenum() + "." + label + ".txt", "w") as f:
+  with open(label + ".txt", "w") as f:
     for note in notes: f.write(note.to_string() + "\n")
   phrases += 1
 
@@ -95,7 +93,7 @@ def make_phrase_drill(name, tempo, notes, reps=5):
   if hash in drills: return False
   drills.add(hash)
 
-  with open(DRILLS_DIR + drillnum() + "A.txt", "w") as f:
+  with open("../../../" + DRILLS_DIR + drillnum() + "A.txt", "w") as f:
     f.write(f"{name} @{tempo} x{reps}\n")
     for note in notes: f.write(note.to_string() + "\n")
 
@@ -112,7 +110,7 @@ def make_drill(params={}, reps=5):
   drills.add(hash)
 
   # write card text
-  with open(DRILLS_DIR + drillnum() + "A.txt", "w") as f:
+  with open("../../../" + DRILLS_DIR + drillnum() + "A.txt", "w") as f:
     f.write(name + " x" + str(reps) + "\n")
     for key in params:
       if params[key]:
@@ -187,7 +185,7 @@ def make_drone(note):
     {"|C,,,,C,,,,C,,,,C,,,," * DRILL_LENGTH_MINS}
     %%MIDI program {ALARM_INSTRUMENT}
     Q:60
-    |CCCC|z4""", DRILLS_DIR + drillnum() + "B.mp3")
+    |CCCC|z4""", "../../../" + DRILLS_DIR + drillnum() + "B.mp3")
 
 #
 # convert an abc score to an mp3 file
