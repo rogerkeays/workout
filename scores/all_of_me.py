@@ -123,7 +123,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       4= 0 ===2 ^4=== my
       o3 2 ===3 v26== mind"""), 62.57, 68.21)
   ]),
-  Section("church.mirrors", "CA1", [
+  Section("church.mirrors", "C1A", [
     phrase("all-me", notes("""
       o= 4 21W2 ^4=LM cause
       1= = ==== v2=== a-
@@ -150,7 +150,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       12 0 3=C4 v35== ges"""), 74.86, 78.86),
     lyrics("imperfections", "all you-r per-fect im-per-fec-tions", "curves", 78.86, 82.63)
   ]),
-  Section("church.sepulchre", "CB1", [
+  Section("church.sepulchre", "C1B", [
     phrase("give-your", notes("""
       3= 4 21W2 v3=LM give
       e= = ==== ^5=== your
@@ -171,7 +171,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
     lyrics("end", "you're m-y end and my be-gin-ing", "curves", 90.10, 94.17),
     lyrics("lose", "e-ve-n when i lose i'm win-ning", "curves", 94.17, 97.70)
   ]),
-  Section("altar", "O1", [
+  Section("church.altar", "C1O", [
     phrase("i-give", notes("""
       u= 4 21W2 v6=LM cause
       3= = ==== ^7=== i
@@ -289,19 +289,19 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
     repeat("breathin", 150.29, 153.91),
     repeat("crazy", 153.91, 159.74)
   ]),
-  Section("church.mirrors", "CA2", [
+  Section("church.mirrors", "C2A", [
     repeat("all-me", 159.74, 162.63),
     repeat("all-you", 162.63, 166.38),
     repeat("curves", 166.38, 170.37),
     repeat("imperfections", 170.37, 175.05)
   ]),
-  Section("church.sepulchre", "CB2", [
+  Section("church.sepulchre", "C2B", [
     repeat("give-your", 175.05, 177.75),
     repeat("give-my", 177.75, 181.63),
     repeat("end", 181.63, 185.64),
     repeat("lose", 185.64, 189.20),
   ]),
-  Section("altar", "O2", [
+  Section("church.altar", "C2O", [
     repeat("i-give", 189.20, 196.79),
     repeat("you-give", 196.79, 204.06)
   ]),
@@ -346,13 +346,13 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       e= = ==== v2=== it's
       o3 7 2==4 ^62== hard"""), 215.01, 220.54)
   ]),
-  Section("church.mirrors", "CA3", [
+  Section("church.mirrors", "C3A", [
     repeat("all-me", 220.54, 223.52),
     repeat("all-you", 223.52, 227.34),
     repeat("curves", 227.34, 231.31),
     repeat("imperfections", 231.31, 235.15)
   ]),
-  Section("church.sepulchre", "CB3", [
+  Section("church.sepulchre", "C3B", [
     repeat("give-your", 235.15, 238.65),
     phrase("give-my^", notes("""
       u= 4 21W2 ^6=LM i'll
@@ -365,11 +365,11 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
     repeat("end", 242.60, 246.55),
     repeat("lose", 246.55, 250.20)
   ]),
-  Section("altar", "O3", [
+  Section("church.altar", "C3O1", [
     repeat("i-give", 250.20, 257.77),
     repeat("you-give", 257.77, 265.26)
   ]),
-  Section("altar", "O4", [
+  Section("church.altar", "C3O2", [
     phrase("i-give-auaua", notes("""
       3= 4 21W2 ^7=LM i
       e= 5 ===3 ^6=== give
