@@ -40,6 +40,13 @@ class Phrase:
   start_secs: float
   stop_secs: float
 
+# constructor for phrases, which keeps a reference to the phrases created
+all_phrases = {}
+def phrase(label, notes, start, stop):
+  p = Phrase(label, notes, start, stop)
+  all_phrases[label] = p
+  return p
+
 @dataclass
 class Section:
   label: str

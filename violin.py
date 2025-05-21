@@ -310,10 +310,17 @@ def fret(shape, base, finger):
 def note_at(string, fret):
     return decimal_to_note(note_to_decimal("5Y") - (int(string) * 7) + int(fret))
 
+# repeat a phrase with different start and stop times
+# this function does not clone the notes
+def repeat(template_id, start, stop):
+    template = all_phrases[template_id]
+    return Phrase(template_id, template.notes, start, stop)
+
 # clone a phrase, but with different lyrics and different start and stops
-def clone(phrase, label, lyrics, start, stop):
+def lyrics(id, lyrics, template_id, start, stop):
+    template = all_phrases[template_id]
     split_lyrics = re.split("[- ]", lyrics)
-    return Phrase(label, list(map(lambda z: ViolinNote(
+    return phrase(id, list(map(lambda z: ViolinNote(
         start_beat = z[0].start_beat,
         stop_beat = z[0].stop_beat,
         degree = z[0].degree,
@@ -326,5 +333,5 @@ def clone(phrase, label, lyrics, start, stop):
         stop_bow = z[0].stop_bow,
         attack = z[0].attack,
         dynamics = z[0].dynamics,
-        label = z[1]), zip(phrase.notes, split_lyrics))), start, stop)
+        label = z[1]), zip(template.notes, split_lyrics))), start, stop)
 
