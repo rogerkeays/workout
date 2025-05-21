@@ -52,7 +52,7 @@ def parse_violin_note(text: str) -> Note:
     dynamics = text[14],
     label = text[16:])
 
-def parse_violin_notes(text: str) -> list[Note]:
+def notes(text: str) -> list[Note]:
   """
     parse a block of notes line by line and return an array of ViolinNotes
   """
