@@ -4,8 +4,8 @@ import sys; sys.path.append("..")
 from violin import *
 
 process_piece(Piece("all-of-me", 4, 126, "48", [
-  Section("art-desk", "V1", [
-    phrase("mouth", notes("""
+  Section("Art-desk", "V1", [
+    phrase("Mouth", notes("""
       3= 2 21W1 v2=LM what
       e= 4 ===2 v4=== would
       4= = ==== ^6=== i
@@ -16,7 +16,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       3= = ==== v2=== your
       4= 0 3=C4 ^6=== smart
       12 = ==== v26== mouth?"""), 23.51, 27.31),
-    phrase("drawin", notes("""
+    phrase("Drawin", notes("""
       3= 2 21W1 v2=LM draw
       e= 4 ===2 v4=== -in
       4= = ==== ^6=== me
@@ -46,8 +46,8 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       o= 9 3=C2 ^4=== -u
       1u = ==== v26== down"""),  35.85, 38.95)
   ]),
-  Section("disneyland", "V2", [
-    phrase("mind", notes("""
+  Section("Disneyland", "V2", [
+    phrase("Mind", notes("""
       3= 2 21W1 v2=LM what's
       e= 4 ===2 v4=== go
       4= = ==== ^6=== -in
@@ -70,7 +70,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       4= 0 3=C4 ^6=== ry
       o= = ==== v4=== r
       1u 9 ===2 ^62== -ide"""), 42.67, 46.57),
-    phrase("dizzy", notes("""
+    phrase("Dizzy", notes("""
       3= 4 21W2 v2=LM and
       e= = ==== ^6=== i'm
       1= 5 ===3 v2=== so
@@ -102,14 +102,14 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       u= 2 3=W4 v2=== te
       3= 0 ===3 v4=== -r
       e4 = ===3 ^62== but"""), 54.92, 58.71),
-    phrase("breathin", notes("""
+    phrase("Breathin", notes("""
       o= Y 33W2 v2=LM i'm
       u= 9 =1=2 ^6=== br
       3= 7 ===1 ^4=== -ea
       e= = ==== v2=== th
       4= 9 ===2 v4=== -in
       ou = ==== ^62== fine"""), 58.71, 62.57),
-    phrase("crazy", notes("""
+    phrase("Crazy", notes("""
       o= 7 24P2 v2=LM y
       w= 9 ===3 v4=== -ou're
       u= = ==== ^6=== cr
@@ -123,7 +123,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       4= 0 ===2 ^4=== my
       o3 2 ===3 v26== mind"""), 62.57, 68.21)
   ]),
-  Section("church.mirrors", "C1A", [
+  Section("mirrors", "C1A", [
     phrase("all-me", notes("""
       o= 4 21W2 ^4=LM cause
       1= = ==== v2=== a-
@@ -138,7 +138,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       4= 0 3=C4 ^6=== of
       o= 2 2=W3 ^4=== y-
       12 4 ==== v26== ou"""), 71.10, 74.68),
-    phrase("curves", notes("""
+    phrase("Curves", notes("""
       3= 4 21W2 v2=LM love
       e= = ==== ^6=== you-
       o= 2 ===1 ^5=== r
@@ -148,10 +148,10 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       4= 0 3=C4 ^5=== your
       o= 2 2=W1 ^4=== ed-
       12 0 3=C4 v35== ges"""), 74.86, 78.86),
-    lyrics("imperfections", "all you-r per-fect im-per-fec-tions", "curves", 78.86, 82.63)
+    lyrics("Imperfections", "all you-r per-fect im-per-fec-tions", "Curves", 78.86, 82.63)
   ]),
-  Section("church.sepulchre", "C1B", [
-    phrase("give-your", notes("""
+  Section("Sepulchre", "C1B", [
+    phrase("Give-your", notes("""
       3= 4 21W2 v3=LM give
       e= = ==== ^5=== your
       1= = ==== v3=== a-
@@ -168,11 +168,11 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       4= 0 3=C4 ^7=== to
       o= 2 2=W1 ^6=== yo-
       12 4 ===2 v35== u"""), 86.35, 90.10),
-    lyrics("end", "you're m-y end and my be-gin-ing", "curves", 90.10, 94.17),
-    lyrics("lose", "e-ve-n when i lose i'm win-ning", "curves", 94.17, 97.70)
+    lyrics("End", "you're m-y end and my be-gin-ing", "Curves", 90.10, 94.17),
+    lyrics("Lose", "e-ve-n when i lose i'm win-ning", "Curves", 94.17, 97.70)
   ]),
-  Section("church.altar", "C1O", [
-    phrase("i-give", notes("""
+  Section("Altar", "C1O", [
+    phrase("I-give", notes("""
       u= 4 21W2 v6=LM cause
       3= = ==== ^7=== i
       e= 5 ===3 ^6=== give
@@ -185,13 +185,13 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       u3 7 2==4 v5=== ll
       4= 4 ===2 ^7=== of
       ou = ==== v46== me"""), 97.70, 105.29),
-    lyrics("you-give", "and you give me a-u-i-a-a-ll of you", "i-give", 105.29, 111.83),
-    phrase("oo", notes("""
+    lyrics("You-give", "and you give me a-u-i-a-a-ll of you", "I-give", 105.29, 111.83),
+    phrase("Oo", notes("""
       4= 4 21W2 v6=LM oh-
       o3 2 ===1 ^26== -o"""), 111.83, 115.05)
   ]),
-  Section("bedroom", "V3", [
-    phrase("times", notes("""
+  Section("Bedroom", "V3", [
+    phrase("Times", notes("""
       3= 2 21W1 v2=LM how
       e= 4 ===2 v4=== ma-
       4= 2 ===1 ^6=== -ni-
@@ -204,7 +204,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       e= 2 ===1 v4=== to
       4= 0 3=C4 ^6=== tell
       12 = ==== v26== you?"""), 115.05, 118.98),
-    phrase("crying", notes("""
+    phrase("Crying", notes("""
       3= 4 21W2 v2=LM e-
       e= = ==== ^4=== ven
       4= = ==== v2=== when
@@ -241,8 +241,8 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       4= = ==== ^6=== -ry
       o2 9 3=C2 v26== mood"""), 128.17, 130.19)
   ]),
-  Section("garage", "V4", [
-    phrase("downfall", notes("""
+  Section("Garage", "V4", [
+    phrase("Downfall", notes("""
       p= 7 21W4 v2=LM you're
       e= 4 ===2 ^4=== my
       o= = ==== v2=== down-
@@ -276,7 +276,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       u= 4 ===2 ^6=== ngi-
       3= 0 3=C4 v4=== ing
       e4 = ==== ^62== in"""), 137.69, 142.49),
-    phrase("head", notes("""
+    phrase("Head", notes("""
       o2 2 21W1 v2=LM my,
       u= 4 ===2 ^6=== h-
       e= 2 ===1 ^4=== -ead
@@ -286,17 +286,17 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
   ]),
   Section("show", "B2", [
     repeat("underwater", 146.37, 150.29),
-    repeat("breathin", 150.29, 153.91),
-    repeat("crazy", 153.91, 159.74)
+    repeat("Breathin", 150.29, 153.91),
+    repeat("Crazy", 153.91, 159.74)
   ]),
-  Section("church.mirrors", "C2A", [
+  Section("mirrors", "C2A", [
     repeat("all-me", 159.74, 162.63),
     repeat("all-you", 162.63, 166.38),
-    repeat("curves", 166.38, 170.37),
-    repeat("imperfections", 170.37, 175.05)
+    repeat("Curves", 166.38, 170.37),
+    repeat("Imperfections", 170.37, 175.05)
   ]),
-  Section("church.sepulchre", "C2B", [
-    repeat("give-your", 175.05, 177.75),
+  Section("Sepulchre", "C2B", [
+    repeat("Give-your", 175.05, 177.75),
     phrase("give-my^", notes("""
       u= 4 21W2 ^6=LM i'll
       3= 0 1==3 v3=== give
@@ -305,15 +305,15 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       1= = ==== v3=== all
       4= 7 2==4 ^7=== to
       o2 4 ===2 v35== you"""), 177.75, 181.63),
-    repeat("end", 181.63, 185.64),
-    repeat("lose", 185.64, 189.20),
+    repeat("End", 181.63, 185.64),
+    repeat("Lose", 185.64, 189.20),
   ]),
-  Section("church.altar", "C2O", [
-    repeat("i-give", 189.20, 196.79),
-    repeat("you-give", 196.79, 204.06)
+  Section("Altar", "C2O", [
+    repeat("I-give", 189.20, 196.79),
+    repeat("You-give", 196.79, 204.06)
   ]),
-  Section("casino", "M", [
-    phrase("give-me", notes("""
+  Section("Casino", "M", [
+    phrase("Give-me", notes("""
       a= 5 21W3 v3=LM give
       2= 7 ===4 ^5=== me
       u= Y 1==2 v3=== a-
@@ -325,7 +325,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       3= 4 ===2 ^3=== o-
       c= 2 ===1 ^3=== u-
       e1 0 3=C4 ^21== oh"""), 204.06, 207.59),
-    phrase("cards", notes("""
+    phrase("Cards", notes("""
       1= 9 11W2 v3=LM cards
       u= 7 2==1 ^5=== o-
       3= 5 ===4 ^4=== n
@@ -342,7 +342,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       e= = ==== v2=== w-
       4= 2 ===2 v4=== ing
       oe = ==== ^62== hearts"""), 207.59, 215.01),
-    phrase("risk", notes("""
+    phrase("Risk", notes("""
       1= 9 11W1 v2=LM ris-
       u= 7 2==4 ^6=== king
       3= 5 ===3 ^5=== it
@@ -353,23 +353,23 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       e= = ==== v2=== it's
       o3 7 2==4 ^62== hard"""), 215.01, 220.54)
   ]),
-  Section("church.mirrors", "C3A", [
+  Section("mirrors", "C3A", [
     repeat("all-me", 220.54, 223.52),
     repeat("all-you", 223.52, 227.34),
-    repeat("curves", 227.34, 231.31),
-    repeat("imperfections", 231.31, 235.15)
+    repeat("Curves", 227.34, 231.31),
+    repeat("Imperfections", 231.31, 235.15)
   ]),
-  Section("church.sepulchre", "C3B", [
-    repeat("give-your", 235.15, 238.65),
+  Section("Sepulchre", "C3B", [
+    repeat("Give-your", 235.15, 238.65),
     repeat("give-my^", 238.65, 242.60),
-    repeat("end", 242.60, 246.55),
-    repeat("lose", 246.55, 250.20)
+    repeat("End", 242.60, 246.55),
+    repeat("Lose", 246.55, 250.20)
   ]),
-  Section("church.altar", "C3O1", [
-    repeat("i-give", 250.20, 257.77),
-    repeat("you-give", 257.77, 265.26)
+  Section("Altar", "C3O1", [
+    repeat("I-give", 250.20, 257.77),
+    repeat("You-give", 257.77, 265.26)
   ]),
-  Section("church.altar", "C3O2", [
+  Section("altar", "C3O2", [
     phrase("i-give-auaua", notes("""
       3= 4 21W2 ^7=LM i
       e= 5 ===3 ^6=== give
@@ -382,7 +382,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       u3 7 2==4 v5=== ll
       4= 4 ===2 ^7=== of
       o3 = ==== v46== me"""), 265.26, 273.04),
-    repeat("you-give", 273.04, 279.42),
+    repeat("You-give", 273.04, 279.42),
     phrase("ouo", notes("""
       4= 2 21W1 ^6=LM o-
       o= 4 ===2 ^5=== u-
