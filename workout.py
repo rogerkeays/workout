@@ -92,7 +92,7 @@ def make_phrase(label, tempo, notes):
     for note in notes: f.write(note.to_string() + "\n")
   phrases += 1
 
-def make_phrase_drill(name, tempo, notes, reps=5):
+def make_phrase_drill(num, name, tempo, notes, reps=5):
   if len(notes) == 0: return
 
   # check for duplicates
@@ -100,7 +100,9 @@ def make_phrase_drill(name, tempo, notes, reps=5):
   if hash in drills: return False
   drills.add(hash)
 
-  with open("../../../" + DRILLS_DIR + drillnum() + "A.txt", "w") as f:
+  outdir = "../../../" + DRILLS_DIR + str(num).zfill(2) + "." + name
+  os.makedirs(outdir, exist_ok=True)
+  with open(outdir + "/" + drillnum() + "A.txt", "w") as f:
     f.write(f"{name} @{tempo} x{reps}\n")
     for note in notes: f.write(note.to_string() + "\n")
 
@@ -108,7 +110,7 @@ def make_phrase_drill(name, tempo, notes, reps=5):
 # make a drill card, ensuring it is unique, and formatting
 # it appropriately as a text file
 #
-def make_drill(params={}, reps=5):
+def make_drill(num, params={}, reps=5):
 
   # check for duplicates
   name = inspect.stack()[1].function
@@ -117,7 +119,9 @@ def make_drill(params={}, reps=5):
   drills.add(hash)
 
   # write card text
-  with open("../../../" + DRILLS_DIR + drillnum() + "A.txt", "w") as f:
+  outdir = "../../../" + DRILLS_DIR + str(num).zfill(2) + "." + name
+  os.makedirs(outdir, exist_ok=True)
+  with open(outdir + "/" + drillnum() + "A.txt", "w") as f:
     f.write(name + " x" + str(reps) + "\n")
     for key in params:
       if params[key]:
