@@ -8,8 +8,8 @@ TARGET_DIR = "target/"
 DRILLS_DIR = "02.drills/"
 PHRASES_DIR = "03.phrases/"
 SECTIONS_DIR = "04.sections/"
-NUM_PADDING = 3
-DRILL_LENGTH_MINS = 5
+NUM_PADDING = 5
+DRILL_LENGTH_MINS = 3
 METRONOME_INSTRUMENT = 116 - 1 # woodblock
 ALARM_INSTRUMENT = 128 - 1     # gunshot
 DRONE_INSTRUMENT = 57 - 1      # trumpet (closest to perfect pitch)
@@ -214,17 +214,26 @@ def make_whole(mp3, speed=1, silence=0):
            -af atempo={speed},adelay={silence}s:all=true "{outfile}"
            """)
 
-def make_chunk(mp3, label, start_secs, stop_secs, speed=1.0):
+def cut_chunk(mp3, start_secs, stop_secs, outfile, speed=1.0):
   if MAKE_MP3S and stop_secs > 0:
-    cut_chunk(mp3, start_secs, stop_secs, speed, PHRASES_DIR + "99" + phrasenum() + "." + label + ".mp3");
+    padding = CHUNK_FADE_SECS
+    delay = CHUNK_DELAY_SECS
+    ss = start_secs - padding
+    to = stop_secs + padding
+    st = stop_secs - start_secs + padding
+    os.system(f"""
+    ffmpeg -nostdin -loglevel error -ss {ss} -to {to} -i {mp3} -ac 1 -ar 48000 -q 4 \
+           -af afade=d={padding},afade=t=out:st={st}:d={padding},atempo={speed},adelay={delay}s:all=true \
+           "{outfile}"
+           """)
 
-def make_mixed_chunk(mp3, start_secs, stop_secs):
+def cut_mixed_chunk(mp3, start_secs, stop_secs, outfile):
   if MAKE_MP3S and stop_secs > 0:
     with tempfile.TemporaryDirectory() as tmpdir:
 
       # generate chunks for repetition
-      cut_chunk(mp3, start_secs, stop_secs, 0.5, tmpdir + "/050.mp3");
-      cut_chunk(mp3, start_secs, stop_secs, 1.0, tmpdir + "/100.mp3");
+      cut_chunk(mp3, start_secs, stop_secs, tmpdir + "/050.mp3", 0.5);
+      cut_chunk(mp3, start_secs, stop_secs, tmpdir + "/100.mp3", 1.0);
       cut_alarm(tmpdir + "/alarm.mp3")
 
       # repeat for the duration of the drill
@@ -237,17 +246,16 @@ def make_mixed_chunk(mp3, start_secs, stop_secs):
         f.write("file {tmpdir}/alarm.mp3\n".format(tmpdir=tmpdir))
 
       # concatenate the chunks
-      outfile = PHRASES_DIR + phrasenum() + ".mp3"
       os.system(f"""
       ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
              -codec copy "{outfile}" """)
 
-def make_repeating_chunk(mp3, start_secs, stop_secs, speed=1.0):
+def cut_timed_chunk(mp3, start_secs, stop_secs, outfile, speed=1.0):
   if MAKE_MP3S and stop_secs > 0:
     with tempfile.TemporaryDirectory() as tmpdir:
 
       # generate chunks for repetition
-      cut_chunk(mp3, start_secs, stop_secs, speed, tmpdir + "/chunk.mp3");
+      cut_chunk(mp3, start_secs, stop_secs, tmpdir + "/chunk.mp3", speed);
       cut_alarm(tmpdir + "/alarm.mp3")
 
       # repeat for the duration of the drill
@@ -259,22 +267,8 @@ def make_repeating_chunk(mp3, start_secs, stop_secs, speed=1.0):
         f.write(f"file {tmpdir}/alarm.mp3\n")
 
       # concatenate the chunks
-      outfile = PHRASES_DIR + phrasenum() + ".mp3"
       os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
                            -codec copy "{outfile}" """)
-
-def cut_chunk(mp3, start_secs, stop_secs, speed, outfile):
-  if MAKE_MP3S and stop_secs > 0:
-    padding = CHUNK_FADE_SECS
-    delay = CHUNK_DELAY_SECS
-    ss = start_secs - padding
-    to = stop_secs + padding
-    st = stop_secs - start_secs + padding
-    os.system(f"""
-    ffmpeg -nostdin -loglevel error -ss {ss} -to {to} -i {mp3} -ac 1 -ar 48000 -q 4 \
-           -af afade=d={padding},afade=t=out:st={st}:d={padding},atempo={speed},adelay={delay}s:all=true \
-           "{outfile}"
-           """)
 
 def cut_alarm(outfile):
   make_mp3(f"""
