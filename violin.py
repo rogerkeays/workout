@@ -91,7 +91,11 @@ def process_section(piece, section):
 
   # create section practise mp3s
   mcd("00" + sectionnum() + "." + section.label)
-  cut_chunk(MP3_DIR + piece.mp3, section.phrases[0].start_secs, section.phrases[-1].stop_secs, 1.0, section.label + ".mp3");
+  cut_timed_chunk(
+      mp3 = MP3_DIR + piece.mp3,
+      start_secs = section.phrases[0].start_secs,
+      stop_secs = section.phrases[-1].stop_secs,
+      outfile = section.label + ".mp3");
   notes = [note for phrase in section.phrases for note in phrase.notes]
   make_section(section.label, piece.tempo, notes)
 
@@ -104,7 +108,11 @@ def process_phrase(piece, section, phrase):
 
   # create phrase practise cards
   mcd("00" + phrasenum() + "." + phrase.label)
-  cut_chunk(MP3_DIR + piece.mp3, phrase.start_secs, phrase.stop_secs, 1.0, phrase.label + ".mp3");
+  cut_timed_chunk(
+      mp3 = MP3_DIR + piece.mp3,
+      start_secs = phrase.start_secs,
+      stop_secs = phrase.stop_secs,
+      outfile = phrase.label + ".mp3");
   notes = phrase.notes
   make_phrase(phrase.label, piece.tempo, notes)
 
