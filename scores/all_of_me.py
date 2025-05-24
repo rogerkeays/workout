@@ -297,7 +297,14 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
   ]),
   Section("church.sepulchre", "C2B", [
     repeat("give-your", 175.05, 177.75),
-    repeat("give-my", 177.75, 181.63),
+    phrase("give-my^", notes("""
+      u= 4 21W2 ^6=LM i'll
+      3= 0 1==3 v3=== give
+      e= Y ===2 ^5=== m-
+      o= 9 ===1 ^4=== y
+      1= = ==== v3=== all
+      4= 7 2==4 ^7=== to
+      o2 4 ===2 v35== you"""), 177.75, 181.63),
     repeat("end", 181.63, 185.64),
     repeat("lose", 185.64, 189.20),
   ]),
@@ -354,14 +361,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
   ]),
   Section("church.sepulchre", "C3B", [
     repeat("give-your", 235.15, 238.65),
-    phrase("give-my^", notes("""
-      u= 4 21W2 ^6=LM i'll
-      3= 0 1==3 v3=== give
-      e= Y ===2 ^5=== m-
-      o= 9 ===1 ^4=== y
-      1= = ==== v3=== all
-      4= 7 2==4 ^7=== to
-      o2 4 ===2 v35== you"""), 238.65, 242.60),
+    repeat("give-my^", 238.65, 242.60),
     repeat("end", 242.60, 246.55),
     repeat("lose", 246.55, 250.20)
   ]),
