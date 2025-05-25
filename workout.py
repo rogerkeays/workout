@@ -8,10 +8,10 @@ TARGET_DIR = "target/"
 DRILLS_DIR = "02.drills/"
 PHRASES_DIR = "03.phrases/"
 SECTIONS_DIR = "04.sections/"
-NUM_PADDING = 5
-DRILL_LENGTH_MINS = 3
+NUM_PADDING = 3
+DRILL_LENGTH_MINS = 2.5
 METRONOME_INSTRUMENT = 116 - 1 # woodblock
-ALARM_INSTRUMENT = 128 - 1     # gunshot
+GUNSHOT_INSTRUMENT = 128 - 1   # gunshot
 DRONE_INSTRUMENT = 57 - 1      # trumpet (closest to perfect pitch)
 CHUNK_FADE_SECS = 2.5
 CHUNK_DELAY_SECS = 5
@@ -173,13 +173,16 @@ def make_metronome(tempo):
       X:0
       M:1/4
       L:1/4
-      Q:{tempo*4}
       K:C
       %%MIDI program {METRONOME_INSTRUMENT}
+      Q:{tempo * 4}
       {"|c" * num_notes}
-      %%MIDI program {ALARM_INSTRUMENT}
+      %%MIDI program {GUNSHOT_INSTRUMENT}
       Q:240
-      |C|C|C|C|z|z|z|z""", DRILLS_DIR + filename, tempo_percent=25)
+      |cccc|z4|z4|zz
+      %%MIDI program {DRONE_INSTRUMENT}
+      c2
+      """, DRILLS_DIR + filename, tempo_percent=25)
 
 #
 # make a drone of a single pitch which lasts for DRILL_LENGTH_MINS
@@ -193,10 +196,11 @@ def make_drone(note):
     Q:4
     K:C transpose={note_to_decimal(note)}
     %%MIDI program {DRONE_INSTRUMENT}
-    {"|C,,,,C,,,,C,,,,C,,,," * DRILL_LENGTH_MINS}
-    %%MIDI program {ALARM_INSTRUMENT}
+    {"|C,,,," * int(DRILL_LENGTH_MINS * 4)}
+    %%MIDI program {GUNSHOT_INSTRUMENT}
     Q:60
-    |CCCC|z4""", "../../../" + DRILLS_DIR + drillnum() + "B.mp3")
+    K:C
+    |cccc|z4""", "../../../" + DRILLS_DIR + drillnum() + "B.mp3")
 
 #
 # convert an abc score to an mp3 file
@@ -238,7 +242,7 @@ def cut_mixed_chunk(mp3, start_secs, stop_secs, outfile):
       # generate chunks for repetition
       cut_chunk(mp3, start_secs, stop_secs, tmpdir + "/050.mp3", 0.5);
       cut_chunk(mp3, start_secs, stop_secs, tmpdir + "/100.mp3", 1.0);
-      cut_alarm(tmpdir + "/alarm.mp3")
+      make_gunshot(tmpdir + "/gunshot.mp3")
 
       # repeat for the duration of the drill
       chunk_length = CHUNK_FADE_SECS + stop_secs - start_secs + CHUNK_FADE_SECS
@@ -247,7 +251,7 @@ def cut_mixed_chunk(mp3, start_secs, stop_secs, outfile):
       with open(tmpdir + "/list", "w") as f:
         for i in range(reps):
           f.write("file {tmpdir}/050.mp3\nfile {tmpdir}/100.mp3\n".format(tmpdir=tmpdir))
-        f.write("file {tmpdir}/alarm.mp3\n".format(tmpdir=tmpdir))
+        f.write("file {tmpdir}/gunshot.mp3\n".format(tmpdir=tmpdir))
 
       # concatenate the chunks
       os.system(f"""
@@ -260,7 +264,7 @@ def cut_timed_chunk(mp3, start_secs, stop_secs, outfile, speed=1.0):
 
       # generate chunks for repetition
       cut_chunk(mp3, start_secs, stop_secs, tmpdir + "/chunk.mp3", speed);
-      cut_alarm(tmpdir + "/alarm.mp3")
+      make_gunshot(tmpdir + "/gunshot.mp3")
 
       # repeat for the duration of the drill
       length = CHUNK_DELAY_SECS + (CHUNK_FADE_SECS + stop_secs - start_secs + CHUNK_FADE_SECS) / speed
@@ -268,20 +272,20 @@ def cut_timed_chunk(mp3, start_secs, stop_secs, outfile, speed=1.0):
       with open(tmpdir + "/list", "w") as f:
         for i in range(reps):
           f.write(f"file {tmpdir}/chunk.mp3\n")
-        f.write(f"file {tmpdir}/alarm.mp3\n")
+        f.write(f"file {tmpdir}/gunshot.mp3\n")
 
       # concatenate the chunks
       os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
                            -codec copy "{outfile}" """)
 
-def cut_alarm(outfile):
+def make_gunshot(outfile):
   make_mp3(f"""
     X:0
     M:4/4
     L:1/4
     Q:60
     K:C
-    %%MIDI program {ALARM_INSTRUMENT}
+    %%MIDI program {GUNSHOT_INSTRUMENT}
     |cccc|z4""", outfile)
 
 # remove bar lines and spaces and replace repeat marks
