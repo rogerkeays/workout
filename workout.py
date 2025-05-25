@@ -1,9 +1,9 @@
 
-import os, inspect, re, tempfile, math
+import sys, os, inspect, re, tempfile, math
 from dataclasses import dataclass
 
 # configuration
-MAKE_MP3S = True
+MAKE_MP3S = False if (len(sys.argv) > 1 and sys.argv[1] == "txt") else True
 TARGET_DIR = "target/"
 DRILLS_DIR = "02.drills/"
 PHRASES_DIR = "03.phrases/"
