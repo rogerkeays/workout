@@ -102,7 +102,7 @@ def make_phrase_drill(num, name, tempo, notes, reps=5):
 
   outdir = "../../../" + DRILLS_DIR + str(num).zfill(2) + "." + name
   os.makedirs(outdir, exist_ok=True)
-  with open(outdir + "/" + drillnum() + "A.txt", "w") as f:
+  with open(outdir + "/00" + drillnum() + "A.txt", "w") as f:
     f.write(f"{name} @{tempo} x{reps}\n")
     for note in notes: f.write(note.to_string() + "\n")
 
@@ -121,7 +121,7 @@ def make_drill(num, params={}, reps=5):
   # write card text
   outdir = "../../../" + DRILLS_DIR + str(num).zfill(2) + "." + name
   os.makedirs(outdir, exist_ok=True)
-  with open(outdir + "/" + drillnum() + "A.txt", "w") as f:
+  with open(outdir + "/00" + drillnum() + "A.txt", "w") as f:
     f.write(name + " x" + str(reps) + "\n")
     for key in params:
       if params[key]:
