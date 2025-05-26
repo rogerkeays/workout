@@ -74,6 +74,7 @@ def calculate_note_defaults(note, next):
   if next.finger == "=": next.finger = note.finger
 
 def process_piece(piece):
+  make_metronome(piece.tempo)
 
   # calculate defaults
   for section in piece.sections:
@@ -87,13 +88,12 @@ def process_piece(piece):
   # process sections
   for section in reversed(piece.sections): process_section(piece, section)
   os.chdir("..")
-  make_metronome(piece.tempo)
 
 def process_section(piece, section):
 
   # create section practise chunks
   mcd("00" + sectionnum() + "." + section.label)
-  cut_timed_chunk(
+  cut_repeating_chunk(
       mp3 = MP3_DIR + piece.mp3,
       start_secs = section.phrases[0].start_secs,
       stop_secs = section.phrases[-1].stop_secs,
@@ -110,7 +110,7 @@ def process_phrase(piece, section, phrase):
 
   # create phrase practise chunks
   mcd("00" + phrasenum() + "." + phrase.label)
-  cut_timed_chunk(
+  cut_repeating_chunk(
       mp3 = MP3_DIR + piece.mp3,
       start_secs = phrase.start_secs,
       stop_secs = phrase.stop_secs,

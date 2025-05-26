@@ -10,6 +10,7 @@ PHRASES_DIR = "03.phrases/"
 SECTIONS_DIR = "04.sections/"
 NUM_PADDING = 3
 DRILL_LENGTH_MINS = 2
+BRACKET_REPS = 8
 METRONOME_INSTRUMENT = 116 - 1 # woodblock
 GUNSHOT_INSTRUMENT = 128 - 1   # gunshot
 DRONE_INSTRUMENT = 57 - 1      # trumpet (closest to perfect pitch)
@@ -200,7 +201,7 @@ def make_drone(note):
     %%MIDI program {GUNSHOT_INSTRUMENT}
     Q:60
     K:C
-    |cccc|z4""", "../../../" + DRILLS_DIR + drillnum() + "B.mp3")
+    |cccc|z4""", "../../../" + DRILLS_DIR + "=P" + str(note) + ".mp3")
 
 #
 # convert an abc score to an mp3 file
@@ -235,6 +236,24 @@ def cut_chunk(mp3, start_secs, stop_secs, outfile, speed=1.0):
            "{outfile}"
            """)
 
+def cut_repeating_chunk(mp3, start_secs, stop_secs, outfile, speed=1.0, reps=BRACKET_REPS):
+  if MAKE_MP3S and stop_secs > 0:
+    with tempfile.TemporaryDirectory() as tmpdir:
+
+      # generate chunks for repetition
+      cut_chunk(mp3, start_secs, stop_secs, tmpdir + "/chunk.mp3", speed);
+      make_gunshot(tmpdir + "/gunshot.mp3")
+
+      # repeat for the duration of the drill
+      with open(tmpdir + "/list", "w") as f:
+        for i in range(reps):
+          f.write(f"file {tmpdir}/chunk.mp3\n")
+        f.write(f"file {tmpdir}/gunshot.mp3\n")
+
+      # concatenate the chunks
+      os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
+                           -codec copy "{outfile}" """)
+
 def cut_mixed_chunk(mp3, start_secs, stop_secs, outfile):
   if MAKE_MP3S and stop_secs > 0:
     with tempfile.TemporaryDirectory() as tmpdir:
@@ -258,25 +277,11 @@ def cut_mixed_chunk(mp3, start_secs, stop_secs, outfile):
       ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
              -codec copy "{outfile}" """)
 
+# repeat a chunk for DRILL_LENGTH_MINS
 def cut_timed_chunk(mp3, start_secs, stop_secs, outfile, speed=1.0):
-  if MAKE_MP3S and stop_secs > 0:
-    with tempfile.TemporaryDirectory() as tmpdir:
-
-      # generate chunks for repetition
-      cut_chunk(mp3, start_secs, stop_secs, tmpdir + "/chunk.mp3", speed);
-      make_gunshot(tmpdir + "/gunshot.mp3")
-
-      # repeat for the duration of the drill
-      length = CHUNK_DELAY_SECS + (CHUNK_FADE_SECS + stop_secs - start_secs + CHUNK_FADE_SECS) / speed
-      reps = math.ceil(DRILL_LENGTH_MINS * 60 / length)
-      with open(tmpdir + "/list", "w") as f:
-        for i in range(reps):
-          f.write(f"file {tmpdir}/chunk.mp3\n")
-        f.write(f"file {tmpdir}/gunshot.mp3\n")
-
-      # concatenate the chunks
-      os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
-                           -codec copy "{outfile}" """)
+  length = CHUNK_DELAY_SECS + (CHUNK_FADE_SECS + stop_secs - start_secs + CHUNK_FADE_SECS) / speed
+  reps = math.ceil(DRILL_LENGTH_MINS * 60 / length)
+  cut_repeating_chunk(mp3, start_secs, stop_secs, outfile, speed, reps)
 
 def make_gunshot(outfile):
   make_mp3(f"""
