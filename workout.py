@@ -82,14 +82,14 @@ def make_section(label, tempo, notes):
   if len(notes) == 0: return
   global sections
   with open(label + ".txt", "w") as f:
-    for note in notes: f.write(note.to_string() + "\n")
+    for note in notes: f.write(note.to_compact_string() + "\n")
   sections += 1
 
 def make_phrase(label, tempo, notes):
   if len(notes) == 0: return
   global phrases
   with open(label + ".txt", "w") as f:
-    for note in notes: f.write(note.to_string() + "\n")
+    for note in notes: f.write(note.to_compact_string() + "\n")
   phrases += 1
 
 def make_phrase_drill(num, name, tempo, notes, reps=5):
@@ -104,7 +104,7 @@ def make_phrase_drill(num, name, tempo, notes, reps=5):
   os.makedirs(outdir, exist_ok=True)
   with open(outdir + "/00" + drillnum() + "A.txt", "w") as f:
     f.write(f"{name} @{tempo} x{reps}\n")
-    for note in notes: f.write(note.to_string() + "\n")
+    for note in notes: f.write(note.to_compact_string() + "\n")
 
 #
 # make a drill card, ensuring it is unique, and formatting
