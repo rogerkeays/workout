@@ -9,7 +9,7 @@ DRILLS_DIR = "02.drills/"
 PHRASES_DIR = "03.phrases/"
 SECTIONS_DIR = "04.sections/"
 NUM_PADDING = 3
-DRILL_LENGTH_MINS = 2.5
+DRILL_LENGTH_MINS = 2
 METRONOME_INSTRUMENT = 116 - 1 # woodblock
 GUNSHOT_INSTRUMENT = 128 - 1   # gunshot
 DRONE_INSTRUMENT = 57 - 1      # trumpet (closest to perfect pitch)
@@ -179,9 +179,9 @@ def make_metronome(tempo):
       {"|c" * num_notes}
       %%MIDI program {GUNSHOT_INSTRUMENT}
       Q:240
-      |cccc|z4|z4|zz
+      |cccc|z4|z4
       %%MIDI program {DRONE_INSTRUMENT}
-      c2
+      |zzzc
       """, DRILLS_DIR + filename, tempo_percent=25)
 
 #
