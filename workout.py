@@ -159,7 +159,8 @@ def bracketnum(): return str(brackets).zfill(NUM_PADDING)
 #
 def make_metronome(tempo):
   if MAKE_MP3S:
-    num_notes = int(DRILL_LENGTH_MINS * tempo)
+    countdown_notes = int(tempo/8) # fifteen seconds at half tempo
+    metronome_notes = int(DRILL_LENGTH_MINS * tempo)
     filename = "=T" + str(int(tempo)).zfill(NUM_PADDING - 1) + ".mp3"
     make_mp3(f"""
       X:0
@@ -167,13 +168,16 @@ def make_metronome(tempo):
       L:1/4
       K:C
       %%MIDI program {METRONOME_INSTRUMENT}
+      Q:{tempo * 2}
+      {"|C" * countdown_notes}
+      %%MIDI program {DRONE_INSTRUMENT}
+      |c
       Q:{tempo * 4}
-      {"|c" * num_notes}
+      %%MIDI program {METRONOME_INSTRUMENT}
+      {"|c" * metronome_notes}
       %%MIDI program {GUNSHOT_INSTRUMENT}
       Q:240
-      |cccc|z4|z4
-      %%MIDI program {DRONE_INSTRUMENT}
-      |zzzc
+      {"|c" * 4}
       """, DRILLS_DIR + filename, tempo_percent=25)
 
 #
