@@ -6,7 +6,7 @@ from violin import *
 process_piece(Piece("all-of-me", 4, 126, "48", [
   Section("Art-desk", "V1", [
     phrase("Mouth", notes("""
-      3= 2 21W1 v2=-- what
+      3= 2 21W1 v2=LM what
       e= 4 ===2 v4=== would
       4= = ==== ^6=== i
       1= = ==== v2=== do
@@ -17,7 +17,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       4= 0 3=C4 ^6=== smart
       12 = ==== v26== mouth?"""), 23.51, 27.31),
     phrase("Drawin", notes("""
-      3= 2 21W1 v2=-- draw-
+      3= 2 21W1 v2=LM draw-
       e= 4 ===2 v4=== in
       4= = ==== ^6=== me
       1= = ==== v2=== in
@@ -29,7 +29,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       o= = ==== ^4=== a-
       12 9 ===2 v26== out"""), 27.31, 31.12),
     phrase("spinnin", notes("""
-      u= 9 31C2 ^6=-- you've
+      u= 9 31C2 ^6=LM you've
       3= 4 2=W= v4=== got
       t= = ==== ^7=== my
       1= 5 ===3 v2=== head
@@ -39,7 +39,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       3= 4 ===2 v5=== kid-
       e4 0 3=C4 ^73== din"""), 31.12, 35.85),
     phrase("pin", notes("""
-      o= 0 31C4 ^3=-- i
+      o= 0 31C4 ^3=LM i
       1u 2 2=W1 v2=== can't,
       3= 4 ===2 v5=== pin
       e= 2 ===1 ^7=== yo-
@@ -48,7 +48,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
   ]),
   Section("Disneyland", "V2", [
     phrase("Mind", notes("""
-      3= 2 21W1 v2=-- what's
+      3= 2 21W1 v2=LM what's
       e= 4 ===2 v4=== go-
       4= = ==== ^6=== in
       1= = ==== v2=== on
@@ -59,7 +59,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       4= 0 3=C4 ^6=== ful
       w2 = ==== v26== mind?"""), 38.95, 42.67),
     phrase("ride", notes("""
-      3= 4 21W2 ^6=-- i'm
+      3= 4 21W2 ^6=LM i'm
       e= = ==== v4=== on
       4= = ==== ^6=== your
       1= 7 ===4 v2=== ma-
@@ -71,7 +71,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       o= = ==== v4=== r-
       1u 9 ===2 ^62== ide"""), 42.67, 46.57),
     phrase("Dizzy", notes("""
-      3= 4 21W2 v2=-- and
+      3= 4 21W2 v2=LM and
       e= = ==== ^6=== i'm
       1= 5 ===3 v2=== so
       3= 4 ===2 v5=== di-
@@ -83,7 +83,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       3= 4 ===2 v4=== hit
       e4 0 3==4 ^63== me"""), 46.57, 51.03),
     phrase("alright", notes("""
-      o= 0 31C4 ^3=-- but
+      o= 0 31C4 ^3=LM but
       1= 2 2=W1 v2=== i'll
       3= 4 ===2 v5=== be
       e= 2 ===1 ^7=== al-
@@ -91,7 +91,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
   ]),
   Section("show", "B1", [
     phrase("underwater", notes("""
-      o= 0 33W3 ^6=-- my
+      o= 0 33W3 ^6=LM my
       1= 7 2=G3 v2=== h-
       b= 9 ===4 v4=== ead's
       u= 7 ===3 ^6=== u-
@@ -103,14 +103,14 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       3= 0 ===3 v4=== r
       e4 = ===3 ^62== but"""), 54.92, 58.71),
     phrase("Breathin", notes("""
-      o= Y 33W2 v2=-- i'm
+      o= Y 33W2 v2=LM i'm
       u= 9 =1=2 ^6=== br-
       3= 7 ===1 ^4=== ea-
       e= = ==== v2=== th-
       4= 9 ===2 v4=== in
       ou = ==== ^62== fine"""), 58.71, 62.57),
     phrase("Crazy", notes("""
-      o= 7 24P2 v2=-- y-
+      o= 7 24P2 v2=LM y-
       w= 9 ===3 v4=== ou're
       u= = ==== ^6=== cr-
       3= 7 ===2 ^4=== a-
@@ -125,7 +125,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
   ]),
   Section("mirrors", "C1A", [
     phrase("all-me", notes("""
-      o= 4 21W2 ^4=-- cause
+      o= 4 21W2 ^4=LM cause
       1= = ==== v2=== a-
       b= 7 ===4 v3=== a-
       3= = ==== ^6=== ll
@@ -133,13 +133,13 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       o= 7 ===4 ^5=== m-
       12 9 1==1 v24== e"""), 68.21, 71.10),
     phrase("all-you", notes("""
-      3= 4 21W3 ^4=-- loves
+      3= 4 21W3 ^4=LM loves
       1= 2 ===2 v2=== all
       4= 0 3=C4 ^6=== of
       o= 2 2=W3 ^4=== y-
       12 4 ==== v26== ou"""), 71.10, 74.68),
     phrase("Curves", notes("""
-      3= 4 21W2 v2=-- love
+      3= 4 21W2 v2=LM love
       e= = ==== ^6=== you-
       o= 2 ===1 ^5=== r
       1= = ==== v3=== curves
@@ -152,7 +152,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
   ]),
   Section("Sepulchre", "C1B", [
     phrase("Give-your", notes("""
-      3= 4 21W2 v3=-- give
+      3= 4 21W2 v3=LM give
       e= = ==== ^5=== your
       1= = ==== v3=== a-
       b= 7 ===4 v4=== ll
@@ -160,7 +160,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       o= 7 ===4 ^6=== m-
       12 9 1==1 v36== e"""), 82.63, 86.35),
     phrase("give-my", notes("""
-      u= 2 21W1 ^6=-- i'll
+      u= 2 21W1 ^6=LM i'll
       3= 9 1=== v3=== give
       e= 4 2==2 ^5=== m-
       o= 2 ===1 ^4=== y
@@ -173,7 +173,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
   ]),
   Section("Altar", "C1O", [
     phrase("I-give", notes("""
-      u= 4 21W2 v6=-- cause
+      u= 4 21W2 v6=LM cause
       3= = ==== ^7=== i
       e= 5 ===3 ^6=== give
       4= 7 ===4 ^4=== you
@@ -187,12 +187,12 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       ou = ==== v46== me"""), 97.70, 105.29),
     lyrics("You-give", "and you give me a-u-i-a-a-ll of you", "I-give", 105.29, 111.83),
     phrase("Oo", notes("""
-      4= 4 21W2 v6=-- oh-
+      4= 4 21W2 v6=LM oh-
       o3 2 ===1 ^26== o"""), 111.83, 115.05)
   ]),
   Section("Bedroom", "V3", [
     phrase("Times", notes("""
-      3= 2 21W1 v2=-- how
+      3= 2 21W1 v2=LM how
       e= 4 ===2 v4=== ma-
       4= 2 ===1 ^6=== ni-
       m= 4 ===2 ^4=== y
@@ -205,7 +205,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       4= 0 3=C4 ^6=== tell
       12 = ==== v26== you?"""), 115.05, 118.98),
     phrase("Crying", notes("""
-      3= 4 21W2 v2=-- e-
+      3= 4 21W2 v2=LM e-
       e= = ==== ^4=== ven
       4= = ==== v2=== when
       o= = ==== ^4=== you're
@@ -219,7 +219,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       o= = ==== v4=== t-
       12 9 ===2 ^64== oo"""), 118.98, 122.55),
     phrase("beating", notes("""
-      u= 0 31C4 ^6=-- the
+      u= 0 31C4 ^6=LM the
       3= 2 2=W1 v2=== w-
       c= 4 ===2 v4=== orld
       t= = ==== ^6=== is
@@ -235,7 +235,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       4= = ==== ^6=== a-
       o2 2 2=W1 v26== round"""), 122.55, 128.17),
     phrase("mood", notes("""
-      u= 2 21W1 ^6=-- through
+      u= 2 21W1 ^6=LM through
       3= 4 ===2 v2=== e-
       e= 2 ===1 v4=== ve-
       4= = ==== ^6=== ry
@@ -243,7 +243,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
   ]),
   Section("Garage", "V4", [
     phrase("Downfall", notes("""
-      p= 7 21W4 v2=-- you're
+      p= 7 21W4 v2=LM you're
       e= 4 ===2 ^4=== my
       o= = ==== v2=== down-
       a= 0 3=C4 ^6=== fall,
@@ -251,7 +251,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       e= 4 ===2 ^4=== my
       oa = ==== v26== muse"""), 130.19, 133.97),
     phrase("distraction", notes("""
-      u= 0 31C4 ^6=-- my
+      u= 0 31C4 ^6=LM my
       3= 5 2=W3 v2=== w-
       e= 7 ===4 v4=== orst
       4= 4 ===2 ^6=== dis-
@@ -264,7 +264,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       4= 4 ===2 ^4=== n
       o2 9 3=C2 v26== blues"""), 133.97, 137.69),
     phrase("singing", notes("""
-      u= 4 21W2 ^6=-- i
+      u= 4 21W2 ^6=LM i
       3= = ==== v4=== can't
       t= = ==== ^6=== stop
       1= 5 ===3 v2=== si-
@@ -277,7 +277,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       3= 0 3=C4 v4=== ing
       e4 = ==== ^62== in"""), 137.69, 142.49),
     phrase("Head", notes("""
-      o2 2 21W1 v2=-- my,
+      o2 2 21W1 v2=LM my,
       u= 4 ===2 ^6=== h-
       e= 2 ===1 ^4=== ead
       4= = ==== v2=== for
@@ -298,7 +298,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
   Section("Sepulchre", "C2B", [
     repeat("Give-your", 175.05, 177.75),
     phrase("give-my^", notes("""
-      u= 4 21W2 ^6=-- i'll
+      u= 4 21W2 ^6=LM i'll
       3= 0 1==3 v3=== give
       e= Y ===2 ^5=== m-
       o= 9 ===1 ^4=== y
@@ -314,7 +314,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
   ]),
   Section("Casino", "M", [
     phrase("Give-me", notes("""
-      a= 5 21W3 v3=-- give
+      a= 5 21W3 v3=LM give
       2= 7 ===4 ^5=== me
       u= Y 1==2 v3=== a-
       3= 0 ===3 v4=== ll
@@ -326,7 +326,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       c= 2 ===1 ^3=== u-
       e1 0 3=C4 ^21== oh"""), 204.06, 207.59),
     phrase("Cards", notes("""
-      1= 9 11W2 v3=-- cards
+      1= 9 11W2 v3=LM cards
       u= 7 2==1 ^5=== o-
       3= 5 ===4 ^4=== n
       e= = ==== v3=== the
@@ -343,7 +343,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       4= 2 ===2 v4=== ing
       oe = ==== ^62== hearts"""), 207.59, 215.01),
     phrase("Risk", notes("""
-      1= 9 11W1 v2=-- ris-
+      1= 9 11W1 v2=LM ris-
       u= 7 2==4 ^6=== king
       3= 5 ===3 ^5=== it
       o= 5 1==2 v2=== a-
@@ -371,7 +371,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
   ]),
   Section("altar", "C3O2", [
     phrase("i-give-auaua", notes("""
-      3= 4 21W2 ^7=-- i
+      3= 4 21W2 ^7=LM i
       e= 5 ===3 ^6=== give
       4= 7 ===4 ^4=== you
       o= 0 1==3 v2=== a-
@@ -384,7 +384,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       o3 = ==== v46== me"""), 265.26, 273.04),
     repeat("You-give", 273.04, 279.42),
     phrase("ouo", notes("""
-      4= 2 21W1 ^6=-- o-
+      4= 2 21W1 ^6=LM o-
       o= 4 ===2 ^5=== u-
       14 2 ===1 ^41== oh"""), 279.42, 282.03)
   ])
