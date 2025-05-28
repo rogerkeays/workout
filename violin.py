@@ -82,41 +82,35 @@ def process_piece(piece):
       for i, note in enumerate(phrase.notes):
         if i < len(phrase.notes) - 1: calculate_note_defaults(note, phrase.notes[i + 1])
 
-  mcd(piece.name)
-  shutil.copy(MP3_DIR + piece.mp3, ".")
-
   # process sections
   for section in reversed(piece.sections): process_section(piece, section)
-  os.chdir("..")
+  shutil.copy(MP3_DIR + piece.mp3, BRACKETS_DIR + "00" + bracketnum() + "." + piece.mp3)
 
 def process_section(piece, section):
 
+  # process phrases in reverse
+  for phrase in reversed(section.phrases): process_phrase(piece, section, phrase)
+
   # create section practise chunks
-  mcd("00" + sectionnum() + "." + section.label)
   cut_repeating_chunk(
       mp3 = MP3_DIR + piece.mp3,
       start_secs = section.phrases[0].start_secs,
       stop_secs = section.phrases[-1].stop_secs,
-      outfile = section.label + ".mp3");
+      outfile = BRACKETS_DIR + "00" + bracketnum() + "." + section.label + ".mp3");
   notes = [note for phrase in section.phrases for note in phrase.notes]
-  make_section(section.label, piece.tempo, notes)
-
-  # process phrases in reverse
-  for phrase in reversed(section.phrases): process_phrase(piece, section, phrase)
-  os.chdir("..")
+  make_bracket_card(section.label, piece.tempo, notes)
 
 def process_phrase(piece, section, phrase):
   if len(phrase.notes) == 0: return
+  notes = phrase.notes
 
   # create phrase practise chunks
-  mcd("00" + phrasenum() + "." + phrase.label)
   cut_repeating_chunk(
       mp3 = MP3_DIR + piece.mp3,
       start_secs = phrase.start_secs,
       stop_secs = phrase.stop_secs,
-      outfile = phrase.label + ".mp3");
-  notes = phrase.notes
-  make_phrase(phrase.label, piece.tempo, notes)
+      outfile = BRACKETS_DIR + "00" + bracketnum() + "." + phrase.label + ".mp3");
+  make_bracket_card(phrase.label, piece.tempo, notes)
 
   # process notes in reverse order
   for i in reversed(range(len(notes))):
@@ -125,7 +119,6 @@ def process_phrase(piece, section, phrase):
 
   # phrase drills
   phrase_metronome(piece.tempo, notes)
-  os.chdir("..")
 
 def process_transition(tempo, note, next):
   rhythm = note.start_beat + note.stop_beat + next.start_beat + next.stop_beat

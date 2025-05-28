@@ -6,8 +6,7 @@ from dataclasses import dataclass
 MAKE_MP3S = False if (len(sys.argv) > 1 and sys.argv[1] == "txt") else True
 TARGET_DIR = "target/"
 DRILLS_DIR = "02.drills/"
-PHRASES_DIR = "03.phrases/"
-SECTIONS_DIR = "04.sections/"
+BRACKETS_DIR = "03.brackets/"
 NUM_PADDING = 3
 DRILL_LENGTH_MINS = 2
 BRACKET_REPS = 8
@@ -21,9 +20,9 @@ CHUNK_DELAY_SECS = 5
 os.mkdir(TARGET_DIR)
 os.chdir(TARGET_DIR)
 os.mkdir(DRILLS_DIR)
-sections = 0
-phrases = 0
+os.mkdir(BRACKETS_DIR)
 drills = set()
+brackets = 0
 
 @dataclass
 class Note:
@@ -79,19 +78,12 @@ def mcd(dirname):
   os.makedirs(dirname)
   os.chdir(dirname)
 
-def make_section(label, tempo, notes):
+def make_bracket_card(label, tempo, notes):
   if len(notes) == 0: return
-  global sections
-  with open(label + ".txt", "w") as f:
+  global brackets
+  with open(BRACKETS_DIR + "00" + bracketnum() + "." + label + ".txt", "w") as f:
     for note in notes: f.write(note.to_compact_string() + "\n")
-  sections += 1
-
-def make_phrase(label, tempo, notes):
-  if len(notes) == 0: return
-  global phrases
-  with open(label + ".txt", "w") as f:
-    for note in notes: f.write(note.to_compact_string() + "\n")
-  phrases += 1
+  brackets += 1
 
 def make_phrase_drill(num, name, tempo, notes, reps=5):
   if len(notes) == 0: return
@@ -101,7 +93,7 @@ def make_phrase_drill(num, name, tempo, notes, reps=5):
   if hash in drills: return False
   drills.add(hash)
 
-  outdir = "../../../" + DRILLS_DIR + str(num).zfill(2) + "." + name
+  outdir = DRILLS_DIR + str(num).zfill(2) + "." + name
   os.makedirs(outdir, exist_ok=True)
   with open(outdir + "/00" + drillnum() + "A.txt", "w") as f:
     f.write(f"{name} @{tempo} x{reps}\n")
@@ -120,7 +112,7 @@ def make_drill(num, params={}, reps=5):
   drills.add(hash)
 
   # write card text
-  outdir = "../../../" + DRILLS_DIR + str(num).zfill(2) + "." + name
+  outdir = DRILLS_DIR + str(num).zfill(2) + "." + name
   os.makedirs(outdir, exist_ok=True)
   with open(outdir + "/00" + drillnum() + "A.txt", "w") as f:
     f.write(name + " x" + str(reps) + "\n")
@@ -156,8 +148,7 @@ def shift_rhythm(rhythm):
 
 # format the current drill number as a zero-padded string
 def drillnum(): return str(len(drills)).zfill(NUM_PADDING)
-def phrasenum(): return str(phrases).zfill(NUM_PADDING)
-def sectionnum(): return str(sections).zfill(NUM_PADDING)
+def bracketnum(): return str(brackets).zfill(NUM_PADDING)
 
 #
 # make a metronome with the given tempo which goes for DRILL_LENGTH_MINS
@@ -201,7 +192,7 @@ def make_drone(note):
     %%MIDI program {GUNSHOT_INSTRUMENT}
     Q:60
     K:C
-    |cccc|z4""", "../../../" + DRILLS_DIR + "=P" + str(note) + ".mp3")
+    |cccc|z4""", DRILLS_DIR + "=P" + str(note) + ".mp3")
 
 #
 # convert an abc score to an mp3 file
@@ -217,7 +208,7 @@ def make_mp3(score, filename, transpose=0, tempo_percent=100):
 
 def make_whole(mp3, speed=1, silence=0):
   if MAKE_MP3S:
-    outfile = PHRASES_DIR + phrasenum() + ".mp3"
+    outfile = BRACKETS_DIR + "00" + bracketnum() + ".mp3"
     os.system(f"""
     ffmpeg -nostdin -loglevel error -i {mp3} -ac 1 -ar 48000 -q 4 \
            -af atempo={speed},adelay={silence}s:all=true "{outfile}"
