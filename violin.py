@@ -35,6 +35,9 @@ class ViolinNote(Note):
   def to_compact_string(n):
     return f"{n.start_beat}{n.stop_beat} {n.degree}{n.bow_direction}{n.start_bow}{n.stop_bow}{n.attack}{n.dynamics} {n.string}{n.base}{n.shape}{n.finger} {n.label[0:3]}"
 
+  def hash(n):
+    return f"{n.start_beat}{n.stop_beat} {n.degree} {n.string}{n.base}{n.shape}{n.finger} {n.bow_direction}{n.start_bow}{n.stop_bow}{n.attack}{n.dynamics}"
+
 def parse_violin_note(text: str) -> Note:
   """
     field order: (start_beat stop_beat) degree (string base shape finger) (bow_direction start_bow stop_bow attack dynamic) label
@@ -84,7 +87,7 @@ def process_piece(piece):
 
   # process sections
   for section in reversed(piece.sections): process_section(piece, section)
-  shutil.copy(MP3_DIR + piece.mp3, BRACKETS_DIR + "00" + bracketnum() + "." + piece.mp3)
+  shutil.copy(MP3_DIR + piece.mp3, BRACKETS_DIR + "00" + str(len(brackets) + 1).zfill(NUM_PADDING) + "." + piece.mp3)
 
 def process_section(piece, section):
 
@@ -92,25 +95,25 @@ def process_section(piece, section):
   for phrase in reversed(section.phrases): process_phrase(piece, section, phrase)
 
   # create section practise chunks
-  cut_repeating_chunk(
-      mp3 = MP3_DIR + piece.mp3,
-      start_secs = section.phrases[0].start_secs,
-      stop_secs = section.phrases[-1].stop_secs,
-      outfile = BRACKETS_DIR + "00" + bracketnum() + "." + section.label + ".mp3");
   notes = [note for phrase in section.phrases for note in phrase.notes]
-  make_bracket_card(section.label, piece.tempo, notes)
+  if make_bracket_card(section.label, piece.tempo, notes):
+    cut_repeating_chunk(
+        mp3 = MP3_DIR + piece.mp3,
+        start_secs = section.phrases[0].start_secs,
+        stop_secs = section.phrases[-1].stop_secs,
+        outfile = BRACKETS_DIR + "00" + bracketnum() + "." + section.label + ".mp3");
 
 def process_phrase(piece, section, phrase):
   if len(phrase.notes) == 0: return
   notes = phrase.notes
 
   # create phrase practise chunks
-  cut_repeating_chunk(
-      mp3 = MP3_DIR + piece.mp3,
-      start_secs = phrase.start_secs,
-      stop_secs = phrase.stop_secs,
-      outfile = BRACKETS_DIR + "00" + bracketnum() + "." + phrase.label + ".mp3");
-  make_bracket_card(phrase.label, piece.tempo, notes)
+  if make_bracket_card(phrase.label, piece.tempo, notes):
+    cut_repeating_chunk(
+        mp3 = MP3_DIR + piece.mp3,
+        start_secs = phrase.start_secs,
+        stop_secs = phrase.stop_secs,
+        outfile = BRACKETS_DIR + "00" + bracketnum() + "." + phrase.label + ".mp3");
 
   # process notes in reverse order
   for i in reversed(range(len(notes))):

@@ -22,7 +22,7 @@ os.chdir(TARGET_DIR)
 os.mkdir(DRILLS_DIR)
 os.mkdir(BRACKETS_DIR)
 drills = set()
-brackets = 0
+brackets = set()
 
 @dataclass
 class Note:
@@ -79,17 +79,24 @@ def mcd(dirname):
   os.chdir(dirname)
 
 def make_bracket_card(label, tempo, notes):
-  if len(notes) == 0: return
-  global brackets
+  if len(notes) == 0: return False
+
+  # check for duplicates
+  hashed_notes = list(map(lambda n: n.hash(), notes))
+  hash = make_hash("bracket", { "tempo":tempo, "notes":hashed_notes })
+  if hash in brackets: return False
+  brackets.add(hash)
+
   with open(BRACKETS_DIR + "00" + bracketnum() + "." + label + ".txt", "w") as f:
     for note in notes: f.write(note.to_compact_string() + "\n")
-  brackets += 1
+
+  return True
 
 def make_phrase_drill(num, name, tempo, notes, reps=5):
   if len(notes) == 0: return
 
   # check for duplicates
-  hash = make_hash(name, {"tempo":tempo, "notes":notes })
+  hash = make_hash(name, { "tempo":tempo, "notes":notes })
   if hash in drills: return False
   drills.add(hash)
 
@@ -148,7 +155,7 @@ def shift_rhythm(rhythm):
 
 # format the current drill number as a zero-padded string
 def drillnum(): return str(len(drills)).zfill(NUM_PADDING)
-def bracketnum(): return str(brackets).zfill(NUM_PADDING)
+def bracketnum(): return str(len(brackets)).zfill(NUM_PADDING)
 
 #
 # make a metronome with the given tempo which goes for DRILL_LENGTH_MINS
