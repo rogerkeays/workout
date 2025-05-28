@@ -33,7 +33,7 @@ class ViolinNote(Note):
     return f"{n.start_beat}{n.stop_beat} {n.degree} {n.string}{n.base}{n.shape}{n.finger} {n.bow_direction}{n.start_bow}{n.stop_bow}{n.attack}{n.dynamics} {n.label}"
 
   def to_compact_string(n):
-    return f"{n.start_beat}{n.stop_beat} {n.degree}{n.bow_direction}{n.start_bow}{n.stop_bow}{n.attack}{n.dynamics} {n.string}{n.base}{n.shape}{n.finger} {n.label[0:3]}"
+    return f"{n.start_beat}{n.stop_beat} {n.degree} {n.string}{n.base}{n.shape}{n.finger} {n.start_bow}{n.stop_bow}{n.attack}{n.dynamics}{n.bow_direction} {n.label[0:3]}"
 
   def hash(n):
     return f"{n.start_beat}{n.stop_beat} {n.degree} {n.string}{n.base}{n.shape}{n.finger} {n.bow_direction}{n.start_bow}{n.stop_bow}{n.attack}{n.dynamics}"
