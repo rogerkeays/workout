@@ -5,8 +5,6 @@ from dataclasses import dataclass
 # configuration
 MAKE_MP3S = False if (len(sys.argv) > 1 and sys.argv[1] == "txt") else True
 TARGET_DIR = "target/"
-DRILLS_DIR = "02.drills/"
-BRACKETS_DIR = "03.brackets/"
 NUM_PADDING = 3
 DRILL_LENGTH_MINS = 2
 BRACKET_REPS = 8
@@ -19,8 +17,6 @@ CHUNK_DELAY_SECS = 5
 # global state
 os.mkdir(TARGET_DIR)
 os.chdir(TARGET_DIR)
-os.mkdir(DRILLS_DIR)
-os.mkdir(BRACKETS_DIR)
 drills = set()
 brackets = set()
 
@@ -78,8 +74,7 @@ def mcd(dirname):
   os.makedirs(dirname)
   os.chdir(dirname)
 
-def make_bracket_card(label, tempo, notes):
-  if len(notes) == 0: return False
+def start_bracket(label, tempo, notes):
 
   # check for duplicates
   hashed_notes = list(map(lambda n: n.hash(), notes))
@@ -87,10 +82,12 @@ def make_bracket_card(label, tempo, notes):
   if hash in brackets: return False
   brackets.add(hash)
 
-  with open(BRACKETS_DIR + "00" + bracketnum() + "." + label + ".txt", "w") as f:
-    for note in notes: f.write(note.to_compact_string() + "\n")
-
+  # create folder for new bracket
+  mcd("00" + bracketnum() + "." + label)
   return True
+
+def end_bracket():
+  os.chdir("..")
 
 def make_phrase_drill(num, name, tempo, notes, reps=5):
   if len(notes) == 0: return
@@ -100,9 +97,7 @@ def make_phrase_drill(num, name, tempo, notes, reps=5):
   if hash in drills: return False
   drills.add(hash)
 
-  outdir = DRILLS_DIR + str(num).zfill(2) + "." + name
-  os.makedirs(outdir, exist_ok=True)
-  with open(outdir + "/00" + drillnum() + "A.txt", "w") as f:
+  with open("00" + drillnum() + "A.txt", "w") as f:
     f.write(f"{name} @{tempo} x{reps}\n")
     for note in notes: f.write(note.to_compact_string() + "\n")
 
@@ -119,9 +114,7 @@ def make_drill(num, params={}, reps=5):
   drills.add(hash)
 
   # write card text
-  outdir = DRILLS_DIR + str(num).zfill(2) + "." + name
-  os.makedirs(outdir, exist_ok=True)
-  with open(outdir + "/00" + drillnum() + "A.txt", "w") as f:
+  with open("00" + drillnum() + "A.txt", "w") as f:
     f.write(name + " x" + str(reps) + "\n")
     for key in params:
       if params[key]:
@@ -185,7 +178,7 @@ def make_metronome(tempo):
       %%MIDI program {GUNSHOT_INSTRUMENT}
       Q:240
       {"|c" * 4}
-      """, DRILLS_DIR + filename, tempo_percent=25)
+      """, filename, tempo_percent=25)
 
 #
 # make a drone of a single pitch which lasts for DRILL_LENGTH_MINS
@@ -203,7 +196,7 @@ def make_drone(note):
     %%MIDI program {GUNSHOT_INSTRUMENT}
     Q:60
     K:C
-    |cccc|z4""", DRILLS_DIR + "=P" + str(note) + ".mp3")
+    |cccc|z4""", drillnum() + "B.mp3")
 
 #
 # convert an abc score to an mp3 file
@@ -219,7 +212,7 @@ def make_mp3(score, filename, transpose=0, tempo_percent=100):
 
 def make_whole(mp3, speed=1, silence=0):
   if MAKE_MP3S:
-    outfile = BRACKETS_DIR + "00" + bracketnum() + ".mp3"
+    outfile = "00" + drillnum() + "B.mp3"
     os.system(f"""
     ffmpeg -nostdin -loglevel error -i {mp3} -ac 1 -ar 48000 -q 4 \
            -af atempo={speed},adelay={silence}s:all=true "{outfile}"

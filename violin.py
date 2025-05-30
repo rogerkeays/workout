@@ -87,41 +87,49 @@ def process_piece(piece):
 
   # process sections
   for section in reversed(piece.sections): process_section(piece, section)
-  shutil.copy(MP3_DIR + piece.mp3, BRACKETS_DIR + "00" + str(len(brackets) + 1).zfill(NUM_PADDING) + "." + piece.mp3)
+
+  # create piece practise chunks
+  start_bracket(piece.name, piece.tempo, [])
+  shutil.copy(MP3_DIR + piece.mp3, "00" + drillnum() + "B.mp3")
+  end_bracket()
 
 def process_section(piece, section):
+  notes = [note for phrase in section.phrases for note in phrase.notes]
 
   # process phrases in reverse
   for phrase in reversed(section.phrases): process_phrase(piece, section, phrase)
 
   # create section practise chunks
-  notes = [note for phrase in section.phrases for note in phrase.notes]
-  if make_bracket_card(section.label, piece.tempo, notes):
+  if start_bracket(section.label, piece.tempo, notes):
+    make_phrase_drill(0, "bracket", piece.tempo, notes)
     cut_repeating_chunk(
         mp3 = MP3_DIR + piece.mp3,
         start_secs = section.phrases[0].start_secs,
         stop_secs = section.phrases[-1].stop_secs,
-        outfile = BRACKETS_DIR + "00" + bracketnum() + "." + section.label + ".mp3");
+        outfile = "00" + drillnum() + "." + section.label + ".mp3");
+    end_bracket()
 
 def process_phrase(piece, section, phrase):
   if len(phrase.notes) == 0: return
   notes = phrase.notes
 
   # create phrase practise chunks
-  if make_bracket_card(phrase.label, piece.tempo, notes):
+  if start_bracket(phrase.label, piece.tempo, notes):
+
+    # process notes in reverse order
+    for i in reversed(range(len(notes))):
+      process_note(piece.tempo, notes[i])
+      if i < len(notes) - 1: process_transition(piece.tempo, notes[i], notes[i+1])
+
+    # phrase drills
+    phrase_metronome(piece.tempo, notes)
+    make_phrase_drill(0, "bracket", piece.tempo, notes)
     cut_repeating_chunk(
         mp3 = MP3_DIR + piece.mp3,
         start_secs = phrase.start_secs,
         stop_secs = phrase.stop_secs,
-        outfile = BRACKETS_DIR + "00" + bracketnum() + "." + phrase.label + ".mp3");
-
-  # process notes in reverse order
-  for i in reversed(range(len(notes))):
-    process_note(piece.tempo, notes[i])
-    if i < len(notes) - 1: process_transition(piece.tempo, notes[i], notes[i+1])
-
-  # phrase drills
-  phrase_metronome(piece.tempo, notes)
+        outfile = "00" + drillnum() + "B.mp3");
+    end_bracket()
 
 def process_transition(tempo, note, next):
   rhythm = note.start_beat + note.stop_beat + next.start_beat + next.stop_beat
