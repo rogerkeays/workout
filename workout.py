@@ -196,7 +196,7 @@ def make_drone(note):
     %%MIDI program {GUNSHOT_INSTRUMENT}
     Q:60
     K:C
-    |cccc|z4""", drillnum() + "B.mp3")
+    |cccc|z4""", "00" + drillnum() + "B.mp3")
 
 #
 # convert an abc score to an mp3 file

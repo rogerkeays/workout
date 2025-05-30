@@ -106,7 +106,7 @@ def process_section(piece, section):
         mp3 = MP3_DIR + piece.mp3,
         start_secs = section.phrases[0].start_secs,
         stop_secs = section.phrases[-1].stop_secs,
-        outfile = "00" + drillnum() + "." + section.label + ".mp3");
+        outfile = "00" + drillnum() + "B.mp3");
     end_bracket()
 
 def process_phrase(piece, section, phrase):
