@@ -187,8 +187,8 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       ou = ==== v46== me"""), 97.70, 105.29),
     lyrics("You-give", "and you give me a-u-i-a-a-ll of you", "I-give", 105.29, 111.83),
     phrase("Oo", notes("""
-      4= 4 21W2 v6=LM oh-
-      o3 2 ===1 ^26== o"""), 111.83, 115.05)
+      4= 4 21W2 ^6=LM oh-
+      o3 2 ===1 v26== o"""), 111.83, 115.05)
   ]),
   Section("Bedroom", "V3", [
     phrase("Times", notes("""
