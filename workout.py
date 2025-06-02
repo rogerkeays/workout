@@ -1,11 +1,16 @@
 
+# imports
+true = True
+false = False
 import sys, os, inspect, re, tempfile, math
 from dataclasses import dataclass
 
 # configuration
 MAKE_MP3S = False if (len(sys.argv) > 1 and sys.argv[1] == "txt") else True
-TARGET_DIR = "target/"
-NUM_PADDING = 3
+TARGET_DIR = "target"
+DRILLS_DIR = "02.drills"
+BRACKETS_DIR = "03.brackets"
+NUM_PADDING = 5
 DRILL_LENGTH_MINS = 2
 BRACKET_REPS = 8
 METRONOME_INSTRUMENT = 116 - 1 # woodblock
@@ -17,7 +22,9 @@ CHUNK_DELAY_SECS = 5
 # global state
 os.mkdir(TARGET_DIR)
 os.chdir(TARGET_DIR)
-drills = set()
+os.mkdir(DRILLS_DIR)
+os.mkdir(BRACKETS_DIR)
+drills = {}
 brackets = set()
 
 @dataclass
@@ -65,66 +72,53 @@ def parse_note(text: str):
   """
   return Note(text[0], text[1], text[2], text[3], text[5:], {})
 
-#
-# Make a new directory of cards and change into that directory.
-# The caller of this function is responsible for changing back
-# to the original directory when the cards have been generated.
-#
 def mcd(dirname):
   os.makedirs(dirname)
   os.chdir(dirname)
 
-def start_bracket(label, tempo, notes):
+def make_drill(num, params={}, reps=5):
+  "make a drill card, ensuring it is unique, and formatting it appropriately as a text file"
 
-  # check for duplicates
-  hashed_notes = list(map(lambda n: n.hash(), notes))
-  hash = make_hash("bracket", { "tempo":tempo, "notes":hashed_notes })
-  if hash in brackets: return False
-  brackets.add(hash)
+  # format drill card
+  name = inspect.stack()[1].function
+  text = name + " x" + str(reps) + "\n"
+  for key in params:
+    if params[key]:
+      text += key[0:3].upper() + " "
+      if isinstance(params[key], list):
+        text += " ".join(params[key]) + "\n"
+      else:
+        text += str(params[key]) + "\n"
 
-  # create folder for new bracket
-  mcd("00" + bracketnum() + "." + label)
-  return True
-
-def end_bracket():
-  os.chdir("..")
+  # add or increment the collection
+  if text in drills:
+    drills[text] += 1
+    return false
+  else:
+    drills[text] = 1
+    return true
 
 def make_phrase_drill(num, name, tempo, notes, reps=5):
   if len(notes) == 0: return
 
-  # check for duplicates
-  hash = make_hash(name, { "tempo":tempo, "notes":notes })
-  if hash in drills: return False
-  drills.add(hash)
+  # format drill card
+  text = f"{name} @{tempo} x{reps}\n"
+  for note in notes: text += note.to_compact_string() + "\n"
 
-  with open("00" + drillnum() + "A.txt", "w") as f:
-    f.write(f"{name} @{tempo} x{reps}\n")
-    for note in notes: f.write(note.to_compact_string() + "\n")
+  # add or increment the collection
+  if text in drills:
+    drills[text] += 1
+    return false
+  else:
+    drills[text] = 1
+    return true
 
-#
-# make a drill card, ensuring it is unique, and formatting
-# it appropriately as a text file
-#
-def make_drill(num, params={}, reps=5):
-
-  # check for duplicates
-  name = inspect.stack()[1].function
-  hash = make_hash(name, params)
-  if hash in drills: return False
-  drills.add(hash)
-
-  # write card text
-  with open("00" + drillnum() + "A.txt", "w") as f:
-    f.write(name + " x" + str(reps) + "\n")
-    for key in params:
-      if params[key]:
-        f.write(key[0:3].upper() + " ")
-        if isinstance(params[key], list):
-          f.write(" ".join(params[key]) + "\n")
-        else:
-          f.write(str(params[key]) + "\n")
-
-  return True
+def write_drill_cards():
+  sorted_drills = dict(reversed(sorted(drills.items(), key = lambda x: x[1])))
+  num = 0
+  for text in sorted_drills:
+    with open(DRILLS_DIR + "/" + str(num).zfill(NUM_PADDING) + ".txt", "w") as f: f.write(text)
+    num += 1
 
 #
 # hash a drill with the given parameters, such that combinations
@@ -148,6 +142,25 @@ def shift_rhythm(rhythm):
 
 # format the current drill number as a zero-padded string
 def drillnum(): return str(len(drills)).zfill(NUM_PADDING)
+
+def create_bracket(mp3, start_secs, stop_secs, label, tempo, notes):
+
+  # check for duplicates
+  hashed_notes = list(map(lambda n: n.hash(), notes))
+  hash = make_hash("bracket", { "tempo":tempo, "notes":hashed_notes })
+  if hash in brackets: return False
+  brackets.add(hash)
+
+  # create one folder per bracket
+  dir = BRACKETS_DIR + "/" + bracketnum() + "." + label + "/"
+  os.mkdir(dir)
+
+  # create bracket card and mp3 chunk
+  with open(dir + bracketnum() + "A.txt", "w") as f:
+    for note in notes: f.write(note.to_compact_string() + "\n")
+  cut_repeating_chunk(mp3, start_secs, stop_secs, dir + bracketnum() + "B.mp3")
+  return True
+
 def bracketnum(): return str(len(brackets)).zfill(NUM_PADDING)
 
 #
@@ -161,7 +174,7 @@ def make_metronome(tempo):
   if MAKE_MP3S:
     countdown_notes = int(tempo/8) # fifteen seconds at half tempo
     metronome_notes = int(DRILL_LENGTH_MINS * tempo)
-    filename = "=T" + str(int(tempo)).zfill(NUM_PADDING - 1) + ".mp3"
+    filename = "=T" + str(int(tempo)).zfill(NUM_PADDING - 2) + ".mp3"
     make_mp3(f"""
       X:0
       M:1/4
@@ -178,7 +191,7 @@ def make_metronome(tempo):
       %%MIDI program {GUNSHOT_INSTRUMENT}
       Q:240
       {"|c" * 4}
-      """, filename, tempo_percent=25)
+      """, DRILLS_DIR + "/" + filename, tempo_percent=25)
 
 #
 # make a drone of a single pitch which lasts for DRILL_LENGTH_MINS
@@ -196,7 +209,7 @@ def make_drone(note):
     %%MIDI program {GUNSHOT_INSTRUMENT}
     Q:60
     K:C
-    |cccc|z4""", "00" + drillnum() + "B.mp3")
+    |cccc|z4""", DRILLS_DIR + "/=P0" + note + ".mp3")
 
 #
 # convert an abc score to an mp3 file
@@ -212,7 +225,7 @@ def make_mp3(score, filename, transpose=0, tempo_percent=100):
 
 def make_whole(mp3, speed=1, silence=0):
   if MAKE_MP3S:
-    outfile = "00" + drillnum() + "B.mp3"
+    outfile = bracketnum() + "B.mp3"
     os.system(f"""
     ffmpeg -nostdin -loglevel error -i {mp3} -ac 1 -ar 48000 -q 4 \
            -af atempo={speed},adelay={silence}s:all=true "{outfile}"

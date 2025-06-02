@@ -89,9 +89,8 @@ def process_piece(piece):
   for section in reversed(piece.sections): process_section(piece, section)
 
   # create piece practise chunks
-  start_bracket(piece.name, piece.tempo, [])
-  shutil.copy(MP3_DIR + piece.mp3, "00" + drillnum() + "B.mp3")
-  end_bracket()
+  shutil.copy(MP3_DIR + piece.mp3, BRACKETS_DIR + "/" + piece.name + ".mp3")
+  write_drill_cards()
 
 def process_section(piece, section):
   notes = [note for phrase in section.phrases for note in phrase.notes]
@@ -100,21 +99,20 @@ def process_section(piece, section):
   for phrase in reversed(section.phrases): process_phrase(piece, section, phrase)
 
   # create section practise chunks
-  if start_bracket(section.label, piece.tempo, notes):
-    make_phrase_drill(0, "bracket", piece.tempo, notes)
-    cut_repeating_chunk(
-        mp3 = MP3_DIR + piece.mp3,
-        start_secs = section.phrases[0].start_secs,
-        stop_secs = section.phrases[-1].stop_secs,
-        outfile = "00" + drillnum() + "B.mp3");
-    end_bracket()
+  create_bracket(
+    mp3 = MP3_DIR + piece.mp3,
+    start_secs = section.phrases[0].start_secs,
+    stop_secs = section.phrases[-1].stop_secs,
+    label = section.label,
+    tempo = piece.tempo,
+    notes = notes)
 
 def process_phrase(piece, section, phrase):
   if len(phrase.notes) == 0: return
   notes = phrase.notes
 
   # create phrase practise chunks
-  if start_bracket(phrase.label, piece.tempo, notes):
+  if create_bracket(MP3_DIR + piece.mp3, phrase.start_secs, phrase.stop_secs, phrase.label, piece.tempo, notes):
 
     # process notes in reverse order
     for i in reversed(range(len(notes))):
@@ -123,13 +121,6 @@ def process_phrase(piece, section, phrase):
 
     # phrase drills
     phrase_metronome(piece.tempo, notes)
-    make_phrase_drill(0, "bracket", piece.tempo, notes)
-    cut_repeating_chunk(
-        mp3 = MP3_DIR + piece.mp3,
-        start_secs = phrase.start_secs,
-        stop_secs = phrase.stop_secs,
-        outfile = "00" + drillnum() + "B.mp3");
-    end_bracket()
 
 def process_transition(tempo, note, next):
   rhythm = note.start_beat + note.stop_beat + next.start_beat + next.stop_beat
@@ -229,7 +220,7 @@ def pinky_reaches():
 
 def tuning():
   if make_drill(16, locals(), 1):
-    make_drone(49)
+    make_drone("49")
 
 def hand_placement(string, shape, base):
   if shape in SHAPES:
