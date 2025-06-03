@@ -148,7 +148,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       4= 0 3=C4 ^5=== your
       o= 2 2=W1 ^4=== ed-
       12 0 3=C4 v35== Ges"""), 74.86, 78.86),
-    lyrics("Imperfections", "all you-r per-fect im-per-fec-tions", "Curves", 78.86, 82.63)
+    lyrics("Imperfections", "All you-r Per-fect Im-per-fec-Tions", "Curves", 78.86, 82.63)
   ]),
   Section("Sepulchre", "C1B", [
     phrase("Give-your", notes("""
@@ -168,8 +168,8 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       4= 0 3=C4 ^7=== to
       o= 2 2=W1 ^6=== yo-
       12 4 ===2 v35== U"""), 86.35, 90.10),
-    lyrics("End", "you're m-y end and my be-gin-ing", "Curves", 90.10, 94.17),
-    lyrics("Lose", "e-ve-n when i lose i'm win-ning", "Curves", 94.17, 97.70)
+    lyrics("End", "You're m-y End and My be-gin-Ing", "Curves", 90.10, 94.17),
+    lyrics("Lose", "E-ve-n When i Lose i'm win-Ning", "Curves", 94.17, 97.70)
   ]),
   Section("Altar", "C1O", [
     phrase("I-give", notes("""
@@ -185,7 +185,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", [
       u3 7 2==4 v5=== Ll
       4= 4 ===2 ^7=== of
       ou = ==== v46== Me"""), 97.70, 105.29),
-    lyrics("You-give", "and you give me a-u-i-a-a-ll of you", "I-give", 105.29, 111.83),
+    lyrics("You-give", "And you give me A-u-i-a-A-Ll of You", "I-give", 105.29, 111.83),
     phrase("Oo", notes("""
       4= 4 21W2 ^6=LM oh-
       o3 2 ===1 v26== O"""), 111.83, 115.05)
