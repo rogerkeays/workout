@@ -2,10 +2,11 @@
 # imports
 true = True
 false = False
-import sys, os, inspect, re, tempfile, math
+import sys, os, inspect, tempfile, math, shutil
 from dataclasses import dataclass
 
 # configuration
+MP3_DIR = os.environ['HOME'] + "/library/workout/violin/04.pieces"
 MAKE_MP3S = False if (len(sys.argv) > 1 and sys.argv[1] == "txt") else True
 TARGET_DIR = "target"
 DRILLS_DIR = "02.drills"
@@ -152,14 +153,25 @@ def create_bracket(mp3, start_secs, stop_secs, label, tempo, notes):
   brackets.add(hash)
 
   # create one folder per bracket
-  dir = BRACKETS_DIR + "/" + bracketnum() + "." + label + "/"
+  dir = BRACKETS_DIR + "/" + bracketnum() + "." + label
   os.mkdir(dir)
 
   # create bracket card and mp3 chunk
-  with open(dir + bracketnum() + "A.txt", "w") as f:
+  with open(dir + "/" + bracketnum() + "A.txt", "w") as f:
     for note in notes: f.write(note.to_compact_string() + "\n")
-  cut_repeating_chunk(mp3, start_secs, stop_secs, dir + bracketnum() + "B.mp3")
+  cut_repeating_chunk(mp3, start_secs, stop_secs, dir + "/" + bracketnum() + "B.mp3")
   return True
+
+def create_piece_bracket(mp3, label):
+  "create a practise bracket for the whole piece"
+
+  # one directory per bracket
+  brackets.add(label)
+  dir = BRACKETS_DIR + "/" + bracketnum() + "." + label
+  os.mkdir(dir)
+
+  # copy mp3 instead of remixing it
+  shutil.copy(mp3, dir + "/" + bracketnum() + "B.mp3")
 
 def bracketnum(): return str(len(brackets)).zfill(NUM_PADDING)
 
@@ -300,6 +312,9 @@ def make_gunshot(outfile):
     K:C
     %%MIDI program {GUNSHOT_INSTRUMENT}
     |cccc|z4""", outfile)
+
+def find_mp3(filename):
+  return MP3_DIR + "/" + filename
 
 # remove bar lines and spaces and replace repeat marks
 def normalise_tab(x):

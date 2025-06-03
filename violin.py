@@ -11,12 +11,10 @@
 # dynamics    V        eVen
 #
 
-import math, re, shutil
+import re
 from workout import *
 from dataclasses import dataclass
 
-MP3_DIR = os.environ['HOME'] + "/library/workout/violin/04.pieces/"
-FAST_TEMPO = 120
 SHAPES = "PGWCADKH"
 
 @dataclass
@@ -89,7 +87,7 @@ def process_piece(piece):
   for section in reversed(piece.sections): process_section(piece, section)
 
   # create piece practise chunks
-  shutil.copy(MP3_DIR + piece.mp3, BRACKETS_DIR + "/" + piece.name + ".mp3")
+  create_piece_bracket(find_mp3(piece.mp3), piece.name)
   write_drill_cards()
 
 def process_section(piece, section):
@@ -100,7 +98,7 @@ def process_section(piece, section):
 
   # create section practise chunks
   create_bracket(
-    mp3 = MP3_DIR + piece.mp3,
+    mp3 = find_mp3(piece.mp3),
     start_secs = section.phrases[0].start_secs,
     stop_secs = section.phrases[-1].stop_secs,
     label = section.label,
@@ -112,7 +110,7 @@ def process_phrase(piece, section, phrase):
   notes = phrase.notes
 
   # create phrase practise chunks
-  if create_bracket(MP3_DIR + piece.mp3, phrase.start_secs, phrase.stop_secs, phrase.label, piece.tempo, notes):
+  if create_bracket(find_mp3(piece.mp3), phrase.start_secs, phrase.stop_secs, phrase.label, piece.tempo, notes):
 
     # process notes in reverse order
     for i in reversed(range(len(notes))):
