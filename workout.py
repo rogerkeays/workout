@@ -115,7 +115,7 @@ def make_phrase_drill(num, name, tempo, notes, reps=5):
     return true
 
 def write_drill_cards():
-  sorted_drills = dict(reversed(sorted(drills.items(), key = lambda x: x[1])))
+  sorted_drills = dict(sorted(drills.items(), key=lambda x: x[1], reverse=true))
   num = 0
   for text in sorted_drills:
     with open(DRILLS_DIR + "/" + str(num).zfill(NUM_PADDING) + ".txt", "w") as f: f.write(text)
