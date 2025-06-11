@@ -23,22 +23,21 @@ class ViolinNote(Note):
   base: int
   shape: str
   finger: int
-  bow_direction: str
   start_bow: str
   stop_bow: str
 
   def to_string(n):
-    return f"{n.start_beat}{n.stop_beat} {n.degree} {n.string}{n.base}{n.shape}{n.finger} {n.bow_direction}{n.start_bow}{n.stop_bow}{n.attack}{n.dynamics} {n.label}"
+    return f"{n.start_beat}{n.stop_beat} {n.degree} {n.string}{n.base}{n.shape}{n.finger} {n.start_bow}{n.stop_bow}{n.attack}{n.dynamics} {n.label}"
 
   def to_compact_string(n):
     return f"{n.start_beat}{n.stop_beat} {n.degree} {n.string}{n.base}{n.shape}{n.finger} {n.start_bow}{n.stop_bow}{n.attack}{n.dynamics} {n.label[0:3]}"
 
   def hash(n):
-    return f"{n.start_beat}{n.stop_beat} {n.degree} {n.string}{n.base}{n.shape}{n.finger} {n.bow_direction}{n.start_bow}{n.stop_bow}{n.attack}{n.dynamics}"
+    return f"{n.start_beat}{n.stop_beat} {n.degree} {n.string}{n.base}{n.shape}{n.finger} {n.start_bow}{n.stop_bow}{n.attack}{n.dynamics}"
 
 def parse_violin_note(text: str) -> Note:
   """
-    field order: (start_beat stop_beat) degree (string base shape finger) (bow_direction start_bow stop_bow attack dynamic) label
+    field order: (start_beat stop_beat) degree (string base shape finger) (start_bow stop_bow attack dynamic) label
     example: "12 0 02W0 3v5LM twin-"
   """
   return ViolinNote(
@@ -49,12 +48,11 @@ def parse_violin_note(text: str) -> Note:
     base = text[6],
     shape = text[7],
     finger = text[8],
-    bow_direction = text[10],
-    start_bow = text[11],
-    stop_bow = text[12],
-    attack = text[13],
-    dynamics = text[14],
-    label = text[16:])
+    start_bow = text[10],
+    stop_bow = text[11],
+    attack = text[12],
+    dynamics = text[13],
+    label = text[15:])
 
 def notes(text: str) -> list[Note]:
   """
@@ -354,7 +352,6 @@ def lyrics(id, lyrics, template_id, start, stop):
         shape = z[0].shape,
         finger = z[0].finger,
         start_bow = z[0].start_bow,
-        bow_direction = z[0].bow_direction,
         stop_bow = z[0].stop_bow,
         attack = z[0].attack,
         dynamics = z[0].dynamics,
