@@ -159,7 +159,7 @@ def create_bracket(mp3, start_secs, stop_secs, label, tempo, notes):
   # create bracket card and mp3 chunk
   with open(dir + "/" + bracketnum() + "A.txt", "w") as f:
     for note in notes: f.write(note.to_compact_string() + "\n")
-  cut_repeating_chunk(mp3, start_secs, stop_secs, dir + "/" + bracketnum() + "B.mp3")
+  cut_timed_chunk(mp3, start_secs, stop_secs, dir + "/" + bracketnum() + "B.mp3")
   return True
 
 def create_piece_bracket(mp3, label):
