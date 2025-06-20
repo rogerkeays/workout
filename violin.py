@@ -19,21 +19,21 @@ SHAPES = "PGWCADKH"
 
 @dataclass
 class ViolinNote(Note):
-  finger: int
   string: str
   base: int
   shape: str
+  finger: int
   start_bow: str
   stop_bow: str
 
   def to_string(n):
-    return f"{n.start_beat}{n.stop_beat} {n.degree} {n.finger}{n.string}{n.base}{n.shape} {n.start_bow}{n.stop_bow}{n.attack}{n.dynamics} {n.label}"
+    return f"{n.start_beat}{n.stop_beat} {n.degree} {n.string}{n.base}{n.shape}{n.finger} {n.start_bow}{n.stop_bow}{n.attack}{n.dynamics} {n.label}"
 
   def to_compact_string(n):
-    return f"{n.start_beat}{n.stop_beat} {n.degree} {n.finger}{n.string}{n.base}{n.shape} {n.start_bow}{n.stop_bow}{n.attack}{n.dynamics} {n.label[0:3]}"
+    return f"{n.start_beat}{n.stop_beat} {n.degree} {n.string}{n.base}{n.shape}{n.finger} {n.start_bow}{n.stop_bow}{n.attack}{n.dynamics} {n.label[0:3]}"
 
   def hash(n):
-    return f"{n.start_beat}{n.stop_beat} {n.degree} {n.finger}{n.string}{n.base}{n.shape} {n.start_bow}{n.stop_bow}{n.attack}{n.dynamics}"
+    return f"{n.start_beat}{n.stop_beat} {n.degree} {n.string}{n.base}{n.shape}{n.finger} {n.start_bow}{n.stop_bow}{n.attack}{n.dynamics}"
 
 def parse_violin_note(text: str) -> Note:
   """
@@ -44,10 +44,10 @@ def parse_violin_note(text: str) -> Note:
     start_beat = text[0],
     stop_beat = text[1],
     degree = text[3],
-    finger = text[5],
-    string = text[6],
-    base = text[7],
-    shape = text[8],
+    string = text[5],
+    base = text[6],
+    shape = text[7],
+    finger = text[8],
     start_bow = text[10],
     stop_bow = text[11],
     attack = text[12],
