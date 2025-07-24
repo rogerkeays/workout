@@ -13,7 +13,7 @@ DRILLS_DIR = "02.drills"
 BRACKETS_DIR = "03.brackets"
 NUM_PADDING = 5
 DRILL_LENGTH_MINS = 2.5
-BRACKET_REPS = 8
+BRACKET_REPS = 5
 METRONOME_INSTRUMENT = 116 - 1 # woodblock
 GUNSHOT_INSTRUMENT = 128 - 1   # gunshot
 DRONE_INSTRUMENT = 57 - 1      # trumpet (closest to perfect pitch)
@@ -159,7 +159,7 @@ def create_bracket(mp3, start_secs, stop_secs, label, tempo, notes):
   # create bracket card and mp3 chunk
   with open(dir + "/" + bracketnum() + "A.txt", "w") as f:
     for note in notes: f.write(note.to_compact_string() + "\n")
-  cut_timed_chunk(mp3, start_secs, stop_secs, dir + "/" + bracketnum() + "B.mp3")
+  cut_repeating_chunk(mp3, start_secs, stop_secs, dir + "/" + bracketnum() + "B.mp3")
   return True
 
 def create_piece_bracket(mp3, label):
