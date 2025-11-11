@@ -10,7 +10,9 @@ MP3_DIR = os.environ['HOME'] + "/library/workout/violin/04.pieces"
 MAKE_MP3S = False if (len(sys.argv) > 1 and sys.argv[1] == "txt") else True
 TARGET_DIR = "target"
 DRILLS_DIR = "02.drills"
-BRACKETS_DIR = "03.brackets"
+PHRASES_DIR = "03.phrases"
+SECTIONS_DIR = "04.sections"
+PIECES_DIR = "05.pieces"
 NUM_PADDING = 5
 DRILL_LENGTH_MINS = 2.5
 BRACKET_REPS = 5
@@ -24,9 +26,13 @@ CHUNK_DELAY_SECS = 5
 os.mkdir(TARGET_DIR)
 os.chdir(TARGET_DIR)
 os.mkdir(DRILLS_DIR)
-os.mkdir(BRACKETS_DIR)
+os.mkdir(PHRASES_DIR)
+os.mkdir(SECTIONS_DIR)
+os.mkdir(PIECES_DIR)
 drills = {}
-brackets = set()
+phrases = set()
+sections = set()
+pieces = set()
 
 @dataclass
 class Note:
@@ -134,18 +140,16 @@ def shift_rhythm(rhythm):
 # format the current drill number as a zero-padded string
 def drillnum(): return str(len(drills)).zfill(NUM_PADDING)
 
-def create_bracket(label, tempo, notes):
+def create_phrase(label, tempo, notes):
 
   # check for duplicates
   hashed_notes = list(map(lambda n: n.hash(), notes))
-  hash = make_hash("bracket", { "tempo":tempo, "notes":hashed_notes })
-  if hash in brackets: return False
-  brackets.add(hash)
+  hash = make_hash("phrase", { "tempo":tempo, "notes":hashed_notes })
+  if hash in phrases: return False
+  phrases.add(hash)
 
-  # create one folder per bracket
-  mcd(BRACKETS_DIR + "/" + bracketnum() + "." + label)
-
-  # create bracket card and mp3 chunk
+  # create one folder per phrase
+  mcd(PHRASES_DIR + "/" + phrasenum() + "." + label)
   return True
 
 def make_phrase_drill(num, name, tempo, notes, to_string, reps=1):
@@ -156,18 +160,33 @@ def make_phrase_drill(num, name, tempo, notes, to_string, reps=1):
   for note in notes: text += to_string(note) + "\n"
   with open(str(num).zfill(NUM_PADDING) + ".txt", "w") as f: f.write(text)
 
+def phrasenum(): return str(len(phrases)).zfill(NUM_PADDING)
+
+def create_section(label, tempo, notes):
+
+  # check for duplicates
+  hashed_notes = list(map(lambda n: n.hash(), notes))
+  hash = make_hash("section", { "tempo":tempo, "notes":hashed_notes })
+  if hash in sections: return False
+  sections.add(hash)
+
+  # create one folder per phrase
+  mcd(SECTIONS_DIR + "/" + sectionnum() + "." + label)
+  return True
+
+def sectionnum(): return str(len(sections)).zfill(NUM_PADDING)
+
 def create_piece_bracket(mp3, label):
   "create a practise bracket for the whole piece"
 
   # one directory per bracket
-  brackets.add(label)
-  dir = BRACKETS_DIR + "/" + bracketnum() + "." + label
+  dir = PIECES_DIR + "/" + piecenum() + "." + label
   os.mkdir(dir)
 
   # copy mp3 instead of remixing it
-  shutil.copy(mp3, dir + "/" + bracketnum() + "B.mp3")
+  shutil.copy(mp3, dir + "/" + piecenum() + "B.mp3")
 
-def bracketnum(): return str(len(brackets)).zfill(NUM_PADDING)
+def piecenum(): return str(len(pieces)).zfill(NUM_PADDING)
 
 #
 # make a metronome with the given tempo which goes for DRILL_LENGTH_MINS

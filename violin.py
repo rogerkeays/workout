@@ -98,7 +98,7 @@ def process_section(piece, section):
   for phrase in reversed(section.phrases): process_phrase(piece, section, phrase)
 
   # create section practise chunks
-  if create_bracket(section.label, piece.tempo, notes):
+  if create_section(section.label, piece.tempo, notes):
     cut_repeating_chunk(find_mp3(piece.mp3), section.phrases[0].start_secs, section.phrases[-1].stop_secs, "00000.mp3")
     os.chdir("../..")
 
@@ -108,7 +108,7 @@ def process_phrase(piece, section, phrase):
   tempo = piece.tempo
 
   # create phrase practise chunks
-  if create_bracket(phrase.label, tempo, notes):
+  if create_phrase(phrase.label, tempo, notes):
 
     # phrase drills
     make_phrase_drill(1, "lyrics recall", tempo, notes, lambda n: n.label, 1)
