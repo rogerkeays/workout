@@ -150,46 +150,46 @@ def process_note(tempo, note, stop):
 ############
 
 def arm_stretches():
-  make_drill(1, locals(), 1)
+  make_drill(locals(), 1)
 
 def jellyfish():
-  make_drill(2, locals(), 5)
+  make_drill(locals(), 5)
 
 def finger_stretches():
-  make_drill(3, locals())
+  make_drill(locals())
 
 def jankin(shape):
   if shape in SHAPES:
     finger_stretches()
-    make_drill(4, locals(), 15)
+    make_drill(locals(), 15)
 
 def jankin_switches(from_shape, to_shape):
   if to_shape > from_shape: from_shape, to_shape = to_shape, from_shape
   if from_shape != "N" and to_shape != "N" and from_shape != to_shape:
     jankin(from_shape)
     jankin(to_shape)
-    make_drill(5, locals(), 15)
+    make_drill(locals(), 15)
 
 def finger_wriggles_straight(from_shape, to_shape):
   if to_shape > from_shape: from_shape, to_shape = to_shape, from_shape
   if from_shape != "N" and to_shape != "N" and from_shape != to_shape:
-    make_drill(6, locals(), 30)
+    make_drill(locals(), 30)
 
 def finger_wriggles_curved(from_shape, to_shape):
   if to_shape > from_shape: from_shape, to_shape = to_shape, from_shape
   if from_shape != "N" and to_shape != "N" and from_shape != to_shape:
     finger_wriggles_straight(from_shape, to_shape)
-    make_drill(7, locals(), 30)
+    make_drill(locals(), 30)
 
 def air_hammers(finger):
-  make_drill(8, locals(), 30)
+  make_drill(locals(), 30)
 
 def violin_hold():
   arm_stretches()
   no_hands_swivels()
 
 def no_hands_swivels():
-  make_drill(9, locals(), 10)
+  make_drill(locals(), 10)
 
 def bow_hold():
   jellyfish()
@@ -199,81 +199,81 @@ def bow_hold():
   bow_hand_resets()
 
 def vertical_bow_raises():
-  make_drill(10, locals(), 10)
+  make_drill(locals(), 10)
 
 def horizontal_bow_raises():
-  make_drill(11, locals(), 10)
+  make_drill(locals(), 10)
 
 def itsy_bitsy_spider():
-  make_drill(12, locals(), 5)
+  make_drill(locals(), 5)
 
 def bow_hand_resets():
-  make_drill(13, locals(), 5)
+  make_drill(locals(), 5)
 
 def elbow_raises():
-  make_drill(14, locals(), 30)
+  make_drill(locals(), 30)
 
 def pinky_reaches():
   elbow_raises()
-  make_drill(15, locals(), 30)
+  make_drill(locals(), 30)
 
 def tuning():
-  if make_drill(16, locals(), 1):
+  if make_drill(locals(), 1):
     make_drone("49")
 
 def hand_placement(string, shape, base):
   if shape in SHAPES:
     jankin(shape)
     pitch_hitting(string, base, "1")
-    if make_drill(17, locals(), 60):
+    if make_drill(locals(), 60):
       make_drone(note_at(string, base))
 
 def finger_hammers(string, fret, finger):
   air_hammers(finger)
-  make_drill(18, locals(), 15)
+  make_drill(locals(), 15)
 
 def bow_placement(string, bowpos):
   violin_hold()
   bow_hold()
-  make_drill(19, locals(), 5)
+  make_drill(locals(), 5)
 
 def bow_benders(string, bowpos):
   bow_placement(string, bowpos)
-  make_drill(20, locals(), 10)
+  make_drill(locals(), 10)
 
 def string_yanking(tempo, string, bowpos, direction):
   bow_benders(string, bowpos)
-  make_drill(21, locals(), 15)
+  make_drill(locals(), 15)
 
 def son_file():
   make_metronome(60)
-  make_drill(22, locals(), 4)
+  make_drill(locals(), 4)
 
 def beat_clapping(tempo, rhythm):
-  make_drill(23, locals(), 5)
+  make_drill(locals(), 5)
 
 def bow_attack(tempo, rhythm, string, bowing, attack, dynamics):
   if attack != ".":
     string_yanking(tempo, string, bowing[0], "D" if bowing[1] > bowing[0] else "U")
     beat_clapping(tempo, rhythm)
-    make_drill(24, locals(), 5)
+    make_drill(locals(), 5)
 
 def bow_changes(tempo, rhythm, string, bowing, attack, dynamics):
   if attack[0] != "." and attack[1] != ".":
     beat_clapping(tempo, rhythm)
-    make_drill(25, locals(), 5)
+    make_drill(locals(), 5)
 
 def pitch_hitting(string, fret, finger):
   if int(fret) != 0 and int(finger) != 0:
     finger_hammers(string, fret, finger)
     tuning()
-    if make_drill(26, locals(), 5):
+    if make_drill(locals(), 5):
       make_drone(note_at(string, fret))
 
 def string_switching(tempo, frm, to, bowpos):
   if frm > to: frm, to = to, frm
   bow_hold()
-  make_drill(27, locals(), 15)
+  make_drill(locals(), 15)
 
 def hand_jumps_silent(strings, shapes, bases):
   if shapes[0] != "N" and shapes[1] != "N":
@@ -281,45 +281,45 @@ def hand_jumps_silent(strings, shapes, bases):
     jankin_switches(shapes[0], shapes[1])
     hand_placement(strings[1], shapes[1], bases[1])
     hand_placement(strings[0], shapes[0], bases[0])
-    make_drill(28, locals(), 15)
+    make_drill(locals(), 15)
 
 def hand_jumps_exact(strings, shapes, bases):
   if shapes[0] != "N" and shapes[1] != "N":
     hand_jumps_silent(strings, shapes, bases)
-    make_drill(29, locals(), 5)
+    make_drill(locals(), 5)
 
 def hand_jumps_rapid(tempo, strings, shapes, bases):
   if shapes[0] != "N" and shapes[1] != "N":
     hand_jumps_exact(strings, shapes, bases)
-    make_drill(30, locals(), 5)
+    make_drill(locals(), 5)
 
 def string_crossings(tempo, rhythm, strings, bowing, attack, dynamics):
   string_switching(tempo, strings[0], strings[1], bowing[1])
   beat_clapping(tempo, rhythm)
-  make_drill(31, locals(), 5)
+  make_drill(locals(), 5)
 
 def rhythm_clapping(tempo, notes):
-  make_phrase_drill(32, "rhythm_clapping", tempo, notes)
+  make_phrase_drill("rhythm_clapping", tempo, notes)
 
 def bowing_visualisation(tempo, notes):
-  make_phrase_drill(33, "bowing_vis", tempo, notes)
+  make_phrase_drill("bowing_vis", tempo, notes)
 
 def fingering_visualisation(tempo, notes):
-  make_phrase_drill(34, "fingering_vis", tempo, notes)
+  make_phrase_drill("fingering_vis", tempo, notes)
 
 def phrase_visualisation(tempo, notes):
   rhythm_clapping(tempo,notes)
   fingering_visualisation(tempo, notes)
   bowing_visualisation(tempo, notes)
-  make_phrase_drill(35, "phrase_vis", tempo, notes)
+  make_phrase_drill("phrase_vis", tempo, notes)
 
 def open_strings(tempo, notes):
-  make_phrase_drill(36, "open_strings", tempo, notes)
+  make_phrase_drill("open_strings", tempo, notes)
 
 def phrase_metronome(tempo, notes):
   phrase_visualisation(tempo, notes)
   open_strings(tempo, notes)
-  make_phrase_drill(37, "phrase_metronome", tempo, notes)
+  make_phrase_drill("phrase_metronome", tempo, notes)
 
 def fret(shape, base, finger):
     if shape == "N": return base

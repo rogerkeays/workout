@@ -82,7 +82,7 @@ def mcd(dirname):
   os.makedirs(dirname)
   os.chdir(dirname)
 
-def make_drill(num, params={}, reps=5):
+def make_drill(params={}, reps=5):
   "make a drill card, ensuring it is unique, and formatting it appropriately as a text file"
 
   # format drill card
@@ -104,7 +104,7 @@ def make_drill(num, params={}, reps=5):
     drills[text] = 1
     return true
 
-def make_phrase_drill(num, name, tempo, notes, reps=5):
+def make_phrase_drill(name, tempo, notes, reps=5):
   if len(notes) == 0: return
 
   # format drill card
