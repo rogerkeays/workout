@@ -139,8 +139,8 @@ def process_transition(tempo, note, next, stop):
     hand_jumps_rapid(tempo, strings, note.shape + next.shape, note.base + next.base)
 
 def process_note(tempo, note, stop):
-  if note.label != "." and note.label != "," and note.attack != ".":
-    bow_attack(tempo, note.beat + stop.beat, note.string, note.bow_position + stop.bow_position, note.attack, note.vol_start + note.vol_stop)
+  if note.degree != "Z":
+    bow_attack(tempo, note.beat + stop.beat, note.string, note.bow_position, stop.bow_position, note.attack, note.vol_start + note.vol_stop)
     hand_placement(note.string, note.shape, note.base)
     pitch_hitting(note.string, fret(note.shape, note.base, note.finger), note.finger)
 
@@ -252,10 +252,10 @@ def son_file():
 def beat_clapping(tempo, rhythm):
   make_drill(locals(), 5)
 
-def bow_attack(tempo, rhythm, string, bowing, attack, dynamics):
-  if attack != ".":
-    string_yanking(tempo, string, bowing[0], "D" if bowing[1] > bowing[0] else "U")
-    beat_clapping(tempo, rhythm)
+def bow_attack(tempo, rhythm, string, bow_start, bow_stop, attack, dynamics):
+  beat_clapping(tempo, rhythm)
+  if bow_start != "^" and bow_start != "v":
+    string_yanking(tempo, string, bow_start, "D" if bow_stop > bow_start else "U")
     make_drill(locals(), 5)
 
 def bow_changes(tempo, rhythm, string, bowing, attack, dynamics):
