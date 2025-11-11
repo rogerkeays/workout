@@ -98,28 +98,33 @@ def process_section(piece, section):
   for phrase in reversed(section.phrases): process_phrase(piece, section, phrase)
 
   # create section practise chunks
-  create_bracket(
-    mp3 = find_mp3(piece.mp3),
-    start_secs = section.phrases[0].start_secs,
-    stop_secs = section.phrases[-1].stop_secs,
-    label = section.label,
-    tempo = piece.tempo,
-    notes = notes)
+  if create_bracket(section.label, piece.tempo, notes):
+    cut_repeating_chunk(find_mp3(piece.mp3), section.phrases[0].start_secs, section.phrases[-1].stop_secs, "00000.mp3")
+    os.chdir("../..")
 
 def process_phrase(piece, section, phrase):
   if len(phrase.notes) == 0: return
   notes = phrase.notes
+  tempo = piece.tempo
 
   # create phrase practise chunks
-  if create_bracket(find_mp3(piece.mp3), phrase.start_secs, phrase.stop_secs, phrase.label, piece.tempo, notes):
+  if create_bracket(phrase.label, tempo, notes):
+
+    # phrase drills
+    make_phrase_drill(1, "lyrics recall", tempo, notes, lambda n: n.label, 1)
+    make_phrase_drill(2, "rhythm recall", tempo, notes, lambda n: f"{n.beat} {n.label}", 1)
+    make_phrase_drill(3, "melody recall", tempo, notes, lambda n: f"{n.beat} {n.degree} {n.label}", 1)
+    make_phrase_drill(4, "bowing recall", tempo, notes, lambda n: f"{n.beat} {n.degree} {n.bow_position} {n.label}", 1)
+    make_phrase_drill(5, "open strings", tempo, notes, lambda n: n.to_compact_string(), 5)
+    make_phrase_drill(6, "mp3 play", tempo, notes, lambda n: n.to_compact_string(), 5)
+    cut_repeating_chunk(find_mp3(piece.mp3), phrase.start_secs, phrase.stop_secs, "00007.mp3")
+    make_phrase_drill(8, "metronome play", tempo, notes, lambda n: n.to_compact_string(), 5)
+    os.chdir("../..")
 
     # process notes in reverse order
     for i in reversed(range(len(notes))):
-      if i < len(notes) - 1: process_note(piece.tempo, notes[i], notes[i+1])
-      if i < len(notes) - 2: process_transition(piece.tempo, notes[i], notes[i+1], notes[i+2])
-
-    # phrase drills
-    phrase_metronome(piece.tempo, notes)
+      if i < len(notes) - 1: process_note(tempo, notes[i], notes[i+1])
+      if i < len(notes) - 2: process_transition(tempo, notes[i], notes[i+1], notes[i+2])
 
 def process_transition(tempo, note, next, stop):
   rhythm = note.beat + next.beat + stop.beat
@@ -297,29 +302,6 @@ def string_crossings(tempo, rhythm, strings, bowing, attack, dynamics):
   string_switching(tempo, strings[0], strings[1], bowing[1])
   beat_clapping(tempo, rhythm)
   make_drill(locals(), 5)
-
-def rhythm_clapping(tempo, notes):
-  make_phrase_drill("rhythm_clapping", tempo, notes)
-
-def bowing_visualisation(tempo, notes):
-  make_phrase_drill("bowing_vis", tempo, notes)
-
-def fingering_visualisation(tempo, notes):
-  make_phrase_drill("fingering_vis", tempo, notes)
-
-def phrase_visualisation(tempo, notes):
-  rhythm_clapping(tempo,notes)
-  fingering_visualisation(tempo, notes)
-  bowing_visualisation(tempo, notes)
-  make_phrase_drill("phrase_vis", tempo, notes)
-
-def open_strings(tempo, notes):
-  make_phrase_drill("open_strings", tempo, notes)
-
-def phrase_metronome(tempo, notes):
-  phrase_visualisation(tempo, notes)
-  open_strings(tempo, notes)
-  make_phrase_drill("phrase_metronome", tempo, notes)
 
 def fret(shape, base, finger):
     if shape == "N": return base

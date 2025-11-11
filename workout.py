@@ -104,21 +104,6 @@ def make_drill(params={}, reps=5):
     drills[text] = 1
     return true
 
-def make_phrase_drill(name, tempo, notes, reps=5):
-  if len(notes) == 0: return
-
-  # format drill card
-  text = f"{name} @{tempo} x{reps}\n"
-  for note in notes: text += note.to_compact_string() + "\n"
-
-  # add or increment the collection
-  if text in drills:
-    drills[text] += 1
-    return false
-  else:
-    drills[text] = 1
-    return true
-
 def write_drill_cards():
   sorted_drills = dict(sorted(drills.items(), key=lambda x: x[1], reverse=true))
   num = 0
@@ -149,7 +134,7 @@ def shift_rhythm(rhythm):
 # format the current drill number as a zero-padded string
 def drillnum(): return str(len(drills)).zfill(NUM_PADDING)
 
-def create_bracket(mp3, start_secs, stop_secs, label, tempo, notes):
+def create_bracket(label, tempo, notes):
 
   # check for duplicates
   hashed_notes = list(map(lambda n: n.hash(), notes))
@@ -158,14 +143,18 @@ def create_bracket(mp3, start_secs, stop_secs, label, tempo, notes):
   brackets.add(hash)
 
   # create one folder per bracket
-  dir = BRACKETS_DIR + "/" + bracketnum() + "." + label
-  os.mkdir(dir)
+  mcd(BRACKETS_DIR + "/" + bracketnum() + "." + label)
 
   # create bracket card and mp3 chunk
-  with open(dir + "/" + bracketnum() + "A.txt", "w") as f:
-    for note in notes: f.write(note.to_compact_string() + "\n")
-  cut_repeating_chunk(mp3, start_secs, stop_secs, dir + "/" + bracketnum() + "B.mp3")
   return True
+
+def make_phrase_drill(num, name, tempo, notes, to_string, reps=1):
+  if len(notes) == 0: return
+
+  # format drill card
+  text = f"{name} @{tempo} x{reps}\n"
+  for note in notes: text += to_string(note) + "\n"
+  with open(str(num).zfill(NUM_PADDING) + ".txt", "w") as f: f.write(text)
 
 def create_piece_bracket(mp3, label):
   "create a practise bracket for the whole piece"
