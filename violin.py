@@ -23,36 +23,39 @@ class ViolinNote(Note):
   base: int
   shape: str
   finger: int
-  start_bow: str
-  stop_bow: str
+  bow_position: str
 
   def to_string(n):
-    return f"{n.start_beat}{n.stop_beat} {n.degree} {n.string}{n.base}{n.shape}{n.finger} {n.start_bow}{n.stop_bow}{n.attack}{n.dynamics} {n.label}"
+    return f"{n.beat} {n.degree} {n.attack}{n.vol_start}{n.vol_stop}{n.sustain} {n.string}{n.base}{n.shape}{n.finger} {n.bow_position} {n.label}"
 
   def to_compact_string(n):
-    return f"{n.start_beat}{n.stop_beat} {n.degree} {n.string}{n.base}{n.shape}{n.finger} {n.start_bow}{n.stop_bow}{n.attack}{n.dynamics} {n.label[0:3]}"
+    return f"{n.beat} {n.degree} {n.attack}{n.vol_start}{n.vol_stop}{n.sustain} {n.string}{n.base}{n.shape}{n.finger} {n.bow_position} {n.label[0:3]}"
 
   def hash(n):
-    return f"{n.start_beat}{n.stop_beat} {n.degree} {n.string}{n.base}{n.shape}{n.finger} {n.start_bow}{n.stop_bow}{n.attack}{n.dynamics}"
+    return f"{n.beat} {n.degree} {n.attack}{n.vol_start}{n.vol_stop}{n.sustain} {n.string}{n.base}{n.shape}{n.finger} {n.bow_position}"
 
 def parse_violin_note(text: str) -> Note:
   """
-    field order: (start_beat stop_beat) degree (string base shape finger) (start_bow stop_bow attack dynamic) label
-    example: "12 0 02W0 3v5LM twin-"
+    field order: (beat) (degree) (attack vol_start vol_stop sustain) (string base shape finger) (bow_position) (label)
+    example:
+      1 0 L44= 22W0 3 twin-
+      2 = ==== ==== 5 kl-
+      3 7 ==== 1==0 3 twin-
+      4 = ==== ==== 5 kl-
   """
   return ViolinNote(
-    start_beat = text[0],
-    stop_beat = text[1],
-    degree = text[3],
-    string = text[5],
-    base = text[6],
-    shape = text[7],
-    finger = text[8],
-    start_bow = text[10],
-    stop_bow = text[11],
-    attack = text[12],
-    dynamics = text[13],
-    label = text[15:])
+    beat = text[0],
+    degree = text[2],
+    attack = text[4],
+    vol_start = text[5],
+    vol_stop = text[6],
+    sustain = text[7],
+    string = text[9],
+    base = text[10],
+    shape = text[11],
+    finger = text[12],
+    bow_position = text[14],
+    label = text[16:])
 
 def notes(text: str) -> list[Note]:
   """
@@ -61,16 +64,16 @@ def notes(text: str) -> list[Note]:
   return list(map(parse_violin_note, filter(lambda x: len(x) > 0, map(str.strip, text.split("\n")))))
 
 def calculate_note_defaults(note, next):
-  if note.stop_beat == "=": note.stop_beat = next.start_beat
-  if note.stop_bow == "=": note.stop_bow = next.start_bow
   if next.degree == "=": next.degree = note.degree
   if next.attack == "=": next.attack = note.attack
-  if next.dynamics == "=": next.dynamics = note.dynamics
+  if next.vol_start == "=": next.vol_start = note.vol_start
+  if next.vol_stop == "=": next.vol_stop = note.vol_stop
+  if next.sustain == "=": next.sustain = note.sustain
   if next.string == "=": next.string = note.string
-  if next.start_bow == "=": next.start_bow = note.stop_bow
   if next.base == "=": next.base = note.base
   if next.shape == "=": next.shape = note.shape
   if next.finger == "=": next.finger = note.finger
+  if next.bow_position == "=": next.bow_position = note.bow_position
 
 def process_piece(piece):
   make_metronome(piece.tempo)
@@ -112,18 +115,18 @@ def process_phrase(piece, section, phrase):
 
     # process notes in reverse order
     for i in reversed(range(len(notes))):
-      process_note(piece.tempo, notes[i])
-      if i < len(notes) - 1: process_transition(piece.tempo, notes[i], notes[i+1])
+      if i < len(notes) - 1: process_note(piece.tempo, notes[i], notes[i+1])
+      if i < len(notes) - 2: process_transition(piece.tempo, notes[i], notes[i+1], notes[i+2])
 
     # phrase drills
     phrase_metronome(piece.tempo, notes)
 
-def process_transition(tempo, note, next):
-  rhythm = note.start_beat + note.stop_beat + next.start_beat + next.stop_beat
+def process_transition(tempo, note, next, stop):
+  rhythm = note.beat + next.beat + stop.beat
   strings = note.string + next.string
-  bowing = note.start_bow + note.stop_bow + next.start_bow + next.stop_bow
+  bowing = note.bow_position + next.bow_position + stop.bow_position
   attack = note.attack + next.attack
-  dynamics = note.dynamics + next.dynamics
+  dynamics = note.vol_start + note.vol_stop + next.vol_start + next.vol_stop
 
   # transition drills
   if note.string == next.string:
@@ -135,9 +138,9 @@ def process_transition(tempo, note, next):
   if note.string != next.string:
     hand_jumps_rapid(tempo, strings, note.shape + next.shape, note.base + next.base)
 
-def process_note(tempo, note):
+def process_note(tempo, note, stop):
   if note.label != "." and note.label != "," and note.attack != ".":
-    bow_attack(tempo, note.start_beat + note.stop_beat, note.string, note.start_bow + note.stop_bow, note.attack, note.dynamics)
+    bow_attack(tempo, note.beat + stop.beat, note.string, note.bow_position + stop.bow_position, note.attack, note.vol_start + note.vol_stop)
     hand_placement(note.string, note.shape, note.base)
     pitch_hitting(note.string, fret(note.shape, note.base, note.finger), note.finger)
 
@@ -344,16 +347,16 @@ def lyrics(id, lyrics, template_id, start, stop):
     template = all_phrases[template_id]
     split_lyrics = re.split("[- ]", lyrics)
     return phrase(id, list(map(lambda z: ViolinNote(
-        start_beat = z[0].start_beat,
-        stop_beat = z[0].stop_beat,
+        beat = z[0].beat,
         degree = z[0].degree,
-        base = z[0].base,
+        attack = z[0].attack,
+        vol_start = z[0].vol_start,
+        vol_stop = z[0].vol_stop,
+        sustain = z[0].sustain,
         string = z[0].string,
+        base = z[0].base,
         shape = z[0].shape,
         finger = z[0].finger,
-        start_bow = z[0].start_bow,
-        stop_bow = z[0].stop_bow,
-        attack = z[0].attack,
-        dynamics = z[0].dynamics,
+        bow_position = z[0].bow_position,
         label = z[1]), zip(template.notes, split_lyrics))), start, stop)
 

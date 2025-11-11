@@ -30,11 +30,12 @@ brackets = set()
 
 @dataclass
 class Note:
-  start_beat: str
-  stop_beat: str
+  beat: str
   degree: str
   attack: str
-  dynamics: str
+  vol_start: str
+  vol_stop: str
+  sustain: str
   label: str
 
 @dataclass
@@ -68,10 +69,14 @@ class Piece:
 
 def parse_note(text: str):
   """
-    field order: beat degree attack dynamic " " label
-    example: "10LM twin- 10LM kl"
+    field order: beat (space) degree (space) attack vol_start vol_stop sustain (space) label
+    example:
+     1 0 L44= twin-
+     2 = ==== kle
+     3 7 ==== twin-
+     4 = ==== kle
   """
-  return Note(text[0], text[1], text[2], text[3], text[5:], {})
+  return Note(text[0], text[2], text[4], text[5], text[6], text[7], text[9:], {})
 
 def mcd(dirname):
   os.makedirs(dirname)
