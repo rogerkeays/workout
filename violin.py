@@ -67,7 +67,7 @@ def calculate_note_defaults(note, next):
   if next.degree == "=": next.degree = note.degree
   if next.attack == "=": next.attack = note.attack
   if next.vol_start == "=": next.vol_start = note.vol_start
-  if next.vol_stop == "=": next.vol_stop = note.vol_stop
+  if next.vol_stop == "=": next.vol_stop = next.vol_start
   if next.sustain == "=": next.sustain = note.sustain
   if next.string == "=": next.string = note.string
   if next.base == "=": next.base = note.base
