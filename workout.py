@@ -180,6 +180,7 @@ def create_piece_bracket(mp3, label):
   "create a practise bracket for the whole piece"
 
   # one directory per bracket
+  pieces.add(label)
   dir = PIECES_DIR + "/" + piecenum() + "." + label
   os.mkdir(dir)
 
