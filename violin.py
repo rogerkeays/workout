@@ -88,7 +88,7 @@ def process_piece(piece):
   for section in reversed(piece.sections): process_section(piece, section)
 
   # create piece practise chunks
-  create_piece_bracket(find_mp3(piece.mp3), piece.name)
+  if len(piece.sections) > 1: create_piece_bracket(find_mp3(piece.mp3), piece.name)
   write_drill_cards()
 
 def process_section(piece, section):
