@@ -1,23 +1,12 @@
 # vim: foldmethod=expr foldtext=getline(v\:foldstart) foldexpr=indent(v\:lnum)\|\|indent(v\:lnum+1)\|\|getline(v\:lnum)[0]=='@'?1\:'<1'
 
-#
-# abbreviations
-#
-# rhythm      1bar2dup3cet4mow
-# strings     1234
-# shape       NPGWCADKH None, Porcupine, Gun, Westside, Chicken, Alien, Dog, ducK, Huddle
-# fingers     01234
-# bowing      0-8
-# attack      DGS      Detache, leGato, Staccato
-# dynamics    V        eVen
-#
-
 import re
 from workout import *
 from dataclasses import dataclass
 
-SHAPES = "PGWCADKH"
+SHAPES = "PGWCADKH" # Porcupine, Gun, Westside, Chicken, Alien, Dog, ducK, Huddle
 
+# data structures
 @dataclass # ViolinNote
 class ViolinNote(Note):
   string: str
@@ -34,6 +23,59 @@ class ViolinNote(Note):
 
   def hash(n):
     return f"{n.beat} {n.degree} {n.attack}{n.vol_start}{n.vol_stop}{n.sustain} {n.string}{n.base}{n.shape}{n.finger} {n.bow_position}"
+
+
+# functions
+def calculate_defaults(note, next):
+  if next.degree == "=": next.degree = note.degree
+  if next.attack == "=": next.attack = note.attack
+  if next.vol_start == "=": next.vol_start = note.vol_start
+  if next.vol_stop == "=": next.vol_stop = next.vol_start
+  if next.sustain == "=": next.sustain = note.sustain
+  if next.string == "=": next.string = note.string
+  if next.base == "=": next.base = note.base
+  if next.shape == "=": next.shape = note.shape
+  if next.finger == "=": next.finger = note.finger
+  if next.bow_position == "=": next.bow_position = note.bow_position
+
+def fret(shape, base, finger):
+    if shape == "N": return base
+    if shape == "P": frets = [0, 2, 4, 6]   # porcupine
+    elif shape == "G": frets = [0, 1, 3, 5] # gun
+    elif shape == "W": frets = [0, 2, 3, 5] # westside
+    elif shape == "C": frets = [0, 2, 4, 5] # chicken
+    elif shape == "A": frets = [0, 1, 3, 4] # alien
+    elif shape == "D": frets = [0, 1, 2, 4] # dog
+    elif shape == "K": frets = [0, 2, 3, 4] # duck
+    elif shape == "H": frets = [0, 1, 2, 3] # huddle
+    return str(frets[int(finger) - 1] + int(base))
+
+def lyrics(id, lyrics, template_id, start, stop):
+    """ clone a phrase, but with different lyrics and different start and stops """
+    template = all_phrases[template_id]
+    split_lyrics = re.split("[- ]", lyrics)
+    return phrase(id, list(map(lambda z: ViolinNote(
+        beat = z[0].beat,
+        degree = z[0].degree,
+        attack = z[0].attack,
+        vol_start = z[0].vol_start,
+        vol_stop = z[0].vol_stop,
+        sustain = z[0].sustain,
+        string = z[0].string,
+        base = z[0].base,
+        shape = z[0].shape,
+        finger = z[0].finger,
+        bow_position = z[0].bow_position,
+        label = z[1]), zip(template.notes, split_lyrics))), start, stop)
+
+def note_at(string, fret):
+    return decimal_to_note(note_to_decimal("5Y") - (int(string) * 7) + int(fret))
+
+def notes(text: str) -> list[Note]:
+  """
+    parse a block of notes line by line and return an array of ViolinNotes
+  """
+  return list(map(parse_violin_note, filter(lambda x: len(x) > 0, map(str.strip, text.split("\n")))))
 
 def parse_violin_note(text: str) -> Note:
   """
@@ -58,50 +100,11 @@ def parse_violin_note(text: str) -> Note:
     bow_position = text[14],
     label = text[16:])
 
-def notes(text: str) -> list[Note]:
-  """
-    parse a block of notes line by line and return an array of ViolinNotes
-  """
-  return list(map(parse_violin_note, filter(lambda x: len(x) > 0, map(str.strip, text.split("\n")))))
-
-def calculate_note_defaults(note, next):
-  if next.degree == "=": next.degree = note.degree
-  if next.attack == "=": next.attack = note.attack
-  if next.vol_start == "=": next.vol_start = note.vol_start
-  if next.vol_stop == "=": next.vol_stop = next.vol_start
-  if next.sustain == "=": next.sustain = note.sustain
-  if next.string == "=": next.string = note.string
-  if next.base == "=": next.base = note.base
-  if next.shape == "=": next.shape = note.shape
-  if next.finger == "=": next.finger = note.finger
-  if next.bow_position == "=": next.bow_position = note.bow_position
-
-def process_piece(piece):
-  make_metronome(piece.tempo)
-
-  # calculate defaults
-  for section in piece.sections:
-    for phrase in section.phrases:
-      for i, note in enumerate(phrase.notes):
-        if i < len(phrase.notes) - 1: calculate_note_defaults(note, phrase.notes[i + 1])
-
-  # process sections
-  for section in reversed(piece.sections): process_section(piece, section)
-
-  # create piece practise chunks
-  if len(piece.sections) > 1: create_piece_bracket(find_mp3(piece.mp3), piece.name)
-  write_drill_cards()
-
-def process_section(piece, section):
-  notes = [note for phrase in section.phrases for note in phrase.notes]
-
-  # process phrases in reverse
-  for phrase in reversed(section.phrases): process_phrase(piece, section, phrase)
-
-  # create section practise chunks
-  if create_section(section.label, piece.tempo, notes):
-    cut_repeating_chunk(find_mp3(piece.mp3), section.phrases[0].start_secs, section.phrases[-1].stop_secs, "00000.mp3")
-    os.chdir("../..")
+def process_note(tempo, note, stop):
+  if note.degree != "Z":
+    bow_attack(tempo, note.beat + stop.beat, note.string, note.bow_position, stop.bow_position, note.attack, note.vol_start + note.vol_stop)
+    hand_placement(note.string, note.shape, note.base)
+    pitch_hitting(note.string, fret(note.shape, note.base, note.finger), note.finger)
 
 def process_phrase(piece, section, phrase):
   if len(phrase.notes) == 0: return
@@ -127,6 +130,33 @@ def process_phrase(piece, section, phrase):
       if i < len(notes) - 1: process_note(tempo, notes[i], notes[i+1])
       if i < len(notes) - 2: process_transition(tempo, notes[i], notes[i+1], notes[i+2])
 
+def process_piece(piece):
+  make_metronome(piece.tempo)
+
+  # calculate defaults
+  for section in piece.sections:
+    for phrase in section.phrases:
+      for i, note in enumerate(phrase.notes):
+        if i < len(phrase.notes) - 1: calculate_defaults(note, phrase.notes[i + 1])
+
+  # process sections
+  for section in reversed(piece.sections): process_section(piece, section)
+
+  # create piece practise chunks
+  if len(piece.sections) > 1: create_piece_bracket(find_mp3(piece.mp3), piece.name)
+  write_drill_cards()
+
+def process_section(piece, section):
+  notes = [note for phrase in section.phrases for note in phrase.notes]
+
+  # process phrases in reverse
+  for phrase in reversed(section.phrases): process_phrase(piece, section, phrase)
+
+  # create section practise chunks
+  if create_section(section.label, piece.tempo, notes):
+    cut_repeating_chunk(find_mp3(piece.mp3), section.phrases[0].start_secs, section.phrases[-1].stop_secs, "00000.mp3")
+    os.chdir("../..")
+
 def process_transition(tempo, note, next, stop):
   rhythm = note.beat + next.beat + stop.beat
   strings = note.string + next.string
@@ -144,17 +174,16 @@ def process_transition(tempo, note, next, stop):
   if note.string != next.string:
     hand_jumps_rapid(tempo, strings, note.shape + next.shape, note.base + next.base)
 
-def process_note(tempo, note, stop):
-  if note.degree != "Z":
-    bow_attack(tempo, note.beat + stop.beat, note.string, note.bow_position, stop.bow_position, note.attack, note.vol_start + note.vol_stop)
-    hand_placement(note.string, note.shape, note.base)
-    pitch_hitting(note.string, fret(note.shape, note.base, note.finger), note.finger)
+def repeat(template_id, start, stop):
+    """
+      repeat a phrase with different start and stop times
+      this function does not clone the notes
+    """
+    template = all_phrases[template_id]
+    return Phrase(template_id, template.notes, start, stop)
 
 
-############
-## DRILLS ##
-############
-
+# drills
 def arm_stretches():
   make_drill(locals(), 1)
 
@@ -303,51 +332,5 @@ def string_crossings(tempo, rhythm, strings, bowing, attack, dynamics):
   string_switching(tempo, strings[0], strings[1], bowing[1])
   beat_clapping(tempo, rhythm)
   make_drill(locals(), 5)
-
-
-###############
-## FUNCTIONS ##
-###############
-
-def fret(shape, base, finger):
-    if shape == "N": return base
-    if shape == "P": frets = [0, 2, 4, 6]   # porcupine
-    elif shape == "G": frets = [0, 1, 3, 5] # gun
-    elif shape == "W": frets = [0, 2, 3, 5] # westside
-    elif shape == "C": frets = [0, 2, 4, 5] # chicken
-    elif shape == "A": frets = [0, 1, 3, 4] # alien
-    elif shape == "D": frets = [0, 1, 2, 4] # dog
-    elif shape == "K": frets = [0, 2, 3, 4] # duck
-    elif shape == "H": frets = [0, 1, 2, 3] # huddle
-    return str(frets[int(finger) - 1] + int(base))
-
-def note_at(string, fret):
-    return decimal_to_note(note_to_decimal("5Y") - (int(string) * 7) + int(fret))
-
-def repeat(template_id, start, stop):
-    """
-      repeat a phrase with different start and stop times
-      this function does not clone the notes
-    """
-    template = all_phrases[template_id]
-    return Phrase(template_id, template.notes, start, stop)
-
-def lyrics(id, lyrics, template_id, start, stop):
-    """ clone a phrase, but with different lyrics and different start and stops """
-    template = all_phrases[template_id]
-    split_lyrics = re.split("[- ]", lyrics)
-    return phrase(id, list(map(lambda z: ViolinNote(
-        beat = z[0].beat,
-        degree = z[0].degree,
-        attack = z[0].attack,
-        vol_start = z[0].vol_start,
-        vol_stop = z[0].vol_stop,
-        sustain = z[0].sustain,
-        string = z[0].string,
-        base = z[0].base,
-        shape = z[0].shape,
-        finger = z[0].finger,
-        bow_position = z[0].bow_position,
-        label = z[1]), zip(template.notes, split_lyrics))), start, stop)
 
 
