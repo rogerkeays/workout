@@ -40,37 +40,37 @@ def calculate_defaults(note, next):
   if next.bow_position == "=": next.bow_position = note.bow_position
 
 def fret(shape, base, finger):
-    if shape == "N": return base
-    if shape == "P": frets = [0, 2, 4, 6]   # porcupine
-    elif shape == "G": frets = [0, 1, 3, 5] # gun
-    elif shape == "W": frets = [0, 2, 3, 5] # westside
-    elif shape == "C": frets = [0, 2, 4, 5] # chicken
-    elif shape == "A": frets = [0, 1, 3, 4] # alien
-    elif shape == "D": frets = [0, 1, 2, 4] # dog
-    elif shape == "K": frets = [0, 2, 3, 4] # duck
-    elif shape == "H": frets = [0, 1, 2, 3] # huddle
-    return str(frets[int(finger) - 1] + int(base))
+  if shape == "N": return base
+  if shape == "P": frets = [0, 2, 4, 6]   # porcupine
+  elif shape == "G": frets = [0, 1, 3, 5] # gun
+  elif shape == "W": frets = [0, 2, 3, 5] # westside
+  elif shape == "C": frets = [0, 2, 4, 5] # chicken
+  elif shape == "A": frets = [0, 1, 3, 4] # alien
+  elif shape == "D": frets = [0, 1, 2, 4] # dog
+  elif shape == "K": frets = [0, 2, 3, 4] # duck
+  elif shape == "H": frets = [0, 1, 2, 3] # huddle
+  return str(frets[int(finger) - 1] + int(base))
 
 def lyrics(id, lyrics, template_id, start, stop):
-    """ clone a phrase, but with different lyrics and different start and stops """
-    template = all_phrases[template_id]
-    split_lyrics = re.split("[- ]", lyrics)
-    return phrase(id, list(map(lambda z: ViolinNote(
-        beat = z[0].beat,
-        degree = z[0].degree,
-        attack = z[0].attack,
-        vol_start = z[0].vol_start,
-        vol_stop = z[0].vol_stop,
-        sustain = z[0].sustain,
-        string = z[0].string,
-        base = z[0].base,
-        shape = z[0].shape,
-        finger = z[0].finger,
-        bow_position = z[0].bow_position,
-        label = z[1]), zip(template.notes, split_lyrics))), start, stop)
+  """ clone a phrase, but with different lyrics and different start and stops """
+  template = all_phrases[template_id]
+  split_lyrics = re.split("[- ]", lyrics)
+  return phrase(id, list(map(lambda z: ViolinNote(
+    beat = z[0].beat,
+    degree = z[0].degree,
+    attack = z[0].attack,
+    vol_start = z[0].vol_start,
+    vol_stop = z[0].vol_stop,
+    sustain = z[0].sustain,
+    string = z[0].string,
+    base = z[0].base,
+    shape = z[0].shape,
+    finger = z[0].finger,
+    bow_position = z[0].bow_position,
+    label = z[1]), zip(template.notes, split_lyrics))), start, stop)
 
 def note_at(string, fret):
-    return decimal_to_note(note_to_decimal("5Y") - (int(string) * 7) + int(fret))
+  return decimal_to_note(note_to_decimal("5Y") - (int(string) * 7) + int(fret))
 
 def notes(text: str) -> list[Note]:
   """
@@ -176,12 +176,12 @@ def process_transition(tempo, note, next, stop):
     hand_jumps_rapid(tempo, strings, note.shape + next.shape, note.base + next.base)
 
 def repeat(template_id, start, stop):
-    """
-      repeat a phrase with different start and stop times
-      this function does not clone the notes
-    """
-    template = all_phrases[template_id]
-    return Phrase(template_id, template.notes, start, stop)
+  """
+    repeat a phrase with different start and stop times
+    this function does not clone the notes
+  """
+  template = all_phrases[template_id]
+  return Phrase(template_id, template.notes, start, stop)
 
 
 # drills
