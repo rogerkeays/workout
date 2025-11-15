@@ -1,3 +1,4 @@
+# vim: foldmethod=expr foldtext=getline(v\:foldstart) foldexpr=indent(v\:lnum)\|\|indent(v\:lnum+1)\|\|getline(v\:lnum)[0]=='@'?1\:'<1'
 
 # imports
 true = True
@@ -34,7 +35,8 @@ phrases = set()
 sections = set()
 pieces = set()
 
-@dataclass
+# data structures
+@dataclass # Note
 class Note:
   beat: str
   degree: str
@@ -44,27 +46,20 @@ class Note:
   sustain: str
   label: str
 
-@dataclass
+@dataclass # Phrase
 class Phrase:
   label: str
   notes: list[Note]
   start_secs: float
   stop_secs: float
 
-# constructor for phrases, which keeps a reference to the phrases created
-all_phrases = {}
-def phrase(label, notes, start, stop):
-  p = Phrase(label, notes, start, stop)
-  all_phrases[label] = p
-  return p
-
-@dataclass
+@dataclass # Section
 class Section:
   label: str
   function: str
   phrases: list[Phrase]
 
-@dataclass
+@dataclass # Piece
 class Piece:
   name: str
   meter: int
@@ -72,6 +67,15 @@ class Piece:
   tonic: str
   sections: list[Section]
   mp3: str
+
+
+# functions
+all_phrases = {}
+def phrase(label, notes, start, stop):
+  "constructor for phrases, which keeps a reference to the phrases created"
+  p = Phrase(label, notes, start, stop)
+  all_phrases[label] = p
+  return p
 
 def parse_note(text: str):
   """
@@ -117,19 +121,19 @@ def write_drill_cards():
     with open(DRILLS_DIR + "/" + str(num).zfill(NUM_PADDING) + ".txt", "w") as f: f.write(text)
     num += 1
 
-#
-# hash a drill with the given parameters, such that combinations
-# resulting in the same physics result in the same value
-#
 def make_hash(name, params):
+  """
+    hash a drill with the given parameters, such that combinations
+    resulting in the same physics result in the same value
+  """
   keys = params.copy()
   if "lyrics" in keys: del keys["lyrics"]
   if "index" in keys: del keys["index"]
   if "rhythm" in keys: keys["rhythm"] = shift_rhythm(keys["rhythm"])
   return name + str(keys)
 
-# shift a rhythm pattern to start on the first beat
 def shift_rhythm(rhythm):
+  "shift a rhythm pattern to start on the first beat"
   onsets = "1bar2dup3cet4mow"
   shift = int(onsets.index(rhythm[0]) / 4) * 4
   if shift == 0:
@@ -137,10 +141,12 @@ def shift_rhythm(rhythm):
   else:
     return "".join(map(lambda c: onsets[onsets.index(c) - shift], rhythm))
 
-# format the current drill number as a zero-padded string
-def drillnum(): return str(len(drills)).zfill(NUM_PADDING)
+def drillnum():
+  "format the current drill number as a zero-padded string"
+  return str(len(drills)).zfill(NUM_PADDING)
 
 def create_phrase(label, tempo, notes):
+  "start a new phrase as long as it is not a duplicate"
 
   # check for duplicates
   hashed_notes = list(map(lambda n: n.hash(), notes))
@@ -160,9 +166,11 @@ def make_phrase_drill(num, name, tempo, notes, to_string, reps=1):
   for note in notes: text += to_string(note) + "\n"
   with open(str(num).zfill(NUM_PADDING) + ".txt", "w") as f: f.write(text)
 
-def phrasenum(): return str(len(phrases)).zfill(NUM_PADDING)
+def phrasenum():
+  return str(len(phrases)).zfill(NUM_PADDING)
 
 def create_section(label, tempo, notes):
+  "start a new section as long as it is not a duplicate"
 
   # check for duplicates
   hashed_notes = list(map(lambda n: n.hash(), notes))
@@ -174,7 +182,8 @@ def create_section(label, tempo, notes):
   mcd(SECTIONS_DIR + "/" + sectionnum() + "." + label)
   return True
 
-def sectionnum(): return str(len(sections)).zfill(NUM_PADDING)
+def sectionnum():
+  return str(len(sections)).zfill(NUM_PADDING)
 
 def create_piece_bracket(mp3, label):
   "create a practise bracket for the whole piece"
@@ -187,16 +196,17 @@ def create_piece_bracket(mp3, label):
   # copy mp3 instead of remixing it
   shutil.copy(mp3, dir + "/" + piecenum() + "B.mp3")
 
-def piecenum(): return str(len(pieces)).zfill(NUM_PADDING)
+def piecenum():
+  return str(len(pieces)).zfill(NUM_PADDING)
 
-#
-# make a metronome with the given tempo which goes for DRILL_LENGTH_MINS
-# before sounding an alarm
-#
-# note: abc2midi miscalculates when tempo < 4, so we multiply the tempo by 4
-# and set the midi speed to 25%
-#
 def make_metronome(tempo):
+  """
+    make a metronome with the given tempo which goes for DRILL_LENGTH_MINS
+    before sounding an alarm
+
+    note: abc2midi miscalculates when tempo < 4, so we multiply the tempo by 4
+    and set the midi speed to 25%
+  """
   if MAKE_MP3S:
     countdown_notes = int(tempo/8) # fifteen seconds at half tempo
     metronome_notes = int(DRILL_LENGTH_MINS * tempo)
@@ -219,11 +229,11 @@ def make_metronome(tempo):
       {"|c" * 4}
       """, DRILLS_DIR + "/" + filename, tempo_percent=25)
 
-#
-# make a drone of a single pitch which lasts for DRILL_LENGTH_MINS
-# and finishes with an alarm
-#
 def make_drone(note):
+  """
+    make a drone of a single pitch which lasts for DRILL_LENGTH_MINS
+    and finishes with an alarm
+  """
   make_mp3(f"""
     X:0
     M:4/4
@@ -237,10 +247,8 @@ def make_drone(note):
     K:C
     |cccc|z4""", DRILLS_DIR + "/=P0" + note + ".mp3")
 
-#
-# convert an abc score to an mp3 file
-#
 def make_mp3(score, filename, transpose=0, tempo_percent=100):
+  "convert an abc score to an mp3 file"
   if MAKE_MP3S:
     if not os.path.exists(filename):
       os.system(f"""echo '{score}' \
@@ -311,8 +319,8 @@ def cut_mixed_chunk(mp3, start_secs, stop_secs, outfile):
       ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
              -codec copy "{outfile}" """)
 
-# repeat a chunk for DRILL_LENGTH_MINS
 def cut_timed_chunk(mp3, start_secs, stop_secs, outfile, speed=1.0):
+  "repeat a chunk for DRILL_LENGTH_MINS"
   length = CHUNK_DELAY_SECS + (CHUNK_FADE_SECS + stop_secs - start_secs + CHUNK_FADE_SECS) / speed
   reps = math.ceil(DRILL_LENGTH_MINS * 60 / length)
   cut_repeating_chunk(mp3, start_secs, stop_secs, outfile, speed, reps)
@@ -330,16 +338,16 @@ def make_gunshot(outfile):
 def find_mp3(filename):
   return MP3_DIR + "/" + filename
 
-# remove bar lines and spaces and replace repeat marks
-def normalise_tab(x):
-  raw = x.replace(" ", "").replace("|", "").replace("\n", "")
+def normalise_tab(tab):
+  "remove bar lines and spaces and replace repeat marks"
+  raw = tab.replace(" ", "").replace("|", "").replace("\n", "")
   result = []
   for i, letter in enumerate(raw):
     result.append(letter if letter != "=" else result[i-1])
   return ''.join(result)
 
-# add base-12 notes and intervals
 def add(note, interval):
+  "add base-12 notes and intervals"
   return decimal_to_note(note_to_decimal(note) + note_to_decimal(interval))
 
 def note_to_decimal(note):

@@ -1,3 +1,4 @@
+# vim: foldmethod=expr foldtext=getline(v\:foldstart) foldexpr=indent(v\:lnum)\|\|indent(v\:lnum+1)\|\|getline(v\:lnum)[0]=='@'?1\:'<1'
 
 #
 # abbreviations
@@ -17,7 +18,7 @@ from dataclasses import dataclass
 
 SHAPES = "PGWCADKH"
 
-@dataclass
+@dataclass # ViolinNote
 class ViolinNote(Note):
   string: str
   base: int
@@ -303,6 +304,11 @@ def string_crossings(tempo, rhythm, strings, bowing, attack, dynamics):
   beat_clapping(tempo, rhythm)
   make_drill(locals(), 5)
 
+
+###############
+## FUNCTIONS ##
+###############
+
 def fret(shape, base, finger):
     if shape == "N": return base
     if shape == "P": frets = [0, 2, 4, 6]   # porcupine
@@ -318,14 +324,16 @@ def fret(shape, base, finger):
 def note_at(string, fret):
     return decimal_to_note(note_to_decimal("5Y") - (int(string) * 7) + int(fret))
 
-# repeat a phrase with different start and stop times
-# this function does not clone the notes
 def repeat(template_id, start, stop):
+    """
+      repeat a phrase with different start and stop times
+      this function does not clone the notes
+    """
     template = all_phrases[template_id]
     return Phrase(template_id, template.notes, start, stop)
 
-# clone a phrase, but with different lyrics and different start and stops
 def lyrics(id, lyrics, template_id, start, stop):
+    """ clone a phrase, but with different lyrics and different start and stops """
     template = all_phrases[template_id]
     split_lyrics = re.split("[- ]", lyrics)
     return phrase(id, list(map(lambda z: ViolinNote(
@@ -341,4 +349,5 @@ def lyrics(id, lyrics, template_id, start, stop):
         finger = z[0].finger,
         bow_position = z[0].bow_position,
         label = z[1]), zip(template.notes, split_lyrics))), start, stop)
+
 
