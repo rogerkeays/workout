@@ -1,4 +1,4 @@
-# vim: foldmethod=marker foldmarker=Phrase,\ ) foldtext=getline(v\:foldstart)
+# vim: foldmethod=marker foldmarker=phrase,\ ) foldtext=getline(v\:foldstart)
 
 import sys; sys.path.append("..")
 from violin import *
@@ -6,7 +6,7 @@ from violin import *
 # @oxford
 process_piece(Piece("lightly-row", 4, 90, "49", [
   Section("riverbank", "A", [
-    Phrase("flamingo", notes("""
+    phrase("flamingo", notes("""
       1 7 L4== 22W4 3 light-
       2 4 ==== ===2 5 ly
       3 = ==== ==== 3 row,
@@ -15,7 +15,7 @@ process_piece(Piece("lightly-row", 4, 90, "49", [
       3 = ==== ==== 5 go
       1 Z ==== ==== 3 ."""), 6.92, 10.52
     ),
-    Phrase("river", notes("""
+    phrase("river", notes("""
       1 0 L4== 22W0 3 down
       2 2 ==== ===1 5 the
       3 4 ==== ===2 3 ri-
@@ -25,7 +25,7 @@ process_piece(Piece("lightly-row", 4, 90, "49", [
       3 = ==== ==== 3 go
       1 Z ==== ==== 5 ."""), 10.52, 14.12
     ),
-    Phrase("rowing", notes("""
+    phrase("rowing", notes("""
       1 7 L4== 22W4 5 al-
       2 4 ==== ===2 3 ways
       3 = ==== ==== 5 row-
@@ -36,7 +36,7 @@ process_piece(Piece("lightly-row", 4, 90, "49", [
       4 = ==== ==== 3 ing
       1 Z ==== ==== 5 ."""), 14.12, 17.60
     ),
-    Phrase("canoe", notes("""
+    phrase("canoe", notes("""
       1 0 L4== 22W0 5 in
       2 2 ==== ===1 3 my
       3 7 ==== ===4 5 bright
@@ -48,7 +48,7 @@ process_piece(Piece("lightly-row", 4, 90, "49", [
     )
   ]),
   Section("bridge", "B", [
-    Phrase("fishes", notes("""
+    phrase("fishes", notes("""
       1 2 L4== 22W1 3 see
       2 = ==== ==== 5 the
       3 = ==== ==== 3 fish-
@@ -58,7 +58,7 @@ process_piece(Piece("lightly-row", 4, 90, "49", [
       3 5 ==== ===3 3 by
       1 Z ==== ==== 5 ."""), 21.23, 24.85
     ),
-    Phrase("birds", notes("""
+    phrase("birds", notes("""
       1 4 L4== 22W2 3 see
       2 = ==== ==== 5 the
       3 = ==== ==== 3 birds
