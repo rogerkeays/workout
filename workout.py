@@ -88,6 +88,18 @@ def create_phrase(label, tempo, notes):
   mcd(PHRASES_DIR + "/" + str(len(phrases)).zfill(NUM_PADDING) + "." + label)
   return True
 
+def create_piece_bracket(mp3, label):
+  "create a practise bracket for the whole piece"
+
+  # one directory per bracket
+  pieces.add(label)
+  piecenum = str(len(pieces)).zfill(NUM_PADDING)
+  dir = PIECES_DIR + "/" + piecenum + "." + label
+  os.mkdir(dir)
+
+  # copy mp3 instead of remixing it
+  shutil.copy(mp3, dir + "/" + piecenum + "B.mp3")
+
 def create_section(label, tempo, notes):
   "start a new section as long as it is not a duplicate"
 
@@ -100,18 +112,6 @@ def create_section(label, tempo, notes):
   # create one folder per phrase
   mcd(SECTIONS_DIR + "/" + str(len(sections)).zfill(NUM_PADDING) + "." + label)
   return True
-
-def create_piece_bracket(mp3, label):
-  "create a practise bracket for the whole piece"
-
-  # one directory per bracket
-  pieces.add(label)
-  piecenum = str(len(pieces)).zfill(NUM_PADDING)
-  dir = PIECES_DIR + "/" + piecenum + "." + label
-  os.mkdir(dir)
-
-  # copy mp3 instead of remixing it
-  shutil.copy(mp3, dir + "/" + piecenum + "B.mp3")
 
 def cut_chunk(mp3, start_secs, stop_secs, outfile, speed=1.0):
   if MAKE_MP3S and stop_secs > 0:
@@ -185,12 +185,6 @@ def find_mp3(filename):
 def half(val):
   return int(val / 2)
 
-def phrase(label, notes, start, stop):
-  "constructor for phrases, which keeps a reference to the phrases created"
-  p = Phrase(label, notes, start, stop)
-  all_phrases[label] = p
-  return p
-
 def parse_note(text: str):
   """
     field order: beat (space) degree (space) attack vol_start vol_stop sustain (space) label
@@ -201,6 +195,12 @@ def parse_note(text: str):
      4 = ==== kle
   """
   return Note(text[0], text[2], text[4], text[5], text[6], text[7], text[9:], {})
+
+def phrase(label, notes, start, stop):
+  "constructor for phrases, which keeps a reference to the phrases created"
+  p = Phrase(label, notes, start, stop)
+  all_phrases[label] = p
+  return p
 
 def make_drill(params={}, reps=5):
   "make a drill card, ensuring it is unique, and formatting it appropriately as a text file"
