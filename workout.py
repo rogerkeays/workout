@@ -6,7 +6,7 @@ from dataclasses import dataclass
 
 # configuration
 MP3_DIR = os.environ['HOME'] + "/library/workout/violin/04.pieces"
-MAKE_MP3S = False if (len(sys.argv) > 1 and sys.argv[1] == "txt") else True
+MAKE_MP3S = True if (len(sys.argv) > 1 and sys.argv[1] == "mp3") else False
 NUM_PADDING = 5
 DRILL_LENGTH_MINS = 2.5
 BRACKET_REPS = 5
