@@ -63,37 +63,79 @@ process_piece(Piece("baby-steps", 4, 90, "37", "02.baby-steps.mp3", [
 process_piece(Piece("the-first-fall", 4, 100, "37", "05.the-first-fall.mp3", [
   Section ("lounge", "V", [
     phrase("window", 10.19, 12.68, notes("""
-      1 0 D44= 40N0 = runs
-      a = ==== ==== = in-
-      2 = ==== ==== = to
-      u = ==== ==== = the
-      3 7 ==== 3=== = win-
-      4 = ==== ==== = dow
-      1 Z ==== 1=== = ."""
+      1 0 D44= 40N0 3 runs
+      a = ==== ==== 5 in-
+      2 = ==== ==== 3 to
+      u = ==== ==== 5 the
+      3 7 ==== 3=== 3 win-
+      4 = ==== ==== 5 dow
+      1 Z ==== 1=== 3 ."""
     )),
     phrase("falling", 12.68, 15.13, notes("""
-      1 9 D44= 10N0 = fall-
-      a = ==== ==== = ing
-      2 = ==== ==== = on
-      a = ==== ==== = his
-      3 2 ==== 2=== = arse
-      1 Z ==== ==== = ."""
+      1 9 D44= 10N0 3 fall-
+      a = ==== ==== 5 ing
+      2 = ==== ==== 3 on
+      a = ==== ==== 5 his
+      3 2 ==== 2=== 3 arse
+      1 Z ==== ==== 5 ."""
     )),
     phrase("what", 15.13, 17.53, notes("""
-      1 2 D44= 20N0 = what
-      a = ==== ==== = the
-      2 = ==== ==== = hell
-      a = ==== ==== = just
-      3 9 ==== 1=== = ha-
-      4 = ==== ==== = ppened?
-      1 Z ==== 2=== = ."""
+      1 2 D44= 20N0 5 what
+      a = ==== ==== 3 the
+      2 = ==== ==== 5 hell
+      a = ==== ==== 3 just
+      3 9 ==== 1=== 5 ha-
+      4 = ==== ==== 3 ppened?
+      1 Z ==== 2=== 5 ."""
     )),
     phrase("dunno", 17.53, 20.18, notes("""
-      1 7 D44= 20N0 = i
-      2 2 ==== 3=== = don't
-      3 0 ==== 4=== = know
-      1 Z ==== ==== = ."""
+      1 7 D44= 20N0 5 i
+      2 2 ==== 3=== 3 don't
+      3 0 ==== 4=== 5 know
+      1 Z ==== ==== 3 ."""
     ))
+  ])
+]))
+
+process_piece(Piece("into-the-kitchen", 4, 100, "37", "06.into-the-kitchen.mp3", [
+  Section("kitchen", "V", [
+    phrase("no-one", 10.04, 12.59, notes("""
+      1 0 D44= 40N0 3 here
+      a 7 ==== 3=== 5 there's
+      2 = ==== ==== 3 no-
+      u = ==== ==== 5 one,
+      3 2 ==== 2=== 3 there
+      e 7 ==== 3=== 5 there's
+      4 = ==== ==== 3 no-
+      o = ==== ==== 5 one
+      1 Z ==== 1=== 3 ."""
+    )),
+    phrase("sneak", 12.59, 14.89, notes("""
+      1 9 D44= 10N0 3 sneak
+      a = ==== ==== 5 in-
+      2 = ==== ==== 3 to
+      u = ==== ==== 5 the
+      3 2 ==== 2=== 3 ki-
+      4 = ==== ==== 5 tchen
+      1 Z ==== ==== 3 ."""
+    )),
+    phrase("climbing", 14.89, 17.19, notes("""
+      1 2 D44= 20N0 3 climb-
+      a = ==== ==== 5 ing
+      2 = ==== ==== 3 up
+      u = ==== ==== 5 the
+      3 9 ==== 1=== 3 coun-
+      4 = ==== ==== 5 ter
+      1 Z ==== 2=== 3 ."""
+    )),
+    phrase("hanging", 17.19, 20.46, notes("""
+      1 2 D44= 20N0 3 hang-
+      a 7 ==== 3=== 5 ing
+      2 = ==== ==== 3 off
+      u = ==== ==== 5 the
+      3 2 ==== 2=== 3 door
+      1 Z ==== ==== 5 ."""
+    )),
   ])
 ]))
 
