@@ -1,16 +1,52 @@
+# vim: foldmethod=marker foldmarker=phrase,\ ) foldtext=getline(v\:foldstart)
 
-def ponies(meter=3, tempo=95, tonic=42):
-  piece(34, "ponies", locate("34.ponies.mp3"), tempo,
-    phrases = [("li-ttle girls like to draw", 12.68),
-               ("all the pre-tty li-ttle po-nies", 20.28, 27.69),
-               ("in her dreams she walks a-mong .", 41.61, 50.63)],
+import sys; sys.path.append("..")
+from violin import *
 
-    index   = "|lt|g|lt|d |at|ptlt|p|n |ih|d|swa|m|.",
-    rhythm  = "|13|1|13|1 |13|1u3e|1|1 |13|1|123|1|1",
-    strings = "|3=|=|==|= |2=|=3==|=|= |4=|=|3==|=|=",
-    bowing  = "|35|3|53|5 |35|3535|3|5 |35|3|534|5|3",
-    shapes  = "|G=|=|==|= |P=|=G==|=|= |==|=|===|=|=",
-    bases   = "|2=|=|==|= |1=|=2==|=|= |==|=|===|=|=",
-    fingers = "|04|=|32|3 |24|0321|0|0 |13|=|0=2|=|="
-  )
+# @art class
+process_piece(Piece("ponies", 3, 95, "42", "34.ponies.mp3", [
+  Section("desk", "A", [
+    phrase("girls", notes("""
+      1 0 L44= 32G0 3 li-
+      3 7 ==== ===4 5 ttle
+      1 = ==== ==== 3 girls
+      1 5 ==== ===3 5 like
+      3 3 ==== ===2 3 to
+      1 5 ==== ===3 5 draw
+      1 Z ==== 21== 3 ."""), 12.68, 20.28
+    ),
+    phrase("ponies", notes("""
+      1 X L44= 21P2 3 all
+      3 2 ==== ===4 5 the
+      1 7 ==== ===0 3 pre-
+      u 5 ==== 32G3 5 tty
+      3 3 ==== ===2 3 li-
+      e 2 ==== ===1 5 ttle
+      1 0 ==== ===0 3 po-
+      1 = ==== ==== 5 nies
+      1 = ==== 4=== 3 ."""), 20.28, 27.69
+    ),
+  ]),
+  Section("desk", "A", [
+    repeat("girls"),
+    repeat("ponies")
+  ]),
+  Section("reverie", "B", [
+    phrase("dreams", notes("""
+      1 = L44= 42G1 3 in
+      3 = ==== ===3 5 her
+      1 = ==== ==== 3 dreams,
+      1 = ==== 3==0 5 she
+      2 = ==== ==== 3 walks
+      3 = ==== ===2 v a-
+      1 = ==== ==== 5 mong
+      1 = ==== 2=== 3 ."""), 41.61, 50.63
+    ),
+    repeat("ponies")
+  ]),
+  Section("desk", "A", [
+    repeat("girls"),
+    repeat("ponies")
+  ])
+]))
 
