@@ -1,11 +1,11 @@
-# vim: foldmethod=marker foldmarker=\ phrase(,) foldtext=getline(v\:foldstart)
+# vim: foldmethod=marker foldmarker=phrase,)) foldtext=getline(v\:foldstart)
 
 import sys; sys.path.append("..")
 from violin import *
 
 process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
   Section("art-desk", "V1", [
-    phrase("mouth", notes("""
+    phrase("mouth", 23.51, 27.31, notes("""
       3 2 L4== 21W1 2 what
       e 4 ==== ===2 ^ would
       4 = ==== ==== 6 i
@@ -16,8 +16,9 @@ process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
       3 = ===~ ==== 2 your
       4 0 ===~ 3=C4 6 smart
       1 = ===~ ==== 2 mouth?
-      2 Z ==== ==== 6 ."""), 23.51, 27.31),
-    phrase("drawin", notes("""
+      2 Z ==== ==== 6 ."""
+    )),
+    phrase("drawin", 27.31, 31.12, notes("""
       3 2 L4== 21W1 2 draw-
       e 4 ==== ===2 v in
       4 = ==== ==== 6 me
@@ -29,8 +30,9 @@ process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
       4 0 ==== 3=C4 2 me
       o = ==== ==== 4 a-
       1 9 ==== ===2 2 out
-      2 Z ==== ==== 6 ."""), 27.31, 31.12),
-    phrase("spinnin", notes("""
+      2 Z ==== ==== 6 ."""
+    )),
+    phrase("spinnin", 31.12, 35.85, notes("""
       u 9 L4== 31C2 6 you've
       3 4 ==== 2=W= 4 got
       t = ==== ==== 7 my
@@ -41,8 +43,9 @@ process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
       1 5 ==== 2=W3 2 no
       3 4 ==== ===2 v kid-
       e 0 ==== 3=C4 7 din
-      4 Z ==== ==== 3 ."""), 31.12, 35.85),
-    phrase("pin", notes("""
+      4 Z ==== ==== 3 ."""
+    )),
+    phrase("pin", 35.85, 38.95, notes("""
       o 0 L4== 31C4 3 i
       1 2 ==== 2=W1 2 can't
       u Z ==== ==== 5 ,
@@ -50,10 +53,11 @@ process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
       e 2 ==== ===1 7 yo-
       o 9 ==== 3=C2 ^ u
       1 = ==== ==== 2 down
-      u Z ==== ==== 6 ."""),  35.85, 38.95)
+      u Z ==== ==== 6 ."""
+    ))
   ]),
   Section("disneyland", "V2", [
-    phrase("mind", notes("""
+    phrase("mind", 38.95, 42.67, notes("""
       3 2 L4== 21W1 2 what's
       e 4 ==== ===2 v go-
       4 = ==== ==== 6 in
@@ -64,8 +68,9 @@ process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
       e 2 ==== ===1 v ti-
       4 0 ==== 3=C4 6 ful
       w = ==== ==== 2 mind
-      2 Z ==== ==== 6 ?"""), 38.95, 42.67),
-    phrase("ride", notes("""
+      2 Z ==== ==== 6 ?"""
+    )),
+    phrase("ride", 42.67, 46.57, notes("""
       3 4 L4== 21W2 6 i'm
       e = ==== ==== 4 on
       4 = ==== ==== 6 your
@@ -77,8 +82,9 @@ process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
       4 0 ==== 3=C4 6 ry-
       o = ==== ==== 4 r-
       1 9 ==== ===2 6 ide
-      u Z ==== ==== 2 ."""), 42.67, 46.57),
-    phrase("dizzy", notes("""
+      u Z ==== ==== 2 ."""
+    )),
+    phrase("dizzy", 46.57, 51.03, notes("""
       3 4 L4== 21W2 2 and
       e = ==== ==== 6 i'm
       1 5 ==== ===3 2 so
@@ -91,17 +97,19 @@ process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
       2 = ==== ==== 6 what
       3 4 ==== ===2 4 hit
       e 0 ==== 3==4 6 me
-      4 Z ==== ==== 3 ."""), 46.57, 51.03),
-    phrase("alright", notes("""
+      4 Z ==== ==== 3 ."""
+    )),
+    phrase("alright", 51.03, 54.92, notes("""
       o 0 L4== 31C4 3 but
       1 2 ==== 2=W1 2 i'll
       3 4 ==== ===2 5 be
       e 2 ==== ===1 7 al-
       1 5 ==== ===3 2 right
-      e Z ==== ==== 6 ."""), 51.03, 54.92)
+      e Z ==== ==== 6 ."""
+    ))
   ]),
   Section("show", "B1", [
-    phrase("underwater", notes("""
+    phrase("underwater", 54.92, 58.71, notes("""
       o 0 L4== 33W3 6 my
       1 7 ==== 2=G3 2 h-
       b 9 ==== ===4 v ead's
@@ -113,16 +121,18 @@ process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
       u 2 ==== 3=W4 2 te-
       3 0 ==== ===3 v r
       e = ==== ===3 6 but
-      4 Z ==== ==== 2 ."""), 54.92, 58.71),
-    phrase("breathin", notes("""
+      4 Z ==== ==== 2 ."""
+    )),
+    phrase("breathin", 58.71, 62.57, notes("""
       o Y L4== 33W2 2 i'm
       u 9 ==== =1=2 6 br-
       3 7 ==== ===1 ^ ea-
       e = ==== ==== 2 th-
       4 9 ==== ===2 v in
       o = ==== ==== 6 fine
-      u Z ==== ==== 2 ."""), 58.71, 62.57),
-    phrase("crazy", notes("""
+      u Z ==== ==== 2 ."""
+    )),
+    phrase("crazy", 62.57, 68.21, notes("""
       o 7 L4== 24P2 2 y-
       w 9 ==== ===3 v ou're
       u = ==== ==== 6 cr-
@@ -135,10 +145,11 @@ process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
       e = ==== ==== 2 of
       4 0 ==== ===2 4 my
       o 2 ==== ===3 2 mind
-      3 Z ==== ==== 6 ."""), 62.57, 68.21)
+      3 Z ==== ==== 6 ."""
+    ))
   ]),
   Section("mirrors", "C1A", [
-    phrase("all-me", notes("""
+    phrase("all-me", 68.21, 71.10, notes("""
       o 4 L4== 21W2 4 cause
       1 = ==== ==== 2 a-
       b 7 ==== ===4 v a-
@@ -146,15 +157,17 @@ process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
       4 4 ==== ===2 2 of
       o 7 ==== ===4 5 m-
       1 9 ==== 1==1 2 e
-      2 Z ==== ==== 4 ."""), 68.21, 71.10),
-    phrase("all-you", notes("""
+      2 Z ==== ==== 4 ."""
+    )),
+    phrase("all-you", 71.10, 74.68, notes("""
       3 4 L4== 21W3 4 loves
       1 2 ==== ===2 2 all
       4 0 ==== 3=C4 6 of
       o 2 ==== 2=W3 4 y-
       1 4 ==== ==== 2 ou
-      2 Z ==== ==== 6 ."""), 71.10, 74.68),
-    phrase("curves", notes("""
+      2 Z ==== ==== 6 ."""
+    )),
+    phrase("curves", 74.86, 78.86, notes("""
       3 4 L4== 21W2 2 love
       e = ==== ==== 6 you-
       o 2 ==== ===1 ^ r
@@ -164,11 +177,12 @@ process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
       4 0 ==== 3=C4 5 your
       o 2 ==== 2=W1 ^ ed-
       1 0 ==== 3=C4 3 ges
-      2 Z ==== ==== 5 ."""), 74.86, 78.86),
+      2 Z ==== ==== 5 ."""
+    )),
     lyrics("imperfections", "all you-r per-fect im-per-fec-tions", "curves", 78.86, 82.63)
   ]),
   Section("sepulchre", "C1B", [
-    phrase("give-your", notes("""
+    phrase("give-your", 82.63, 86.35, notes("""
       3 4 L4== 21W2 3 give
       e = ==== ==== 5 your
       1 = ==== ==== 3 a-
@@ -176,8 +190,9 @@ process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
       4 4 ==== ===2 7 to
       o 7 ==== ===4 ^ m-
       1 9 ==== 1==1 3 e
-      2 Z ==== ==== 6 ."""), 82.63, 86.35),
-    phrase("give-my", notes("""
+      2 Z ==== ==== 6 ."""
+    )),
+    phrase("give-my", 86.35, 90.10, notes("""
       u 2 L4== 21W1 6 i'll
       3 9 ==== 1=== 3 give
       e 4 ==== 2==2 5 m-
@@ -186,12 +201,13 @@ process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
       4 0 ==== 3=C4 7 to
       o 2 ==== 2=W1 ^ yo-
       1 4 ==== ===2 3 u
-      2 Z ==== ==== 5 ."""), 86.35, 90.10),
+      2 Z ==== ==== 5 ."""
+    )),
     lyrics("end", "you're m-y end and my be-gin-ing", "curves", 90.10, 94.17),
     lyrics("lose", "e-ve-n when i lose i'm win-ning", "curves", 94.17, 97.70)
   ]),
   Section("altar", "C1O", [
-    phrase("i-give", notes("""
+    phrase("i-give", 97.70, 105.29, notes("""
       u 4 L4== 21W2 6 cause
       3 = ==== ==== 7 i
       e 5 ==== ===3 ^ give
@@ -205,15 +221,17 @@ process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
       3 Z ==== ==== 7 ,
       4 4 ==== ===2 7 of
       o = ==== ==== 4 me
-      u Z ==== ==== 6 ."""), 97.70, 105.29),
+      u Z ==== ==== 6 ."""
+    )),
     lyrics("you-give", "and you give me a-u-i-a-a-ll of you", "i-give", 105.29, 111.83),
-    phrase("oo", notes("""
+    phrase("oo", 111.83, 115.05, notes("""
       4 4 L4== 21W2 6 oh-
       o 2 ==== ===1 2 o
-      3 Z ==== ==== 6 ."""), 111.83, 115.05)
+      3 Z ==== ==== 6 ."""
+    ))
   ]),
   Section("bedroom", "V3", [
-    phrase("times", notes("""
+    phrase("times", 115.05, 118.98, notes("""
       3 2 L4== 21W1 2 how
       e 4 ==== ===2 v ma-
       4 2 ==== ===1 6 ni-
@@ -226,8 +244,9 @@ process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
       e 2 ==== ===1 v to
       4 0 ==== 3=C4 6 tell
       1 = ==== ==== 2 you?
-      2 Z ==== ==== 6 ."""), 115.05, 118.98),
-    phrase("crying", notes("""
+      2 Z ==== ==== 6 ."""
+    )),
+    phrase("crying", 118.98, 122.55, notes("""
       3 4 L4== 21W2 2 e-
       e = ==== ==== 4 ven
       4 = ==== ==== 2 when
@@ -241,8 +260,9 @@ process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
       4 0 ==== 1=C4 6 ful
       o = ==== ==== 4 t-
       1 9 ==== ===2 6 oo
-      2 Z ==== ==== 4 ."""), 118.98, 122.55),
-    phrase("beating", notes("""
+      2 Z ==== ==== 4 ."""
+    )),
+    phrase("beating", 122.55, 128.17, notes("""
       u 0 L4== 31C4 6 the
       3 2 ==== 2=W1 2 w-
       c 4 ==== ===2 v orld
@@ -258,17 +278,19 @@ process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
       e 0 ==== 3=C4 v m
       4 = ==== ==== 6 a-
       o 2 ==== 2=W1 2 round
-      2 Z ==== ==== 6 ."""), 122.55, 128.17),
-    phrase("mood", notes("""
+      2 Z ==== ==== 6 ."""
+    )),
+    phrase("mood", 128.17, 130.19, notes("""
       u 2 L4== 21W1 6 through
       3 4 ==== ===2 2 e-
       e 2 ==== ===1 v ve-
       4 = ==== ==== 6 ry
       o 9 ==== 3=C2 2 mood
-      2 Z ==== ==== 6 ."""), 128.17, 130.19)
+      2 Z ==== ==== 6 ."""
+    ))
   ]),
   Section("garage", "V4", [
-    phrase("downfall", notes("""
+    phrase("downfall", 130.19, 133.97, notes("""
       p 7 L4== 21W4 2 you're
       e 4 ==== ===2 4 my
       o = ==== ==== 2 down-
@@ -276,8 +298,9 @@ process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
       3 7 ==== 2=W= 2 you're
       e 4 ==== ===2 4 my
       o = ==== ==== 2 muse
-      a Z ==== ==== 6 ."""), 130.19, 133.97),
-    phrase("distraction", notes("""
+      a Z ==== ==== 6 ."""
+    )),
+    phrase("distraction", 133.97, 137.69, notes("""
       u 0 L4== 31C4 6 my
       3 5 ==== 2=W3 2 w-
       e 7 ==== ===4 v orst
@@ -290,8 +313,9 @@ process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
       e 2 ==== ===1 2 thm
       4 4 ==== ===2 4 n
       o 9 ==== 3=C2 2 blues
-      2 Z ==== ==== 6 ."""), 133.97, 137.69),
-    phrase("singing", notes("""
+      2 Z ==== ==== 6 ."""
+    )),
+    phrase("singing", 137.69, 142.49, notes("""
       u 4 L4== 21W2 6 i
       3 = ==== ==== 4 can't
       t = ==== ==== 6 stop
@@ -305,8 +329,9 @@ process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
       u 4 ==== ===2 6 ngi-
       3 0 ==== 3=C4 4 ing
       e = ==== ==== 6 in
-      4 Z ==== ==== 2 ."""), 137.69, 142.49),
-    phrase("head", notes("""
+      4 Z ==== ==== 2 ."""
+    )),
+    phrase("head", 142.49, 150.28, notes("""
       o 2 L4== 21W1 2 my
       2 Z ==== ==== 6 ,
       u 4 ==== ===2 6 h-
@@ -314,7 +339,8 @@ process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
       4 = ==== ==== 2 for
       o 4 ==== ===2 6 y-
       1 5 ==== ===3 ^ ou
-      4 Z ==== ==== 2 ."""), 142.49, 150.28)
+      4 Z ==== ==== 2 ."""
+    ))
   ]),
   Section("show", "B2", [
     repeat("underwater", 146.37, 150.29),
@@ -329,7 +355,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
   ]),
   Section("sepulchre", "C2B", [
     repeat("give-your", 175.05, 177.75),
-    phrase("give-my^", notes("""
+    phrase("give-my^", 177.75, 181.63, notes("""
       u 4 L4== 21W2 6 i'll
       3 0 ==== 1==3 3 give
       e Y ==== ===2 5 m-
@@ -337,7 +363,8 @@ process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
       1 = ==== ==== 3 all
       4 7 ==== 2==4 7 to
       o 4 ==== ===2 3 you
-      2 Z ==== ==== 5 ."""), 177.75, 181.63),
+      2 Z ==== ==== 5 ."""
+    )),
     repeat("end", 181.63, 185.64),
     repeat("lose", 185.64, 189.20),
   ]),
@@ -346,7 +373,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
     repeat("you-give", 196.79, 204.06)
   ]),
   Section("casino", "M", [
-    phrase("give-me", notes("""
+    phrase("give-me", 204.06, 207.59, notes("""
       a 5 L4== 21W3 3 give
       2 7 ==== ===4 5 me
       u Y ==== 1==2 3 a-
@@ -358,8 +385,9 @@ process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
       3 4 ==== ===2 ^ o-
       c 2 ==== ===1 ^ u-
       e 0 ==== 3=C4 ^ oh
-      1 Z ==== ==== 1 ."""), 204.06, 207.59),
-    phrase("cards", notes("""
+      1 Z ==== ==== 1 ."""
+    )),
+    phrase("cards", 207.59, 215.01, notes("""
       1 9 L4== 11W2 3 cards
       u 7 ==== 2==1 5 o-
       3 5 ==== ===4 ^ n
@@ -376,8 +404,9 @@ process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
       e = ==== ==== 2 w-
       4 2 ==== ===2 v ing
       o = ==== ==== 6 hearts
-      e Z ==== ==== 2 ."""), 207.59, 215.01),
-    phrase("risk", notes("""
+      e Z ==== ==== 2 ."""
+    )),
+    phrase("risk", 215.01, 220.54, notes("""
       1 9 L4== 11W1 2 ris-
       u 7 ==== 2==4 6 king
       3 5 ==== ===3 ^ it
@@ -387,7 +416,8 @@ process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
       3 9 ==== ===1 ^ ough
       e = ==== ==== 2 it's
       o 7 ==== 2==4 6 hard
-      3 Z ==== ==== 2 ."""), 215.01, 220.54)
+      3 Z ==== ==== 2 ."""
+    ))
   ]),
   Section("mirrors", "C3A", [
     repeat("all-me", 220.54, 223.52),
@@ -406,7 +436,7 @@ process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
     repeat("you-give", 257.77, 265.26)
   ]),
   Section("altar", "C3O2", [
-    phrase("i-give-auaua", notes("""
+    phrase("i-give-auaua", 265.26, 273.04, notes("""
       3 4 L4== 21W2 7 i
       e 5 ==== ===3 ^ give
       4 7 ==== ===4 ^ you
@@ -419,13 +449,15 @@ process_piece(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
       3 Z ==== ==== 7 ,
       4 4 ==== ===2 7 of
       o = ==== ==== 4 me
-      3 Z ==== ==== 6 ."""), 265.26, 273.04),
+      3 Z ==== ==== 6 ."""
+    )),
     repeat("you-give", 273.04, 279.42),
-    phrase("ouo", notes("""
+    phrase("ouo", 279.42, 282.03, notes("""
       4 2 L4== 21W1 6 o-
       o 4 ==== ===2 ^ u-
       1 2 ==== ===1 ^ oh
-      4 Z ==== ==== 1 ."""), 279.42, 282.03)
+      4 Z ==== ==== 1 ."""
+    ))
   ])
 ]))
 

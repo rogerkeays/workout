@@ -50,9 +50,9 @@ class Note:
 @dataclass # Phrase
 class Phrase:
   label: str
-  notes: list[Note]
   start_secs: float
   stop_secs: float
+  notes: list[Note]
 
 @dataclass # Section
 class Section:
@@ -196,9 +196,9 @@ def parse_note(text: str):
   """
   return Note(text[0], text[2], text[4], text[5], text[6], text[7], text[9:], {})
 
-def phrase(label, notes, start, stop):
+def phrase(label, start, stop, notes):
   "constructor for phrases, which keeps a reference to the phrases created"
-  p = Phrase(label, notes, start, stop)
+  p = Phrase(label, start, stop, notes)
   all_phrases[label] = p
   return p
 

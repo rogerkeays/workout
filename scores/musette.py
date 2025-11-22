@@ -1,4 +1,4 @@
-# vim: foldmethod=marker foldmarker=phrase,\ ) foldtext=getline(v\:foldstart)
+# vim: foldmethod=marker foldmarker=phrase,)) foldtext=getline(v\:foldstart)
 
 import sys; sys.path.append("..")
 from violin import *
@@ -6,7 +6,7 @@ from violin import *
 # @siem reap river
 process_piece(Piece("musette", 4, 120, "42", "35.musette.mp3", [
   Section("bank", "A", [
-    phrase("fishing", notes("""
+    phrase("fishing", 9.77, 14.07, notes("""
       1 7 L44= 32W4 3 i'm
       3 5 ==== ===3 5 go-
       e 4 ==== ===2 3 ing
@@ -17,9 +17,9 @@ process_piece(Piece("musette", 4, 120, "42", "35.musette.mp3", [
       e 4 ==== ===2 5 ing
       4 2 ==== ===1 3 fish-
       o 0 ==== ===0 5 ing
-      1 Z ==== ==== 3 ."""), 9.77, 14.07
-    ),
-    phrase("tackle", notes("""
+      1 Z ==== ==== 3 ."""
+    )),
+    phrase("tackle", 14.07, 17.87, notes("""
       1 4 L44= 32W2 3 go-
       a 5 ==== ===3 5 nna
       2 7 S=== ===4 3 sit
@@ -29,10 +29,10 @@ process_piece(Piece("musette", 4, 120, "42", "35.musette.mp3", [
       2 7 ==== ===4 5 some
       3 4 S=== ===2 3 ta-
       4 0 ==== ===0 5 ckle
-      1 Z ==== ==== 3 ."""), 14.07, 17.87
-    ),
+      1 Z ==== ==== 3 ."""
+    )),
     repeat("fishing", 17.87, 21.93),
-    phrase("bait", notes("""
+    phrase("bait", 21.93, 25.84, notes("""
       1 4 L44= 32W2 3 go-
       a 5 ==== ===3 5 nna
       2 7 S=== ===4 3 sit
@@ -41,11 +41,11 @@ process_piece(Piece("musette", 4, 120, "42", "35.musette.mp3", [
       1 2 L=== ===1 3 choose
       2 7 ==== ===4 5 some
       3 0 ==== ===0 3 bait
-      w Z ==== ==== 5 ."""), 21.93, 25.84
-    ),
+      w Z ==== ==== 5 ."""
+    )),
   ]),
   Section("water", "B", [
-    phrase("food", notes("""
+    phrase("food", 25.84, 29.69, notes("""
       1 Y D44= 22W2 3 here
       a 0 ==== ===3 5 it
       2 2 S=== ===4 3 comes,
@@ -55,9 +55,9 @@ process_piece(Piece("musette", 4, 120, "42", "35.musette.mp3", [
       1 4 ==== 1==0 3 more
       2 9 ==== ===3 5 free
       3 4 L=== ===0 3 food
-      1 Z ==== 2=== 5 ."""), 25.84, 29.69
-    ),
-    phrase("steal", notes("""
+      1 Z ==== 2=== 5 ."""
+    )),
+    phrase("steal", 29.69, 33.59, notes("""
       1 Y D44= 22W2 5 care-
       a 0 ==== ===3 3 ful-
       2 2 S=== ===4 5 ly,
@@ -67,10 +67,10 @@ process_piece(Piece("musette", 4, 120, "42", "35.musette.mp3", [
       1 Y ==== ===3 5 ste-
       2 9 ==== ===2 3 al
       3 7 L=== ===0 5 it
-      1 Z ==== ==== 3 ."""), 29.69, 33.59
-    ),
+      1 Z ==== ==== 3 ."""
+    )),
     repeat("food", 33.59, 37.43),
-    phrase("strike", notes("""
+    phrase("strike", 37.43, 41.55, notes("""
       1 4 S44= 12W0 5 big
       2 9 ==== ===4 ^ strike,
       3 2 ==== ===0 3 think
@@ -78,10 +78,10 @@ process_piece(Piece("musette", 4, 120, "42", "35.musette.mp3", [
       4 9 ==== ===1 3 got
       o 7 ==== ===0 5 a-
       1 4 ==== 3==2 3 way
-      1 Z ==== ==== 5 ."""), 37.43, 41.55
-    ),
+      1 Z ==== ==== 5 ."""
+    )),
   ]),
-  Section("bank (new)", "A", [
+  Section("bank", "A", [
     repeat("fishing", 9.77, 14.07),
     repeat("tackle", 14.07, 17.87),
     repeat("fishing", 17.87, 21.93),

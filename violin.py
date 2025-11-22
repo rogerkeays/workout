@@ -55,7 +55,7 @@ def lyrics(id, lyrics, template_id, start, stop):
   """ clone a phrase, but with different lyrics and different start and stops """
   template = all_phrases[template_id]
   split_lyrics = re.split("[- ]", lyrics)
-  return phrase(id, list(map(lambda z: ViolinNote(
+  return phrase(id, start, stop, list(map(lambda z: ViolinNote(
     beat = z[0].beat,
     degree = z[0].degree,
     attack = z[0].attack,
@@ -67,7 +67,7 @@ def lyrics(id, lyrics, template_id, start, stop):
     shape = z[0].shape,
     finger = z[0].finger,
     bow_position = z[0].bow_position,
-    label = z[1]), zip(template.notes, split_lyrics))), start, stop)
+    label = z[1]), zip(template.notes, split_lyrics))))
 
 def note_at(string, fret):
   return decimal_to_note(note_to_decimal("5Y") - (int(string) * 7) + int(fret))
@@ -184,7 +184,7 @@ def repeat(template_id, start_secs=-1.0, stop_secs=-1.0):
   template = all_phrases[template_id]
   if start_secs == -1.0: start_secs = template.start_secs
   if stop_secs == -1.0: stop_secs = template.stop_secs
-  return Phrase(template_id, template.notes, start_secs, stop_secs)
+  return Phrase(template_id, start_secs, stop_secs, template.notes)
 
 
 # drills
