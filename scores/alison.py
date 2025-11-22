@@ -60,6 +60,43 @@ process_piece(Piece("baby-steps", 4, 90, "37", "02.baby-steps.mp3", [
   ])
 ]))
 
+process_piece(Piece("the-first-fall", 4, 100, "37", "05.the-first-fall.mp3", [
+  Section ("lounge", "V", [
+    phrase("window", notes("""
+      1 0 D44= 40N0 = runs
+      a = ==== ==== = in-
+      2 = ==== ==== = to
+      u = ==== ==== = the
+      3 7 ==== 3=== = win-
+      4 = ==== ==== = dow
+      1 Z ==== 1=== = ."""), 10.19, 12.68
+    ),
+    phrase("falling", notes("""
+      1 9 D44= 10N0 = fall-
+      a = ==== ==== = ing
+      2 = ==== ==== = on
+      a = ==== ==== = his
+      3 2 ==== 2=== = arse
+      1 Z ==== ==== = ."""), 12.68, 15.13
+    ),
+    phrase("what", notes("""
+      1 2 D44= 20N0 = what
+      a = ==== ==== = the
+      2 = ==== ==== = hell
+      a = ==== ==== = just
+      3 9 ==== 1=== = ha-
+      4 = ==== ==== = ppened?
+      1 Z ==== 2=== = ."""), 15.13, 17.53
+    ),
+    phrase("dunno", notes("""
+      1 7 D44= 20N0 = i
+      2 2 ==== 3=== = don't
+      3 0 ==== 4=== = know
+      1 Z ==== ==== = ."""), 17.53, 20.18
+    )
+  ])
+]))
+
 process_piece(Piece("the-car-trip", 4, 110, "37", "03.the-car-trip.mp3", [
   Section("car", "V", [
     phrase("baby", notes("""
