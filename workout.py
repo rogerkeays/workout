@@ -66,8 +66,8 @@ class Piece:
   meter: int
   tempo: int
   tonic: str
-  sections: list[Section]
   mp3: str
+  sections: list[Section]
 
 
 # functions

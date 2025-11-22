@@ -3,7 +3,7 @@
 import sys; sys.path.append("..")
 from violin import *
 
-process_piece(Piece("the-crawl", 4, 90, "37", [
+process_piece(Piece("the-crawl", 4, 90, "37", "01.the-crawl.mp3", [
   Section("table", "V", [
     phrase("crawls", notes("""
       1 0 L4== 40N0 3 li-
@@ -28,9 +28,9 @@ process_piece(Piece("the-crawl", 4, 90, "37", [
       1 Z ==== ==== 3 ."""), 15.38, 21.53
     ),
   ])
-], "01.the-crawl.mp3"))
+]))
 
-process_piece(Piece("baby-steps", 4, 90, "37", [
+process_piece(Piece("baby-steps", 4, 90, "37", "02.baby-steps.mp3", [
   Section("lawn", "V", [
     phrase("left", notes("""
       1 0 L4== 40N0 3 left
@@ -58,9 +58,9 @@ process_piece(Piece("baby-steps", 4, 90, "37", [
       1 Z ==== ==== 5 ."""), 18.30, 21.75
     ),
   ])
-], "02.baby-steps.mp3"))
+]))
 
-process_piece(Piece("the-car-trip", 4, 110, "37", [
+process_piece(Piece("the-car-trip", 4, 110, "37", "03.the-car-trip.mp3", [
   Section("car", "V", [
     phrase("baby", notes("""
       1 9 L4== 10N0 3 li-
@@ -96,9 +96,9 @@ process_piece(Piece("the-car-trip", 4, 110, "37", [
       1 Z ==== ==== 5 ."""), 16.52, 19.46
     ),
   ])
-], "03.the-car-trip.mp3"))
+]))
 
-process_piece(Piece("aeroplane-games", 4, 110, "37", [
+process_piece(Piece("aeroplane-games", 4, 110, "37", "04.aeroplane-games.mp3", [
   Section("airfield", "V", [
     phrase("upwards", notes("""
       1 0 L4== 40N0 3 fly-
@@ -125,5 +125,5 @@ process_piece(Piece("aeroplane-games", 4, 110, "37", [
       1 Z ==== ==== 5 ."""), 14.24, 17.01
     ),
   ])
-], "04.aeroplane-games.mp3"))
+]))
 

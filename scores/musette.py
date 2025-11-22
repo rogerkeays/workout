@@ -4,7 +4,7 @@ import sys; sys.path.append("..")
 from violin import *
 
 # @siem reap river
-process_piece(Piece("musette", 4, 120, "42", [
+process_piece(Piece("musette", 4, 120, "42", "35.musette.mp3", [
   Section("bank", "A", [
     phrase("fishing", notes("""
       1 7 L44= 32W4 3 i'm
@@ -87,5 +87,5 @@ process_piece(Piece("musette", 4, 120, "42", [
     repeat("fishing", 17.87, 21.93),
     repeat("bait", 21.93, 25.84)
   ]),
-], "35.musette.mp3"))
+]))
 
