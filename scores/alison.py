@@ -374,7 +374,7 @@ process_piece(Piece("puppy-in-the-kitchen", 4, 110, "42", "11.puppy-in-the-kitch
   ])
 ]))
 
-process_piece(Piece("dad goes looking", 2, 104, "37", "12.dad-goes-looking.mp3", [
+process_piece(Piece("dad-goes-looking", 2, 104, "37", "12.dad-goes-looking.mp3", [
   Section("lost-kids-house", "V", [
     phrase("kid", 9.77, 12.23, notes("""
       1 0 L44= 42N0 3 some-
@@ -413,6 +413,228 @@ process_piece(Piece("dad goes looking", 2, 104, "37", "12.dad-goes-looking.mp3",
       2 = ==== ==== 3 call
       u 7 ==== ===0 5 for
       3 0 ==== 4=== 3 help?
+      1 Z ==== ==== 5 ."""
+    ))
+  ])
+]))
+
+# second finger exercises
+process_piece(Piece("digging-holes", 3, 146, "42", "13.digging-holes.mp3", [
+  Section("sand-dune", "V", [
+    phrase("holes", 10.36, 12.94, notes("""
+      1 0 L44= 32N0 3 digg-
+      2 4 ==== ===2 5 ing
+      3 = ==== ==== 3 holes
+      1 0 ==== ===0 5 digg-
+      2 4 ==== ===2 3 ing
+      3 = ==== ==== 5 holes
+      1 Z ==== ==== 3 ."""
+    )),
+    phrase("big-holes", 12.94, 15.42, notes("""
+      1 0 L44= 32N0 3 digg-
+      2 9 ==== 2==1 5 ing
+      3 = ==== ==== 3 big
+      1 7 ==== ===0 5 holes
+      1 Z ==== ==== 3 ."""
+    )),
+    phrase("avalanche", 15.42, 19.94, notes("""
+      1 Y L44= 32N2 3 what
+      2 9 ==== ===1 5 if
+      3 7 ==== ===0 3 an
+      1 4 ==== 2==2 5 av-
+      2 2 ==== ===1 3 a-
+      3 0 ==== ===0 5 lance
+      1 = ==== ==== 3 comes?
+      1 Z ==== ==== 5 ."""
+    ))
+  ])
+]))
+
+process_piece(Piece("scottish-boy", 4, 133, "54", "14.scottish-boy.mp3", [
+  Section("rock-pool", "V", [
+    phrase("boy", 9.51, 11.78, notes("""
+      1 4 L44= 12N2 3 scott-
+      a = ==== ==== 5 ish
+      2 2 ==== ===1 3 boy
+      u 0 ==== ===0 5 struts
+      3 7 ==== 2==1 3 o-
+      4 = ==== ==== 5 ver
+      1 Z ==== ==== 3 ."""
+    )),
+    phrase("toys", 11.78, 13.89, notes("""
+      1 9 L44= 22N2 3 car-
+      a = ==== ==== 5 ry-
+      2 7 ==== ===1 3 ing
+      u 5 ==== ===0 5 some
+      3 7 ==== ===1 3 new
+      4 = ==== ==== 5 toys
+      1 Z ==== ==== 3 ."""
+    )),
+    phrase("mum-n-dad", 13.89, 15.98, notes("""
+      1 9 L44= 22N2 3 mum
+      a 0 ==== 1==0 5 and
+      2 = ==== ==== 3 dad
+      3 9 ==== 2==2 5 think
+      e 0 ==== 1==0 3 it's
+      4 = ==== ==== 5 cute
+      1 Z ==== ==== 3 ."""
+    )),
+    phrase("hands", 15.98, 19.01, notes("""
+      1 2 L44= 12N1 3 are
+      a = ==== ==== 5 they
+      2 0 ==== ===0 3 go-
+      u 9 ==== 2==2 5 ing
+      3 0 ==== 1==0 3 hand
+      e 9 ==== 2==2 5 in
+      4 0 ==== 1==0 3 hand?
+      1 Z ==== ==== 5 ."""
+    ))
+  ])
+]))
+
+process_piece(Piece("toll-busters", 4, 115, "42", "15.toll-busters.mp3", [
+  Section("toll", "V", [
+    phrase("stop", 9.46, 11.61, notes("""
+      1 0 L44= 32N0 3 stop
+      a = ==== ==== 5 to
+      2 2 ==== ===1 3 pay
+      u 4 ==== 2==2 5 the
+      3 9 ==== ===1 3 toll
+      4 = ==== ==== 5 sir
+      1 Z ==== 3=== 3 ."""
+    )),
+    phrase("won't", 11.61, 13.78, notes("""
+      1 0 L44= 32N0 3 i
+      a = ==== ==== 5 won't
+      2 2 ==== ===1 3 pay
+      u 4 ==== ===2 5 the
+      3 7 ==== 4==1 3 toll
+      4 = ==== ==== 5 sir
+      1 Z ==== ==== 3 ."""
+    )),
+    phrase("getaway", 13.78, 15.83, notes("""
+      1 9 L44= 42N2 3 gon-
+      a = ==== ==== 5 na
+      2 7 ==== ===1 3 make
+      u 5 ==== ===0 5 a
+      3 0 ==== 3=== 3 get-
+      e 4 ==== ===2 5 a-
+      4 0 ==== ===0 3 way
+      1 Z ==== 4=== 5 ."""
+    )),
+    phrase("shit", 15.83, 18.36, notes("""
+      1 7 L44= 42N1 5 oh
+      a = ==== ==== 3 shit
+      2 9 ==== ===2 5 turn
+      u 7 ==== ===1 3 a-
+      3 0 ==== 3==0 5 round
+      1 Z ==== ==== 3 ."""
+    ))
+  ])
+]))
+
+process_piece(Piece("car-crash", 6, 145, "42", "16.car-crash.mp3", [
+  Section("crash-site", "V", [
+    phrase("crash", 9.92, 12.32, notes("""
+      1 4 L44= 32N2 3 car
+      4 2 ==== ===1 5 crash
+      1 Z ==== ==== 3 ."""
+    )),
+    phrase("busted", 12.32, 14.85, notes("""
+      1 0 L44= 32N0 3 i'm
+      2 = ==== ==== 5 bus-
+      3 = ==== ==== 3 ted
+      4 2 ==== ===1 5 now
+      1 Z ==== ==== 3 ."""
+    )),
+    phrase("police", 14.85, 17.23, notes("""
+      1 4 L44= 32N2 3 the
+      2 7 ==== 2==0 5 po-
+      3 = ==== ==== 3 lice
+      4 9 ==== ===1 5 hate
+      5 7 ==== ===0 3 me
+      1 Z ==== 3=== 5 ."""
+    )),
+    phrase("lock", 17.23, 20.20, notes("""
+      1 4 L44= 32N2 5 lock
+      2 0 ==== ===0 3 him
+      3 9 ==== 4==2 5 a-
+      4 0 ==== 3==0 3 way
+      1 Z ==== ==== 5 ."""
+    ))
+  ])
+]))
+
+process_piece(Piece("bouncy-castle", 2, 90, "49", "17.bouncy-castle.mp3", [
+  Section("castle", "V", [
+    phrase("castle", 10.38, 13.00, notes("""
+      1 Y D44= 12N2 3 boun-
+      a 9 ==== ===1 5 cy
+      2 Y ==== ===2 3 ca-
+      u 9 ==== ===1 5 stle
+      1 4 ==== 2==2 3 is
+      a 2 ==== ===1 5 my
+      2 4 ==== ===2 3 fave-
+      u 2 ==== ===1 5 rite
+      1 Z ==== 3=== 3 ."""
+    )),
+    phrase("bottom", 13.00, 15.66, notes("""
+      1 9 D44= 32N2 3 till
+      a 7 ==== ===1 5 i
+      2 9 ==== ===2 3 reach
+      u 7 ==== ===1 5 the
+      1 0 ==== 4==1 3 bo-
+      2 0 ==== ==== 5 ttom
+      1 Z ==== ==== 3 ."""
+    )),
+    phrase("dad", 15.66, 19.93, notes("""
+      1 0 D44= 42N1 3 come
+      a 2 ==== ===2 5 on
+      2 0 ==== ===1 3 dad
+      u 2 ==== ===2 5 i
+      1 7 ==== 3==1 3 want
+      a 9 ==== ===2 5 to
+      2 7 ==== ===1 3 go
+      u 9 ==== ===2 5 a-
+      1 0 ==== 2==1 3 gain
+      1 Z ==== ==== 5 ."""
+    ))
+  ])
+]))
+
+process_piece(Piece("the-bad-date", 3, 50, "4Y", "18.the-bad-date.mp3", [
+  Section("girls-house", "V", [
+    phrase("girl", 11.90, 15.39, notes("""
+      1 9 L44= 12N2 3 pick-
+      a 5 ==== ===0 5 ing
+      2 9 ==== ===2 3 up
+      u 5 ==== ===0 5 the
+      3 0 ==== 2==1 3 girl
+      1 Z ==== ==== 5 ."""
+    )),
+    phrase("car", 15.39, 18.73, notes("""
+      1 2 L44= 22N2 3 take
+      a X ==== ===0 5 her
+      2 2 ==== ===2 3 to
+      u X ==== ===0 5 your
+      3 5 ==== 1=== 3 car
+      1 Z ==== 2=== 5 ."""
+    )),
+    phrase("walk", 18.73, 22.24, notes("""
+      1 2 L44= 22N2 3 walk
+      a X ==== ===0 5 a-
+      2 7 ==== 3==2 3 round
+      u 3 ==== ===0 5 and
+      3 0 ==== 4==2 3 get
+      e 8 ==== ===0 5 in
+      1 Z ==== ==== 3 ."""
+    )),
+    phrase("shit", 22.24, 25.42, notes("""
+      1 0 L44= 42N2 3 oh
+      a 3 ==== 3==0 5 shit,
+      2 7 ==== ===2 3 it
+      d X ==== 2==0 5 won't
+      u = ==== ==== 3 start
       1 Z ==== ==== 5 ."""
     ))
   ])
