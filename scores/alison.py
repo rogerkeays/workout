@@ -4,7 +4,7 @@ import sys; sys.path.append("..")
 from violin import *
 
 # open string exercises
-process_piece(Piece("the-crawl", 4, 90, "37", "01.the-crawl.mp3", [
+process(Piece("the-crawl", 4, 90, "37", "01.the-crawl.mp3", [
   Section("table", "V", [
     phrase("crawls", 10.16, 15.38, notes("""
       1 0 L4== 40N0 3 li-
@@ -31,7 +31,7 @@ process_piece(Piece("the-crawl", 4, 90, "37", "01.the-crawl.mp3", [
   ])
 ]))
 
-process_piece(Piece("baby-steps", 4, 90, "37", "02.baby-steps.mp3", [
+process(Piece("baby-steps", 4, 90, "37", "02.baby-steps.mp3", [
   Section("lawn", "V", [
     phrase("left", 10.30, 13.05, notes("""
       1 0 L4== 40N0 3 left
@@ -61,7 +61,7 @@ process_piece(Piece("baby-steps", 4, 90, "37", "02.baby-steps.mp3", [
   ])
 ]))
 
-process_piece(Piece("the-first-fall", 4, 100, "37", "05.the-first-fall.mp3", [
+process(Piece("the-first-fall", 4, 100, "37", "05.the-first-fall.mp3", [
   Section ("lounge", "V", [
     phrase("window", 10.19, 12.68, notes("""
       1 0 D44= 40N0 3 runs
@@ -98,7 +98,7 @@ process_piece(Piece("the-first-fall", 4, 100, "37", "05.the-first-fall.mp3", [
   ])
 ]))
 
-process_piece(Piece("into-the-kitchen", 4, 100, "37", "06.into-the-kitchen.mp3", [
+process(Piece("into-the-kitchen", 4, 100, "37", "06.into-the-kitchen.mp3", [
   Section("kitchen", "V", [
     phrase("no-one", 10.04, 12.59, notes("""
       1 0 D44= 40N0 3 here
@@ -140,7 +140,7 @@ process_piece(Piece("into-the-kitchen", 4, 100, "37", "06.into-the-kitchen.mp3",
   ])
 ]))
 
-process_piece(Piece("the-car-trip", 4, 110, "37", "03.the-car-trip.mp3", [
+process(Piece("the-car-trip", 4, 110, "37", "03.the-car-trip.mp3", [
   Section("car", "V", [
     phrase("baby", 9.72, 12.04, notes("""
       1 9 L4== 10N0 3 li-
@@ -178,7 +178,7 @@ process_piece(Piece("the-car-trip", 4, 110, "37", "03.the-car-trip.mp3", [
   ])
 ]))
 
-process_piece(Piece("aeroplane-games", 4, 110, "37", "04.aeroplane-games.mp3", [
+process(Piece("aeroplane-games", 4, 110, "37", "04.aeroplane-games.mp3", [
   Section("airfield", "V", [
     phrase("upwards", 9.59, 10.82, notes("""
       1 0 L4== 40N0 3 fly-
@@ -208,7 +208,7 @@ process_piece(Piece("aeroplane-games", 4, 110, "37", "04.aeroplane-games.mp3", [
 ]))
 
 # first finger exercises
-process_piece(Piece("the-door-handle", 4, 94, "37", "07.the-door-handle.mp3", [
+process(Piece("the-door-handle", 4, 94, "37", "07.the-door-handle.mp3", [
   Section("shack", "V", [
     phrase("this-way", 10.25, 12.86, notes("""
       1 0 L44= 42N0 3 turn
@@ -240,7 +240,7 @@ process_piece(Piece("the-door-handle", 4, 94, "37", "07.the-door-handle.mp3", [
   ])
 ]))
 
-process_piece(Piece("the-puppy-dog", 3, 104, "49", "08.the-puppy-dog.mp3", [
+process(Piece("the-puppy-dog", 3, 104, "49", "08.the-puppy-dog.mp3", [
   Section("park", "V", [
     phrase("puppy", 10.28, 13.80, notes("""
       1 7 L44= 12N0 3 mis-
@@ -270,7 +270,7 @@ process_piece(Piece("the-puppy-dog", 3, 104, "49", "08.the-puppy-dog.mp3", [
   ])
 ]))
 
-process_piece(Piece("hunger", 4, 105, "42", "09.hunger.mp3", [
+process(Piece("hunger", 4, 105, "42", "09.hunger.mp3", [
   Section("baby-chair", "V", [
     phrase("hungry", 9.77, 12.14, notes("""
       1 2 L44= 12N0 3 get-
@@ -309,7 +309,7 @@ process_piece(Piece("hunger", 4, 105, "42", "09.hunger.mp3", [
   ])
 ]))
 
-process_piece(Piece("stealing-cookies", 4, 144, "49", "10.stealing-cookies.mp3", [
+process(Piece("stealing-cookies", 4, 144, "49", "10.stealing-cookies.mp3", [
   Section("kitchen", "V", [
     phrase("cookies", 9.23, 13.48, notes("""
       1 9 L44= 12N1 3 stea-
@@ -339,7 +339,7 @@ process_piece(Piece("stealing-cookies", 4, 144, "49", "10.stealing-cookies.mp3",
   ])
 ]))
 
-process_piece(Piece("puppy-in-the-kitchen", 4, 110, "42", "11.puppy-in-the-kitchen.mp3", [
+process(Piece("puppy-in-the-kitchen", 4, 110, "42", "11.puppy-in-the-kitchen.mp3", [
   Section("kitchen", "V", [
     phrase("puppy", 9.49, 11.74, notes("""
       1 2 L44= 12N0 3 pu-
@@ -374,7 +374,7 @@ process_piece(Piece("puppy-in-the-kitchen", 4, 110, "42", "11.puppy-in-the-kitch
   ])
 ]))
 
-process_piece(Piece("dad-goes-looking", 2, 104, "37", "12.dad-goes-looking.mp3", [
+process(Piece("dad-goes-looking", 2, 104, "37", "12.dad-goes-looking.mp3", [
   Section("lost-kids-house", "V", [
     phrase("kid", 9.77, 12.23, notes("""
       1 0 L44= 42N0 3 some-
@@ -419,7 +419,7 @@ process_piece(Piece("dad-goes-looking", 2, 104, "37", "12.dad-goes-looking.mp3",
 ]))
 
 # second finger exercises
-process_piece(Piece("digging-holes", 3, 146, "42", "13.digging-holes.mp3", [
+process(Piece("digging-holes", 3, 146, "42", "13.digging-holes.mp3", [
   Section("sand-dune", "V", [
     phrase("holes", 10.36, 12.94, notes("""
       1 0 L44= 32N0 3 digg-
@@ -450,7 +450,7 @@ process_piece(Piece("digging-holes", 3, 146, "42", "13.digging-holes.mp3", [
   ])
 ]))
 
-process_piece(Piece("scottish-boy", 4, 133, "54", "14.scottish-boy.mp3", [
+process(Piece("scottish-boy", 4, 133, "54", "14.scottish-boy.mp3", [
   Section("rock-pool", "V", [
     phrase("boy", 9.51, 11.78, notes("""
       1 4 L44= 12N2 3 scott-
@@ -492,7 +492,7 @@ process_piece(Piece("scottish-boy", 4, 133, "54", "14.scottish-boy.mp3", [
   ])
 ]))
 
-process_piece(Piece("toll-busters", 4, 115, "42", "15.toll-busters.mp3", [
+process(Piece("toll-busters", 4, 115, "42", "15.toll-busters.mp3", [
   Section("toll", "V", [
     phrase("stop", 9.46, 11.61, notes("""
       1 0 L44= 32N0 3 stop
@@ -533,7 +533,7 @@ process_piece(Piece("toll-busters", 4, 115, "42", "15.toll-busters.mp3", [
   ])
 ]))
 
-process_piece(Piece("car-crash", 6, 145, "42", "16.car-crash.mp3", [
+process(Piece("car-crash", 6, 145, "42", "16.car-crash.mp3", [
   Section("crash-site", "V", [
     phrase("crash", 9.92, 12.32, notes("""
       1 4 L44= 32N2 3 car
@@ -565,7 +565,7 @@ process_piece(Piece("car-crash", 6, 145, "42", "16.car-crash.mp3", [
   ])
 ]))
 
-process_piece(Piece("bouncy-castle", 2, 90, "49", "17.bouncy-castle.mp3", [
+process(Piece("bouncy-castle", 2, 90, "49", "17.bouncy-castle.mp3", [
   Section("castle", "V", [
     phrase("castle", 10.38, 13.00, notes("""
       1 Y D44= 12N2 3 boun-
@@ -602,7 +602,7 @@ process_piece(Piece("bouncy-castle", 2, 90, "49", "17.bouncy-castle.mp3", [
   ])
 ]))
 
-process_piece(Piece("the-bad-date", 3, 50, "4Y", "18.the-bad-date.mp3", [
+process(Piece("the-bad-date", 3, 50, "4Y", "18.the-bad-date.mp3", [
   Section("girls-house", "V", [
     phrase("girl", 11.90, 15.39, notes("""
       1 9 L44= 12N2 3 pick-
@@ -635,6 +635,251 @@ process_piece(Piece("the-bad-date", 3, 50, "4Y", "18.the-bad-date.mp3", [
       2 7 ==== ===2 3 it
       d X ==== 2==0 5 won't
       u = ==== ==== 3 start
+      1 Z ==== ==== 5 ."""
+    ))
+  ])
+]))
+
+# third and fourth finger exercises
+process(Piece("sleeping-in", 3, 135, "42", "19.sleeping-in.mp3", [
+  Section("lazy-boys-room", "V", [
+    phrase("boy", 10.34, 13.02, notes("""
+      1 0 D44= 32W0 3 li-
+      2 4 ==== ===2 5 ttle
+      3 = ==== ==== 3 boy
+      1 5 ==== ===3 5 is
+      2 4 ==== ===2 3 slee-
+      3 2 ==== ===1 5 ping
+      1 Z ==== ==== 3 ."""
+    )),
+    phrase("school", 13.02, 15.55, notes("""
+      1 4 D44= 32W2 3 on
+      2 7 ==== 22C0 5 a
+      3 9 ==== ===1 3 school
+      1 7 ==== ===0 5 day
+      1 Z ==== ==== 3 ."""
+    )),
+    phrase("hair", 15.55, 18.09, notes("""
+      1 0 D44= 22C3 3 brush
+      2 7 ==== ===0 5 the
+      3 4 ==== 32W2 3 hair
+      1 0 ==== ===0 5 from
+      2 2 ==== ===1 3 his
+      3 4 ==== ===2 5 face
+      1 Z ==== ==== 3 ."""
+    )),
+    phrase("door", 18.09, 21.43, notes("""
+      1 5 D44= 32W3 3 stum-
+      a 7 ==== ===4 5 ble
+      2 4 ==== ===2 3 out
+      3 2 ==== ===1 5 the
+      1 0 ==== ===0 3 door
+      1 Z ==== ==== 5 ."""
+    ))
+  ])
+]))
+
+process(Piece("the-birthday-party", 4, 95, "59", "20.the-birthday-party", [
+  Section("poolside", "V", [
+    phrase("birthday", 10.26, 12.94, notes("""
+      1 0 D44= 12C3 3 to-
+      a Y ==== ===2 5 day
+      2 9 ==== ===1 3 it's
+      u 7 ==== ===0 5 my
+      3 9 ==== ===1 3 eighth
+      e Y ==== ===2 5 birth-
+      4 0 ==== ===3 3 day
+      1 Z ==== 22W= 5 ."""
+    )),
+    phrase("cake", 12.94, 15.45, notes("""
+      1 7 D44= 22W4 5 and
+      a 5 ==== ===3 3 i
+      2 4 ==== ===2 5 have
+      u 2 ==== ===1 3 some
+      3 4 ==== ===2 5 cake
+      4 2 ==== ===1 3 too
+      1 Z ==== ==== 5 ."""
+    )),
+    phrase("friends", 15.45, 17.94, notes("""
+      1 0 D44= 22W0 5 all
+      a 4 ==== ===2 3 my
+      2 2 ==== ===1 5 friends
+      u 5 ==== ===3 3 are
+      3 4 ==== ===2 5 here
+      e 7 ==== ===4 3 to
+      4 5 ==== ===3 5 play
+      o 9 ==== 12C1 3 let's
+      1 Z ==== ==== 5 ."""
+    )),
+    phrase("pool", 17.94, 20.43, notes("""
+      1 7 D44= 12C0 5 throw
+      a 2 ==== ===4 3 them
+      2 0 ==== ===3 5 in
+      u Y ==== ===2 3 the
+      3 0 ==== ===3 5 pool
+      1 Z ==== ==== 3 ."""
+    ))
+  ])
+]))
+
+process(Piece("boring-homework", 4, 95, "47", "21.boring-homework", [
+  Section("desk", "V", [
+    phrase("homework", 10.60, 13.43, notes("""
+      1 0 L44= 42W0 3 bor-
+      2 7 ==== 3=C= 5 ing
+      3 0 ==== 4=W= 3 home-
+      4 7 ==== 3=C= 5 work
+      1 Z ==== 4=W= 3 ."""
+    )),
+    phrase("outside", 13.43, 16.06, notes("""
+      1 0 D44= 42W0 3 want
+      a 9 ==== 3=C1 5 to
+      2 7 ==== ===0 3 go
+      u 5 ==== 4=W3 5 out-
+      3 7 ==== 3=C0 3 side
+      1 Z ==== ==== 5 ."""
+    )),
+    phrase("finish", 16.06, 20.87, notes("""
+      1 9 L44= 32C1 5 but
+      2 0 ==== ===3 3 you
+      3 9 ==== ===1 5 can't
+      4 0 ==== ===3 3 un-
+      1 7 ==== ===0 5 til
+      2 0 ==== ===3 3 you
+      3 7 ==== ===0 5 fin-
+      4 0 ==== ===3 3 ish
+      1 Z ==== ==== 5 ."""
+    )),
+    phrase("start", 20.87, 24.84, notes("""
+      1 2 D44= 32C4 5 so
+      2 2 ==== ==== 3 you
+      3 0 ==== ===3 5 bet-
+      4 Y ==== ===2 3 ter
+      1 0 ==== ===3 5 start
+      1 Z ==== ==== 3 ."""
+    ))
+  ])
+]))
+
+process(Piece("chinese-kids", 4, 90, "47", "22.chinese-kids.mp3", [
+  Section("classroom", "V", [
+    phrase("chinese-kids", 10.37, 13.03, notes("""
+      1 9 D44= 22G4 3 my
+      a 7 ==== ===3 5 teach-
+      2 9 ==== ===4 3 er
+      u 7 ==== ===3 5 loves
+      3 4 ==== ===1 3 chi-
+      e = ==== ==== 5 nese
+      4 2 ==== ===0 3 kids
+      1 Z ==== 3=W= 5 ."""
+    )),
+    phrase("quiz", 13.03, 15.63, notes("""
+      1 2 D44= 32W4 5 they
+      a 0 ==== ===3 3 can
+      2 2 ==== ===4 5 an-
+      u 0 ==== ===3 3 swer
+      3 9 ==== ===1 5 ev-
+      e = ==== ==== 3 ry
+      4 7 ==== ===0 5 quiz
+      1 Z ==== 4=== 3 ."""
+    )),
+    phrase("children", 15.63, 18.20, notes("""
+      1 5 L44= 22G3 3 but
+      a 9 ==== 3=W1 5 none
+      2 7 ==== ===0 3 of
+      u Y ==== ===2 5 the
+      3 9 ==== ===1 3 o-
+      e 0 ==== ===3 5 ther
+      4 Y ==== ===2 3 child
+      o 7 ==== ===0 5 -ren
+      1 Z ==== ==== 3 ."""
+    )),
+    phrase("play", 18.20, 20.86, notes("""
+      1 2 L44= 32W4 3 want
+      a 7 ==== ===0 5 to
+      2 Y ==== ===2 3 play
+      u 2 ==== ===4 5 with
+      3 0 ==== ===3 3 them
+      1 Z ==== ==== 5 ."""
+    ))
+  ])
+]))
+
+process(Piece("chicken-pox", 4, 100, "47", "23.chicken-pox.mp3", [
+  Section("bed", "V", [
+    phrase("sick", 9.78, 13.86, notes("""
+      1 7 L44= 42W4 3 get-
+      3 5 ==== ===3 5 ting
+      1 4 ==== ===2 3 sick
+      4 Z ==== ==== 5 ."""
+    )),
+    phrase("chicken", 13.86, 18.62, notes("""
+      4 2 L44= 42W1 5 with
+      1 9 ==== 3=== 3 chi-
+      3 7 ==== ===0 5 cken
+      1 5 ==== 4==3 3 pox
+      4 Z ==== 3=== 5 ."""
+    )),
+    phrase("schoolwork", 18.62, 23.73, notes("""
+      4 9 L44= 32W1 5 go-
+      1 2 ==== ===4 3 nna
+      2 4 ==== 2=G1 5 miss
+      3 7 ==== ===3 3 out
+      4 9 ==== ===4 5 on
+      1 Y ==== 1==1 3 my
+      2 7 ==== 2==3 5 school-
+      3 9 ==== ===4 3 work
+      1 Z ==== ==== 5 ."""
+    )),
+    phrase("better", 23.73, 28.77, notes("""
+      1 4 L44= 22G1 5 if
+      2 0 ==== 3=W3 3 i
+      3 = ==== ==== 5 don't
+      4 2 ==== ===4 3 get
+      1 Y ==== ===2 5 bet-
+      2 7 ==== ===0 3 ter
+      1 Z ==== ==== 5 ."""
+    ))
+  ])
+]))
+
+process(Piece("last-day-of-school", 4, 95, "4Y", "24.last-day-of-school.mp3", [
+  Section("primary-school", "V", [
+    phrase("school", 10.21, 12.80, notes("""
+      1 3 L44= 22W4 3 to-
+      a X ==== ===0 5 day's
+      2 = ==== ==== 3 the
+      u 3 ==== ===4 5 last
+      3 0 ==== ===2 3 day
+      e 3 ==== ===4 5 of
+      4 X ==== ===0 3 school
+      1 Z ==== ==== 5 ."""
+    )),
+    phrase("holidays", 12.80, 15.30, notes("""
+      1 0 L44= 22W1 5 hol-
+      a 7 ==== 3==2 3 i-
+      2 = ==== ==== 5 days
+      u X ==== ===4 3 are
+      3 8 ==== ===3 5 rea-
+      e 0 ==== 2==1 3 lly
+      4 7 ==== 3==2 5 cool
+      1 Z ==== ==== 3 ."""
+    )),
+    phrase("nintendo", 15.30, 17.82, notes("""
+      1 5 L44= 32W1 3 i
+      a 7 ==== ===2 5 will
+      2 8 ==== ===3 3 play
+      u X ==== ===4 5 on
+      3 0 ==== 2==1 3 luke's
+      e 2 ==== ===2 5 nin-
+      4 3 ==== ===3 3 ten-
+      o 5 ==== ===4 5 do
+      1 Z ==== 12N= 3 ."""
+    )),
+    phrase("day", 17.82, 20.63, notes("""
+      1 7 L44= 12N1 3 ev-
+      2 = ==== ==== 5 ry
+      3 0 ==== 2=W= 3 day
       1 Z ==== ==== 5 ."""
     ))
   ])
