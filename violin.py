@@ -103,7 +103,10 @@ def parse_violin_note(text: str) -> Note:
     label = text[16:])
 
 def process(piece):
-  process_piece(piece, MP3_DIR, calculate_defaults, process_phrase, process_transition, process_note)
+  process_all([piece])
+
+def process_all(pieces):
+  process_pieces(pieces, MP3_DIR, calculate_defaults, process_phrase, process_transition, process_note)
 
 def process_note(tempo, note, stop):
   if note.degree != "Z":
