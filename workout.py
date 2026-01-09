@@ -88,14 +88,15 @@ def create_piece_bracket(mp3, mp3dir, label):
 
 def cut_chunk(mp3, mp3dir, start_secs, stop_secs, outfile, speed=1.0):
   if MAKE_MP3S and stop_secs > 0:
-    padding = CHUNK_FADE_SECS
     delay = CHUNK_DELAY_SECS
-    ss = start_secs - padding
-    to = stop_secs + padding
-    st = stop_secs - start_secs + padding
+    fadein = min(CHUNK_FADE_SECS, start_secs)
+    fadeout = CHUNK_FADE_SECS
+    ss = start_secs - fadein
+    to = stop_secs + fadeout
+    end = stop_secs - start_secs + fadein
     os.system(f"""
     ffmpeg -nostdin -loglevel error -ss {ss} -to {to} -i {mp3dir}/{mp3} -ac 1 -ar 48000 -q 4 \
-           -af afade=d={padding},afade=t=out:st={st}:d={padding},atempo={speed},adelay={delay}s:all=true \
+           -af afade=d={fadein},afade=t=out:st={end}:d={fadeout},atempo={speed},adelay={delay}s:all=true \
            "{outfile}"
            """)
 
