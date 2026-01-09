@@ -4,37 +4,6 @@ INSTRUMENT=57
 OUTDIR=$HOME/library/workout
 mkdir -p $OUTDIR
 
-function mcd { mkdir -p "$1"; cd "$1"; }
-
-#
-# create a directory for each drill, adding rotation number, drill number and permutations
-#
-# $1 drill name
-# $2+ drill permutation patterns
-#
-function drill {
-  DRILLNUM=$((DRILLNUM+1))
-  dir="00.$(printf %02d $DRILLNUM).$1"
-  mkdir "$dir"
-
-  # join and normalise the permutations pattern
-  # brace expansion uses spaces as separators, so we replace them with underscores
-  pattern="${*:2}"
-  pattern="${pattern// /_}"
-
-  # make one file per permutation
-  i=0
-  for permutation in $(eval echo "$pattern"); do 
-    i=$((i+1))
-    echo -e ${permutation//_/\\n} > "$dir"/$(printf %04d $i)."${permutation//_/ }".txt
-  done
-}
-function drillcd {
-  drill $*
-  cd "00.$(printf %02d $DRILLNUM).$1"
-}
-DRILLNUM=0
-
 #
 # convert an abc score to an mp3 file
 #
@@ -110,23 +79,6 @@ function generate_tempos {
   while [ $TEMPO -le 400 ]; do
     make_mp3 "$2" $OUTDIR/$1 \'$(printf %03d $TEMPO).${1/\//-}.mp3 0 $TEMPO
     TEMPO=$((TEMPO+10))
-  done
-}
-
-# create a directory for each drill and one file defining each drill variable
-function drill~ {
-  mkdir -p $1;
-  i=0
-  for var in ${@:2}; do
-    i=$((i+1))
-    touch $1/$i.$var
-  done
-}
-
-# create a set of drills for each scale key
-function scale {
-  for TONIC in 0 1 2 3 4 5 6 7 8 9 X Y; do
-    drill $1/00.$TONIC/$2 ${@:3}
   done
 }
 
