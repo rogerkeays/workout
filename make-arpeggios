@@ -2,7 +2,7 @@
 
 INSTRUMENT=57
 
-source workout.sh
+source make-patterns
 
 generate_scales arpeggios/major-1 "
   X:0
