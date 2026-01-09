@@ -4,7 +4,7 @@ from workout import *
 from dataclasses import dataclass
 
 # globals
-MP3_DIR = os.environ['HOME'] + "/library/workout/piano/00.source"
+MP3_DIR = os.environ['HOME'] + "/library/workout/piano/00.inbox"
 
 # todo: data structures
 #@dataclass # PianoNote
