@@ -32,7 +32,9 @@ os.mkdir(PIECES_DIR)
 all_phrases = {}
 drills = {}
 phrases = set()
+phrasenum = 1
 sections = set()
+sectionnum = 1
 pieces = set()
 
 # data structures
@@ -387,7 +389,9 @@ def start_phrase(label, tempo, notes):
     phrases.add(hash)
 
   # create one folder per phrase
-  mcd(PHRASES_DIR + "/" + str(len(phrases)).zfill(NUM_PADDING) + "." + label)
+  global phrasenum
+  mcd(PHRASES_DIR + "/" + str(phrasenum).zfill(NUM_PADDING) + "." + label)
+  phrasenum += 1
   return True
 
 def start_section(label, tempo, notes):
@@ -401,7 +405,9 @@ def start_section(label, tempo, notes):
     sections.add(hash)
 
   # create one folder per phrase
-  mcd(SECTIONS_DIR + "/" + str(len(sections)).zfill(NUM_PADDING) + "." + label)
+  global sectionnum
+  mcd(SECTIONS_DIR + "/" + str(sectionnum).zfill(NUM_PADDING) + "." + label)
+  sectionnum += 1
   return True
 
 def write_drill_cards():
