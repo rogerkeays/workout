@@ -173,8 +173,11 @@ def phrase(label, start, stop, notes):
   return p
 
 def process_piece(piece, mp3dir, defaults_function, phrase_function, transition_function, note_function):
+  process_pieces([piece])
+
+def process_pieces(pieces, mp3dir, defaults_function, phrase_function, transition_function, note_function):
   """
-  scan the score and generate drills by calling the given functions during the scan:
+  scan the score of each piece and generate drills by calling the given functions during the scan:
     defaults_function(note, next)
     piece_function(piece)
     section_function(piece, section)
@@ -184,39 +187,40 @@ def process_piece(piece, mp3dir, defaults_function, phrase_function, transition_
 
   if there is nothing to do at a given step, pass the function as None
   """
+  for piece in pieces:
 
-  # calculate defaults
-  if defaults_function != None:
-    for section in piece.sections:
-      for phrase in section.phrases:
-        for i, note in enumerate(phrase.notes):
-          if i < len(phrase.notes) - 1: defaults_function(note, phrase.notes[i + 1])
+    # calculate defaults
+    if defaults_function != None:
+      for section in piece.sections:
+        for phrase in section.phrases:
+          for i, note in enumerate(phrase.notes):
+            if i < len(phrase.notes) - 1: defaults_function(note, phrase.notes[i + 1])
 
-  # create piece practise chunks
-  if len(piece.sections) > 1:
-    create_piece_bracket(piece.mp3, mp3dir, piece.name)
+    # create piece practise chunks
+    make_metronome(piece.tempo)
+    if len(piece.sections) > 1:
+      create_piece_bracket(piece.mp3, mp3dir, piece.name)
 
-  # process sections in reverse
-  for section in reversed(piece.sections):
-    notes = [note for phrase in section.phrases for note in phrase.notes]
-    if start_section(section.label, piece.tempo, notes):
-      cut_repeating_chunk(piece.mp3, mp3dir, section.phrases[0].start_secs, section.phrases[-1].stop_secs, "00000.mp3")
-      os.chdir("../..")
+    # process sections in reverse
+    for section in reversed(piece.sections):
+      notes = [note for phrase in section.phrases for note in phrase.notes]
+      if start_section(section.label, piece.tempo, notes):
+        cut_repeating_chunk(piece.mp3, mp3dir, section.phrases[0].start_secs, section.phrases[-1].stop_secs, "00000.mp3")
+        os.chdir("../..")
 
-      # process phrases in reverse
-      for phrase in reversed(section.phrases):
-        if start_phrase(phrase.label, piece.tempo, phrase.notes):
-          cut_repeating_chunk(piece.mp3, mp3dir, phrase.start_secs, phrase.stop_secs, "00000.mp3")
-          if phrase_function != None: phrase_function(piece, section, phrase)
-          os.chdir("../..")
+        # process phrases in reverse
+        for phrase in reversed(section.phrases):
+          if start_phrase(phrase.label, piece.tempo, phrase.notes):
+            cut_repeating_chunk(piece.mp3, mp3dir, phrase.start_secs, phrase.stop_secs, "00000.mp3")
+            if phrase_function != None: phrase_function(piece, section, phrase)
+            os.chdir("../..")
 
-          # process notes in reverse order
-          for i in reversed(range(len(notes))):
-            if i < len(notes) - 2 and transition_function != None: transition_function(piece.tempo, notes[i], notes[i+1], notes[i+2])
-            if i < len(notes) - 1 and note_function != None: note_function(piece.tempo, notes[i], notes[i+1])
+            # process notes in reverse order
+            for i in reversed(range(len(notes))):
+              if i < len(notes) - 2 and transition_function != None: transition_function(piece.tempo, notes[i], notes[i+1], notes[i+2])
+              if i < len(notes) - 1 and note_function != None: note_function(piece.tempo, notes[i], notes[i+1])
 
   # finish processing
-  make_metronome(piece.tempo)
   write_drill_cards()
 
 def make_drill(params={}, reps=5):
