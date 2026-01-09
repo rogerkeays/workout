@@ -167,7 +167,7 @@ def parse_note(text: str):
   """
   return Note(text[0], text[2], text[4], text[5], text[6], text[7], text[9:], {})
 
-def phrase(label, start, stop, notes):
+def phrase(label, start, stop, notes=[]):
   "constructor for phrases, which keeps a reference to the phrases created"
   p = Phrase(label, start, stop, notes)
   all_phrases[label] = p
@@ -380,10 +380,11 @@ def start_phrase(label, tempo, notes):
   "start a new phrase as long as it is not a duplicate"
 
   # check for duplicates
-  hashed_notes = list(map(lambda n: n.hash(), notes))
-  hash = make_hash("phrase", { "tempo":tempo, "notes":hashed_notes })
-  if hash in phrases: return False
-  phrases.add(hash)
+  if notes:
+    hashed_notes = list(map(lambda n: n.hash(), notes))
+    hash = make_hash("phrase", { "tempo":tempo, "notes":hashed_notes })
+    if hash in phrases: return False
+    phrases.add(hash)
 
   # create one folder per phrase
   mcd(PHRASES_DIR + "/" + str(len(phrases)).zfill(NUM_PADDING) + "." + label)
@@ -393,10 +394,11 @@ def start_section(label, tempo, notes):
   "start a new section as long as it is not a duplicate"
 
   # check for duplicates
-  hashed_notes = list(map(lambda n: n.hash(), notes))
-  hash = make_hash("section", { "tempo":tempo, "notes":hashed_notes })
-  if hash in sections: return False
-  sections.add(hash)
+  if notes:
+    hashed_notes = list(map(lambda n: n.hash(), notes))
+    hash = make_hash("section", { "tempo":tempo, "notes":hashed_notes })
+    if hash in sections: return False
+    sections.add(hash)
 
   # create one folder per phrase
   mcd(SECTIONS_DIR + "/" + str(len(sections)).zfill(NUM_PADDING) + "." + label)
