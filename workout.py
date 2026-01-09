@@ -5,7 +5,6 @@ import sys, os, inspect, tempfile, math, shutil
 from dataclasses import dataclass
 
 # configuration
-MP3_DIR = os.environ['HOME'] + "/library/workout/violin/04.pieces"
 MAKE_MP3S = True if (len(sys.argv) > 1 and sys.argv[1] == "mp3") else False
 NUM_PADDING = 5
 DRILL_LENGTH_MINS = 2.5
@@ -88,7 +87,7 @@ def create_phrase(label, tempo, notes):
   mcd(PHRASES_DIR + "/" + str(len(phrases)).zfill(NUM_PADDING) + "." + label)
   return True
 
-def create_piece_bracket(mp3, label):
+def create_piece_bracket(mp3, mp3dir, label):
   "create a practise bracket for the whole piece"
 
   # one directory per bracket
@@ -98,7 +97,7 @@ def create_piece_bracket(mp3, label):
   os.mkdir(dir)
 
   # copy mp3 instead of remixing it
-  shutil.copy(mp3, dir + "/" + piecenum + "B.mp3")
+  shutil.copy(mp3dir + "/" + mp3, dir + "/" + piecenum + "B.mp3")
 
 def create_section(label, tempo, notes):
   "start a new section as long as it is not a duplicate"
@@ -113,7 +112,7 @@ def create_section(label, tempo, notes):
   mcd(SECTIONS_DIR + "/" + str(len(sections)).zfill(NUM_PADDING) + "." + label)
   return True
 
-def cut_chunk(mp3, start_secs, stop_secs, outfile, speed=1.0):
+def cut_chunk(mp3, mp3dir, start_secs, stop_secs, outfile, speed=1.0):
   if MAKE_MP3S and stop_secs > 0:
     padding = CHUNK_FADE_SECS
     delay = CHUNK_DELAY_SECS
@@ -121,18 +120,18 @@ def cut_chunk(mp3, start_secs, stop_secs, outfile, speed=1.0):
     to = stop_secs + padding
     st = stop_secs - start_secs + padding
     os.system(f"""
-    ffmpeg -nostdin -loglevel error -ss {ss} -to {to} -i {mp3} -ac 1 -ar 48000 -q 4 \
+    ffmpeg -nostdin -loglevel error -ss {ss} -to {to} -i {mp3dir}/{mp3} -ac 1 -ar 48000 -q 4 \
            -af afade=d={padding},afade=t=out:st={st}:d={padding},atempo={speed},adelay={delay}s:all=true \
            "{outfile}"
            """)
 
-def cut_mixed_chunk(mp3, start_secs, stop_secs, outfile):
+def cut_mixed_chunk(mp3, mp3dir, start_secs, stop_secs, outfile):
   if MAKE_MP3S and stop_secs > 0:
     with tempfile.TemporaryDirectory() as tmpdir:
 
       # generate chunks for repetition
-      cut_chunk(mp3, start_secs, stop_secs, tmpdir + "/050.mp3", 0.5);
-      cut_chunk(mp3, start_secs, stop_secs, tmpdir + "/100.mp3", 1.0);
+      cut_chunk(mp3, mp3dir, start_secs, stop_secs, tmpdir + "/050.mp3", 0.5);
+      cut_chunk(mp3, mp3dir, start_secs, stop_secs, tmpdir + "/100.mp3", 1.0);
       make_gunshot(tmpdir + "/gunshot.mp3")
 
       # repeat for the duration of the drill
@@ -149,12 +148,12 @@ def cut_mixed_chunk(mp3, start_secs, stop_secs, outfile):
       ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
              -codec copy "{outfile}" """)
 
-def cut_repeating_chunk(mp3, start_secs, stop_secs, outfile, speed=1.0, reps=BRACKET_REPS):
+def cut_repeating_chunk(mp3, mp3dir, start_secs, stop_secs, outfile, speed=1.0, reps=BRACKET_REPS):
   if MAKE_MP3S and stop_secs > 0:
     with tempfile.TemporaryDirectory() as tmpdir:
 
       # generate chunks for repetition
-      cut_chunk(mp3, start_secs, stop_secs, tmpdir + "/chunk.mp3", speed);
+      cut_chunk(mp3, mp3dir, start_secs, stop_secs, tmpdir + "/chunk.mp3", speed);
       make_gunshot(tmpdir + "/gunshot.mp3")
 
       # repeat for the duration of the drill
@@ -167,20 +166,17 @@ def cut_repeating_chunk(mp3, start_secs, stop_secs, outfile, speed=1.0, reps=BRA
       os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
                            -codec copy "{outfile}" """)
 
-def cut_timed_chunk(mp3, start_secs, stop_secs, outfile, speed=1.0):
+def cut_timed_chunk(mp3, mp3dir, start_secs, stop_secs, outfile, speed=1.0):
   "repeat a chunk for DRILL_LENGTH_MINS"
   length = CHUNK_DELAY_SECS + (CHUNK_FADE_SECS + stop_secs - start_secs + CHUNK_FADE_SECS) / speed
   reps = math.ceil(DRILL_LENGTH_MINS * 60 / length)
-  cut_repeating_chunk(mp3, start_secs, stop_secs, outfile, speed, reps)
+  cut_repeating_chunk(mp3, mp3dir, start_secs, stop_secs, outfile, speed, reps)
 
 def decimal_to_note(note):
   if not note:
     return "0"
   else:
     return decimal_to_note(note // 12).lstrip("0") + "0123456789XY"[note % 12]
-
-def find_mp3(filename):
-  return MP3_DIR + "/" + filename
 
 def half(val):
   return int(val / 2)
@@ -201,6 +197,53 @@ def phrase(label, start, stop, notes):
   p = Phrase(label, start, stop, notes)
   all_phrases[label] = p
   return p
+
+def process_piece(piece, mp3dir, defaults_function, phrase_function, transition_function, note_function):
+  """
+  scan the score and generate drills by calling the given functions during the scan:
+    defaults_function(note, next)
+    piece_function(piece)
+    section_function(piece, section)
+    phrase_function(piece, section, phrase)
+    transition_function(tempo, first_note, second_note, next_note)
+    note_function(tempo, note, next)
+
+  if there is nothing to do at a given step, pass the function as None
+  """
+
+  # calculate defaults
+  if defaults_function != None:
+    for section in piece.sections:
+      for phrase in section.phrases:
+        for i, note in enumerate(phrase.notes):
+          if i < len(phrase.notes) - 1: defaults_function(note, phrase.notes[i + 1])
+
+  # create piece practise chunks
+  if len(piece.sections) > 1:
+    create_piece_bracket(piece.mp3, mp3dir, piece.name)
+
+  # process sections in reverse
+  for section in reversed(piece.sections):
+    notes = [note for phrase in section.phrases for note in phrase.notes]
+    if create_section(section.label, piece.tempo, notes):
+      cut_repeating_chunk(piece.mp3, mp3dir, section.phrases[0].start_secs, section.phrases[-1].stop_secs, "00000.mp3")
+      os.chdir("../..")
+
+      # process phrases in reverse
+      for phrase in reversed(section.phrases):
+        if create_phrase(phrase.label, piece.tempo, phrase.notes):
+          cut_repeating_chunk(piece.mp3, mp3dir, phrase.start_secs, phrase.stop_secs, "00000.mp3")
+          if phrase_function != None: phrase_function(piece, section, phrase)
+          os.chdir("../..")
+
+          # process notes in reverse order
+          for i in reversed(range(len(notes))):
+            if i < len(notes) - 2 and transition_function != None: transition_function(piece.tempo, notes[i], notes[i+1], notes[i+2])
+            if i < len(notes) - 1 and note_function != None: note_function(piece.tempo, notes[i], notes[i+1])
+
+  # finish processing
+  make_metronome(piece.tempo)
+  write_drill_cards()
 
 def make_drill(params={}, reps=5):
   "make a drill card, ensuring it is unique, and formatting it appropriately as a text file"
