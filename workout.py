@@ -351,6 +351,17 @@ def normalise_tab(tab):
 def note_to_decimal(note):
   return int(str(note).replace("X", "A").replace("Y", "B"), 12)
 
+def repeat(id, start_secs=-1.0, stop_secs=-1.0):
+  """
+    Create a new phrase with the same notes as the phrase with the given id.
+    New mp3 start and stop times can be provided if desired. This function
+    does not clone the notes.
+  """
+  template = all_phrases[id]
+  if start_secs == -1.0: start_secs = template.start_secs
+  if stop_secs == -1.0: stop_secs = template.stop_secs
+  return Phrase(id, start_secs, stop_secs, template.notes)
+
 def shift_rhythm(rhythm):
   "shift a rhythm pattern to start on the first beat"
   onsets = "1bar2dup3cet4mow"

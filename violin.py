@@ -141,17 +141,6 @@ def process_transition(tempo, note, next, stop):
   if note.string != next.string:
     hand_jumps_rapid(tempo, strings, note.shape + next.shape, note.base + next.base)
 
-def repeat(template_id, start_secs=-1.0, stop_secs=-1.0):
-  """
-    Create a new phrase with the same notes as the phrase with the given id.
-    New mp3 start and stop times can be provided if desired. This function
-    does not clone the notes.
-  """
-  template = all_phrases[template_id]
-  if start_secs == -1.0: start_secs = template.start_secs
-  if stop_secs == -1.0: stop_secs = template.stop_secs
-  return Phrase(template_id, start_secs, stop_secs, template.notes)
-
 
 # drills
 def air_hammers(finger):
