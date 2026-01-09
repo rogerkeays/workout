@@ -5,7 +5,7 @@ from workout import *
 from dataclasses import dataclass
 
 # globals
-MP3_DIR = os.environ['HOME'] + "/library/workout/violin/04.pieces"
+MP3_DIR = os.environ['HOME'] + "/library/workout/violin/00.source"
 SHAPES = "PGWCADKH" # Porcupine, Gun, Westside, Chicken, Alien, Dog, ducK, Huddle
 
 # data structures
