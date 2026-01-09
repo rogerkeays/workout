@@ -74,19 +74,6 @@ def add(note, interval):
   "add base-12 notes and intervals"
   return decimal_to_note(note_to_decimal(note) + note_to_decimal(interval))
 
-def create_phrase(label, tempo, notes):
-  "start a new phrase as long as it is not a duplicate"
-
-  # check for duplicates
-  hashed_notes = list(map(lambda n: n.hash(), notes))
-  hash = make_hash("phrase", { "tempo":tempo, "notes":hashed_notes })
-  if hash in phrases: return False
-  phrases.add(hash)
-
-  # create one folder per phrase
-  mcd(PHRASES_DIR + "/" + str(len(phrases)).zfill(NUM_PADDING) + "." + label)
-  return True
-
 def create_piece_bracket(mp3, mp3dir, label):
   "create a practise bracket for the whole piece"
 
@@ -98,19 +85,6 @@ def create_piece_bracket(mp3, mp3dir, label):
 
   # copy mp3 instead of remixing it
   shutil.copy(mp3dir + "/" + mp3, dir + "/" + piecenum + "B.mp3")
-
-def create_section(label, tempo, notes):
-  "start a new section as long as it is not a duplicate"
-
-  # check for duplicates
-  hashed_notes = list(map(lambda n: n.hash(), notes))
-  hash = make_hash("section", { "tempo":tempo, "notes":hashed_notes })
-  if hash in sections: return False
-  sections.add(hash)
-
-  # create one folder per phrase
-  mcd(SECTIONS_DIR + "/" + str(len(sections)).zfill(NUM_PADDING) + "." + label)
-  return True
 
 def cut_chunk(mp3, mp3dir, start_secs, stop_secs, outfile, speed=1.0):
   if MAKE_MP3S and stop_secs > 0:
@@ -225,13 +199,13 @@ def process_piece(piece, mp3dir, defaults_function, phrase_function, transition_
   # process sections in reverse
   for section in reversed(piece.sections):
     notes = [note for phrase in section.phrases for note in phrase.notes]
-    if create_section(section.label, piece.tempo, notes):
+    if start_section(section.label, piece.tempo, notes):
       cut_repeating_chunk(piece.mp3, mp3dir, section.phrases[0].start_secs, section.phrases[-1].stop_secs, "00000.mp3")
       os.chdir("../..")
 
       # process phrases in reverse
       for phrase in reversed(section.phrases):
-        if create_phrase(phrase.label, piece.tempo, phrase.notes):
+        if start_phrase(phrase.label, piece.tempo, phrase.notes):
           cut_repeating_chunk(piece.mp3, mp3dir, phrase.start_secs, phrase.stop_secs, "00000.mp3")
           if phrase_function != None: phrase_function(piece, section, phrase)
           os.chdir("../..")
@@ -385,6 +359,32 @@ def shift_rhythm(rhythm):
     return rhythm
   else:
     return "".join(map(lambda c: onsets[onsets.index(c) - shift], rhythm))
+
+def start_phrase(label, tempo, notes):
+  "start a new phrase as long as it is not a duplicate"
+
+  # check for duplicates
+  hashed_notes = list(map(lambda n: n.hash(), notes))
+  hash = make_hash("phrase", { "tempo":tempo, "notes":hashed_notes })
+  if hash in phrases: return False
+  phrases.add(hash)
+
+  # create one folder per phrase
+  mcd(PHRASES_DIR + "/" + str(len(phrases)).zfill(NUM_PADDING) + "." + label)
+  return True
+
+def start_section(label, tempo, notes):
+  "start a new section as long as it is not a duplicate"
+
+  # check for duplicates
+  hashed_notes = list(map(lambda n: n.hash(), notes))
+  hash = make_hash("section", { "tempo":tempo, "notes":hashed_notes })
+  if hash in sections: return False
+  sections.add(hash)
+
+  # create one folder per phrase
+  mcd(SECTIONS_DIR + "/" + str(len(sections)).zfill(NUM_PADDING) + "." + label)
+  return True
 
 def write_drill_cards():
   sorted_drills = dict(sorted(drills.items(), key=lambda x: x[1], reverse=True))
