@@ -49,8 +49,8 @@ class Note:
 class Phrase:
   label: str
   start_secs: float
-  stop_secs: float
   notes: list[Note]
+  stop_secs: float
 
 @dataclass # Section
 class Section:
@@ -69,9 +69,9 @@ class Piece:
 
 
 # constructors
-def phrase(label, start, stop, notes=[]):
+def phrase(label, start, notes=[], stop=0):
   "constructor for phrases, which keeps a reference to the phrases created"
-  p = Phrase(label, start, stop, notes)
+  p = Phrase(label, start, notes, stop)
   all_phrases[label] = p
   return p
 
@@ -84,7 +84,7 @@ def repeat(id, start_secs=-1.0, stop_secs=-1.0):
   template = all_phrases[id]
   if start_secs == -1.0: start_secs = template.start_secs
   if stop_secs == -1.0: stop_secs = template.stop_secs
-  return Phrase(id, start_secs, stop_secs, template.notes)
+  return Phrase(id, start_secs, template.notes, stop_secs)
 
 def section(label, function, phrases):
   return Section(label, function, phrases)
@@ -217,11 +217,20 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
   piece_numstr = str(piece.number).zfill(3)
 
   # calculate defaults
-  if defaults_function != None:
-    for section in piece.sections:
-      for phrase in section.phrases:
-        for i, note in enumerate(phrase.notes):
-          if i < len(phrase.notes) - 1: defaults_function(note, phrase.notes[i + 1])
+  for s, section in enumerate(piece.sections):
+    for p, phrase in enumerate(section.phrases):
+
+      # infer missing stop timestamps
+      if not phrase.stop_secs:
+        if p < len(section.phrases) - 1:
+          phrase.stop_secs = section.phrases[p + 1].start_secs
+        else:
+          phrase.stop_secs = piece.sections[s + 1].phrases[0].start_secs
+
+      # apply defaults to note fields
+      if defaults_function != None:
+        for n, note in enumerate(phrase.notes):
+          if n < len(phrase.notes) - 1: defaults_function(note, phrase.notes[n + 1])
 
   # create piece practise chunks
   make_metronome(piece.tempo)

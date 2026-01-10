@@ -1,9 +1,9 @@
-# vim: foldmethod=marker foldmarker=phrase,)) foldtext=getline(v\:foldstart)
+# vim: foldmethod=marker foldmarker=phrase,\ ) foldtext=getline(v\:foldstart)
 
 # @art class
 piece(34, "ponies", 3, 95, "42", [
   section("desk", "A", [
-    phrase("girls", 12.68, 20.28, notes("""
+    phrase("girls", 12.68, notes("""
       1 0 L44= 32G0 3 li-
       3 7 ==== ===4 5 ttle
       1 = ==== ==== 3 girls
@@ -12,7 +12,7 @@ piece(34, "ponies", 3, 95, "42", [
       1 5 ==== ===3 5 draw
       1 Z ==== 21== 3 ."""
     )),
-    phrase("ponies", 20.28, 27.69, notes("""
+    phrase("ponies", 20.28, notes("""
       1 X L44= 21P2 3 all
       3 2 ==== ===4 5 the
       1 7 ==== ===0 3 pre-
@@ -25,11 +25,11 @@ piece(34, "ponies", 3, 95, "42", [
     )),
   ]),
   section("desk", "A", [
-    repeat("girls"),
-    repeat("ponies")
+    repeat("girls", 27.69),
+    repeat("ponies", 35.23)
   ]),
   section("reverie", "B", [
-    phrase("dreams", 41.61, 50.63, notes("""
+    phrase("dreams", 41.61, notes("""
       1 = L44= 42G1 3 in
       3 = ==== ===3 5 her
       1 = ==== ==== 3 dreams,
@@ -39,11 +39,11 @@ piece(34, "ponies", 3, 95, "42", [
       1 = ==== ==== 5 mong
       1 = ==== 2=== 3 ."""
     )),
-    repeat("ponies")
+    repeat("ponies", 50.63)
   ]),
   section("desk", "A", [
-    repeat("girls"),
-    repeat("ponies")
+    repeat("girls", 58.00),
+    repeat("ponies", 65.30, 74.08)
   ])
 ])
 
