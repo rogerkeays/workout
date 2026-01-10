@@ -1,11 +1,8 @@
 # vim: foldmethod=marker foldmarker=phrase,)) foldtext=getline(v\:foldstart)
 
-import sys; sys.path.append("..")
-from violin import *
-
 # @siem reap river
-process(Piece(35, "musette", 4, 120, "42", [
-  Section("bank", "A", [
+piece(35, "musette", 4, 120, "42", [
+  section("bank", "A", [
     phrase("fishing", 9.77, 14.07, notes("""
       1 7 L44= 32W4 3 i'm
       3 5 ==== ===3 5 go-
@@ -44,7 +41,7 @@ process(Piece(35, "musette", 4, 120, "42", [
       w Z ==== ==== 5 ."""
     )),
   ]),
-  Section("water", "B", [
+  section("water", "B", [
     phrase("food", 25.84, 29.69, notes("""
       1 Y D44= 22W2 3 here
       a 0 ==== ===3 5 it
@@ -81,11 +78,11 @@ process(Piece(35, "musette", 4, 120, "42", [
       1 Z ==== ==== 5 ."""
     )),
   ]),
-  Section("bank", "A", [
+  section("bank", "A", [
     repeat("fishing", 9.77, 14.07),
     repeat("tackle", 14.07, 17.87),
     repeat("fishing", 17.87, 21.93),
     repeat("bait", 21.93, 25.84)
   ]),
-]))
+])
 

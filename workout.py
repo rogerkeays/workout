@@ -68,6 +68,28 @@ class Piece:
   sections: list[Section]
 
 
+# constructors
+def phrase(label, start, stop, notes=[]):
+  "constructor for phrases, which keeps a reference to the phrases created"
+  p = Phrase(label, start, stop, notes)
+  all_phrases[label] = p
+  return p
+
+def repeat(id, start_secs=-1.0, stop_secs=-1.0):
+  """
+    Create a new phrase with the same notes as the phrase with the given id.
+    New mp3 start and stop times can be provided if desired. This function
+    does not clone the notes.
+  """
+  template = all_phrases[id]
+  if start_secs == -1.0: start_secs = template.start_secs
+  if stop_secs == -1.0: stop_secs = template.stop_secs
+  return Phrase(id, start_secs, stop_secs, template.notes)
+
+def section(label, function, phrases):
+  return Section(label, function, phrases)
+
+
 # functions
 def add(note, interval):
   "add base-12 notes and intervals"
@@ -182,16 +204,7 @@ def parse_note(text: str):
   """
   return Note(text[0], text[2], text[4], text[5], text[6], text[7], text[9:], {})
 
-def phrase(label, start, stop, notes=[]):
-  "constructor for phrases, which keeps a reference to the phrases created"
-  p = Phrase(label, start, stop, notes)
-  all_phrases[label] = p
-  return p
-
 def process_piece(piece, defaults_function, phrase_function, transition_function, note_function):
-  process_pieces([piece])
-
-def process_pieces(pieces, defaults_function, phrase_function, transition_function, note_function):
   """
   scan the score of each piece and generate drills by calling the given functions during the scan:
     defaults_function(note, next)
@@ -201,49 +214,57 @@ def process_pieces(pieces, defaults_function, phrase_function, transition_functi
 
   if there is nothing to do at a given step, pass the function as None
   """
-  for piece in pieces:
-    piece_numstr = str(piece.number).zfill(3)
+  piece_numstr = str(piece.number).zfill(3)
 
-    # calculate defaults
-    if defaults_function != None:
-      for section in piece.sections:
-        for phrase in section.phrases:
-          for i, note in enumerate(phrase.notes):
-            if i < len(phrase.notes) - 1: defaults_function(note, phrase.notes[i + 1])
+  # calculate defaults
+  if defaults_function != None:
+    for section in piece.sections:
+      for phrase in section.phrases:
+        for i, note in enumerate(phrase.notes):
+          if i < len(phrase.notes) - 1: defaults_function(note, phrase.notes[i + 1])
 
-    # create piece practise chunks
-    make_metronome(piece.tempo)
-    if len(piece.sections) > 1:
-      create_piece_bracket(piece)
+  # create piece practise chunks
+  make_metronome(piece.tempo)
+  if len(piece.sections) > 1:
+    create_piece_bracket(piece)
 
-    # process sections in reverse
-    section_num = 0
-    for section in reversed(piece.sections):
-      if is_unique(piece.tempo, [note for phrase in section.phrases for note in phrase.notes]):
-        section_num += 1
-        section_numstr = str(section_num).zfill(2)
-        mcd(SECTIONS_DIR + "/00." + piece_numstr + section_numstr + "." + section.label)
-        cut_repeating_chunk(find_mp3(piece), section.phrases[0].start_secs, section.phrases[-1].stop_secs, "00000.mp3")
-        os.chdir("../..")
+  # process sections in reverse
+  section_num = 0
+  for section in reversed(piece.sections):
+    if is_unique(piece.tempo, [note for phrase in section.phrases for note in phrase.notes]):
+      section_num += 1
+      section_numstr = str(section_num).zfill(2)
+      mcd(SECTIONS_DIR + "/00." + piece_numstr + section_numstr + "." + section.label)
+      cut_repeating_chunk(find_mp3(piece), section.phrases[0].start_secs, section.phrases[-1].stop_secs, "00000.mp3")
+      os.chdir("../..")
 
-        # process phrases in reverse
-        phrase_num = 0
-        for phrase in reversed(section.phrases):
-          if is_unique(piece.tempo, phrase.notes):
-            phrase_num += 1
-            phrase_numstr = str(phrase_num).zfill(2)
-            mcd(PHRASES_DIR + "/00." + piece_numstr + section_numstr + phrase_numstr + "." + phrase.label)
-            cut_repeating_chunk(find_mp3(piece), phrase.start_secs, phrase.stop_secs, "00000.mp3")
-            if phrase_function != None: phrase_function(piece, section, phrase)
-            os.chdir("../..")
+      # process phrases in reverse
+      phrase_num = 0
+      for phrase in reversed(section.phrases):
+        if is_unique(piece.tempo, phrase.notes):
+          phrase_num += 1
+          phrase_numstr = str(phrase_num).zfill(2)
+          mcd(PHRASES_DIR + "/00." + piece_numstr + section_numstr + phrase_numstr + "." + phrase.label)
+          cut_repeating_chunk(find_mp3(piece), phrase.start_secs, phrase.stop_secs, "00000.mp3")
+          if phrase_function != None: phrase_function(piece, section, phrase)
+          os.chdir("../..")
 
-            # process notes in reverse order
-            notes = phrase.notes
-            for i in reversed(range(len(notes))):
-              if i < len(notes) - 2 and transition_function != None: transition_function(piece.tempo, notes[i], notes[i+1], notes[i+2])
-              if i < len(notes) - 1 and note_function != None: note_function(piece.tempo, notes[i], notes[i+1])
+          # process notes in reverse order
+          notes = phrase.notes
+          for i in reversed(range(len(notes))):
+            if i < len(notes) - 2 and transition_function != None: transition_function(piece.tempo, notes[i], notes[i+1], notes[i+2])
+            if i < len(notes) - 1 and note_function != None: note_function(piece.tempo, notes[i], notes[i+1])
 
-  # finish processing
+def process_scores(score_files, globals):
+  """
+    This is the main entry function to process one or more scores. It should be called after
+    all the drill and processing functions have been declared.
+  """
+  for file in score_files:
+    with open("../" + file) as score:
+      exec(score.read(), globals)
+
+  # output collected drills
   write_drill_cards()
 
 def make_drill(params={}, reps=5):
@@ -377,17 +398,6 @@ def normalise_tab(tab):
 
 def note_to_decimal(note):
   return int(str(note).replace("X", "A").replace("Y", "B"), 12)
-
-def repeat(id, start_secs=-1.0, stop_secs=-1.0):
-  """
-    Create a new phrase with the same notes as the phrase with the given id.
-    New mp3 start and stop times can be provided if desired. This function
-    does not clone the notes.
-  """
-  template = all_phrases[id]
-  if start_secs == -1.0: start_secs = template.start_secs
-  if stop_secs == -1.0: stop_secs = template.stop_secs
-  return Phrase(id, start_secs, stop_secs, template.notes)
 
 def set_mp3_dir(dir):
   global MP3_DIR

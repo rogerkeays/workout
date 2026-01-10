@@ -1,13 +1,8 @@
 # vim: foldmethod=marker foldmarker=phrase,)) foldtext=getline(v\:foldstart)
 
-import sys; sys.path.append("..")
-from violin import *
-
 # open string exercises
-process_all([
-
-Piece(1, "the-crawl", 4, 90, "37", [
-  Section("table", "V", [
+piece(1, "the-crawl", 4, 90, "37", [
+  section("table", "V", [
     phrase("crawls", 10.16, 15.38, notes("""
       1 0 L4== 40N0 3 li-
       2 = ==== ==== 5 ttle
@@ -31,10 +26,10 @@ Piece(1, "the-crawl", 4, 90, "37", [
       1 Z ==== ==== 3 ."""
     )),
   ])
-]),
+])
 
-Piece(2, "baby-steps", 4, 90, "37", [
-  Section("lawn", "V", [
+piece(2, "baby-steps", 4, 90, "37", [
+  section("lawn", "V", [
     phrase("left", 10.30, 13.05, notes("""
       1 0 L4== 40N0 3 left
       2 = ==== ==== 5 foot
@@ -61,10 +56,10 @@ Piece(2, "baby-steps", 4, 90, "37", [
       1 Z ==== ==== 5 ."""
     )),
   ])
-]),
+])
 
-Piece(5, "the-first-fall", 4, 100, "37", [
-  Section ("lounge", "V", [
+piece(5, "the-first-fall", 4, 100, "37", [
+  section ("lounge", "V", [
     phrase("window", 10.19, 12.68, notes("""
       1 0 D44= 40N0 3 runs
       a = ==== ==== 5 in-
@@ -98,10 +93,10 @@ Piece(5, "the-first-fall", 4, 100, "37", [
       1 Z ==== ==== 3 ."""
     ))
   ])
-]),
+])
 
-Piece(6, "into-the-kitchen", 4, 100, "37", [
-  Section("kitchen", "V", [
+piece(6, "into-the-kitchen", 4, 100, "37", [
+  section("kitchen", "V", [
     phrase("no-one", 10.04, 12.59, notes("""
       1 0 D44= 40N0 3 here
       a 7 ==== 3=== 5 there's
@@ -140,10 +135,10 @@ Piece(6, "into-the-kitchen", 4, 100, "37", [
       1 Z ==== ==== 5 ."""
     )),
   ])
-]),
+])
 
-Piece(3, "the-car-trip", 4, 110, "37", [
-  Section("car", "V", [
+piece(3, "the-car-trip", 4, 110, "37", [
+  section("car", "V", [
     phrase("baby", 9.72, 12.04, notes("""
       1 9 L4== 10N0 3 li-
       2 = ==== ==== 5 ttle
@@ -178,10 +173,10 @@ Piece(3, "the-car-trip", 4, 110, "37", [
       1 Z ==== ==== 5 ."""
     )),
   ])
-]),
+])
 
-Piece(4, "aeroplane-games", 4, 110, "37", [
-  Section("airfield", "V", [
+piece(4, "aeroplane-games", 4, 110, "37", [
+  section("airfield", "V", [
     phrase("upwards", 9.59, 10.82, notes("""
       1 0 L4== 40N0 3 fly-
       a 7 ==== 3=== 5 ing
@@ -207,11 +202,11 @@ Piece(4, "aeroplane-games", 4, 110, "37", [
       1 Z ==== ==== 5 ."""
     )),
   ])
-]),
+])
 
 # first finger exercises
-Piece(7, "the-door-handle", 4, 94, "37", [
-  Section("shack", "V", [
+piece(7, "the-door-handle", 4, 94, "37", [
+  section("shack", "V", [
     phrase("this-way", 10.25, 12.86, notes("""
       1 0 L44= 42N0 3 turn
       2 7 ==== 3=== 5 it
@@ -240,10 +235,10 @@ Piece(7, "the-door-handle", 4, 94, "37", [
       1 Z ==== ==== 5 ."""
     ))
   ])
-]),
+])
 
-Piece(8, "the-puppy-dog", 3, 104, "49", [
-  Section("park", "V", [
+piece(8, "the-puppy-dog", 3, 104, "49", [
+  section("park", "V", [
     phrase("puppy", 10.28, 13.80, notes("""
       1 7 L44= 12N0 3 mis-
       2 9 ==== ===1 5 chie-
@@ -270,10 +265,10 @@ Piece(8, "the-puppy-dog", 3, 104, "49", [
       1 Z ==== ==== 3 ."""
     ))
   ])
-]),
+])
 
-Piece(9, "hunger", 4, 105, "42", [
-  Section("baby-chair", "V", [
+piece(9, "hunger", 4, 105, "42", [
+  section("baby-chair", "V", [
     phrase("hungry", 9.77, 12.14, notes("""
       1 2 L44= 12N0 3 get-
       2 7 ==== 2=== 5 ting
@@ -309,10 +304,10 @@ Piece(9, "hunger", 4, 105, "42", [
       1 Z ==== ==== 5 ."""
     ))
   ])
-]),
+])
 
-Piece(10, "stealing-cookies", 4, 144, "49", [
-  Section("kitchen", "V", [
+piece(10, "stealing-cookies", 4, 144, "49", [
+  section("kitchen", "V", [
     phrase("cookies", 9.23, 13.48, notes("""
       1 9 L44= 12N1 3 stea-
       3 7 ==== ===0 5 ling
@@ -339,10 +334,10 @@ Piece(10, "stealing-cookies", 4, 144, "49", [
       1 Z ==== ==== 3 ."""
     ))
   ])
-]),
+])
 
-Piece(11, "puppy-in-the-kitchen", 4, 110, "42", [
-  Section("kitchen", "V", [
+piece(11, "puppy-in-the-kitchen", 4, 110, "42", [
+  section("kitchen", "V", [
     phrase("puppy", 9.49, 11.74, notes("""
       1 2 L44= 12N0 3 pu-
       a = ==== ==== 5 ppy
@@ -374,10 +369,10 @@ Piece(11, "puppy-in-the-kitchen", 4, 110, "42", [
       1 Z ==== ==== 5 ."""
     ))
   ])
-]),
+])
 
-Piece(12, "dad-goes-looking", 2, 104, "37", [
-  Section("lost-kids-house", "V", [
+piece(12, "dad-goes-looking", 2, 104, "37", [
+  section("lost-kids-house", "V", [
     phrase("kid", 9.77, 12.23, notes("""
       1 0 L44= 42N0 3 some-
       a 2 ==== ===1 5 things
@@ -418,11 +413,11 @@ Piece(12, "dad-goes-looking", 2, 104, "37", [
       1 Z ==== ==== 5 ."""
     ))
   ])
-]),
+])
 
 # second finger exercises
-Piece(13, "digging-holes", 3, 146, "42", [
-  Section("sand-dune", "V", [
+piece(13, "digging-holes", 3, 146, "42", [
+  section("sand-dune", "V", [
     phrase("holes", 10.36, 12.94, notes("""
       1 0 L44= 32N0 3 digg-
       2 4 ==== ===2 5 ing
@@ -450,10 +445,10 @@ Piece(13, "digging-holes", 3, 146, "42", [
       1 Z ==== ==== 5 ."""
     ))
   ])
-]),
+])
 
-Piece(14, "scottish-boy", 4, 133, "54", [
-  Section("rock-pool", "V", [
+piece(14, "scottish-boy", 4, 133, "54", [
+  section("rock-pool", "V", [
     phrase("boy", 9.51, 11.78, notes("""
       1 4 L44= 12N2 3 scott-
       a = ==== ==== 5 ish
@@ -492,10 +487,10 @@ Piece(14, "scottish-boy", 4, 133, "54", [
       1 Z ==== ==== 5 ."""
     ))
   ])
-]),
+])
 
-Piece(15, "toll-busters", 4, 115, "42", [
-  Section("toll", "V", [
+piece(15, "toll-busters", 4, 115, "42", [
+  section("toll", "V", [
     phrase("stop", 9.46, 11.61, notes("""
       1 0 L44= 32N0 3 stop
       a = ==== ==== 5 to
@@ -533,10 +528,10 @@ Piece(15, "toll-busters", 4, 115, "42", [
       1 Z ==== ==== 3 ."""
     ))
   ])
-]),
+])
 
-Piece(16, "car-crash", 6, 145, "42", [
-  Section("crash-site", "V", [
+piece(16, "car-crash", 6, 145, "42", [
+  section("crash-site", "V", [
     phrase("crash", 9.92, 12.32, notes("""
       1 4 L44= 32N2 3 car
       4 2 ==== ===1 5 crash
@@ -565,10 +560,10 @@ Piece(16, "car-crash", 6, 145, "42", [
       1 Z ==== ==== 5 ."""
     ))
   ])
-]),
+])
 
-Piece(17, "bouncy-castle", 2, 90, "49", [
-  Section("castle", "V", [
+piece(17, "bouncy-castle", 2, 90, "49", [
+  section("castle", "V", [
     phrase("castle", 10.38, 13.00, notes("""
       1 Y D44= 12N2 3 boun-
       a 9 ==== ===1 5 cy
@@ -602,10 +597,10 @@ Piece(17, "bouncy-castle", 2, 90, "49", [
       1 Z ==== ==== 5 ."""
     ))
   ])
-]),
+])
 
-Piece(18, "the-bad-date", 3, 50, "4Y", [
-  Section("girls-house", "V", [
+piece(18, "the-bad-date", 3, 50, "4Y", [
+  section("girls-house", "V", [
     phrase("girl", 11.90, 15.39, notes("""
       1 9 L44= 12N2 3 pick-
       a 5 ==== ===0 5 ing
@@ -640,11 +635,11 @@ Piece(18, "the-bad-date", 3, 50, "4Y", [
       1 Z ==== ==== 5 ."""
     ))
   ])
-]),
+])
 
 # third and fourth finger exercises
-Piece(19, "sleeping-in", 3, 135, "42", [
-  Section("lazy-boys-room", "V", [
+piece(19, "sleeping-in", 3, 135, "42", [
+  section("lazy-boys-room", "V", [
     phrase("boy", 10.34, 13.02, notes("""
       1 0 D44= 32W0 3 li-
       2 4 ==== ===2 5 ttle
@@ -679,10 +674,10 @@ Piece(19, "sleeping-in", 3, 135, "42", [
       1 Z ==== ==== 5 ."""
     ))
   ])
-]),
+])
 
-Piece(20, "the-birthday-party", 4, 95, "59", [
-  Section("poolside", "V", [
+piece(20, "the-birthday-party", 4, 95, "59", [
+  section("poolside", "V", [
     phrase("birthday", 10.26, 12.94, notes("""
       1 0 D44= 12C3 3 to-
       a Y ==== ===2 5 day
@@ -722,10 +717,10 @@ Piece(20, "the-birthday-party", 4, 95, "59", [
       1 Z ==== ==== 3 ."""
     ))
   ])
-]),
+])
 
-Piece(21, "boring-homework", 4, 95, "47", [
-  Section("desk", "V", [
+piece(21, "boring-homework", 4, 95, "47", [
+  section("desk", "V", [
     phrase("homework", 10.60, 13.43, notes("""
       1 0 L44= 42W0 3 bor-
       2 7 ==== 3=C= 5 ing
@@ -761,10 +756,10 @@ Piece(21, "boring-homework", 4, 95, "47", [
       1 Z ==== ==== 3 ."""
     ))
   ])
-]),
+])
 
-Piece(22, "chinese-kids", 4, 90, "47", [
-  Section("classroom", "V", [
+piece(22, "chinese-kids", 4, 90, "47", [
+  section("classroom", "V", [
     phrase("chinese-kids", 10.37, 13.03, notes("""
       1 9 D44= 22G4 3 my
       a 7 ==== ===3 5 teach-
@@ -805,10 +800,10 @@ Piece(22, "chinese-kids", 4, 90, "47", [
       1 Z ==== ==== 5 ."""
     ))
   ])
-]),
+])
 
-Piece(23, "chicken-pox", 4, 100, "47", [
-  Section("bed", "V", [
+piece(23, "chicken-pox", 4, 100, "47", [
+  section("bed", "V", [
     phrase("sick", 9.78, 13.86, notes("""
       1 7 L44= 42W4 3 get-
       3 5 ==== ===3 5 ting
@@ -843,10 +838,10 @@ Piece(23, "chicken-pox", 4, 100, "47", [
       1 Z ==== ==== 5 ."""
     ))
   ])
-]),
+])
 
-Piece(24, "last-day-of-school", 4, 95, "4Y", [
-  Section("primary-school", "V", [
+piece(24, "last-day-of-school", 4, 95, "4Y", [
+  section("primary-school", "V", [
     phrase("school", 10.21, 12.80, notes("""
       1 3 L44= 22W4 3 to-
       a X ==== ===0 5 day's
@@ -885,6 +880,5 @@ Piece(24, "last-day-of-school", 4, 95, "4Y", [
       1 Z ==== ==== 5 ."""
     ))
   ])
-])
 ])
 

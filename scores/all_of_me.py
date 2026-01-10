@@ -1,10 +1,7 @@
 # vim: foldmethod=marker foldmarker=phrase,)) foldtext=getline(v\:foldstart)
 
-import sys; sys.path.append("..")
-from violin import *
-
-process(Piece(63, "all-of-me", 4, 126, "48", [
-  Section("art-desk", "V1", [
+piece(63, "all-of-me", 4, 126, "48", [
+  section("art-desk", "V1", [
     phrase("mouth", 23.51, 27.31, notes("""
       3 2 L4== 21W1 2 what
       e 4 ==== ===2 ^ would
@@ -56,7 +53,7 @@ process(Piece(63, "all-of-me", 4, 126, "48", [
       u Z ==== ==== 6 ."""
     ))
   ]),
-  Section("disneyland", "V2", [
+  section("disneyland", "V2", [
     phrase("mind", 38.95, 42.67, notes("""
       3 2 L4== 21W1 2 what's
       e 4 ==== ===2 v go-
@@ -108,7 +105,7 @@ process(Piece(63, "all-of-me", 4, 126, "48", [
       e Z ==== ==== 6 ."""
     ))
   ]),
-  Section("show", "B1", [
+  section("show", "B1", [
     phrase("underwater", 54.92, 58.71, notes("""
       o 0 L4== 33W3 6 my
       1 7 ==== 2=G3 2 h-
@@ -148,7 +145,7 @@ process(Piece(63, "all-of-me", 4, 126, "48", [
       3 Z ==== ==== 6 ."""
     ))
   ]),
-  Section("mirrors", "C1A", [
+  section("mirrors", "C1A", [
     phrase("all-me", 68.21, 71.10, notes("""
       o 4 L4== 21W2 4 cause
       1 = ==== ==== 2 a-
@@ -181,7 +178,7 @@ process(Piece(63, "all-of-me", 4, 126, "48", [
     )),
     lyrics("imperfections", "all you-r per-fect im-per-fec-tions", "curves", 78.86, 82.63)
   ]),
-  Section("sepulchre", "C1B", [
+  section("sepulchre", "C1B", [
     phrase("give-your", 82.63, 86.35, notes("""
       3 4 L4== 21W2 3 give
       e = ==== ==== 5 your
@@ -206,7 +203,7 @@ process(Piece(63, "all-of-me", 4, 126, "48", [
     lyrics("end", "you're m-y end and my be-gin-ing", "curves", 90.10, 94.17),
     lyrics("lose", "e-ve-n when i lose i'm win-ning", "curves", 94.17, 97.70)
   ]),
-  Section("altar", "C1O", [
+  section("altar", "C1O", [
     phrase("i-give", 97.70, 105.29, notes("""
       u 4 L4== 21W2 6 cause
       3 = ==== ==== 7 i
@@ -230,7 +227,7 @@ process(Piece(63, "all-of-me", 4, 126, "48", [
       3 Z ==== ==== 6 ."""
     ))
   ]),
-  Section("bedroom", "V3", [
+  section("bedroom", "V3", [
     phrase("times", 115.05, 118.98, notes("""
       3 2 L4== 21W1 2 how
       e 4 ==== ===2 v ma-
@@ -289,7 +286,7 @@ process(Piece(63, "all-of-me", 4, 126, "48", [
       2 Z ==== ==== 6 ."""
     ))
   ]),
-  Section("garage", "V4", [
+  section("garage", "V4", [
     phrase("downfall", 130.19, 133.97, notes("""
       p 7 L4== 21W4 2 you're
       e 4 ==== ===2 4 my
@@ -342,18 +339,18 @@ process(Piece(63, "all-of-me", 4, 126, "48", [
       4 Z ==== ==== 2 ."""
     ))
   ]),
-  Section("show", "B2", [
+  section("show", "B2", [
     repeat("underwater", 146.37, 150.29),
     repeat("breathin", 150.29, 153.91),
     repeat("crazy", 153.91, 159.74)
   ]),
-  Section("mirrors", "C2A", [
+  section("mirrors", "C2A", [
     repeat("all-me", 159.74, 162.63),
     repeat("all-you", 162.63, 166.38),
     repeat("curves", 166.38, 170.37),
     repeat("imperfections", 170.37, 175.05)
   ]),
-  Section("sepulchre", "C2B", [
+  section("sepulchre", "C2B", [
     repeat("give-your", 175.05, 177.75),
     phrase("give-my^", 177.75, 181.63, notes("""
       u 4 L4== 21W2 6 i'll
@@ -368,11 +365,11 @@ process(Piece(63, "all-of-me", 4, 126, "48", [
     repeat("end", 181.63, 185.64),
     repeat("lose", 185.64, 189.20),
   ]),
-  Section("altar", "C2O", [
+  section("altar", "C2O", [
     repeat("i-give", 189.20, 196.79),
     repeat("you-give", 196.79, 204.06)
   ]),
-  Section("casino", "M", [
+  section("casino", "M", [
     phrase("give-me", 204.06, 207.59, notes("""
       a 5 L4== 21W3 3 give
       2 7 ==== ===4 5 me
@@ -419,23 +416,23 @@ process(Piece(63, "all-of-me", 4, 126, "48", [
       3 Z ==== ==== 2 ."""
     ))
   ]),
-  Section("mirrors", "C3A", [
+  section("mirrors", "C3A", [
     repeat("all-me", 220.54, 223.52),
     repeat("all-you", 223.52, 227.34),
     repeat("curves", 227.34, 231.31),
     repeat("imperfections", 231.31, 235.15)
   ]),
-  Section("sepulchre", "C3B", [
+  section("sepulchre", "C3B", [
     repeat("give-your", 235.15, 238.65),
     repeat("give-my^", 238.65, 242.60),
     repeat("end", 242.60, 246.55),
     repeat("lose", 246.55, 250.20)
   ]),
-  Section("altar", "C3O1", [
+  section("altar", "C3O1", [
     repeat("i-give", 250.20, 257.77),
     repeat("you-give", 257.77, 265.26)
   ]),
-  Section("altar", "C3O2", [
+  section("altar", "C3O2", [
     phrase("i-give-auaua", 265.26, 273.04, notes("""
       3 4 L4== 21W2 7 i
       e 5 ==== ===3 ^ give
@@ -459,5 +456,5 @@ process(Piece(63, "all-of-me", 4, 126, "48", [
       4 Z ==== ==== 1 ."""
     ))
   ])
-]))
+])
 

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # vim: foldmethod=expr foldtext=getline(v\:foldstart) foldexpr=indent(v\:lnum)\|\|indent(v\:lnum+1)\|\|getline(v\:lnum)[0]=='@'?1\:'<1' fillchars=fold\:\ 
 
 import re
@@ -27,6 +28,37 @@ class ViolinNote(Note):
     return f"{n.beat} {n.degree} {n.attack}{n.vol_start}{n.vol_stop}{n.sustain} {n.string}{n.base}{n.shape}{n.finger} {n.bow_position}"
 
 
+# constructors
+def lyrics(id, lyrics, template_id, start, stop):
+  """ clone a phrase, but with different lyrics and different start and stops """
+  template = all_phrases[template_id]
+  split_lyrics = re.split("[- ]", lyrics)
+  return phrase(id, start, stop, list(map(lambda z: ViolinNote(
+    beat = z[0].beat,
+    degree = z[0].degree,
+    attack = z[0].attack,
+    vol_start = z[0].vol_start,
+    vol_stop = z[0].vol_stop,
+    sustain = z[0].sustain,
+    string = z[0].string,
+    base = z[0].base,
+    shape = z[0].shape,
+    finger = z[0].finger,
+    bow_position = z[0].bow_position,
+    label = z[1]), zip(template.notes, split_lyrics))))
+
+def notes(text: str) -> list[Note]:
+  """
+    parse a block of notes line by line and return an array of ViolinNotes
+  """
+  return list(map(parse_violin_note, filter(lambda x: len(x) > 0, map(str.strip, text.split("\n")))))
+
+def piece(number, label, meter, tempo, tonic, sections):
+  "construct and process a piece in one step"
+  process_piece(Piece(number, label, meter, tempo, tonic, sections),
+      calculate_defaults, process_phrase, process_transition, process_note)
+
+
 # functions
 def calculate_defaults(note, next):
   if next.degree == "=": next.degree = note.degree
@@ -52,32 +84,8 @@ def fret(shape, base, finger):
   elif shape == "H": frets = [0, 1, 2, 3] # huddle
   return str(frets[int(finger) - 1] + int(base))
 
-def lyrics(id, lyrics, template_id, start, stop):
-  """ clone a phrase, but with different lyrics and different start and stops """
-  template = all_phrases[template_id]
-  split_lyrics = re.split("[- ]", lyrics)
-  return phrase(id, start, stop, list(map(lambda z: ViolinNote(
-    beat = z[0].beat,
-    degree = z[0].degree,
-    attack = z[0].attack,
-    vol_start = z[0].vol_start,
-    vol_stop = z[0].vol_stop,
-    sustain = z[0].sustain,
-    string = z[0].string,
-    base = z[0].base,
-    shape = z[0].shape,
-    finger = z[0].finger,
-    bow_position = z[0].bow_position,
-    label = z[1]), zip(template.notes, split_lyrics))))
-
 def note_at(string, fret):
   return decimal_to_note(note_to_decimal("5Y") - (int(string) * 7) + int(fret))
-
-def notes(text: str) -> list[Note]:
-  """
-    parse a block of notes line by line and return an array of ViolinNotes
-  """
-  return list(map(parse_violin_note, filter(lambda x: len(x) > 0, map(str.strip, text.split("\n")))))
 
 def parse_violin_note(text: str) -> Note:
   """
@@ -101,12 +109,6 @@ def parse_violin_note(text: str) -> Note:
     finger = text[12],
     bow_position = text[14],
     label = text[16:])
-
-def process(piece):
-  process_all([piece])
-
-def process_all(pieces):
-  process_pieces(pieces, calculate_defaults, process_phrase, process_transition, process_note)
 
 def process_note(tempo, note, stop):
   if note.degree != "Z":
@@ -295,4 +297,7 @@ def violin_hold():
   arm_stretches()
   no_hands_swivels()
 
+
+# process the input files
+process_scores(sys.argv[1:], globals())
 
