@@ -189,92 +189,6 @@ def is_unique(tempo, notes):
 
   return True
 
-def parse_note(text: str):
-  """
-    field order: beat (space) degree (space) attack vol_start vol_stop sustain (space) label
-    example:
-     1 0 L44= twin-
-     2 = ==== kle
-     3 7 ==== twin-
-     4 = ==== kle
-  """
-  return Note(text[0], text[2], text[4], text[5], text[6], text[7], text[9:], {})
-
-def process_piece(piece, defaults_function, phrase_function, transition_function, note_function):
-  """
-  scan the score of each piece and generate drills by calling the given functions during the scan:
-    defaults_function(note, next)
-    phrase_function(piece, section, phrase)
-    transition_function(tempo, first_note, second_note, next_note)
-    note_function(tempo, note, next)
-
-  if there is nothing to do at a given step, pass the function as None
-  """
-  piece_numstr = str(piece.number).zfill(3)
-
-  # calculate defaults
-  for s, section in enumerate(piece.sections):
-    for p, phrase in enumerate(section.phrases):
-
-      # infer missing stop timestamps
-      if not phrase.stop_secs:
-        if p < len(section.phrases) - 1:
-          phrase.stop_secs = section.phrases[p + 1].start_secs
-        else:
-          phrase.stop_secs = piece.sections[s + 1].phrases[0].start_secs
-
-      # apply defaults to note fields
-      if defaults_function != None:
-        for n, note in enumerate(phrase.notes):
-          if n < len(phrase.notes) - 1: defaults_function(note, phrase.notes[n + 1])
-
-  # create piece practise chunks
-  if len(piece.sections) > 1:
-    create_piece_bracket(piece)
-
-  # process sections in reverse
-  section_num = 0
-  for section in reversed(piece.sections):
-    if is_unique(piece.tempo, [note for phrase in section.phrases for note in phrase.notes]):
-      section_num += 1
-      section_numstr = str(section_num).zfill(2)
-      mcd(SECTIONS_DIR + "/00." + piece_numstr + section_numstr + "." + section.label)
-      first = section.phrases[0]
-      last = section.phrases[-1]
-      cut_repeating_chunk(find_mp3(piece), first.start_secs, last.stop_secs, piece.meter, piece.tempo, "00000.mp3")
-      os.chdir("../..")
-
-      # process phrases in reverse
-      phrase_num = 0
-      for phrase in reversed(section.phrases):
-        if is_unique(piece.tempo, phrase.notes):
-          phrase_num += 1
-          phrase_numstr = str(phrase_num).zfill(2)
-          mcd(PHRASES_DIR + "/00." + piece_numstr + section_numstr + phrase_numstr + "." + phrase.label)
-          cut_repeating_chunk(find_mp3(piece), phrase.start_secs, phrase.stop_secs, piece.meter, piece.tempo, "00000.mp3")
-          if phrase_function != None: phrase_function(piece, section, phrase)
-          os.chdir("../..")
-
-          # process notes in reverse order
-          notes = phrase.notes
-          for i in reversed(range(len(notes))):
-            if i < len(notes) - 2 and transition_function != None: transition_function(piece.tempo, notes[i], notes[i+1], notes[i+2])
-            if i < len(notes) - 1 and note_function != None: note_function(piece.tempo, notes[i], notes[i+1])
-
-  make_metronome(piece.tempo)
-
-def process_scores(score_files, globals):
-  """
-    This is the main entry function to process one or more scores. It should be called after
-    all the drill and processing functions have been declared.
-  """
-  for file in score_files:
-    with open("../" + file) as score:
-      exec(score.read(), globals)
-
-  # output collected drills
-  write_drill_cards()
-
 def make_drill(params={}, reps=5):
   "make a drill card, ensuring it is unique, and formatting it appropriately as a text file"
 
@@ -419,6 +333,92 @@ def normalise_tab(tab):
 
 def note_to_decimal(note):
   return int(str(note).replace("X", "A").replace("Y", "B"), 12)
+
+def parse_note(text: str):
+  """
+    field order: beat (space) degree (space) attack vol_start vol_stop sustain (space) label
+    example:
+     1 0 L44= twin-
+     2 = ==== kle
+     3 7 ==== twin-
+     4 = ==== kle
+  """
+  return Note(text[0], text[2], text[4], text[5], text[6], text[7], text[9:], {})
+
+def process_piece(piece, defaults_function, phrase_function, transition_function, note_function):
+  """
+  scan the score of each piece and generate drills by calling the given functions during the scan:
+    defaults_function(note, next)
+    phrase_function(piece, section, phrase)
+    transition_function(tempo, first_note, second_note, next_note)
+    note_function(tempo, note, next)
+
+  if there is nothing to do at a given step, pass the function as None
+  """
+  piece_numstr = str(piece.number).zfill(3)
+
+  # calculate defaults
+  for s, section in enumerate(piece.sections):
+    for p, phrase in enumerate(section.phrases):
+
+      # infer missing stop timestamps
+      if not phrase.stop_secs:
+        if p < len(section.phrases) - 1:
+          phrase.stop_secs = section.phrases[p + 1].start_secs
+        else:
+          phrase.stop_secs = piece.sections[s + 1].phrases[0].start_secs
+
+      # apply defaults to note fields
+      if defaults_function != None:
+        for n, note in enumerate(phrase.notes):
+          if n < len(phrase.notes) - 1: defaults_function(note, phrase.notes[n + 1])
+
+  # create piece practise chunks
+  if len(piece.sections) > 1:
+    create_piece_bracket(piece)
+
+  # process sections in reverse
+  section_num = 0
+  for section in reversed(piece.sections):
+    if is_unique(piece.tempo, [note for phrase in section.phrases for note in phrase.notes]):
+      section_num += 1
+      section_numstr = str(section_num).zfill(2)
+      mcd(SECTIONS_DIR + "/00." + piece_numstr + section_numstr + "." + section.label)
+      first = section.phrases[0]
+      last = section.phrases[-1]
+      cut_repeating_chunk(find_mp3(piece), first.start_secs, last.stop_secs, piece.meter, piece.tempo, "00000.mp3")
+      os.chdir("../..")
+
+      # process phrases in reverse
+      phrase_num = 0
+      for phrase in reversed(section.phrases):
+        if is_unique(piece.tempo, phrase.notes):
+          phrase_num += 1
+          phrase_numstr = str(phrase_num).zfill(2)
+          mcd(PHRASES_DIR + "/00." + piece_numstr + section_numstr + phrase_numstr + "." + phrase.label)
+          cut_repeating_chunk(find_mp3(piece), phrase.start_secs, phrase.stop_secs, piece.meter, piece.tempo, "00000.mp3")
+          if phrase_function != None: phrase_function(piece, section, phrase)
+          os.chdir("../..")
+
+          # process notes in reverse order
+          notes = phrase.notes
+          for i in reversed(range(len(notes))):
+            if i < len(notes) - 2 and transition_function != None: transition_function(piece.tempo, notes[i], notes[i+1], notes[i+2])
+            if i < len(notes) - 1 and note_function != None: note_function(piece.tempo, notes[i], notes[i+1])
+
+  make_metronome(piece.tempo)
+
+def process_scores(score_files, globals):
+  """
+    This is the main entry function to process one or more scores. It should be called after
+    all the drill and processing functions have been declared.
+  """
+  for file in score_files:
+    with open("../" + file) as score:
+      exec(score.read(), globals)
+
+  # output collected drills
+  write_drill_cards()
 
 def set_mp3_dir(dir):
   global MP3_DIR
