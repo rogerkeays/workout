@@ -29,7 +29,7 @@ class ViolinNote(Note):
 
 
 # constructors
-def lyrics(id, start, lyrics, template_id, stop=0, intro=0):
+def lyrics(id, start, lyrics, template_id, stop=0):
   """ clone a phrase, but with different lyrics and different start and stops """
   template = all_phrases[template_id]
   split_lyrics = re.split("[- ]", lyrics)
@@ -45,7 +45,7 @@ def lyrics(id, start, lyrics, template_id, stop=0, intro=0):
     shape = z[0].shape,
     finger = z[0].finger,
     bow_position = z[0].bow_position,
-    label = z[1]), zip(template.notes, split_lyrics))), stop, intro)
+    label = z[1]), zip(template.notes, split_lyrics))), stop)
 
 def notes(text: str) -> list[Note]:
   """
