@@ -51,6 +51,7 @@ class Phrase:
   start_secs: float
   notes: list[Note]
   stop_secs: float
+  intro: float
 
 @dataclass # Section
 class Section:
@@ -69,13 +70,13 @@ class Piece:
 
 
 # constructors
-def phrase(label, start, notes=[], stop=0):
+def phrase(label, start, notes=[], stop=0, intro=0):
   "constructor for phrases, which keeps a reference to the phrases created"
-  p = Phrase(label, start, notes, stop)
+  p = Phrase(label, start, notes, stop, intro)
   all_phrases[label] = p
   return p
 
-def repeat(id, start_secs=-1.0, stop_secs=-1.0):
+def repeat(id, start_secs=-1.0, stop_secs=-1.0, intro=0):
   """
     Create a new phrase with the same notes as the phrase with the given id.
     New mp3 start and stop times can be provided if desired. This function
@@ -84,7 +85,7 @@ def repeat(id, start_secs=-1.0, stop_secs=-1.0):
   template = all_phrases[id]
   if start_secs == -1.0: start_secs = template.start_secs
   if stop_secs == -1.0: stop_secs = template.stop_secs
-  return Phrase(id, start_secs, template.notes, stop_secs)
+  return Phrase(id, start_secs, template.notes, stop_secs, intro)
 
 def section(label, function, phrases):
   return Section(label, function, phrases)
@@ -103,10 +104,10 @@ def create_piece_bracket(piece):
   os.mkdir(outdir)
   shutil.copy(find_mp3(piece), outdir + "/" + piece.name + ".mp3")
 
-def cut_chunk(mp3, start_secs, stop_secs, outfile, speed=1.0):
+def cut_chunk(mp3, start_secs, stop_secs, outfile, speed=1.0, first=False):
   if MAKE_MP3S and stop_secs > 0:
-    delay = CHUNK_DELAY_SECS
-    fadein = min(CHUNK_FADE_SECS, start_secs)
+    delay = 0 if first else CHUNK_DELAY_SECS
+    fadein = 0.01 if first else min(CHUNK_FADE_SECS, start_secs) # zero triggers default value
     fadeout = CHUNK_FADE_SECS
     ss = start_secs - fadein
     to = stop_secs + fadeout
@@ -114,6 +115,15 @@ def cut_chunk(mp3, start_secs, stop_secs, outfile, speed=1.0):
     os.system(f"""
     ffmpeg -nostdin -loglevel error -ss {ss} -to {to} -i {mp3} -ac 1 -ar 48000 -q 4 \
            -af afade=d={fadein},afade=t=out:st={end}:d={fadeout},atempo={speed},adelay={delay}s:all=true \
+           "{outfile}"
+           """)
+
+def cut_intro(mp3, start_secs, stop_secs, outfile, speed=1.0):
+  if MAKE_MP3S:
+    duration = stop_secs - start_secs
+    os.system(f"""
+    ffmpeg -nostdin -loglevel error -ss {start_secs} -to {stop_secs} -i {mp3} -ac 1 -ar 48000 -q 4 \
+           -af afade=t=out:d={duration},atempo={speed},adelay={CHUNK_DELAY_SECS}s:all=true \
            "{outfile}"
            """)
 
@@ -140,17 +150,19 @@ def cut_mixed_chunk(mp3, start_secs, stop_secs, outfile):
       ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
              -codec copy "{outfile}" """)
 
-def cut_repeating_chunk(mp3, start_secs, stop_secs, outfile, speed=1.0, reps=BRACKET_REPS):
+def cut_repeating_chunk(mp3, start_secs, stop_secs, outfile, intro_secs=0, speed=1.0, reps=BRACKET_REPS):
   if MAKE_MP3S and stop_secs > 0:
     with tempfile.TemporaryDirectory() as tmpdir:
 
       # generate chunks for repetition
-      cut_chunk(mp3, start_secs, stop_secs, tmpdir + "/chunk.mp3", speed);
+      if intro_secs: cut_intro(mp3, start_secs, intro_secs, tmpdir + "/intro.mp3", speed);
+      cut_chunk(mp3, start_secs, stop_secs, tmpdir + "/chunk.mp3", speed, intro_secs);
       make_gunshot(tmpdir + "/gunshot.mp3")
 
       # repeat for the duration of the drill
       with open(tmpdir + "/list", "w") as f:
         for i in range(reps):
+          if intro_secs: f.write(f"file {tmpdir}/intro.mp3\n")
           f.write(f"file {tmpdir}/chunk.mp3\n")
         f.write(f"file {tmpdir}/gunshot.mp3\n")
 
@@ -244,7 +256,9 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
       section_num += 1
       section_numstr = str(section_num).zfill(2)
       mcd(SECTIONS_DIR + "/00." + piece_numstr + section_numstr + "." + section.label)
-      cut_repeating_chunk(find_mp3(piece), section.phrases[0].start_secs, section.phrases[-1].stop_secs, "00000.mp3")
+      first = section.phrases[0]
+      last = section.phrases[-1]
+      cut_repeating_chunk(find_mp3(piece), first.start_secs, last.stop_secs, "00000.mp3", first.intro)
       os.chdir("../..")
 
       # process phrases in reverse
@@ -254,7 +268,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
           phrase_num += 1
           phrase_numstr = str(phrase_num).zfill(2)
           mcd(PHRASES_DIR + "/00." + piece_numstr + section_numstr + phrase_numstr + "." + phrase.label)
-          cut_repeating_chunk(find_mp3(piece), phrase.start_secs, phrase.stop_secs, "00000.mp3")
+          cut_repeating_chunk(find_mp3(piece), phrase.start_secs, phrase.stop_secs, "00000.mp3", phrase.intro)
           if phrase_function != None: phrase_function(piece, section, phrase)
           os.chdir("../..")
 
