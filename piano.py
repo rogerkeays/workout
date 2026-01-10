@@ -4,9 +4,9 @@ from workout import *
 from dataclasses import dataclass
 
 # globals
-MP3_DIR = os.environ['HOME'] + "/library/workout/piano/00.inbox"
+set_mp3_dir(os.environ['HOME'] + "/library/workout/piano/00.inbox")
 
-# todo: data structures
+# data structures
 #@dataclass # PianoNote
 #class PianoNote(Note):
 
@@ -15,5 +15,5 @@ def process(piece):
   process_all([piece])
 
 def process_all(pieces):
-  process_pieces(pieces, MP3_DIR, None, None, None, None)
+  process_pieces(pieces, None, None, None, None)
 

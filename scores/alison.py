@@ -6,7 +6,7 @@ from violin import *
 # open string exercises
 process_all([
 
-Piece("the-crawl", 4, 90, "37", "01.the-crawl.mp3", [
+Piece(1, "the-crawl", 4, 90, "37", [
   Section("table", "V", [
     phrase("crawls", 10.16, 15.38, notes("""
       1 0 L4== 40N0 3 li-
@@ -33,7 +33,7 @@ Piece("the-crawl", 4, 90, "37", "01.the-crawl.mp3", [
   ])
 ]),
 
-Piece("baby-steps", 4, 90, "37", "02.baby-steps.mp3", [
+Piece(2, "baby-steps", 4, 90, "37", [
   Section("lawn", "V", [
     phrase("left", 10.30, 13.05, notes("""
       1 0 L4== 40N0 3 left
@@ -63,7 +63,7 @@ Piece("baby-steps", 4, 90, "37", "02.baby-steps.mp3", [
   ])
 ]),
 
-Piece("the-first-fall", 4, 100, "37", "05.the-first-fall.mp3", [
+Piece(5, "the-first-fall", 4, 100, "37", [
   Section ("lounge", "V", [
     phrase("window", 10.19, 12.68, notes("""
       1 0 D44= 40N0 3 runs
@@ -100,7 +100,7 @@ Piece("the-first-fall", 4, 100, "37", "05.the-first-fall.mp3", [
   ])
 ]),
 
-Piece("into-the-kitchen", 4, 100, "37", "06.into-the-kitchen.mp3", [
+Piece(6, "into-the-kitchen", 4, 100, "37", [
   Section("kitchen", "V", [
     phrase("no-one", 10.04, 12.59, notes("""
       1 0 D44= 40N0 3 here
@@ -142,7 +142,7 @@ Piece("into-the-kitchen", 4, 100, "37", "06.into-the-kitchen.mp3", [
   ])
 ]),
 
-Piece("the-car-trip", 4, 110, "37", "03.the-car-trip.mp3", [
+Piece(3, "the-car-trip", 4, 110, "37", [
   Section("car", "V", [
     phrase("baby", 9.72, 12.04, notes("""
       1 9 L4== 10N0 3 li-
@@ -180,7 +180,7 @@ Piece("the-car-trip", 4, 110, "37", "03.the-car-trip.mp3", [
   ])
 ]),
 
-Piece("aeroplane-games", 4, 110, "37", "04.aeroplane-games.mp3", [
+Piece(4, "aeroplane-games", 4, 110, "37", [
   Section("airfield", "V", [
     phrase("upwards", 9.59, 10.82, notes("""
       1 0 L4== 40N0 3 fly-
@@ -210,7 +210,7 @@ Piece("aeroplane-games", 4, 110, "37", "04.aeroplane-games.mp3", [
 ]),
 
 # first finger exercises
-Piece("the-door-handle", 4, 94, "37", "07.the-door-handle.mp3", [
+Piece(7, "the-door-handle", 4, 94, "37", [
   Section("shack", "V", [
     phrase("this-way", 10.25, 12.86, notes("""
       1 0 L44= 42N0 3 turn
@@ -242,7 +242,7 @@ Piece("the-door-handle", 4, 94, "37", "07.the-door-handle.mp3", [
   ])
 ]),
 
-Piece("the-puppy-dog", 3, 104, "49", "08.the-puppy-dog.mp3", [
+Piece(8, "the-puppy-dog", 3, 104, "49", [
   Section("park", "V", [
     phrase("puppy", 10.28, 13.80, notes("""
       1 7 L44= 12N0 3 mis-
@@ -272,7 +272,7 @@ Piece("the-puppy-dog", 3, 104, "49", "08.the-puppy-dog.mp3", [
   ])
 ]),
 
-Piece("hunger", 4, 105, "42", "09.hunger.mp3", [
+Piece(9, "hunger", 4, 105, "42", [
   Section("baby-chair", "V", [
     phrase("hungry", 9.77, 12.14, notes("""
       1 2 L44= 12N0 3 get-
@@ -311,7 +311,7 @@ Piece("hunger", 4, 105, "42", "09.hunger.mp3", [
   ])
 ]),
 
-Piece("stealing-cookies", 4, 144, "49", "10.stealing-cookies.mp3", [
+Piece(10, "stealing-cookies", 4, 144, "49", [
   Section("kitchen", "V", [
     phrase("cookies", 9.23, 13.48, notes("""
       1 9 L44= 12N1 3 stea-
@@ -341,7 +341,7 @@ Piece("stealing-cookies", 4, 144, "49", "10.stealing-cookies.mp3", [
   ])
 ]),
 
-Piece("puppy-in-the-kitchen", 4, 110, "42", "11.puppy-in-the-kitchen.mp3", [
+Piece(11, "puppy-in-the-kitchen", 4, 110, "42", [
   Section("kitchen", "V", [
     phrase("puppy", 9.49, 11.74, notes("""
       1 2 L44= 12N0 3 pu-
@@ -376,7 +376,7 @@ Piece("puppy-in-the-kitchen", 4, 110, "42", "11.puppy-in-the-kitchen.mp3", [
   ])
 ]),
 
-Piece("dad-goes-looking", 2, 104, "37", "12.dad-goes-looking.mp3", [
+Piece(12, "dad-goes-looking", 2, 104, "37", [
   Section("lost-kids-house", "V", [
     phrase("kid", 9.77, 12.23, notes("""
       1 0 L44= 42N0 3 some-
@@ -421,7 +421,7 @@ Piece("dad-goes-looking", 2, 104, "37", "12.dad-goes-looking.mp3", [
 ]),
 
 # second finger exercises
-Piece("digging-holes", 3, 146, "42", "13.digging-holes.mp3", [
+Piece(13, "digging-holes", 3, 146, "42", [
   Section("sand-dune", "V", [
     phrase("holes", 10.36, 12.94, notes("""
       1 0 L44= 32N0 3 digg-
@@ -452,7 +452,7 @@ Piece("digging-holes", 3, 146, "42", "13.digging-holes.mp3", [
   ])
 ]),
 
-Piece("scottish-boy", 4, 133, "54", "14.scottish-boy.mp3", [
+Piece(14, "scottish-boy", 4, 133, "54", [
   Section("rock-pool", "V", [
     phrase("boy", 9.51, 11.78, notes("""
       1 4 L44= 12N2 3 scott-
@@ -494,7 +494,7 @@ Piece("scottish-boy", 4, 133, "54", "14.scottish-boy.mp3", [
   ])
 ]),
 
-Piece("toll-busters", 4, 115, "42", "15.toll-busters.mp3", [
+Piece(15, "toll-busters", 4, 115, "42", [
   Section("toll", "V", [
     phrase("stop", 9.46, 11.61, notes("""
       1 0 L44= 32N0 3 stop
@@ -535,7 +535,7 @@ Piece("toll-busters", 4, 115, "42", "15.toll-busters.mp3", [
   ])
 ]),
 
-Piece("car-crash", 6, 145, "42", "16.car-crash.mp3", [
+Piece(16, "car-crash", 6, 145, "42", [
   Section("crash-site", "V", [
     phrase("crash", 9.92, 12.32, notes("""
       1 4 L44= 32N2 3 car
@@ -567,7 +567,7 @@ Piece("car-crash", 6, 145, "42", "16.car-crash.mp3", [
   ])
 ]),
 
-Piece("bouncy-castle", 2, 90, "49", "17.bouncy-castle.mp3", [
+Piece(17, "bouncy-castle", 2, 90, "49", [
   Section("castle", "V", [
     phrase("castle", 10.38, 13.00, notes("""
       1 Y D44= 12N2 3 boun-
@@ -604,7 +604,7 @@ Piece("bouncy-castle", 2, 90, "49", "17.bouncy-castle.mp3", [
   ])
 ]),
 
-Piece("the-bad-date", 3, 50, "4Y", "18.the-bad-date.mp3", [
+Piece(18, "the-bad-date", 3, 50, "4Y", [
   Section("girls-house", "V", [
     phrase("girl", 11.90, 15.39, notes("""
       1 9 L44= 12N2 3 pick-
@@ -643,7 +643,7 @@ Piece("the-bad-date", 3, 50, "4Y", "18.the-bad-date.mp3", [
 ]),
 
 # third and fourth finger exercises
-Piece("sleeping-in", 3, 135, "42", "19.sleeping-in.mp3", [
+Piece(19, "sleeping-in", 3, 135, "42", [
   Section("lazy-boys-room", "V", [
     phrase("boy", 10.34, 13.02, notes("""
       1 0 D44= 32W0 3 li-
@@ -681,7 +681,7 @@ Piece("sleeping-in", 3, 135, "42", "19.sleeping-in.mp3", [
   ])
 ]),
 
-Piece("the-birthday-party", 4, 95, "59", "20.the-birthday-party", [
+Piece(20, "the-birthday-party", 4, 95, "59", [
   Section("poolside", "V", [
     phrase("birthday", 10.26, 12.94, notes("""
       1 0 D44= 12C3 3 to-
@@ -724,7 +724,7 @@ Piece("the-birthday-party", 4, 95, "59", "20.the-birthday-party", [
   ])
 ]),
 
-Piece("boring-homework", 4, 95, "47", "21.boring-homework", [
+Piece(21, "boring-homework", 4, 95, "47", [
   Section("desk", "V", [
     phrase("homework", 10.60, 13.43, notes("""
       1 0 L44= 42W0 3 bor-
@@ -763,7 +763,7 @@ Piece("boring-homework", 4, 95, "47", "21.boring-homework", [
   ])
 ]),
 
-Piece("chinese-kids", 4, 90, "47", "22.chinese-kids.mp3", [
+Piece(22, "chinese-kids", 4, 90, "47", [
   Section("classroom", "V", [
     phrase("chinese-kids", 10.37, 13.03, notes("""
       1 9 D44= 22G4 3 my
@@ -807,7 +807,7 @@ Piece("chinese-kids", 4, 90, "47", "22.chinese-kids.mp3", [
   ])
 ]),
 
-Piece("chicken-pox", 4, 100, "47", "23.chicken-pox.mp3", [
+Piece(23, "chicken-pox", 4, 100, "47", [
   Section("bed", "V", [
     phrase("sick", 9.78, 13.86, notes("""
       1 7 L44= 42W4 3 get-
@@ -845,7 +845,7 @@ Piece("chicken-pox", 4, 100, "47", "23.chicken-pox.mp3", [
   ])
 ]),
 
-Piece("last-day-of-school", 4, 95, "4Y", "24.last-day-of-school.mp3", [
+Piece(24, "last-day-of-school", 4, 95, "4Y", [
   Section("primary-school", "V", [
     phrase("school", 10.21, 12.80, notes("""
       1 3 L44= 22W4 3 to-

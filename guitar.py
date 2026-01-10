@@ -3,6 +3,9 @@
 
 from workout import *
 
+# globals
+set_mp3_dir(os.environ['HOME'] + "/library/workout/guitar/00.inbox")
+
 def strumming(tempo, lyrics, rhythm, directions, chords, start, stop):
 
   # capture parameters

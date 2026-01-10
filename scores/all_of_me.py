@@ -3,7 +3,7 @@
 import sys; sys.path.append("..")
 from violin import *
 
-process(Piece("all-of-me", 4, 126, "48", "63.all-of-me.mp3", [
+process(Piece(63, "all-of-me", 4, 126, "48", [
   Section("art-desk", "V1", [
     phrase("mouth", 23.51, 27.31, notes("""
       3 2 L4== 21W1 2 what

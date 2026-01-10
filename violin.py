@@ -5,7 +5,7 @@ from workout import *
 from dataclasses import dataclass
 
 # globals
-MP3_DIR = os.environ['HOME'] + "/library/workout/violin/00.inbox"
+set_mp3_dir(os.environ['HOME'] + "/library/workout/violin/00.inbox")
 SHAPES = "PGWCADKH" # Porcupine, Gun, Westside, Chicken, Alien, Dog, ducK, Huddle
 
 # data structures
@@ -106,7 +106,7 @@ def process(piece):
   process_all([piece])
 
 def process_all(pieces):
-  process_pieces(pieces, MP3_DIR, calculate_defaults, process_phrase, process_transition, process_note)
+  process_pieces(pieces, calculate_defaults, process_phrase, process_transition, process_note)
 
 def process_note(tempo, note, stop):
   if note.degree != "Z":
