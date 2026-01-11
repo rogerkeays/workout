@@ -100,11 +100,12 @@ def create_piece_bracket(piece):
 
   # copy mp3 instead of remixing it
   outdir = PIECES_DIR + "/00." + str(piece.number).zfill(3) + "." + piece.name
-  os.mkdir(outdir)
-  shutil.copy(find_mp3(piece), outdir + "/" + piece.name + ".mp3")
+  outfile = outdir + "/" + piece.name + ".mp3"
+  os.makedirs(outdir, exist_ok=True)
+  if not os.path.exists(outfile): shutil.copy(find_mp3(piece), outfile)
 
 def cut_chunk(mp3, start_secs, stop_secs, outfile):
-  if MAKE_MP3S and stop_secs > 0:
+  if MAKE_MP3S and not os.path.exists(outfile):
     to = stop_secs + CHUNK_FADE_SECS
     fade_start = stop_secs - start_secs
     os.system(f"""
@@ -112,7 +113,7 @@ def cut_chunk(mp3, start_secs, stop_secs, outfile):
            -af afade=t=out:st={fade_start}:d={CHUNK_FADE_SECS} "{outfile}" """)
 
 def cut_mixed_chunk(mp3, start_secs, stop_secs, outfile):
-  if MAKE_MP3S and stop_secs > 0:
+  if MAKE_MP3S and not os.path.exists(outfile):
     with tempfile.TemporaryDirectory() as tmpdir:
 
       # generate chunks for repetition
@@ -135,7 +136,7 @@ def cut_mixed_chunk(mp3, start_secs, stop_secs, outfile):
              -codec copy "{outfile}" """)
 
 def cut_repeating_chunk(mp3, start_secs, stop_secs, meter, tempo, outfile):
-  if MAKE_MP3S and stop_secs > 0:
+  if MAKE_MP3S and not os.path.exists(outfile):
     with tempfile.TemporaryDirectory() as tmpdir:
 
       # generate chunks for repetition
@@ -294,8 +295,8 @@ def make_mp3(score, filename):
   "convert an abc score to an mp3 file"
   if MAKE_MP3S and not os.path.exists(filename):
     with tempfile.TemporaryDirectory() as tmpdir:
-      os.system(f"""
-          echo '{score}' | abc2midi /dev/stdin -quiet -silent -o {tmpdir}/out.midi
+      os.system(f"""echo '{strip_multiline(score)}' | \
+          abc2midi /dev/stdin -quiet -silent -o {tmpdir}/out.midi
           fluidsynth --quiet --fast-render {tmpdir}/out.wav --gain 5 --sample-rate 48000 {tmpdir}/out.midi
           ffmpeg -loglevel error -i {tmpdir}/out.wav -ac 1 -q 4 "{filename}"
           """)
@@ -432,6 +433,9 @@ def shift_rhythm(rhythm):
     return rhythm
   else:
     return "".join(map(lambda c: onsets[onsets.index(c) - shift], rhythm))
+
+def strip_multiline(string):
+  return '\n'.join(line.strip() for line in string.splitlines())
 
 def write_drill_cards():
   sorted_drills = dict(sorted(drills.items(), key=lambda x: x[1], reverse=True))
