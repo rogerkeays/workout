@@ -5,7 +5,7 @@ import sys, os, inspect, tempfile, math, shutil
 from dataclasses import dataclass
 
 # configuration
-MAKE_MP3S = True if (len(sys.argv) > 1 and sys.argv[1] == "mp3") else False
+MAKE_MP3S = True if ("WORKOUT_SKIP_MP3S" not in os.environ) else False
 MP3_DIR = "."
 NUM_PADDING = 5
 DRILL_LENGTH_MINS = 2.5
