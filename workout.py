@@ -96,8 +96,9 @@ def create_piece_bracket(piece):
   "create a practise bracket for the whole piece"
 
   # copy mp3 instead of remixing it
-  outdir = PIECES_DIR + "/00." + str(piece.number).zfill(3) + "." + piece.name
-  outfile = outdir + "/" + piece.name + ".mp3"
+  piece_numstr = str(piece.number).zfill(3)
+  outdir = f"{PIECES_DIR}/00.{piece_numstr}.{piece.name}"
+  outfile = f"{outdir}/{piece_numstr}.{piece.name}.mp3"
   os.makedirs(outdir, exist_ok=True)
   if not os.path.exists(outfile): shutil.copy(find_mp3(piece), outfile)
 
@@ -371,7 +372,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
     if not is_skipped(section):
       section_num += 1
       section_numstr = str(section_num).zfill(2)
-      mcd(SECTIONS_DIR + "/00." + piece_numstr + section_numstr + "." + section.label)
+      mcd(SECTIONS_DIR + f"/00.{piece_numstr}.{section_numstr}.{section.id}.{section.label}")
       first = section.phrases[0]
       last = section.phrases[-1]
       cut_repeating_chunk(find_mp3(piece), first.start, last.stop, piece.meter, piece.tempo, "00000.mp3")
@@ -383,7 +384,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
         if not phrase.skip:
           phrase_num += 1
           phrase_numstr = str(phrase_num).zfill(2)
-          mcd(PHRASES_DIR + "/00." + piece_numstr + section_numstr + phrase_numstr + "." + phrase.label)
+          mcd(PHRASES_DIR + f"/00.{piece_numstr}.{section_numstr}{section.id}.{phrase_numstr}.{phrase.label}")
           cut_repeating_chunk(find_mp3(piece), phrase.start, phrase.stop, piece.meter, piece.tempo, "00000.mp3")
           if phrase_function != None: phrase_function(piece, section, phrase)
           os.chdir("../..")
