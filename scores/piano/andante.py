@@ -31,8 +31,8 @@ piece(32, "andante", 4, 94, "40", [
 
     repeat(32.36, "L1"),
     repeat(34.79, "L2"),
-    phrase(37.35, "L7"),
-    phrase(39.93, "L8", stop=43.63)
+    phrase(37.35, "L8"),
+    phrase(39.93, "L9", stop=43.63)
   ])
 ])
 
