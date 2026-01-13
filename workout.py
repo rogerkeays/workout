@@ -369,7 +369,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
       stop = section.phrases[-1].stop
       section_num += 1
       section_numstr = str(section_num).zfill(2)
-      mcd(f"{SECTIONS_DIR}/00.{piece_numstr}.{section_numstr}.{section.id}.{section.label}")
+      mcd(f"{SECTIONS_DIR}/00.{piece_numstr}.{section_numstr}{section.id}.{section.label}")
       cut_repeating_chunk(find_mp3(piece), start, stop, piece.meter, piece.tempo)
       os.chdir("../..")
 
