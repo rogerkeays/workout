@@ -4,17 +4,17 @@
 import sys, os, inspect, tempfile, math, shutil
 from dataclasses import dataclass
 
-# configuration
+# configuration: all durations are in seconds
 MAKE_MP3S = True if ("WORKOUT_SKIP_MP3S" not in os.environ) else False
 MP3_DIR = "."
 NUM_PADDING = 5
-DRILL_LENGTH_MINS = 2.5
-BRACKET_REPS = 5
+DRILL_LENGTH = 180
 METRONOME_INSTRUMENT = 116 - 1 # woodblock
 GUNSHOT_INSTRUMENT = 128 - 1   # gunshot
 DRONE_INSTRUMENT = 57 - 1      # trumpet (closest to perfect pitch)
-CHUNK_FADE_SECS = 2.5
-CHUNK_DELAY_SECS = 5
+FADE_LENGTH = 2.5
+DELAY = 5
+REPS = 5
 
 # output preparation
 TARGET_DIR = "target"
@@ -48,9 +48,9 @@ class Note:
 @dataclass # Phrase
 class Phrase:
   label: str
-  start_secs: float
+  start: float
   notes: list[Note]
-  stop_secs: float
+  stop: float
 
 @dataclass # Section
 class Section:
@@ -75,16 +75,16 @@ def phrase(label, start, notes=[], stop=0):
   all_phrases[label] = p
   return p
 
-def repeat(id, start_secs=-1.0, stop_secs=-1.0):
+def repeat(id, start=-1.0, stop=-1.0):
   """
     Create a new phrase with the same notes as the phrase with the given id.
     New mp3 start and stop times can be provided if desired. This function
     does not clone the notes.
   """
   template = all_phrases[id]
-  if start_secs == -1.0: start_secs = template.start_secs
-  if stop_secs == -1.0: stop_secs = template.stop_secs
-  return Phrase(id, start_secs, template.notes, stop_secs)
+  if start == -1.0: start = template.start
+  if stop == -1.0: stop = template.stop
+  return Phrase(id, start, template.notes, stop)
 
 def section(label, function, phrases):
   return Section(label, function, phrases)
@@ -104,27 +104,27 @@ def create_piece_bracket(piece):
   os.makedirs(outdir, exist_ok=True)
   if not os.path.exists(outfile): shutil.copy(find_mp3(piece), outfile)
 
-def cut_chunk(mp3, start_secs, stop_secs, outfile):
+def cut_chunk(mp3, start, stop, outfile):
   if MAKE_MP3S and not os.path.exists(outfile):
-    to = stop_secs + CHUNK_FADE_SECS
-    fade_start = stop_secs - start_secs
+    to = stop + FADE_LENGTH
+    fade_start = stop - start
     os.system(f"""
-    ffmpeg -nostdin -loglevel error -ss {start_secs} -to {to} -i {mp3} -ac 1 -ar 48000 -q 4 \
-           -af afade=t=out:st={fade_start}:d={CHUNK_FADE_SECS} "{outfile}" """)
+    ffmpeg -nostdin -loglevel error -ss {start} -to {to} -i {mp3} -ac 1 -ar 48000 -q 4 \
+           -af afade=t=out:st={fade_start}:d={FADE_LENGTH} "{outfile}" """)
 
-def cut_mixed_chunk(mp3, start_secs, stop_secs, outfile):
+def cut_mixed_chunk(mp3, start, stop, outfile):
   if MAKE_MP3S and not os.path.exists(outfile):
     with tempfile.TemporaryDirectory() as tmpdir:
 
       # generate chunks for repetition
-      cut_chunk(mp3, start_secs, stop_secs, tmpdir + "/050.mp3", 0.5);
-      cut_chunk(mp3, start_secs, stop_secs, tmpdir + "/100.mp3", 1.0);
+      cut_chunk(mp3, start, stop, tmpdir + "/050.mp3", 0.5);
+      cut_chunk(mp3, start, stop, tmpdir + "/100.mp3", 1.0);
       make_gunshot(tmpdir + "/gunshot.mp3")
 
       # repeat for the duration of the drill
-      chunk_length = CHUNK_FADE_SECS + stop_secs - start_secs + CHUNK_FADE_SECS
-      combo_length = CHUNK_DELAY_SECS + chunk_length + CHUNK_DELAY_SECS + 2 * chunk_length
-      reps = math.ceil(DRILL_LENGTH_MINS * 60 / combo_length)
+      chunk_length = FADE_LENGTH + stop - start + FADE_LENGTH
+      combo_length = DELAY + chunk_length + DELAY + 2 * chunk_length
+      reps = math.ceil(DRILL_LENGTH / combo_length)
       with open(tmpdir + "/list", "w") as f:
         for i in range(reps):
           f.write("file {tmpdir}/050.mp3\nfile {tmpdir}/100.mp3\n".format(tmpdir=tmpdir))
@@ -135,18 +135,18 @@ def cut_mixed_chunk(mp3, start_secs, stop_secs, outfile):
       ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
              -codec copy "{outfile}" """)
 
-def cut_repeating_chunk(mp3, start_secs, stop_secs, meter, tempo, outfile):
+def cut_repeating_chunk(mp3, start, stop, meter, tempo, outfile):
   if MAKE_MP3S and not os.path.exists(outfile):
     with tempfile.TemporaryDirectory() as tmpdir:
 
       # generate chunks for repetition
       make_intro(meter, tempo, tmpdir + "/intro.mp3")
-      cut_chunk(mp3, start_secs, stop_secs, tmpdir + "/chunk.mp3")
+      cut_chunk(mp3, start, stop, tmpdir + "/chunk.mp3")
       make_gunshot(tmpdir + "/gunshot.mp3")
 
       # repeat for the duration of the drill
       with open(tmpdir + "/list", "w") as f:
-        for i in range(BRACKET_REPS):
+        for i in range(REPS):
           f.write(f"file {tmpdir}/intro.mp3\n")
           f.write(f"file {tmpdir}/chunk.mp3\n")
         f.write(f"file {tmpdir}/gunshot.mp3\n")
@@ -155,11 +155,11 @@ def cut_repeating_chunk(mp3, start_secs, stop_secs, meter, tempo, outfile):
       os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
                            -codec copy "{outfile}" """)
 
-def cut_timed_chunk(mp3, start_secs, stop_secs, outfile, first=False, speed=1.0):
-  "repeat a chunk for DRILL_LENGTH_MINS"
-  length = CHUNK_DELAY_SECS + (CHUNK_FADE_SECS + stop_secs - start_secs + CHUNK_FADE_SECS) / speed
-  reps = math.ceil(DRILL_LENGTH_MINS * 60 / length)
-  cut_repeating_chunk(mp3, start_secs, stop_secs, outfile, first, speed, reps)
+def cut_timed_chunk(mp3, start, stop, outfile, first=False, speed=1.0):
+  "repeat a chunk for DRILL_LENGTH seconds"
+  length = DELAY + (FADE_LENGTH + stop - start + FADE_LENGTH) / speed
+  reps = math.ceil(DRILL_LENGTH / length)
+  cut_repeating_chunk(mp3, start, stop, outfile, first, speed, reps)
 
 def decimal_to_note(note):
   if not note:
@@ -214,7 +214,7 @@ def make_drill(params={}, reps=5):
 
 def make_drone(note):
   """
-    make a drone of a single pitch which lasts for DRILL_LENGTH_MINS
+    make a drone of a single pitch which lasts for DRILL_LENGTH seconds
     and finishes with an alarm
   """
   make_mp3(f"""
@@ -224,7 +224,7 @@ def make_drone(note):
     Q:4
     K:C transpose={note_to_decimal(note)}
     %%MIDI program {DRONE_INSTRUMENT}
-    {"|C,,,," * int(DRILL_LENGTH_MINS * 4)}
+    {"|C,,,," * int(4 * DRILL_LENGTH / 60)}
     %%MIDI program {GUNSHOT_INSTRUMENT}
     Q:60
     K:C
@@ -237,7 +237,7 @@ def make_intro(meter, tempo, outfile):
     L:1/4
     K:C
     Q:60
-    {"|z" * CHUNK_DELAY_SECS}
+    {"|z" * DELAY}
     %%MIDI program {METRONOME_INSTRUMENT}
     Q:{tempo}
     {"c|" * meter}
@@ -266,13 +266,13 @@ def make_hash(name, params):
 
 def make_metronome(tempo):
   """
-    make a metronome with the given tempo which goes for DRILL_LENGTH_MINS
+    make a metronome with the given tempo which goes for DRILL_LENGTH seconds
     before sounding an alarm
   """
   if MAKE_MP3S:
     countdown_notes = int(tempo/8) # fifteen seconds at half tempo
-    metronome_notes = int(DRILL_LENGTH_MINS * tempo)
-    filename = "=T" + str(int(tempo)).zfill(NUM_PADDING - 2) + ".mp3"
+    metronome_notes = int(tempo * DRILL_LENGTH / 60)
+    filename = "=T" + str(int(tempo)).zfill(3) + ".mp3"
     make_mp3(f"""
       X:0
       M:1/4
@@ -363,11 +363,11 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
     for p, phrase in enumerate(section.phrases):
 
       # infer missing stop timestamps
-      if not phrase.stop_secs:
+      if not phrase.stop:
         if p < len(section.phrases) - 1:
-          phrase.stop_secs = section.phrases[p + 1].start_secs
+          phrase.stop = section.phrases[p + 1].start
         else:
-          phrase.stop_secs = piece.sections[s + 1].phrases[0].start_secs
+          phrase.stop = piece.sections[s + 1].phrases[0].start
 
       # apply defaults to note fields
       if defaults_function != None:
@@ -387,7 +387,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
       mcd(SECTIONS_DIR + "/00." + piece_numstr + section_numstr + "." + section.label)
       first = section.phrases[0]
       last = section.phrases[-1]
-      cut_repeating_chunk(find_mp3(piece), first.start_secs, last.stop_secs, piece.meter, piece.tempo, "00000.mp3")
+      cut_repeating_chunk(find_mp3(piece), first.start, last.stop, piece.meter, piece.tempo, "00000.mp3")
       os.chdir("../..")
 
       # process phrases in reverse
@@ -397,7 +397,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
           phrase_num += 1
           phrase_numstr = str(phrase_num).zfill(2)
           mcd(PHRASES_DIR + "/00." + piece_numstr + section_numstr + phrase_numstr + "." + phrase.label)
-          cut_repeating_chunk(find_mp3(piece), phrase.start_secs, phrase.stop_secs, piece.meter, piece.tempo, "00000.mp3")
+          cut_repeating_chunk(find_mp3(piece), phrase.start, phrase.stop, piece.meter, piece.tempo, "00000.mp3")
           if phrase_function != None: phrase_function(piece, section, phrase)
           os.chdir("../..")
 
