@@ -31,7 +31,6 @@ os.makedirs(PIECES_DIR, exist_ok=True)
 
 # global state
 drills = {}
-brackets = set()
 all_phrases = {}
 
 # data structures
@@ -51,6 +50,7 @@ class Phrase:
   label: str
   notes: list[Note]
   stop: float
+  skip: bool
 
 @dataclass # Section
 class Section:
@@ -69,9 +69,9 @@ class Piece:
 
 
 # constructors
-def phrase(start, label, notes=[], stop=0):
+def phrase(start, label, notes=[], stop=0, skip=False):
   "constructor for phrases, which keeps a reference to the phrases created"
-  p = Phrase(start, label, notes, stop)
+  p = Phrase(start, label, notes, stop, skip)
   all_phrases[label] = p
   return p
 
@@ -81,7 +81,7 @@ def repeat(start, id, stop=0):
     New mp3 start and stop times can be provided if desired. This function
     does not clone the notes.
   """
-  return Phrase(start, id, all_phrases[id].notes, stop)
+  return Phrase(start, id, all_phrases[id].notes, stop, True)
 
 def section(id, label, phrases):
   return Section(id, label, phrases)
@@ -172,19 +172,9 @@ def find_mp3(piece):
 def half(val):
   return int(val / 2)
 
-def is_unique(tempo, notes):
-  """
-    Check to see if a bracket has been seen before, based on the tempo and notes in the bracket.
-    The notes are hashed before being compared, so the hash function determines what notes are
-    considered to be duplicates (for example, lyrics might be ignored).
-  """
-
-  if notes:
-    hashed_notes = list(map(lambda n: n.hash(), notes))
-    hash = make_hash("phrase", { "tempo":tempo, "notes":hashed_notes })
-    if hash in brackets: return False
-    brackets.add(hash)
-
+def is_skipped(section):
+  for p in section.phrases:
+    if p.skip == False: return False
   return True
 
 def make_drill(params={}, reps=5):
@@ -378,7 +368,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
   # process sections in reverse
   section_num = 0
   for section in reversed(piece.sections):
-    if is_unique(piece.tempo, [note for phrase in section.phrases for note in phrase.notes]):
+    if not is_skipped(section):
       section_num += 1
       section_numstr = str(section_num).zfill(2)
       mcd(SECTIONS_DIR + "/00." + piece_numstr + section_numstr + "." + section.label)
@@ -390,7 +380,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
       # process phrases in reverse
       phrase_num = 0
       for phrase in reversed(section.phrases):
-        if is_unique(piece.tempo, phrase.notes):
+        if not phrase.skip:
           phrase_num += 1
           phrase_numstr = str(phrase_num).zfill(2)
           mcd(PHRASES_DIR + "/00." + piece_numstr + section_numstr + phrase_numstr + "." + phrase.label)

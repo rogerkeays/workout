@@ -24,9 +24,6 @@ class ViolinNote(Note):
   def to_compact_string(n):
     return f"{n.beat} {n.degree} {n.attack}{n.vol_start}{n.vol_stop}{n.sustain} {n.string}{n.base}{n.shape}{n.finger} {n.bow_position} {n.label[0:3]}"
 
-  def hash(n):
-    return f"{n.beat} {n.degree} {n.attack}{n.vol_start}{n.vol_stop}{n.sustain} {n.string}{n.base}{n.shape}{n.finger} {n.bow_position}"
-
 
 # constructors
 def lyrics(start, id, lyrics, template_id, stop=0):
@@ -45,7 +42,7 @@ def lyrics(start, id, lyrics, template_id, stop=0):
     shape = z[0].shape,
     finger = z[0].finger,
     bow_position = z[0].bow_position,
-    label = z[1]), zip(template.notes, split_lyrics))), stop)
+    label = z[1]), zip(template.notes, split_lyrics))), stop, True)
 
 def notes(text: str) -> list[Note]:
   """
