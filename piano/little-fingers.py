@@ -1,240 +1,240 @@
 # vim: foldmethod=marker foldmarker=phrase,\ ) foldtext=getline(v\:foldstart)
 
 piece(1, "birthday-party", 2, 90, "40", [
-  section("party", "V", [
-    phrase("row", 0.66),
-    phrase("party", 5.22, [], 9.72)
+  section("V", "party", [
+    phrase(0.66, "row"),
+    phrase(5.22, "party", [], 9.72)
   ])
 ])
 
 piece(2, "sandmans-near", 2, 90, "40", [
-  section("bedroom", "V", [
-    phrase("dolly", 2.52),
-    phrase("sleeping", 6.97, [], 11.52)
+  section("V", "bedroom", [
+    phrase(2.52, "dolly"),
+    phrase(6.97, "sleeping", [], 11.52)
   ])
 ])
 
 piece(3, "baseball-days", 2, 90, "40", [
-  section("stadium", "V", [
-    phrase("boys", 3.37),
-    phrase("days", 7.61, [], 11.96)
+  section("V", "stadium", [
+    phrase(3.37, "boys"),
+    phrase(7.61, "days", [], 11.96)
   ])
 ])
 
 piece(4, "the-postman", 3, 90, "40", [
-  section("post-office", "V", [
-    phrase("postman", 1.45),
-    phrase("letters", 6.37, [], 10.97)
+  section("V", "post-office", [
+    phrase(1.45, "postman"),
+    phrase(6.37, "letters", [], 10.97)
   ])
 ])
 
 piece(5, "rain-on-the-roof", 4, 90, "40", [
-  section("roof", "V", [
-    phrase("pitter", 1.77),
-    phrase("calling", 6.44, [], 11.30)
+  section("V", "roof", [
+    phrase(1.77, "pitter"),
+    phrase(6.44, "calling", [], 11.30)
   ])
 ])
 
 piece(6, "song-of-the-volga-boatmen", 4, 90, "40", [
-  section("river", "V", [
-    phrase("yo-ho", 2.10),
-    phrase("pull", 8.70, [], 16.09)
+  section("V", "river", [
+    phrase(2.10, "yo-ho"),
+    phrase(8.70, "pull", [], 16.09)
   ])
 ])
 
 piece(7, "a-message", 4, 90, "40", [
-  section("door", "V", [
-    phrase("knocking", 1.56),
-    phrase("letter", 4.61),
-    phrase("ring", 7.59),
-    phrase("bell", 10.61, [], 13.84)
+  section("V", "door", [
+    phrase(1.56, "knocking"),
+    phrase(4.61, "letter"),
+    phrase(7.59, "ring"),
+    phrase(10.61, "bell", [], 13.84)
   ])
 ])
 
 piece(8, "chimes", 3, 90, "40", [
-  section("clock-tower", "V", [
-    phrase("ding", 1.43),
-    phrase("ring", 3.91),
-    phrase("towr", 6.32),
-    phrase("hour", 8.73),
-    phrase("dong", 11.17, [], 16.78)
+  section("V", "clock-tower", [
+    phrase(1.43, "ding"),
+    phrase(3.91, "ring"),
+    phrase(6.32, "towr"),
+    phrase(8.73, "hour"),
+    phrase(11.17, "dong", [], 16.78)
   ])
 ])
 
 piece(9, "good-king-wencelas", 2, 90, "40", [
-  section("castle", "V", [
-    phrase("king", 2.96),
-    phrase("feast", 6.15),
-    phrase("snow", 9.22),
-    phrase("crisp", 12.34, [], 15.61)
+  section("V", "castle", [
+    phrase(2.96, "king"),
+    phrase(6.15, "feast"),
+    phrase(9.22, "snow"),
+    phrase(12.34, "crisp", [], 15.61)
   ])
 ])
 
 piece(10, "lazy-mary", 3, 90, "40", [
-  section("marys-room", "V", [
-    phrase("lazy", 1.42),
-    phrase("will", 5.76),
-    repeat("lazy", 10.83),
-    phrase("late", 15.03, [], 20.25)
+  section("V", "marys-room", [
+    phrase(1.42, "lazy"),
+    phrase(5.76, "will"),
+    repeat(10.83, "lazy"),
+    phrase(15.03, "late", [], 20.25)
   ])
 ])
 
 piece(11, "betty-and-bill", 3, 90, "40", [
-  section("hill", "V", [
-    phrase("galloping", 1.55),
-    phrase("frolic", 5.74, [], 10.05)
+  section("V", "hill", [
+    phrase(1.55, "galloping"),
+    phrase(5.74, "frolic", [], 10.05)
   ])
 ])
 
 piece(12, "flying-to-the-moon", 2, 90, "40", [
-  section("moon", "V", [
-    phrase("flying", 2.02),
-    phrase("moon", 5.98, [], 9.55)
+  section("V", "moon", [
+    phrase(2.02, "flying"),
+    phrase(5.98, "moon", [], 9.55)
   ])
 ])
 
 piece(13, "air", 2, 90, "40", [
-  section("clouds", "V", [
-    phrase("haydn", 1.44),
-    phrase("lingers", 3.77),
-    phrase("bliss", 6.00),
-    phrase("tunes", 8.16, [], 10.64)
+  section("V", "clouds", [
+    phrase(1.44, "haydn"),
+    phrase(3.77, "lingers"),
+    phrase(6.00, "bliss"),
+    phrase(8.16, "tunes", [], 10.64)
   ])
 ])
 
 piece(14, "by-the-pond", 2, 90, "40", [
-  section("pond", "V", [
-    phrase("quack", 3.45),
-    phrase("croak", 7.54, [], 11.28)
+  section("V", "pond", [
+    phrase(3.45, "quack"),
+    phrase(7.54, "croak", [], 11.28)
   ])
 ])
 
 piece(15, "paper-ships", 4, 90, "40", [
-  section("wharf", "V", [
-    phrase("ships", 2.63),
-    phrase("captain", 7.45, [], 12.41)
+  section("V", "wharf", [
+    phrase(2.63, "ships"),
+    phrase(7.45, "captain", [], 12.41)
   ])
 ])
 
 piece(16, "sledding", 3, 90, "40", [
-  section("snow", "V", [
-    phrase("snowflakes", 2.8),
-    phrase("sledding", 8.06, [], 13.37)
+  section("V", "snow", [
+    phrase(2.80, "snowflakes"),
+    phrase(8.06, "sledding", [], 13.37)
   ])
 ])
 
 piece(17, "the-butterfly", 4, 90, "40", [
-  section("garden", "V", [
-    phrase("butterfly", 1.07),
-    phrase("flying", 10.32, [], 19.13)
+  section("V", "garden", [
+    phrase(1.07, "butterfly"),
+    phrase(10.32, "flying", [], 19.13)
   ])
 ])
 
 piece(18, "questions", 2, 90, "40", [
-  section("circus", "V", [
-    phrase("tall", 2.01),
-    phrase("small", 5.66, [], 9.49)
+  section("V", "circus", [
+    phrase(2.01, "tall"),
+    phrase(5.66, "small", [], 9.49)
   ])
 ])
 
 piece(19, "toy-soldiers", 4, 90, "40", [
-  section("playroom", "V", [
-    phrase("soldiers", 2.05),
-    phrase("battle", 6.83),
-    phrase("rank", 11.66),
-    phrase("onward", 16.46, [], 21.67)
+  section("V", "playroom", [
+    phrase(2.05, "soldiers"),
+    phrase(6.83, "battle"),
+    phrase(11.66, "rank"),
+    phrase(16.46, "onward", [], 21.67)
   ])
 ])
 
 piece(20, "big-ships", 3, 90, "40", [
-  section("sea", "V", [
-    phrase("sailing", 1.27),
-    phrase("sea", 4.82),
-    phrase("going", 8.43),
-    phrase("tell", 11.89, [], 15.73)
+  section("V", "sea", [
+    phrase(1.27, "sailing"),
+    phrase(4.82, "sea"),
+    phrase(8.43, "going"),
+    phrase(11.89, "tell", [], 15.73)
   ])
 ])
 
 piece(21, "steamboat-round-the-bend", 2, 90, "40", [
-  section("steamboat", "V", [
-    phrase("mississippi", 4.00),
-    phrase("chug", 8.80, [], 13.14)
+  section("V", "steamboat", [
+    phrase(4.00, "mississippi"),
+    phrase(8.80, "chug", [], 13.14)
   ])
 ])
 
 piece(22, "comin-round-the-mountain", 4, 90, "45", [
-  section("mountain", "V", [
-    phrase("1", 1.53),
-    phrase("2", 5.74),
-    phrase("3", 9.99),
-    phrase("4", 14.10, [], 18.44)
+  section("V", "mountain", [
+    phrase(1.53, "1"),
+    phrase(5.74, "2"),
+    phrase(9.99, "3"),
+    phrase(14.10, "4", [], 18.44)
   ])
 ])
 
 piece(23, "the-long-trail", 3, 90, "40", [
-  section("rockies", "V", [
-    phrase("hiking", 3.78),
-    phrase("fun", 8.55),
-    phrase("climbing", 13.45),
-    phrase("down", 18.20, [], 22.62)
+  section("V", "rockies", [
+    phrase(3.78, "hiking"),
+    phrase(8.55, "fun"),
+    phrase(13.45, "climbing"),
+    phrase(18.20, "down", [], 22.62)
   ])
 ])
 
 piece(24, "the-bee", 2, 90, "40", [
-  section("grass", "V", [
-    phrase("buzzing", 2.53),
-    phrase("pass", 5.83, [], 9.34)
+  section("V", "grass", [
+    phrase(2.53, "buzzing"),
+    phrase(5.83, "pass", [], 9.34)
   ])
 ])
 
 piece(25, "my-bonnie", 4, 90, "40", [
-  section("island", "V", [
-    phrase("bonnie", 1.70),
-    phrase("sea", 5.92),
-    repeat("bonnie", 10.07),
-    phrase("me", 14.21, [], 17.64)
+  section("V", "island", [
+    phrase(1.70, "bonnie"),
+    phrase(5.92, "sea"),
+    repeat(10.07, "bonnie"),
+    phrase(14.21, "me", [], 17.64)
   ])
 ])
 
 piece(26, "vacation-time", 3, 90, "40", [
-  section("kooralbyn", "V", [
-    phrase("waltzing", 3.02),
-    phrase("fun", 6.73),
-    phrase("cloud", 10.47),
-    phrase("vacation", 14.09, [], 18.29)
+  section("V", "kooralbyn", [
+    phrase(3.02, "waltzing"),
+    phrase(6.73, "fun"),
+    phrase(10.47, "cloud"),
+    phrase(14.09, "vacation", [], 18.29)
   ])
 ])
 
 piece(27, "home-on-the-range", 3, 90, "45", [
-  section("range", "V", [
-    phrase("give", 1.20),
-    phrase("where-deer", 5.63),
-    phrase("seldom", 10.10),
-    phrase("skies", 14.41, [], 19.20)
+  section("V", "range", [
+    phrase(1.20, "give"),
+    phrase(5.63, "where-deer"),
+    phrase(10.10, "seldom"),
+    phrase(14.41, "skies", [], 19.20)
   ]),
-  section("home", "V", [
-    phrase("home", 19.20),
-    phrase("the-deer", 23.35),
-    repeat("seldom", 27.65),
-    repeat("skies", 31.87, 36.51)
+  section("V", "home", [
+    phrase(19.20, "home"),
+    phrase(23.35, "the-deer"),
+    repeat(27.65, "seldom"),
+    repeat(31.87, "skies", 36.51)
   ])
 ])
 
 piece(28, "the-juggler", 4, 90, "40", [
-  section("circus", "V", [
-    phrase("juggler", 0.55),
-    phrase("posters", 4.13),
-    phrase("cup", 7.77),
-    phrase("pieces", 11.38, [], 15.10)
+  section("V", "circus", [
+    phrase(0.55, "juggler"),
+    phrase(4.13, "posters"),
+    phrase(7.77, "cup"),
+    phrase(11.38, "pieces", [], 15.10)
   ])
 ])
 
 piece(29, "from-a-wigwam", 4, 90, "40", [
-  section("wigwam", "V", [
-    phrase("1", 0.69),
-    phrase("2", 4.65),
-    phrase("3", 8.48),
-    repeat("1", 12.49, 17.10)
+  section("V", "wigwam", [
+    phrase(0.69, "1"),
+    phrase(4.65, "2"),
+    phrase(8.48, "3"),
+    repeat(12.49, "1", 17.10)
   ])
 ])
 

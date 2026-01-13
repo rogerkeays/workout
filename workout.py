@@ -47,15 +47,15 @@ class Note:
 
 @dataclass # Phrase
 class Phrase:
-  label: str
   start: float
+  label: str
   notes: list[Note]
   stop: float
 
 @dataclass # Section
 class Section:
+  id: str
   label: str
-  function: str
   phrases: list[Phrase]
 
 @dataclass # Piece
@@ -69,25 +69,22 @@ class Piece:
 
 
 # constructors
-def phrase(label, start, notes=[], stop=0):
+def phrase(start, label, notes=[], stop=0):
   "constructor for phrases, which keeps a reference to the phrases created"
-  p = Phrase(label, start, notes, stop)
+  p = Phrase(start, label, notes, stop)
   all_phrases[label] = p
   return p
 
-def repeat(id, start=-1.0, stop=-1.0):
+def repeat(start, id, stop=0):
   """
     Create a new phrase with the same notes as the phrase with the given id.
     New mp3 start and stop times can be provided if desired. This function
     does not clone the notes.
   """
-  template = all_phrases[id]
-  if start == -1.0: start = template.start
-  if stop == -1.0: stop = template.stop
-  return Phrase(id, start, template.notes, stop)
+  return Phrase(start, id, all_phrases[id].notes, stop)
 
-def section(label, function, phrases):
-  return Section(label, function, phrases)
+def section(id, label, phrases):
+  return Section(id, label, phrases)
 
 
 # functions

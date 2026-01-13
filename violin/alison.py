@@ -2,8 +2,8 @@
 
 # open string exercises
 piece(1, "the-crawl", 4, 90, "37", [
-  section("table", "V", [
-    phrase("crawls", 10.16, notes("""
+  section("V", "table", [
+    phrase(10.16, "crawls", notes("""
       1 0 L4== 40N0 3 li-
       2 = ==== ==== 5 ttle
       3 7 ==== 3=== 3 ba-
@@ -14,7 +14,7 @@ piece(1, "the-crawl", 4, 90, "37", [
       4 = ==== ==== 5 ger
       1 Z ==== ==== 3 ."""
     )),
-    phrase("scared", 15.38, notes("""
+    phrase(15.38, "scared", notes("""
       1 2 L4== 20N0 3 scared
       2 = ==== ==== 5 he
       3 7 ==== 3=== 3 turns
@@ -29,27 +29,27 @@ piece(1, "the-crawl", 4, 90, "37", [
 ])
 
 piece(2, "baby-steps", 4, 90, "37", [
-  section("lawn", "V", [
-    phrase("left", 10.30, notes("""
+  section("V", "lawn", [
+    phrase(10.30, "left", notes("""
       1 0 L4== 40N0 3 left
       2 = ==== ==== 5 foot
       3 7 ==== 3=== 3 step
       1 Z ==== ==== 5 ."""
     )),
-    phrase("right", 13.05, notes("""
+    phrase(13.05, "right", notes("""
       1 2 L4== 20N0 5 right
       2 = ==== ==== 3 foot
       3 0 ==== 3=== 5 step
       1 Z ==== ==== 3 ."""
     )),
-    phrase("mummy", 15.67, notes("""
+    phrase(15.67, "mummy", notes("""
       1 2 L4== 20N0 3 looks
       2 = ==== ==== 5 for
       3 7 ==== 1=== 3 mu-
       4 = ==== ==== 5 mmy
       1 Z ==== ==== 3 ."""
     )),
-    phrase("falling", 18.30, notes("""
+    phrase(18.30, "falling", notes("""
       1 2 L4== 20N0 3 fall-
       2 = ==== 3=== 5 ing
       3 7 ==== 4=== 3 down
@@ -59,8 +59,8 @@ piece(2, "baby-steps", 4, 90, "37", [
 ])
 
 piece(5, "the-first-fall", 4, 100, "37", [
-  section ("lounge", "V", [
-    phrase("window", 10.19, notes("""
+  section("V", "lounge", [
+    phrase(10.19, "window", notes("""
       1 0 D44= 40N0 3 runs
       a = ==== ==== 5 in-
       2 = ==== ==== 3 to
@@ -69,7 +69,7 @@ piece(5, "the-first-fall", 4, 100, "37", [
       4 = ==== ==== 5 dow
       1 Z ==== 1=== 3 ."""
     )),
-    phrase("falling", 12.68, notes("""
+    phrase(12.68, "falling", notes("""
       1 9 D44= 10N0 3 fall-
       a = ==== ==== 5 ing
       2 = ==== ==== 3 on
@@ -77,7 +77,7 @@ piece(5, "the-first-fall", 4, 100, "37", [
       3 2 ==== 2=== 3 arse
       1 Z ==== ==== 5 ."""
     )),
-    phrase("what", 15.13, notes("""
+    phrase(15.13, "what", notes("""
       1 2 D44= 20N0 5 what
       a = ==== ==== 3 the
       2 = ==== ==== 5 hell
@@ -86,7 +86,7 @@ piece(5, "the-first-fall", 4, 100, "37", [
       4 = ==== ==== 3 ppened?
       1 Z ==== 2=== 5 ."""
     )),
-    phrase("dunno", 17.53, notes("""
+    phrase(17.53, "dunno", notes("""
       1 7 D44= 20N0 5 i
       2 2 ==== 3=== 3 don't
       3 0 ==== 4=== 5 know
@@ -96,8 +96,8 @@ piece(5, "the-first-fall", 4, 100, "37", [
 ])
 
 piece(6, "into-the-kitchen", 4, 100, "37", [
-  section("kitchen", "V", [
-    phrase("no-one", 10.04, notes("""
+  section("V", "kitchen", [
+    phrase(10.04, "no-one", notes("""
       1 0 D44= 40N0 3 here
       a 7 ==== 3=== 5 there's
       2 = ==== ==== 3 no-
@@ -108,7 +108,7 @@ piece(6, "into-the-kitchen", 4, 100, "37", [
       o = ==== ==== 5 one
       1 Z ==== 1=== 3 ."""
     )),
-    phrase("sneak", 12.59, notes("""
+    phrase(12.59, "sneak", notes("""
       1 9 D44= 10N0 3 sneak
       a = ==== ==== 5 in-
       2 = ==== ==== 3 to
@@ -117,7 +117,7 @@ piece(6, "into-the-kitchen", 4, 100, "37", [
       4 = ==== ==== 5 tchen
       1 Z ==== ==== 3 ."""
     )),
-    phrase("climbing", 14.89, notes("""
+    phrase(14.89, "climbing", notes("""
       1 2 D44= 20N0 3 climb-
       a = ==== ==== 5 ing
       2 = ==== ==== 3 up
@@ -126,7 +126,7 @@ piece(6, "into-the-kitchen", 4, 100, "37", [
       4 = ==== ==== 5 ter
       1 Z ==== 2=== 3 ."""
     )),
-    phrase("hanging", 17.19, notes("""
+    phrase(17.19, "hanging", notes("""
       1 2 D44= 20N0 3 hang-
       a 7 ==== 3=== 5 ing
       2 = ==== ==== 3 off
@@ -138,8 +138,8 @@ piece(6, "into-the-kitchen", 4, 100, "37", [
 ])
 
 piece(3, "the-car-trip", 4, 110, "37", [
-  section("car", "V", [
-    phrase("baby", 9.72, notes("""
+  section("V", "car", [
+    phrase(9.72, "baby", notes("""
       1 9 L4== 10N0 3 li-
       2 = ==== ==== 5 ttle
       3 2 ==== 2=== 3 ba-
@@ -149,7 +149,7 @@ piece(3, "the-car-trip", 4, 110, "37", [
       3 2 ==== 2=== 3 up
       1 Z ==== ==== 5 ."""
     )),
-    phrase("mummy", 12.04, notes("""
+    phrase(12.04, "mummy", notes("""
       1 7 L4== 20N0 5 mu-
       2 = ==== ==== 3 mmy
       3 0 ==== 4=== 5 wants
@@ -159,14 +159,14 @@ piece(3, "the-car-trip", 4, 110, "37", [
       3 2 ==== 2=== 5 too
       1 Z ==== ==== 3 ."""
     )),
-    phrase("pull", 14.22, notes("""
+    phrase(14.22, "pull", notes("""
       1 9 L4== 10N0 3 pull-
       2 2 ==== 2=== 5 ling
       3 7 ==== 3=== 3 o
       4 0 ==== 4=== 5 ver
       1 Z ==== ==== 3 ."""
     )),
-    phrase("clean", 16.52, notes("""
+    phrase(16.52, "clean", notes("""
       1 7 L4== 20N0 3 clean
       2 = ==== ==== 5 it
       3 2 ==== 3=== 3 up
@@ -176,24 +176,24 @@ piece(3, "the-car-trip", 4, 110, "37", [
 ])
 
 piece(4, "aeroplane-games", 4, 110, "37", [
-  section("airfield", "V", [
-    phrase("upwards", 9.59, notes("""
+  section("V", "airfield", [
+    phrase(9.59, "upwards", notes("""
       1 0 L4== 40N0 3 fly-
       a 7 ==== 3=== 5 ing
       2 2 ==== 2=== 3 up-
       u 9 ==== 1=== 5 wards
       3 Z ==== ==== 3 ."""
     )),
-    phrase("downwards", 10.82, notes("""
+    phrase(10.82, "downwards", notes("""
       1 9 L4== 10N0 3 fly-
       a 2 ==== 2=== 5 ing
       2 7 ==== 3=== 3 down-
       u 0 ==== 4=== 5 wards
       3 Z ==== ==== 3 ."""
     )),
-    repeat("upwards", 12.06),
-    repeat("downwards", 13.01),
-    phrase("terminal", 14.24, notes("""
+    repeat(12.06, "upwards"),
+    repeat(13.01, "downwards"),
+    phrase(14.24, "terminal", notes("""
       1 7 L4== 30N0 3 land-
       a = ==== ==== 5 ing
       2 2 ==== 2=== 3 at
@@ -208,29 +208,29 @@ piece(4, "aeroplane-games", 4, 110, "37", [
 
 # first finger exercises
 piece(7, "the-door-handle", 4, 94, "37", [
-  section("shack", "V", [
-    phrase("this-way", 10.25, notes("""
+  section("V", "shack", [
+    phrase(10.25, "this-way", notes("""
       1 0 L44= 42N0 3 turn
       2 7 ==== 3=== 5 it
       3 9 ==== ===1 3 this
       4 7 ==== ===0 5 way
       1 Z ==== 2=== 3 ."""
     )),
-    phrase("that-way", 12.86, notes("""
+    phrase(12.86, "that-way", notes("""
       1 2 L44= 22N0 3 turn
       2 7 ==== 3=== 5 it
       3 9 ==== ===1 3 that
       4 7 ==== ===0 5 way
       1 Z ==== 2=== 3 ."""
     )),
-    phrase("door", 15.50, notes("""
+    phrase(15.50, "door", notes("""
       1 2 L44= 22N0 3 the
       2 2 ==== ==== 5 door
       3 4 ==== ===1 3 o-
       4 2 ==== ===0 5 pens
       1 Z ==== 3=== 3 ."""
     )),
-    phrase("inside", 17.91, notes("""
+    phrase(17.91, "inside", notes("""
       1 7 L44= 32N0 3 go
       2 9 ==== ===1 5 in-
       3 0 ==== 4==0 3 side
@@ -240,8 +240,8 @@ piece(7, "the-door-handle", 4, 94, "37", [
 ])
 
 piece(8, "the-puppy-dog", 3, 104, "49", [
-  section("park", "V", [
-    phrase("puppy", 10.28, notes("""
+  section("V", "park", [
+    phrase(10.28, "puppy", notes("""
       1 7 L44= 12N0 3 mis-
       2 9 ==== ===1 5 chie-
       3 7 ==== ===0 3 vous
@@ -250,7 +250,7 @@ piece(8, "the-puppy-dog", 3, 104, "49", [
       3 0 ==== ===0 5 dog
       1 Z ==== 3=== 3 ."""
     )),
-    phrase("running", 13.80, notes("""
+    phrase(13.80, "running", notes("""
       1 5 L44= 32N0 3 he's
       2 7 ==== ===1 5 run-
       3 5 ==== ===0 3 ning
@@ -259,7 +259,7 @@ piece(8, "the-puppy-dog", 3, 104, "49", [
       3 X ==== ===0 5 me
       1 Z ==== 3=== 3 ."""
     )),
-    phrase("play", 17.26, notes("""
+    phrase(17.26, "play", notes("""
       1 7 L44= 32N1 3 he
       2 = ==== ==== 5 wants
       3 = ==== ==== 3 to
@@ -270,36 +270,36 @@ piece(8, "the-puppy-dog", 3, 104, "49", [
 ])
 
 piece(9, "hunger", 4, 105, "42", [
-  section("baby-chair", "V", [
-    phrase("hungry", 9.77, notes("""
+  section("V", "baby-chair", [
+    phrase(9.77, "hungry", notes("""
       1 2 L44= 12N0 3 get-
       2 7 ==== 2=== 5 ting
       3 9 ==== ===1 3 hun-
       4 7 ==== ===0 5 gry
       1 Z ==== 3=== 3 ."""
     )),
-    phrase("time", 12.14, notes("""
+    phrase(12.14, "time", notes("""
       1 0 L44= 32N0 3 for
       2 7 ==== 2=== 5 the
       3 9 ==== ===1 3 first
       4 7 ==== ===0 5 time
       1 Z ==== ==== 3 ."""
     )),
-    phrase("what", 14.45, notes("""
+    phrase(14.45, "what", notes("""
       1 7 L44= 22N0 3 what
       2 9 ==== ===1 5 is
       3 7 ==== ===0 3 hap-
       4 9 ==== ===1 5 ning?
       1 Z ==== 1=== 3 ."""
     )),
-    phrase("mummy", 16.72, notes("""
+    phrase(16.72, "mummy", notes("""
       1 2 L44= 12N0 3 where's
       2 4 ==== ===1 5 mu-
       3 = ==== ==== 3 mmy
       4 2 ==== ===0 5 now?
       1 Z ==== 2=== 3 ."""
     )),
-    phrase("know", 18.98, notes("""
+    phrase(18.98, "know", notes("""
       1 7 L44= 22N0 3 i
       2 0 ==== 3=== 5 don't
       3 = ==== ==== 3 know
@@ -309,15 +309,15 @@ piece(9, "hunger", 4, 105, "42", [
 ])
 
 piece(10, "stealing-cookies", 4, 144, "49", [
-  section("kitchen", "V", [
-    phrase("cookies", 9.23, notes("""
+  section("V", "kitchen", [
+    phrase(9.23, "cookies", notes("""
       1 9 L44= 12N1 3 stea-
       3 7 ==== ===0 5 ling
       1 2 ==== 2==1 3 cook-
       3 0 ==== ===0 5 ies
       1 Z ==== 3=== 3 ."""
     )),
-    phrase("pockets", 13.48, notes("""
+    phrase(13.48, "pockets", notes("""
       1 5 L44= 32N0 3 shove
       a 7 ==== ===1 5 them
       2 5 ==== ===0 3 in
@@ -326,7 +326,7 @@ piece(10, "stealing-cookies", 4, 144, "49", [
       4 2 ==== ===1 5 ckets
       1 Z ==== ==== 3 ."""
     )),
-    phrase("eat", 15.70, notes("""
+    phrase(15.70, "eat", notes("""
       1 7 L44= 12N0 3 go-
       a 9 ==== ===1 5 nna
       2 7 ==== ===0 3 eat
@@ -339,8 +339,8 @@ piece(10, "stealing-cookies", 4, 144, "49", [
 ])
 
 piece(11, "puppy-in-the-kitchen", 4, 110, "42", [
-  section("kitchen", "V", [
-    phrase("puppy", 9.49, notes("""
+  section("V", "kitchen", [
+    phrase(9.49, "puppy", notes("""
       1 2 L44= 12N0 3 pu-
       a = ==== ==== 5 ppy
       2 = ==== ==== 3 in
@@ -349,7 +349,7 @@ piece(11, "puppy-in-the-kitchen", 4, 110, "42", [
       4 2 ==== ===0 5 tchen
       1 Z ==== 2=== 3 ."""
     )),
-    phrase("running", 11.74, notes("""
+    phrase(11.74, "running", notes("""
       1 7 L44= 22N0 3 run-
       a = ==== ==== 5 ning
       2 = ==== ==== 3 in
@@ -358,7 +358,7 @@ piece(11, "puppy-in-the-kitchen", 4, 110, "42", [
       4 7 ==== ===0 5 tchen
       1 Z ==== 1=== 3 ."""
     )),
-    phrase("someone", 13.90, notes("""
+    phrase(13.90, "someone", notes("""
       1 2 L44= 12N0 3 some-
       a = ==== ==== 5 one's
       2 4 ==== ===1 3 com-
@@ -374,8 +374,8 @@ piece(11, "puppy-in-the-kitchen", 4, 110, "42", [
 ])
 
 piece(12, "dad-goes-looking", 2, 104, "37", [
-  section("lost-kids-house", "V", [
-    phrase("kid", 9.77, notes("""
+  section("V", "lost-kids-house", [
+    phrase(9.77, "kid", notes("""
       1 0 L44= 42N0 3 some-
       a 2 ==== ===1 5 things
       2 0 ==== ===0 3 ha-
@@ -386,7 +386,7 @@ piece(12, "dad-goes-looking", 2, 104, "37", [
       o 9 ==== ===1 5 kid?
       1 Z ==== 2=== 3 ."""
     )),
-    phrase("kitchen", 12.23, notes("""
+    phrase(12.23, "kitchen", notes("""
       1 4 L44= 22N1 3 must
       a = ==== ==== 5 be
       2 9 ==== 1==0 3 in
@@ -395,7 +395,7 @@ piece(12, "dad-goes-looking", 2, 104, "37", [
       4 = ==== ==== 5 tchen
       1 Z ==== ==== 3 ."""
     )),
-    phrase("sofa", 14.53, notes("""
+    phrase(14.53, "sofa", notes("""
       1 Y L44= 12N1 3 not
       a 9 ==== ===0 5 the
       2 Y ==== ===1 3 cur-
@@ -406,7 +406,7 @@ piece(12, "dad-goes-looking", 2, 104, "37", [
       o 2 ==== ===0 5 fa
       1 Z ==== 3=== 3 ."""
     )),
-    phrase("help", 16.82, notes("""
+    phrase(16.82, "help", notes("""
       1 7 L44= 32N0 3 should
       a 9 ==== ===1 5 i
       2 = ==== ==== 3 call
@@ -419,8 +419,8 @@ piece(12, "dad-goes-looking", 2, 104, "37", [
 
 # second finger exercises
 piece(13, "digging-holes", 3, 146, "42", [
-  section("sand-dune", "V", [
-    phrase("holes", 10.36, notes("""
+  section("V", "sand-dune", [
+    phrase(10.36, "holes", notes("""
       1 0 L44= 32N0 3 digg-
       2 4 ==== ===2 5 ing
       3 = ==== ==== 3 holes
@@ -429,14 +429,14 @@ piece(13, "digging-holes", 3, 146, "42", [
       3 = ==== ==== 5 holes
       1 Z ==== ==== 3 ."""
     )),
-    phrase("big-holes", 12.94, notes("""
+    phrase(12.94, "big-holes", notes("""
       1 0 L44= 32N0 3 digg-
       2 9 ==== 2==1 5 ing
       3 = ==== ==== 3 big
       1 7 ==== ===0 5 holes
       1 Z ==== ==== 3 ."""
     )),
-    phrase("avalanche", 15.42, notes("""
+    phrase(15.42, "avalanche", notes("""
       1 Y L44= 32N2 3 what
       2 9 ==== ===1 5 if
       3 7 ==== ===0 3 an
@@ -450,8 +450,8 @@ piece(13, "digging-holes", 3, 146, "42", [
 ])
 
 piece(14, "scottish-boy", 4, 133, "54", [
-  section("rock-pool", "V", [
-    phrase("boy", 9.51, notes("""
+  section("V", "rock-pool", [
+    phrase(9.51, "boy", notes("""
       1 4 L44= 12N2 3 scott-
       a = ==== ==== 5 ish
       2 2 ==== ===1 3 boy
@@ -460,7 +460,7 @@ piece(14, "scottish-boy", 4, 133, "54", [
       4 = ==== ==== 5 ver
       1 Z ==== ==== 3 ."""
     )),
-    phrase("toys", 11.78, notes("""
+    phrase(11.78, "toys", notes("""
       1 9 L44= 22N2 3 car-
       a = ==== ==== 5 ry-
       2 7 ==== ===1 3 ing
@@ -469,7 +469,7 @@ piece(14, "scottish-boy", 4, 133, "54", [
       4 = ==== ==== 5 toys
       1 Z ==== ==== 3 ."""
     )),
-    phrase("mum-n-dad", 13.89, notes("""
+    phrase(13.89, "mum-n-dad", notes("""
       1 9 L44= 22N2 3 mum
       a 0 ==== 1==0 5 and
       2 = ==== ==== 3 dad
@@ -478,7 +478,7 @@ piece(14, "scottish-boy", 4, 133, "54", [
       4 = ==== ==== 5 cute
       1 Z ==== ==== 3 ."""
     )),
-    phrase("hands", 15.98, notes("""
+    phrase(15.98, "hands", notes("""
       1 2 L44= 12N1 3 are
       a = ==== ==== 5 they
       2 0 ==== ===0 3 go-
@@ -492,8 +492,8 @@ piece(14, "scottish-boy", 4, 133, "54", [
 ])
 
 piece(15, "toll-busters", 4, 115, "42", [
-  section("toll", "V", [
-    phrase("stop", 9.46, notes("""
+  section("V", "toll", [
+    phrase(9.46, "stop", notes("""
       1 0 L44= 32N0 3 stop
       a = ==== ==== 5 to
       2 2 ==== ===1 3 pay
@@ -502,7 +502,7 @@ piece(15, "toll-busters", 4, 115, "42", [
       4 = ==== ==== 5 sir
       1 Z ==== 3=== 3 ."""
     )),
-    phrase("won't", 11.61, notes("""
+    phrase(11.61, "won't", notes("""
       1 0 L44= 32N0 3 i
       a = ==== ==== 5 won't
       2 2 ==== ===1 3 pay
@@ -511,7 +511,7 @@ piece(15, "toll-busters", 4, 115, "42", [
       4 = ==== ==== 5 sir
       1 Z ==== ==== 3 ."""
     )),
-    phrase("getaway", 13.78, notes("""
+    phrase(13.78, "getaway", notes("""
       1 9 L44= 42N2 3 gon-
       a = ==== ==== 5 na
       2 7 ==== ===1 3 make
@@ -521,7 +521,7 @@ piece(15, "toll-busters", 4, 115, "42", [
       4 0 ==== ===0 3 way
       1 Z ==== 4=== 5 ."""
     )),
-    phrase("shit", 15.83, notes("""
+    phrase(15.83, "shit", notes("""
       1 7 L44= 42N1 5 oh
       a = ==== ==== 3 shit
       2 9 ==== ===2 5 turn
@@ -533,20 +533,20 @@ piece(15, "toll-busters", 4, 115, "42", [
 ])
 
 piece(16, "car-crash", 6, 145, "42", [
-  section("crash-site", "V", [
-    phrase("crash", 9.92, notes("""
+  section("V", "crash-site", [
+    phrase(9.92, "crash", notes("""
       1 4 L44= 32N2 3 car
       4 2 ==== ===1 5 crash
       1 Z ==== ==== 3 ."""
     )),
-    phrase("busted", 12.32, notes("""
+    phrase(12.32, "busted", notes("""
       1 0 L44= 32N0 3 i'm
       2 = ==== ==== 5 bus-
       3 = ==== ==== 3 ted
       4 2 ==== ===1 5 now
       1 Z ==== ==== 3 ."""
     )),
-    phrase("police", 14.85, notes("""
+    phrase(14.85, "police", notes("""
       1 4 L44= 32N2 3 the
       2 7 ==== 2==0 5 po-
       3 = ==== ==== 3 lice
@@ -554,7 +554,7 @@ piece(16, "car-crash", 6, 145, "42", [
       5 7 ==== ===0 3 me
       1 Z ==== 3=== 5 ."""
     )),
-    phrase("lock", 17.23, notes("""
+    phrase(17.23, "lock", notes("""
       1 4 L44= 32N2 5 lock
       2 0 ==== ===0 3 him
       3 9 ==== 4==2 5 a-
@@ -565,8 +565,8 @@ piece(16, "car-crash", 6, 145, "42", [
 ])
 
 piece(17, "bouncy-castle", 2, 90, "49", [
-  section("castle", "V", [
-    phrase("castle", 10.38, notes("""
+  section("V", "castle", [
+    phrase(10.38, "castle", notes("""
       1 Y D44= 12N2 3 boun-
       a 9 ==== ===1 5 cy
       2 Y ==== ===2 3 ca-
@@ -577,7 +577,7 @@ piece(17, "bouncy-castle", 2, 90, "49", [
       u 2 ==== ===1 5 rite
       1 Z ==== 3=== 3 ."""
     )),
-    phrase("bottom", 13.00, notes("""
+    phrase(13.00, "bottom", notes("""
       1 9 D44= 32N2 3 till
       a 7 ==== ===1 5 i
       2 9 ==== ===2 3 reach
@@ -586,7 +586,7 @@ piece(17, "bouncy-castle", 2, 90, "49", [
       2 0 ==== ==== 5 ttom
       1 Z ==== ==== 3 ."""
     )),
-    phrase("dad", 15.66, notes("""
+    phrase(15.66, "dad", notes("""
       1 0 D44= 42N1 3 come
       a 2 ==== ===2 5 on
       2 0 ==== ===1 3 dad
@@ -602,8 +602,8 @@ piece(17, "bouncy-castle", 2, 90, "49", [
 ])
 
 piece(18, "the-bad-date", 3, 50, "4Y", [
-  section("girls-house", "V", [
-    phrase("girl", 11.90, notes("""
+  section("V", "girls-house", [
+    phrase(11.90, "girl", notes("""
       1 9 L44= 12N2 3 pick-
       a 5 ==== ===0 5 ing
       2 9 ==== ===2 3 up
@@ -611,7 +611,7 @@ piece(18, "the-bad-date", 3, 50, "4Y", [
       3 0 ==== 2==1 3 girl
       1 Z ==== ==== 5 ."""
     )),
-    phrase("car", 15.39, notes("""
+    phrase(15.39, "car", notes("""
       1 2 L44= 22N2 3 take
       a X ==== ===0 5 her
       2 2 ==== ===2 3 to
@@ -619,7 +619,7 @@ piece(18, "the-bad-date", 3, 50, "4Y", [
       3 5 ==== 1=== 3 car
       1 Z ==== 2=== 5 ."""
     )),
-    phrase("walk", 18.73, notes("""
+    phrase(18.73, "walk", notes("""
       1 2 L44= 22N2 3 walk
       a X ==== ===0 5 a-
       2 7 ==== 3==2 3 round
@@ -628,7 +628,7 @@ piece(18, "the-bad-date", 3, 50, "4Y", [
       e 8 ==== ===0 5 in
       1 Z ==== ==== 3 ."""
     )),
-    phrase("shit", 22.24, notes("""
+    phrase(22.24, "shit", notes("""
       1 0 L44= 42N2 3 oh
       a 3 ==== 3==0 5 shit,
       2 7 ==== ===2 3 it
@@ -641,8 +641,8 @@ piece(18, "the-bad-date", 3, 50, "4Y", [
 
 # third and fourth finger exercises
 piece(19, "sleeping-in", 3, 135, "42", [
-  section("lazy-boys-room", "V", [
-    phrase("boy", 10.34, notes("""
+  section("V", "lazy-boys-room", [
+    phrase(10.34, "boy", notes("""
       1 0 D44= 32W0 3 li-
       2 4 ==== ===2 5 ttle
       3 = ==== ==== 3 boy
@@ -651,14 +651,14 @@ piece(19, "sleeping-in", 3, 135, "42", [
       3 2 ==== ===1 5 ping
       1 Z ==== ==== 3 ."""
     )),
-    phrase("school", 13.02, notes("""
+    phrase(13.02, "school", notes("""
       1 4 D44= 32W2 3 on
       2 7 ==== 22C0 5 a
       3 9 ==== ===1 3 school
       1 7 ==== ===0 5 day
       1 Z ==== ==== 3 ."""
     )),
-    phrase("hair", 15.55, notes("""
+    phrase(15.55, "hair", notes("""
       1 0 D44= 22C3 3 brush
       2 7 ==== ===0 5 the
       3 4 ==== 32W2 3 hair
@@ -667,7 +667,7 @@ piece(19, "sleeping-in", 3, 135, "42", [
       3 4 ==== ===2 5 face
       1 Z ==== ==== 3 ."""
     )),
-    phrase("door", 18.09, notes("""
+    phrase(18.09, "door", notes("""
       1 5 D44= 32W3 3 stum-
       a 7 ==== ===4 5 ble
       2 4 ==== ===2 3 out
@@ -679,8 +679,8 @@ piece(19, "sleeping-in", 3, 135, "42", [
 ])
 
 piece(20, "the-birthday-party", 4, 95, "59", [
-  section("poolside", "V", [
-    phrase("birthday", 10.26, notes("""
+  section("V", "poolside", [
+    phrase(10.26, "birthday", notes("""
       1 0 D44= 12C3 3 to-
       a Y ==== ===2 5 day
       2 9 ==== ===1 3 it's
@@ -690,7 +690,7 @@ piece(20, "the-birthday-party", 4, 95, "59", [
       4 0 ==== ===3 3 day
       1 Z ==== 22W= 5 ."""
     )),
-    phrase("cake", 12.94, notes("""
+    phrase(12.94, "cake", notes("""
       1 7 D44= 22W4 5 and
       a 5 ==== ===3 3 i
       2 4 ==== ===2 5 have
@@ -699,7 +699,7 @@ piece(20, "the-birthday-party", 4, 95, "59", [
       4 2 ==== ===1 3 too
       1 Z ==== ==== 5 ."""
     )),
-    phrase("friends", 15.45, notes("""
+    phrase(15.45, "friends", notes("""
       1 0 D44= 22W0 5 all
       a 4 ==== ===2 3 my
       2 2 ==== ===1 5 friends
@@ -710,7 +710,7 @@ piece(20, "the-birthday-party", 4, 95, "59", [
       o 9 ==== 12C1 3 let's
       1 Z ==== ==== 5 ."""
     )),
-    phrase("pool", 17.94, notes("""
+    phrase(17.94, "pool", notes("""
       1 7 D44= 12C0 5 throw
       a 2 ==== ===4 3 them
       2 0 ==== ===3 5 in
@@ -722,15 +722,15 @@ piece(20, "the-birthday-party", 4, 95, "59", [
 ])
 
 piece(21, "boring-homework", 4, 95, "47", [
-  section("desk", "V", [
-    phrase("homework", 10.60, notes("""
+  section("V", "desk", [
+    phrase(10.60, "homework", notes("""
       1 0 L44= 42W0 3 bor-
       2 7 ==== 3=C= 5 ing
       3 0 ==== 4=W= 3 home-
       4 7 ==== 3=C= 5 work
       1 Z ==== 4=W= 3 ."""
     )),
-    phrase("outside", 13.43, notes("""
+    phrase(13.43, "outside", notes("""
       1 0 D44= 42W0 3 want
       a 9 ==== 3=C1 5 to
       2 7 ==== ===0 3 go
@@ -738,7 +738,7 @@ piece(21, "boring-homework", 4, 95, "47", [
       3 7 ==== 3=C0 3 side
       1 Z ==== ==== 5 ."""
     )),
-    phrase("finish", 16.06, notes("""
+    phrase(16.06, "finish", notes("""
       1 9 L44= 32C1 5 but
       2 0 ==== ===3 3 you
       3 9 ==== ===1 5 can't
@@ -749,7 +749,7 @@ piece(21, "boring-homework", 4, 95, "47", [
       4 0 ==== ===3 3 ish
       1 Z ==== ==== 5 ."""
     )),
-    phrase("start", 20.87, notes("""
+    phrase(20.87, "start", notes("""
       1 2 D44= 32C4 5 so
       2 2 ==== ==== 3 you
       3 0 ==== ===3 5 bet-
@@ -761,8 +761,8 @@ piece(21, "boring-homework", 4, 95, "47", [
 ])
 
 piece(22, "chinese-kids", 4, 90, "47", [
-  section("classroom", "V", [
-    phrase("chinese-kids", 10.37, notes("""
+  section("V", "classroom", [
+    phrase(10.37, "chinese-kids", notes("""
       1 9 D44= 22G4 3 my
       a 7 ==== ===3 5 teach-
       2 9 ==== ===4 3 er
@@ -772,7 +772,7 @@ piece(22, "chinese-kids", 4, 90, "47", [
       4 2 ==== ===0 3 kids
       1 Z ==== 3=W= 5 ."""
     )),
-    phrase("quiz", 13.03, notes("""
+    phrase(13.03, "quiz", notes("""
       1 2 D44= 32W4 5 they
       a 0 ==== ===3 3 can
       2 2 ==== ===4 5 an-
@@ -782,7 +782,7 @@ piece(22, "chinese-kids", 4, 90, "47", [
       4 7 ==== ===0 5 quiz
       1 Z ==== 4=== 3 ."""
     )),
-    phrase("children", 15.63, notes("""
+    phrase(15.63, "children", notes("""
       1 5 L44= 22G3 3 but
       a 9 ==== 3=W1 5 none
       2 7 ==== ===0 3 of
@@ -793,7 +793,7 @@ piece(22, "chinese-kids", 4, 90, "47", [
       o 7 ==== ===0 5 -ren
       1 Z ==== ==== 3 ."""
     )),
-    phrase("play", 18.20, notes("""
+    phrase(18.20, "play", notes("""
       1 2 L44= 32W4 3 want
       a 7 ==== ===0 5 to
       2 Y ==== ===2 3 play
@@ -805,21 +805,21 @@ piece(22, "chinese-kids", 4, 90, "47", [
 ])
 
 piece(23, "chicken-pox", 4, 100, "47", [
-  section("bed", "V", [
-    phrase("sick", 9.78, notes("""
+  section("V", "bed", [
+    phrase(9.78, "sick", notes("""
       1 7 L44= 42W4 3 get-
       3 5 ==== ===3 5 ting
       1 4 ==== ===2 3 sick
       4 Z ==== ==== 5 ."""
     )),
-    phrase("chicken", 13.86, notes("""
+    phrase(13.86, "chicken", notes("""
       4 2 L44= 42W1 5 with
       1 9 ==== 3=== 3 chi-
       3 7 ==== ===0 5 cken
       1 5 ==== 4==3 3 pox
       4 Z ==== 3=== 5 ."""
     )),
-    phrase("schoolwork", 18.62, notes("""
+    phrase(18.62, "schoolwork", notes("""
       4 9 L44= 32W1 5 go-
       1 2 ==== ===4 3 nna
       2 4 ==== 2=G1 5 miss
@@ -830,7 +830,7 @@ piece(23, "chicken-pox", 4, 100, "47", [
       3 9 ==== ===4 3 work
       1 Z ==== ==== 5 ."""
     )),
-    phrase("better", 23.73, notes("""
+    phrase(23.73, "better", notes("""
       1 4 L44= 22G1 5 if
       2 0 ==== 3=W3 3 i
       3 = ==== ==== 5 don't
@@ -843,8 +843,8 @@ piece(23, "chicken-pox", 4, 100, "47", [
 ])
 
 piece(24, "last-day-of-school", 4, 95, "4Y", [
-  section("primary-school", "V", [
-    phrase("school", 10.21, notes("""
+  section("V", "primary-school", [
+    phrase(10.21, "school", notes("""
       1 3 L44= 22W4 3 to-
       a X ==== ===0 5 day's
       2 = ==== ==== 3 the
@@ -854,7 +854,7 @@ piece(24, "last-day-of-school", 4, 95, "4Y", [
       4 X ==== ===0 3 school
       1 Z ==== ==== 5 ."""
     )),
-    phrase("holidays", 12.80, notes("""
+    phrase(12.80, "holidays", notes("""
       1 0 L44= 22W1 5 hol-
       a 7 ==== 3==2 3 i-
       2 = ==== ==== 5 days
@@ -864,7 +864,7 @@ piece(24, "last-day-of-school", 4, 95, "4Y", [
       4 7 ==== 3==2 5 cool
       1 Z ==== ==== 3 ."""
     )),
-    phrase("nintendo", 15.30, notes("""
+    phrase(15.30, "nintendo", notes("""
       1 5 L44= 32W1 3 i
       a 7 ==== ===2 5 will
       2 8 ==== ===3 3 play
@@ -875,7 +875,7 @@ piece(24, "last-day-of-school", 4, 95, "4Y", [
       o 5 ==== ===4 5 do
       1 Z ==== 12N= 3 ."""
     )),
-    phrase("day", 17.82, notes("""
+    phrase(17.82, "day", notes("""
       1 7 L44= 12N1 3 ev-
       2 = ==== ==== 5 ry
       3 0 ==== 2=W= 3 day

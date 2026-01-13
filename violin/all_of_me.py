@@ -1,8 +1,8 @@
 # vim: foldmethod=marker foldmarker=phrase,\ ) foldtext=getline(v\:foldstart)
 
 piece(63, "all-of-me", 4, 126, "48", [
-  section("art-desk", "V1", [
-    phrase("mouth", 23.51, notes("""
+  section("V1", "art-desk", [
+    phrase(23.51, "mouth", notes("""
       3 2 L4== 21W1 2 what
       e 4 ==== ===2 ^ would
       4 = ==== ==== 6 i
@@ -15,7 +15,7 @@ piece(63, "all-of-me", 4, 126, "48", [
       1 = ===~ ==== 2 mouth?
       2 Z ==== ==== 6 ."""
     )),
-    phrase("drawin", 27.31, notes("""
+    phrase(27.31, "drawin", notes("""
       3 2 L4== 21W1 2 draw-
       e 4 ==== ===2 v in
       4 = ==== ==== 6 me
@@ -29,7 +29,7 @@ piece(63, "all-of-me", 4, 126, "48", [
       1 9 ==== ===2 2 out
       2 Z ==== ==== 6 ."""
     )),
-    phrase("spinnin", 31.12, notes("""
+    phrase(31.12, "spinnin", notes("""
       u 9 L4== 31C2 6 you've
       3 4 ==== 2=W= 4 got
       t = ==== ==== 7 my
@@ -42,7 +42,7 @@ piece(63, "all-of-me", 4, 126, "48", [
       e 0 ==== 3=C4 7 din
       4 Z ==== ==== 3 ."""
     )),
-    phrase("pin", 35.85, notes("""
+    phrase(35.85, "pin", notes("""
       o 0 L4== 31C4 3 i
       1 2 ==== 2=W1 2 can't
       u Z ==== ==== 5 ,
@@ -53,8 +53,8 @@ piece(63, "all-of-me", 4, 126, "48", [
       u Z ==== ==== 6 ."""
     ))
   ]),
-  section("disneyland", "V2", [
-    phrase("mind", 38.95, notes("""
+  section("V2", "disneyland", [
+    phrase(38.95, "mind", notes("""
       3 2 L4== 21W1 2 what's
       e 4 ==== ===2 v go-
       4 = ==== ==== 6 in
@@ -67,7 +67,7 @@ piece(63, "all-of-me", 4, 126, "48", [
       w = ==== ==== 2 mind
       2 Z ==== ==== 6 ?"""
     )),
-    phrase("ride", 42.67, notes("""
+    phrase(42.67, "ride", notes("""
       3 4 L4== 21W2 6 i'm
       e = ==== ==== 4 on
       4 = ==== ==== 6 your
@@ -81,7 +81,7 @@ piece(63, "all-of-me", 4, 126, "48", [
       1 9 ==== ===2 6 ide
       u Z ==== ==== 2 ."""
     )),
-    phrase("dizzy", 46.57, notes("""
+    phrase(46.57, "dizzy", notes("""
       3 4 L4== 21W2 2 and
       e = ==== ==== 6 i'm
       1 5 ==== ===3 2 so
@@ -96,7 +96,7 @@ piece(63, "all-of-me", 4, 126, "48", [
       e 0 ==== 3==4 6 me
       4 Z ==== ==== 3 ."""
     )),
-    phrase("alright", 51.03, notes("""
+    phrase(51.03, "alright", notes("""
       o 0 L4== 31C4 3 but
       1 2 ==== 2=W1 2 i'll
       3 4 ==== ===2 5 be
@@ -105,8 +105,8 @@ piece(63, "all-of-me", 4, 126, "48", [
       e Z ==== ==== 6 ."""
     ))
   ]),
-  section("show", "B1", [
-    phrase("underwater", 54.92, notes("""
+  section("B1", "show", [
+    phrase(54.92, "underwater", notes("""
       o 0 L4== 33W3 6 my
       1 7 ==== 2=G3 2 h-
       b 9 ==== ===4 v ead's
@@ -120,7 +120,7 @@ piece(63, "all-of-me", 4, 126, "48", [
       e = ==== ===3 6 but
       4 Z ==== ==== 2 ."""
     )),
-    phrase("breathin", 58.71, notes("""
+    phrase(58.71, "breathin", notes("""
       o Y L4== 33W2 2 i'm
       u 9 ==== =1=2 6 br-
       3 7 ==== ===1 ^ ea-
@@ -129,7 +129,7 @@ piece(63, "all-of-me", 4, 126, "48", [
       o = ==== ==== 6 fine
       u Z ==== ==== 2 ."""
     )),
-    phrase("crazy", 62.57, notes("""
+    phrase(62.57, "crazy", notes("""
       o 7 L4== 24P2 2 y-
       w 9 ==== ===3 v ou're
       u = ==== ==== 6 cr-
@@ -145,8 +145,8 @@ piece(63, "all-of-me", 4, 126, "48", [
       3 Z ==== ==== 6 ."""
     ))
   ]),
-  section("mirrors", "C1A", [
-    phrase("all-me", 68.21, notes("""
+  section("C1A", "mirrors", [
+    phrase(68.21, "all-me", notes("""
       o 4 L4== 21W2 4 cause
       1 = ==== ==== 2 a-
       b 7 ==== ===4 v a-
@@ -156,7 +156,7 @@ piece(63, "all-of-me", 4, 126, "48", [
       1 9 ==== 1==1 2 e
       2 Z ==== ==== 4 ."""
     )),
-    phrase("all-you", 71.10, notes("""
+    phrase(71.10, "all-you", notes("""
       3 4 L4== 21W3 4 loves
       1 2 ==== ===2 2 all
       4 0 ==== 3=C4 6 of
@@ -164,7 +164,7 @@ piece(63, "all-of-me", 4, 126, "48", [
       1 4 ==== ==== 2 ou
       2 Z ==== ==== 6 ."""
     )),
-    phrase("curves", 74.86, notes("""
+    phrase(74.86, "curves", notes("""
       3 4 L4== 21W2 2 love
       e = ==== ==== 6 you-
       o 2 ==== ===1 ^ r
@@ -176,10 +176,10 @@ piece(63, "all-of-me", 4, 126, "48", [
       1 0 ==== 3=C4 3 ges
       2 Z ==== ==== 5 ."""
     )),
-    lyrics("imperfections", 78.86, "all you-r per-fect im-per-fec-tions", "curves")
+    lyrics(78.86, "imperfections", "all you-r per-fect im-per-fec-tions", "curves")
   ]),
-  section("sepulchre", "C1B", [
-    phrase("give-your", 82.63, notes("""
+  section("C1B", "sepulchre", [
+    phrase(82.63, "give-your", notes("""
       3 4 L4== 21W2 3 give
       e = ==== ==== 5 your
       1 = ==== ==== 3 a-
@@ -189,7 +189,7 @@ piece(63, "all-of-me", 4, 126, "48", [
       1 9 ==== 1==1 3 e
       2 Z ==== ==== 6 ."""
     )),
-    phrase("give-my", 86.35, notes("""
+    phrase(86.35, "give-my", notes("""
       u 2 L4== 21W1 6 i'll
       3 9 ==== 1=== 3 give
       e 4 ==== 2==2 5 m-
@@ -200,11 +200,11 @@ piece(63, "all-of-me", 4, 126, "48", [
       1 4 ==== ===2 3 u
       2 Z ==== ==== 5 ."""
     )),
-    lyrics("end", 90.10, "you're m-y end and my be-gin-ing", "curves"),
-    lyrics("lose", 94.17, "e-ve-n when i lose i'm win-ning", "curves")
+    lyrics(90.10, "end", "you're m-y end and my be-gin-ing", "curves"),
+    lyrics(94.17, "lose", "e-ve-n when i lose i'm win-ning", "curves")
   ]),
-  section("altar", "C1O", [
-    phrase("i-give", 97.70, notes("""
+  section("C1O", "altar", [
+    phrase(97.70, "i-give", notes("""
       u 4 L4== 21W2 6 cause
       3 = ==== ==== 7 i
       e 5 ==== ===3 ^ give
@@ -220,15 +220,15 @@ piece(63, "all-of-me", 4, 126, "48", [
       o = ==== ==== 4 me
       u Z ==== ==== 6 ."""
     )),
-    lyrics("you-give", 105.29, "and you give me a-u-i-a-a-ll of you", "i-give"),
-    phrase("oo", 111.83, notes("""
+    lyrics(105.29, "you-give", "and you give me a-u-i-a-a-ll of you", "i-give"),
+    phrase(111.83, "oo", notes("""
       4 4 L4== 21W2 6 oh-
       o 2 ==== ===1 2 o
       3 Z ==== ==== 6 ."""
     ))
   ]),
-  section("bedroom", "V3", [
-    phrase("times", 115.05, notes("""
+  section("V3", "bedroom", [
+    phrase(115.05, "times", notes("""
       3 2 L4== 21W1 2 how
       e 4 ==== ===2 v ma-
       4 2 ==== ===1 6 ni-
@@ -243,7 +243,7 @@ piece(63, "all-of-me", 4, 126, "48", [
       1 = ==== ==== 2 you?
       2 Z ==== ==== 6 ."""
     )),
-    phrase("crying", 118.98, notes("""
+    phrase(118.98, "crying", notes("""
       3 4 L4== 21W2 2 e-
       e = ==== ==== 4 ven
       4 = ==== ==== 2 when
@@ -259,7 +259,7 @@ piece(63, "all-of-me", 4, 126, "48", [
       1 9 ==== ===2 6 oo
       2 Z ==== ==== 4 ."""
     )),
-    phrase("beating", 122.55, notes("""
+    phrase(122.55, "beating", notes("""
       u 0 L4== 31C4 6 the
       3 2 ==== 2=W1 2 w-
       c 4 ==== ===2 v orld
@@ -277,7 +277,7 @@ piece(63, "all-of-me", 4, 126, "48", [
       o 2 ==== 2=W1 2 round
       2 Z ==== ==== 6 ."""
     )),
-    phrase("mood", 128.17, notes("""
+    phrase(128.17, "mood", notes("""
       u 2 L4== 21W1 6 through
       3 4 ==== ===2 2 e-
       e 2 ==== ===1 v ve-
@@ -286,8 +286,8 @@ piece(63, "all-of-me", 4, 126, "48", [
       2 Z ==== ==== 6 ."""
     ))
   ]),
-  section("garage", "V4", [
-    phrase("downfall", 130.19, notes("""
+  section("V4", "garage", [
+    phrase(130.19, "downfall", notes("""
       p 7 L4== 21W4 2 you're
       e 4 ==== ===2 4 my
       o = ==== ==== 2 down-
@@ -297,7 +297,7 @@ piece(63, "all-of-me", 4, 126, "48", [
       o = ==== ==== 2 muse
       a Z ==== ==== 6 ."""
     )),
-    phrase("distraction", 133.97, notes("""
+    phrase(133.97, "distraction", notes("""
       u 0 L4== 31C4 6 my
       3 5 ==== 2=W3 2 w-
       e 7 ==== ===4 v orst
@@ -312,7 +312,7 @@ piece(63, "all-of-me", 4, 126, "48", [
       o 9 ==== 3=C2 2 blues
       2 Z ==== ==== 6 ."""
     )),
-    phrase("singing", 137.69, notes("""
+    phrase(137.69, "singing", notes("""
       u 4 L4== 21W2 6 i
       3 = ==== ==== 4 can't
       t = ==== ==== 6 stop
@@ -328,7 +328,7 @@ piece(63, "all-of-me", 4, 126, "48", [
       e = ==== ==== 6 in
       4 Z ==== ==== 2 ."""
     )),
-    phrase("head", 142.49, notes("""
+    phrase(142.49, "head", notes("""
       o 2 L4== 21W1 2 my
       2 Z ==== ==== 6 ,
       u 4 ==== ===2 6 h-
@@ -339,20 +339,20 @@ piece(63, "all-of-me", 4, 126, "48", [
       4 Z ==== ==== 2 ."""
     ))
   ]),
-  section("show", "B2", [
-    repeat("underwater", 146.37),
-    repeat("breathin", 150.29),
-    repeat("crazy", 153.91)
+  section("B2", "show", [
+    repeat(146.37, "underwater"),
+    repeat(150.29, "breathin"),
+    repeat(153.91, "crazy")
   ]),
-  section("mirrors", "C2A", [
-    repeat("all-me", 159.74),
-    repeat("all-you", 162.63),
-    repeat("curves", 166.38),
-    repeat("imperfections", 170.37)
+  section("C2A", "mirrors", [
+    repeat(159.74, "all-me"),
+    repeat(162.63, "all-you"),
+    repeat(166.38, "curves"),
+    repeat(170.37, "imperfections")
   ]),
-  section("sepulchre", "C2B", [
-    repeat("give-your", 175.05),
-    phrase("give-my^", 177.75, notes("""
+  section("C2B", "sepulchre", [
+    repeat(175.05, "give-your"),
+    phrase(177.75, "give-my^", notes("""
       u 4 L4== 21W2 6 i'll
       3 0 ==== 1==3 3 give
       e Y ==== ===2 5 m-
@@ -362,15 +362,15 @@ piece(63, "all-of-me", 4, 126, "48", [
       o 4 ==== ===2 3 you
       2 Z ==== ==== 5 ."""
     )),
-    repeat("end", 181.63),
-    repeat("lose", 185.64),
+    repeat(181.63, "end"),
+    repeat(185.64, "lose"),
   ]),
-  section("altar", "C2O", [
-    repeat("i-give", 189.20),
-    repeat("you-give", 196.79)
+  section("C2O", "altar", [
+    repeat(189.20, "i-give"),
+    repeat(196.79, "you-give")
   ]),
-  section("casino", "M", [
-    phrase("give-me", 204.06, notes("""
+  section("M", "casino", [
+    phrase(204.06, "give-me", notes("""
       a 5 L4== 21W3 3 give
       2 7 ==== ===4 5 me
       u Y ==== 1==2 3 a-
@@ -384,7 +384,7 @@ piece(63, "all-of-me", 4, 126, "48", [
       e 0 ==== 3=C4 ^ oh
       1 Z ==== ==== 1 ."""
     )),
-    phrase("cards", 207.59, notes("""
+    phrase(207.59, "cards", notes("""
       1 9 L4== 11W2 3 cards
       u 7 ==== 2==1 5 o-
       3 5 ==== ===4 ^ n
@@ -403,7 +403,7 @@ piece(63, "all-of-me", 4, 126, "48", [
       o = ==== ==== 6 hearts
       e Z ==== ==== 2 ."""
     )),
-    phrase("risk", 215.01, notes("""
+    phrase(215.01, "risk", notes("""
       1 9 L4== 11W1 2 ris-
       u 7 ==== 2==4 6 king
       3 5 ==== ===3 ^ it
@@ -416,24 +416,24 @@ piece(63, "all-of-me", 4, 126, "48", [
       3 Z ==== ==== 2 ."""
     ))
   ]),
-  section("mirrors", "C3A", [
-    repeat("all-me", 220.54),
-    repeat("all-you", 223.52),
-    repeat("curves", 227.34),
-    repeat("imperfections", 231.31)
+  section("C3A", "mirrors", [
+    repeat(220.54, "all-me"),
+    repeat(223.52, "all-you"),
+    repeat(227.34, "curves"),
+    repeat(231.31, "imperfections")
   ]),
-  section("sepulchre", "C3B", [
-    repeat("give-your", 235.15),
-    repeat("give-my^", 238.65),
-    repeat("end", 242.60),
-    repeat("lose", 246.55)
+  section("C3B", "sepulchre", [
+    repeat(235.15, "give-your"),
+    repeat(238.65, "give-my^"),
+    repeat(242.60, "end"),
+    repeat(246.55, "lose")
   ]),
-  section("altar", "C3O1", [
-    repeat("i-give", 250.20),
-    repeat("you-give", 257.77)
+  section("C3O1", "altar", [
+    repeat(250.20, "i-give"),
+    repeat(257.77, "you-give")
   ]),
-  section("altar", "C3O2", [
-    phrase("i-give-auaua", 265.26, notes("""
+  section("C3O2", "altar", [
+    phrase(265.26, "i-give-auaua", notes("""
       3 4 L4== 21W2 7 i
       e 5 ==== ===3 ^ give
       4 7 ==== ===4 ^ you
@@ -448,8 +448,8 @@ piece(63, "all-of-me", 4, 126, "48", [
       o = ==== ==== 4 me
       3 Z ==== ==== 6 ."""
     )),
-    repeat("you-give", 273.04),
-    phrase("ouo", 279.42, notes("""
+    repeat(273.04, "you-give"),
+    phrase(279.42, "ouo", notes("""
       4 2 L4== 21W1 6 o-
       o 4 ==== ===2 ^ u-
       1 2 ==== ===1 ^ oh

@@ -2,8 +2,8 @@
 
 # @siem reap river
 piece(35, "musette", 4, 120, "42", [
-  section("bank", "A", [
-    phrase("fishing", 9.77, notes("""
+  section("A", "bank", [
+    phrase(9.77, "fishing", notes("""
       1 7 L44= 32W4 3 i'm
       3 5 ==== ===3 5 go-
       e 4 ==== ===2 3 ing
@@ -16,7 +16,7 @@ piece(35, "musette", 4, 120, "42", [
       o 0 ==== ===0 5 ing
       1 Z ==== ==== 3 ."""
     )),
-    phrase("tackle", 14.07, notes("""
+    phrase(14.07, "tackle", notes("""
       1 4 L44= 32W2 3 go-
       a 5 ==== ===3 5 nna
       2 7 S=== ===4 3 sit
@@ -28,8 +28,8 @@ piece(35, "musette", 4, 120, "42", [
       4 0 ==== ===0 5 ckle
       1 Z ==== ==== 3 ."""
     )),
-    repeat("fishing", 17.87),
-    phrase("bait", 21.93, notes("""
+    repeat(17.87, "fishing"),
+    phrase(21.93, "bait", notes("""
       1 4 L44= 32W2 3 go-
       a 5 ==== ===3 5 nna
       2 7 S=== ===4 3 sit
@@ -41,8 +41,8 @@ piece(35, "musette", 4, 120, "42", [
       w Z ==== ==== 5 ."""
     )),
   ]),
-  section("water", "B", [
-    phrase("food", 25.84, notes("""
+  section("B", "water", [
+    phrase(25.84, "food", notes("""
       1 Y D44= 22W2 3 here
       a 0 ==== ===3 5 it
       2 2 S=== ===4 3 comes,
@@ -54,7 +54,7 @@ piece(35, "musette", 4, 120, "42", [
       3 4 L=== ===0 3 food
       1 Z ==== 2=== 5 ."""
     )),
-    phrase("steal", 29.69, notes("""
+    phrase(29.69, "steal", notes("""
       1 Y D44= 22W2 5 care-
       a 0 ==== ===3 3 ful-
       2 2 S=== ===4 5 ly,
@@ -66,8 +66,8 @@ piece(35, "musette", 4, 120, "42", [
       3 7 L=== ===0 5 it
       1 Z ==== ==== 3 ."""
     )),
-    repeat("food", 33.59),
-    phrase("strike", 37.43, notes("""
+    repeat(33.59, "food"),
+    phrase(37.43, "strike", notes("""
       1 4 S44= 12W0 5 big
       2 9 ==== ===4 ^ strike,
       3 2 ==== ===0 3 think
@@ -78,11 +78,11 @@ piece(35, "musette", 4, 120, "42", [
       1 Z ==== ==== 5 ."""
     )),
   ]),
-  section("bank", "A", [
-    repeat("fishing", 41.55),
-    repeat("tackle", 45.60),
-    repeat("fishing", 49.40),
-    repeat("bait", 53.40, 58.60)
+  section("A", "bank", [
+    repeat(41.55, "fishing"),
+    repeat(45.60, "tackle"),
+    repeat(49.40, "fishing"),
+    repeat(53.40, "bait", 58.60)
   ]),
 ])
 
