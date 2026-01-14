@@ -1,6 +1,6 @@
 # vim: foldmethod=marker foldmarker=phrase,\ ) foldtext=getline(v\:foldstart)
 
-piece(31, "allegro", 4, 135, "40", [
+piece(1031, "allegro", 4, 135, "40", [
   section("V", "1", [
     phrase(10.49, "R1"),
     phrase(14.51, "R2"),
