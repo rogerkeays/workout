@@ -229,7 +229,7 @@ piece(28, "the-juggler", 4, 90, "40", [
   ])
 ])
 
-piece(29, "from-a-wigwam", 4, 90, "40", [
+piece(1029, "from-a-wigwam", 4, 90, "40", [
   section("V", "wigwam", [
     phrase(0.69, "1"),
     phrase(4.65, "2"),
