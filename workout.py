@@ -19,15 +19,11 @@ REPS = 5
 # output preparation
 TARGET_DIR = "target"
 DRILLS_DIR = "02.drills"
-PHRASES_DIR = "03.phrases"
-SECTIONS_DIR = "04.sections"
-PIECES_DIR = "05.pieces"
+PRACTISE_DIR = "03.practise"
 os.makedirs(TARGET_DIR, exist_ok=True)
 os.chdir(TARGET_DIR)
 os.makedirs(DRILLS_DIR, exist_ok=True)
-os.makedirs(PHRASES_DIR, exist_ok=True)
-os.makedirs(SECTIONS_DIR, exist_ok=True)
-os.makedirs(PIECES_DIR, exist_ok=True)
+os.makedirs(PRACTISE_DIR, exist_ok=True)
 
 # global state
 drills = {}
@@ -158,7 +154,7 @@ def decimal_to_note(note):
 def find_mp3(piece):
   dir = MP3_DIR
   if "WORKOUT_MP3_DIR" in os.environ: dir = os.environ["WORKOUT_MP3_DIR"]
-  return dir + "/" + str(piece.number).zfill(3) + "." + piece.name + ".mp3"
+  return dir + "/" + str(piece.number).zfill(4) + "." + piece.name + ".mp3"
 
 def half(val):
   return int(val / 2)
@@ -334,7 +330,6 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
 
   if there is nothing to do at a given step, pass the function as None
   """
-  piece_numstr = str(piece.number).zfill(3)
 
   # calculate defaults
   for s, section in enumerate(piece.sections):
@@ -353,42 +348,38 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
           if n < len(phrase.notes) - 1: defaults_function(note, phrase.notes[n + 1])
 
   # create piece practise bracket
-  if len(piece.sections) > 1:
-    start = piece.sections[0].phrases[0].start
-    stop = piece.sections[-1].phrases[-1].stop
-    piece_numstr = str(piece.number).zfill(3)
-    mcd(f"{PIECES_DIR}/00.{piece_numstr}.{piece.name}")
-    cut_repeating_chunk(find_mp3(piece), start, stop, piece.meter, piece.tempo)
-    os.chdir("../..")
+  start = piece.sections[0].phrases[0].start
+  stop = piece.sections[-1].phrases[-1].stop
+  mcd(f"{PRACTISE_DIR}/00.{str(piece.number).zfill(4)}.{piece.name}")
+  cut_repeating_chunk(find_mp3(piece), start, stop, piece.meter, piece.tempo, piece.name + ".mp3")
 
   # process sections in reverse
   section_num = 0
-  for section in reversed(piece.sections):
+  for section in piece.sections:
     if not is_skipped(section):
       start = section.phrases[0].start
       stop = section.phrases[-1].stop
       section_num += 1
-      section_numstr = str(section_num).zfill(2)
-      mcd(f"{SECTIONS_DIR}/00.{piece_numstr}.{section_numstr}{section.id}.{section.label}")
-      cut_repeating_chunk(find_mp3(piece), start, stop, piece.meter, piece.tempo)
-      os.chdir("../..")
+      mcd(f"00.{str(section_num).zfill(2)}{section.id}.{section.label}")
+      cut_repeating_chunk(find_mp3(piece), start, stop, piece.meter, piece.tempo, section.label + ".mp3")
 
-      # process phrases in reverse
+      # process phrases
       phrase_num = 0
-      for phrase in reversed(section.phrases):
+      for phrase in section.phrases:
         if not phrase.skip:
           phrase_num += 1
-          phrase_numstr = str(phrase_num).zfill(2)
-          mcd(f"{PHRASES_DIR}/00.{piece_numstr}.{section_numstr}{section.id}.{phrase_numstr}.{phrase.label}")
-          cut_repeating_chunk(find_mp3(piece), phrase.start, phrase.stop, piece.meter, piece.tempo)
+          mcd(f"00.{str(phrase_num).zfill(2)}.{phrase.label}")
+          cut_repeating_chunk(find_mp3(piece), phrase.start, phrase.stop, piece.meter, piece.tempo, phrase.label + ".mp3")
           if phrase_function != None: phrase_function(piece, section, phrase)
-          os.chdir("../..")
 
           # process notes in reverse order
           notes = phrase.notes
           for i in reversed(range(len(notes))):
             if i < len(notes) - 2 and transition_function != None: transition_function(piece.tempo, notes[i], notes[i+1], notes[i+2])
             if i < len(notes) - 1 and note_function != None: note_function(piece.tempo, notes[i], notes[i+1])
+          os.chdir("..")
+      os.chdir("..")
+  os.chdir("../..")
 
   make_metronome(piece.tempo)
 
