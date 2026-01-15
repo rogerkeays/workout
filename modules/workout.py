@@ -5,8 +5,9 @@ import sys, os, inspect, tempfile, math, shutil
 from dataclasses import dataclass
 
 # configuration: all durations are in seconds
-MAKE_MP3S = True if ("WORKOUT_SKIP_MP3S" not in os.environ) else False
+MAKE_MP3S = True if "WORKOUT_SKIP_MP3S" not in os.environ else False
 CACHE_DIR = os.environ["HOME"] + "/.cache/workout"
+BROWSER = "chrome" if "BROWSER" not in os.environ else os.environ["BROWSER"]
 NUM_PADDING = 5
 DRILL_LENGTH = 180
 METRONOME_INSTRUMENT = 116 - 1 # woodblock
@@ -96,12 +97,14 @@ def cut_audio_chunk(source, start, stop, outfile):
     fade_start = stop - start
     os.system(f"""
     ffmpeg -nostdin -loglevel error -ss {start} -to {to} -i {source} -ac 1 -ar 48000 -q 4 \
+           -af volume=replaygain=track:replaygain_noclip=0 \
            -af afade=t=out:st={fade_start}:d={FADE_LENGTH} "{outfile}" """)
 
 def cut_video_chunk(source, start, stop, outfile):
   if MAKE_MP3S and not os.path.exists(outfile):
     os.system(f"""
       ffmpeg -nostdin -loglevel error -ss {start} -to {stop} -i {source} -vcodec h263 -acodec aac \
+             -af volume=replaygain=track:replaygain_noclip=0 \
              -vf "scale=176:144:force_original_aspect_ratio=decrease,pad=176:144:(ow-iw)/2:(oh-ih)/2" "{outfile}" """)
 
 def decimal_to_note(note):
@@ -114,7 +117,8 @@ def get_video(id):
   video_file = f"{CACHE_DIR}/{id}.mp4"
   if MAKE_MP3S and not os.path.exists(video_file):
     os.makedirs(CACHE_DIR, exist_ok=True)
-    os.system(f"yt-dlp https://www.youtube.com/watch?v={id} -o '{video_file}'")
+    os.system(f"yt-dlp --cookies-from-browser {BROWSER} https://www.youtube.com/watch?v={id} -o '{video_file}'")
+    os.system(f"loudgain --pregain=5 --clip --tagmode=i '{video_file}'")
   return video_file
 
 def half(val):
