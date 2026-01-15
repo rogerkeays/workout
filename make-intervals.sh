@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $(dirname $0)/make-patterns
+source $(dirname $0)/make-patterns.sh
 
 INSTRUMENT=1
 DIR=$OUTDIR/intervals

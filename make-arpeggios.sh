@@ -2,7 +2,7 @@
 
 INSTRUMENT=57
 
-source make-patterns
+source make-patterns.sh
 
 generate_scales arpeggios/major-1 "
   X:0

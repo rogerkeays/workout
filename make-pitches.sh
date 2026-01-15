@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source make-patterns
+source make-patterns.sh
 
 DIR=$OUTDIR/pitches
 mkdir -p $DIR

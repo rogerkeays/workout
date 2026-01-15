@@ -1,7 +1,7 @@
 # vim: filetype=sh
 
 INSTRUMENT=57
-OUTDIR=$HOME/library/workout
+OUTDIR=target
 mkdir -p $OUTDIR
 
 #

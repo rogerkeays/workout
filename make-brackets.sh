@@ -37,7 +37,7 @@ cut_bracket() {
 
 # set up the environment
 name=$1; silence=5; padding=3; format=mp3; count=1
-outputdir=00.$name
+outputdir=target/00.$name
 [ -d $outputdir ] || mkdir "$outputdir"
 
 # temporary files

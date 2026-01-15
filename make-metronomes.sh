@@ -2,7 +2,7 @@
 
 INSTRUMENT=116 # woodblock
 
-source make-patterns
+source make-patterns.sh
 
 PAT=cGEC
 generate_tempos metronome/4x64 "
