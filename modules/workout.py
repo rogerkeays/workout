@@ -20,10 +20,6 @@ REPS = 5
 TARGET_DIR = "target"
 DRILLS_DIR = "02.drills"
 PRACTISE_DIR = "03.practise"
-os.makedirs(TARGET_DIR, exist_ok=True)
-os.chdir(TARGET_DIR)
-os.makedirs(DRILLS_DIR, exist_ok=True)
-os.makedirs(PRACTISE_DIR, exist_ok=True)
 
 # global state
 drills = {}
@@ -56,6 +52,7 @@ class Section:
 
 @dataclass # Piece
 class Piece:
+  instrument: str
   number: int
   name: str
   meter: int
@@ -73,7 +70,7 @@ def phrase(start, label, notes=[], stop=0, skip=False):
 
 def piece(number, name, meter, tempo, tonic, sections):
   "construct and process a piece in one step)"
-  process_piece(Piece(number, name, meter, tempo, tonic, sections), None, None, None, None)
+  process_piece(Piece("workout", number, name, meter, tempo, tonic, sections), None, None, None, None)
 
 def repeat(start, id, stop=0):
   """
@@ -139,7 +136,7 @@ def make_bracket(mp3, start, stop, meter, tempo, outfile="00000.mp3"):
       os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
                            -codec copy "{outfile}" """)
 
-def make_drill(params={}, reps=5):
+def make_drill(instrument, params={}, reps=5):
   "make a drill card, ensuring it is unique, and formatting it appropriately as a text file"
 
   # format drill card
@@ -154,14 +151,16 @@ def make_drill(params={}, reps=5):
         text += str(params[key]) + "\n"
 
   # add or increment the collection
-  if text in drills:
-    drills[text] += 1
+  if instrument not in drills:
+    drills[instrument] = {}
+  if text in drills[instrument]:
+    drills[instrument][text] += 1
     return False
   else:
-    drills[text] = 1
+    drills[instrument][text] = 1
     return True
 
-def make_drone(note):
+def make_drone(instrument, note):
   """
     make a drone of a single pitch which lasts for DRILL_LENGTH seconds
     and finishes with an alarm
@@ -177,7 +176,7 @@ def make_drone(note):
     %%MIDI program {GUNSHOT_INSTRUMENT}
     Q:60
     K:C
-    |cccc|z4""", DRILLS_DIR + "/=P0" + note + ".mp3")
+    |cccc|z4""", f"../../../{instrument}/{DRILLS_DIR}/=P0{note}.mp3")
 
 def make_intro(meter, tempo, outfile):
   make_mp3(f"""
@@ -213,9 +212,9 @@ def make_hash(name, params):
   if "rhythm" in keys: keys["rhythm"] = shift_rhythm(keys["rhythm"])
   return name + str(keys)
 
-def make_metronome(tempo):
+def make_metronome(instrument, tempo):
   """
-    make a metronome with the given tempo which goes for DRILL_LENGTH seconds
+    make a metronome for the given piece which goes for DRILL_LENGTH seconds
     before sounding an alarm
   """
   if MAKE_MP3S:
@@ -238,7 +237,7 @@ def make_metronome(tempo):
       %%MIDI program {GUNSHOT_INSTRUMENT}
       Q:60
       {"|c" * 4}
-      """, DRILLS_DIR + "/" + filename)
+      """, f"{TARGET_DIR}/{instrument}/{DRILLS_DIR}/{filename}")
 
 def make_mp3(score, filename):
   "convert an abc score to an mp3 file"
@@ -305,6 +304,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
 
   if there is nothing to do at a given step, pass the function as None
   """
+  os.makedirs(f"{TARGET_DIR}/{piece.instrument}/{DRILLS_DIR}", exist_ok=True)
 
   # calculate defaults
   for s, section in enumerate(piece.sections):
@@ -325,7 +325,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
   # create piece practise bracket
   start = piece.sections[0].phrases[0].start
   stop = piece.sections[-1].phrases[-1].stop
-  mcd(f"{PRACTISE_DIR}/00.{str(piece.number).zfill(4)}.{piece.name}")
+  mcd(f"{TARGET_DIR}/{piece.instrument}/{PRACTISE_DIR}/00.{str(piece.number).zfill(4)}.{piece.name}")
   make_bracket(find_mp3(piece), start, stop, piece.meter, piece.tempo, piece.name + ".mp3")
 
   # process sections in reverse
@@ -354,9 +354,9 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
             if i < len(notes) - 1 and note_function != None: note_function(piece.tempo, notes[i], notes[i+1])
           os.chdir("..")
       os.chdir("..")
-  os.chdir("../..")
+  os.chdir("../../../..")
 
-  make_metronome(piece.tempo)
+  make_metronome(piece.instrument, piece.tempo)
 
 def process_scores(score_files, globals):
   """
@@ -364,7 +364,7 @@ def process_scores(score_files, globals):
     all the drill and processing functions have been declared.
   """
   for file in score_files:
-    with open("../" + file) as score:
+    with open(file) as score:
       exec(score.read(), globals)
 
   # output collected drills
@@ -387,10 +387,11 @@ def strip_multiline(string):
   return '\n'.join(line.strip() for line in string.splitlines())
 
 def write_drill_cards():
-  sorted_drills = dict(sorted(drills.items(), key=lambda x: x[1], reverse=True))
-  num = 0
-  for text in sorted_drills:
-    with open(DRILLS_DIR + "/" + str(num).zfill(NUM_PADDING) + ".txt", "w") as f: f.write(text)
-    num += 1
+  for instrument, counted_drills in drills.items():
+    sorted_drills = dict(sorted(counted_drills.items(), key=lambda x: x[1], reverse=True))
+    num = 0
+    for text in sorted_drills:
+      with open(f"{TARGET_DIR}/{instrument}/{DRILLS_DIR}/{str(num).zfill(NUM_PADDING)}.txt", "w") as f: f.write(text)
+      num += 1
 
 

@@ -6,7 +6,7 @@ from modules.workout import *
 def guitar(number, name, meter, tempo, tonic, sections):
   "construct and process a piece in one step)"
   set_mp3_dir(os.environ['HOME'] + "/library/workout/guitar/00.inbox")
-  process_piece(Piece(number, name, meter, tempo, tonic, sections), None, None, None, None)
+  process_piece(Piece("guitar", number, name, meter, tempo, tonic, sections), None, None, None, None)
 
 
 # drills

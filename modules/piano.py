@@ -10,6 +10,6 @@ from dataclasses import dataclass
 def piano(number, name, meter, tempo, tonic, sections):
   "construct and process a piece in one step)"
   set_mp3_dir(os.environ['HOME'] + "/library/workout/piano/00.inbox")
-  process_piece(Piece(number, name, meter, tempo, tonic, sections), None, None, None, None)
+  process_piece(Piece("piano", number, name, meter, tempo, tonic, sections), None, None, None, None)
 
 
