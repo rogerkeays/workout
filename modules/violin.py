@@ -122,13 +122,13 @@ def process_phrase(piece, section, phrase):
   tempo = piece.tempo
 
   # phrase drills
-  make_phrase_drill(1, "lyrics recall", tempo, notes, lambda n: n.label, 1)
-  make_phrase_drill(2, "rhythm recall", tempo, notes, lambda n: f"{n.beat} {n.label}", 1)
-  make_phrase_drill(3, "melody recall", tempo, notes, lambda n: f"{n.beat} {n.degree} {n.label}", 1)
-  make_phrase_drill(4, "bowing recall", tempo, notes, lambda n: f"{n.beat} {n.degree} {n.bow_position} {n.label}", 1)
-  make_phrase_drill(5, "open strings", tempo, notes, lambda n: n.to_compact_string(), 5)
-  make_phrase_drill(6, "mp3 play", tempo, notes, lambda n: n.to_compact_string(), 5)
-  make_phrase_drill(7, "metronome play", tempo, notes, lambda n: n.to_compact_string(), 5)
+  make_flashcard(1, "lyrics recall", tempo, notes, lambda n: n.label, 1)
+  make_flashcard(2, "rhythm recall", tempo, notes, lambda n: f"{n.beat} {n.label}", 1)
+  make_flashcard(3, "melody recall", tempo, notes, lambda n: f"{n.beat} {n.degree} {n.label}", 1)
+  make_flashcard(4, "bowing recall", tempo, notes, lambda n: f"{n.beat} {n.degree} {n.bow_position} {n.label}", 1)
+  make_flashcard(5, "open strings", tempo, notes, lambda n: n.to_compact_string(), 5)
+  make_flashcard(6, "mp3 play", tempo, notes, lambda n: n.to_compact_string(), 5)
+  make_flashcard(7, "metronome play", tempo, notes, lambda n: n.to_compact_string(), 5)
 
 def process_transition(tempo, note, next, stop):
   rhythm = note.beat + next.beat + stop.beat

@@ -195,6 +195,14 @@ def make_drone(instrument, note):
     K:C
     |cccc|z4""", f"../../../{instrument}/{DRILLS_DIR}/=P0{note}.mp3")
 
+def make_flashcard(num, name, tempo, notes, to_string, reps=1):
+  if len(notes) == 0: return
+
+  # format drill card
+  text = f"{name} @{tempo} x{reps}\n"
+  for note in notes: text += to_string(note) + "\n"
+  with open(str(num).zfill(NUM_PADDING) + ".txt", "w") as f: f.write(text)
+
 def make_intro(meter, tempo, outfile):
   make_mp3(f"""
     X:0
@@ -265,14 +273,6 @@ def make_mp3(score, filename):
           fluidsynth --quiet --fast-render {tmpdir}/out.wav --gain 5 --sample-rate 48000 {tmpdir}/out.midi
           ffmpeg -loglevel error -i {tmpdir}/out.wav -ac 1 -q 4 "{filename}"
           """)
-
-def make_phrase_drill(num, name, tempo, notes, to_string, reps=1):
-  if len(notes) == 0: return
-
-  # format drill card
-  text = f"{name} @{tempo} x{reps}\n"
-  for note in notes: text += to_string(note) + "\n"
-  with open(str(num).zfill(NUM_PADDING) + ".txt", "w") as f: f.write(text)
 
 def make_silence(seconds, outfile):
   os.system(f"ffmpeg -nostdin -loglevel error -f lavfi -i anullsrc=r=48000:cl=mono -t {seconds} {outfile}")
