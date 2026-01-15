@@ -49,10 +49,8 @@ def notes(text: str) -> list[Note]:
   """
   return list(map(parse_violin_note, filter(lambda x: len(x) > 0, map(str.strip, text.split("\n")))))
 
-def violin(number, label, meter, tempo, tonic, sections):
-  "construct and process a piece in one step"
-  set_mp3_dir(os.environ['HOME'] + "/library/workout/violin/00.inbox")
-  process_piece(Piece("violin", number, label, meter, tempo, tonic, sections),
+def violin(video_id, number, label, meter, tempo, tonic, sections):
+  process_piece(Piece("violin", video_id, number, label, meter, tempo, tonic, sections),
       calculate_defaults, process_phrase, process_transition, process_note)
 
 

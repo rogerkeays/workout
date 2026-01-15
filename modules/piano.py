@@ -7,9 +7,7 @@ from dataclasses import dataclass
 #@dataclass # PianoNote
 #class PianoNote(Note):
 
-def piano(number, name, meter, tempo, tonic, sections):
-  "construct and process a piece in one step)"
-  set_mp3_dir(os.environ['HOME'] + "/library/workout/piano/00.inbox")
-  process_piece(Piece("piano", number, name, meter, tempo, tonic, sections), None, None, None, None)
+def piano(video_id, number, name, meter, tempo, tonic, sections):
+  process_piece(Piece("piano", video_id, number, name, meter, tempo, tonic, sections), None, None, None, None)
 
 

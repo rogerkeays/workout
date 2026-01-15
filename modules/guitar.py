@@ -3,15 +3,12 @@
 from modules.workout import *
 
 # constructors
-def guitar(number, name, meter, tempo, tonic, sections):
-  "construct and process a piece in one step)"
-  set_mp3_dir(os.environ['HOME'] + "/library/workout/guitar/00.inbox")
-  process_piece(Piece("guitar", number, name, meter, tempo, tonic, sections), None, None, None, None)
+def guitar(video_id, number, name, meter, tempo, tonic, sections):
+  process_piece(Piece("guitar", video_id, number, name, meter, tempo, tonic, sections), None, None, None, None)
 
 
 # drills
 def strumming(tempo, lyrics, rhythm, directions, chords, start, stop):
-
   # capture parameters
   params = locals()
   del params["start"]

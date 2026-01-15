@@ -6,7 +6,7 @@ from dataclasses import dataclass
 
 # configuration: all durations are in seconds
 MAKE_MP3S = True if ("WORKOUT_SKIP_MP3S" not in os.environ) else False
-MP3_DIR = "."
+CACHE_DIR = os.environ["HOME"] + "/.cache/workout"
 NUM_PADDING = 5
 DRILL_LENGTH = 180
 METRONOME_INSTRUMENT = 116 - 1 # woodblock
@@ -53,6 +53,7 @@ class Section:
 @dataclass # Piece
 class Piece:
   instrument: str
+  video_id: str
   number: int
   name: str
   meter: int
@@ -68,9 +69,9 @@ def phrase(start, label, notes=[], stop=0, skip=False):
   all_phrases[label] = p
   return p
 
-def piece(number, name, meter, tempo, tonic, sections):
+def piece(video_id, number, name, meter, tempo, tonic, sections):
   "construct and process a piece in one step)"
-  process_piece(Piece("workout", number, name, meter, tempo, tonic, sections), None, None, None, None)
+  process_piece(Piece("workout", video_id, number, name, meter, tempo, tonic, sections), None, None, None, None)
 
 def repeat(start, id, stop=0):
   """
@@ -89,13 +90,17 @@ def add(note, interval):
   "add base-12 notes and intervals"
   return decimal_to_note(note_to_decimal(note) + note_to_decimal(interval))
 
-def cut_chunk(mp3, start, stop, outfile):
+def cut_audio_chunk(source, start, stop, outfile):
   if MAKE_MP3S and not os.path.exists(outfile):
     to = stop + FADE_LENGTH
     fade_start = stop - start
     os.system(f"""
-    ffmpeg -nostdin -loglevel error -ss {start} -to {to} -i {mp3} -ac 1 -ar 48000 -q 4 \
+    ffmpeg -nostdin -loglevel error -ss {start} -to {to} -i {source} -ac 1 -ar 48000 -q 4 \
            -af afade=t=out:st={fade_start}:d={FADE_LENGTH} "{outfile}" """)
+
+def cut_video_chunk(source, start, stop, outfile):
+  if MAKE_MP3S and not os.path.exists(outfile):
+    os.system(f"ffmpeg -nostdin -loglevel error -ss {start} -to {stop} -i {source} -vcodec copy -acodec copy {outfile}")
 
 def decimal_to_note(note):
   if not note:
@@ -103,10 +108,12 @@ def decimal_to_note(note):
   else:
     return decimal_to_note(note // 12).lstrip("0") + "0123456789XY"[note % 12]
 
-def find_mp3(piece):
-  dir = MP3_DIR
-  if "WORKOUT_MP3_DIR" in os.environ: dir = os.environ["WORKOUT_MP3_DIR"]
-  return dir + "/" + str(piece.number).zfill(4) + "." + piece.name + ".mp3"
+def get_video(id):
+  video_file = f"{CACHE_DIR}/{id}.mp4"
+  if MAKE_MP3S and not os.path.exists(video_file):
+    os.makedirs(CACHE_DIR, exist_ok=True)
+    os.system(f"yt-dlp -t mp4 https://www.youtube.com/watch?v={id} -o '{video_file}'")
+  return video_file
 
 def half(val):
   return int(val / 2)
@@ -116,13 +123,16 @@ def is_skipped(section):
     if p.skip == False: return False
   return True
 
-def make_bracket(mp3, start, stop, meter, tempo, outfile="00000.mp3"):
-  if MAKE_MP3S and not os.path.exists(outfile):
+def make_bracket(piece, start, stop, label):
+  # create audio bracket
+  source = get_video(piece.video_id)
+  audio_output = f"{label}.mp3"
+  if MAKE_MP3S and not os.path.exists(audio_output):
     with tempfile.TemporaryDirectory() as tmpdir:
 
       # generate chunks for repetition
-      make_intro(meter, tempo, tmpdir + "/intro.mp3")
-      cut_chunk(mp3, start, stop, tmpdir + "/chunk.mp3")
+      make_intro(piece.meter, piece.tempo, tmpdir + "/intro.mp3")
+      cut_audio_chunk(source, start, stop, tmpdir + "/chunk.mp3")
       make_gunshot(tmpdir + "/gunshot.mp3")
 
       # repeat for the duration of the drill
@@ -134,7 +144,12 @@ def make_bracket(mp3, start, stop, meter, tempo, outfile="00000.mp3"):
 
       # concatenate the chunks
       os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
-                           -codec copy "{outfile}" """)
+                           -codec copy "{audio_output}" """)
+
+  # create video bracket
+  video_output = f"{label}.mp4"
+  if MAKE_MP3S and not os.path.exists(video_output):
+    cut_video_chunk(source, start, stop, f"{label}.mp4")
 
 def make_drill(instrument, params={}, reps=5):
   "make a drill card, ensuring it is unique, and formatting it appropriately as a text file"
@@ -326,17 +341,17 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
   start = piece.sections[0].phrases[0].start
   stop = piece.sections[-1].phrases[-1].stop
   mcd(f"{TARGET_DIR}/{piece.instrument}/{PRACTISE_DIR}/00.{str(piece.number).zfill(4)}.{piece.name}")
-  make_bracket(find_mp3(piece), start, stop, piece.meter, piece.tempo, piece.name + ".mp3")
+  make_bracket(piece, start, stop, piece.name)
 
   # process sections in reverse
   section_num = 0
   for section in piece.sections:
     if not is_skipped(section):
+      section_num += 1
       start = section.phrases[0].start
       stop = section.phrases[-1].stop
-      section_num += 1
       mcd(f"00.{str(section_num).zfill(2)}{section.id}.{section.label}")
-      make_bracket(find_mp3(piece), start, stop, piece.meter, piece.tempo, section.label + ".mp3")
+      make_bracket(piece, start, stop, section.label)
 
       # process phrases
       phrase_num = 0
@@ -344,7 +359,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
         if not phrase.skip:
           phrase_num += 1
           mcd(f"00.{str(phrase_num).zfill(2)}.{phrase.label}")
-          make_bracket(find_mp3(piece), phrase.start, phrase.stop, piece.meter, piece.tempo, phrase.label + ".mp3")
+          make_bracket(piece, phrase.start, phrase.stop, phrase.label)
           if phrase_function != None: phrase_function(piece, section, phrase)
 
           # process notes in reverse order
@@ -369,10 +384,6 @@ def process_scores(score_files, globals):
 
   # output collected drills
   write_drill_cards()
-
-def set_mp3_dir(dir):
-  global MP3_DIR
-  MP3_DIR = dir
 
 def shift_rhythm(rhythm):
   "shift a rhythm pattern to start on the first beat"
