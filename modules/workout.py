@@ -100,7 +100,9 @@ def cut_audio_chunk(source, start, stop, outfile):
 
 def cut_video_chunk(source, start, stop, outfile):
   if MAKE_MP3S and not os.path.exists(outfile):
-    os.system(f"ffmpeg -nostdin -loglevel error -ss {start} -to {stop} -i {source} -vcodec copy -acodec copy {outfile}")
+    os.system(f"""
+      ffmpeg -nostdin -loglevel error -ss {start} -to {stop} -i {source} -vcodec h263 -acodec aac \
+             -vf "scale=176:144:force_original_aspect_ratio=decrease,pad=176:144:(ow-iw)/2:(oh-ih)/2" "{outfile}" """)
 
 def decimal_to_note(note):
   if not note:
@@ -147,9 +149,9 @@ def make_bracket(piece, start, stop, label):
                            -codec copy "{audio_output}" """)
 
   # create video bracket
-  video_output = f"{label}.mp4"
+  video_output = f"{label}.3gp"
   if MAKE_MP3S and not os.path.exists(video_output):
-    cut_video_chunk(source, start, stop, f"{label}.mp4")
+    cut_video_chunk(source, start, stop, video_output)
 
 def make_drill(instrument, params={}, reps=5):
   "make a drill card, ensuring it is unique, and formatting it appropriately as a text file"
