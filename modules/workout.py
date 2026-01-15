@@ -23,7 +23,7 @@ PRACTISE_DIR = "03.practise"
 
 # global state
 drills = {}
-all_phrases = {}
+phrases = {}
 
 # data structures
 @dataclass # Note
@@ -66,7 +66,7 @@ class Piece:
 def phrase(start, label, notes=[], stop=0, skip=False):
   "constructor for phrases, which keeps a reference to the phrases created"
   p = Phrase(start, label, notes, stop, skip)
-  all_phrases[label] = p
+  phrases[label] = p
   return p
 
 def piece(number, name, video_id, meter, tempo, tonic, sections):
@@ -79,7 +79,7 @@ def repeat(start, id, stop=0):
     New mp3 start and stop times can be provided if desired. This function
     does not clone the notes.
   """
-  return Phrase(start, id, all_phrases[id].notes, stop, True)
+  return Phrase(start, id, phrases[id].notes, stop, True)
 
 def section(id, label, phrases):
   return Section(id, label, phrases)
