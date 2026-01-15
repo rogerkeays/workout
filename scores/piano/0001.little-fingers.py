@@ -1,240 +1,240 @@
 # vim: foldmethod=marker foldmarker=phrase,\ ) foldtext=getline(v\:foldstart)
 
-piano(1, "birthday-party", 2, 90, "40", [
+piano(1, "birthday-party", "brTGKq5fGkM", 2, 60, "40", [
   section("V", "party", [
-    phrase(0.66, "row"),
-    phrase(5.22, "party", [], 9.72)
+    phrase(4.71, "row"),
+    phrase(9.87, "party", [], 15.05)
   ])
 ])
 
-piano(2, "sandmans-near", 2, 90, "40", [
+piano(2, "sandmans-near", "brTGKq5fGkM", 2, 60, "40", [
   section("V", "bedroom", [
-    phrase(2.52, "dolly"),
-    phrase(6.97, "sleeping", [], 11.52)
+    phrase(17.26, "dolly"),
+    phrase(22.28, "sleeping", [], 27.28)
   ])
 ])
 
-piano(3, "baseball-days", 2, 90, "40", [
+piano(3, "baseball-days", "brTGKq5fGkM", 2, 60, "40", [
   section("V", "stadium", [
-    phrase(3.37, "boys"),
-    phrase(7.61, "days", [], 11.96)
+    phrase(29.61, "boys"),
+    phrase(34.55, "days", [], 39.77)
   ])
 ])
 
-piano(4, "the-postman", 3, 90, "40", [
+piano(4, "the-postman", "brTGKq5fGkM", 3, 60, "40", [
   section("V", "post-office", [
-    phrase(1.45, "postman"),
-    phrase(6.37, "letters", [], 10.97)
+    phrase(41.93, "postman"),
+    phrase(49.24, "letters", [], 57.08)
   ])
 ])
 
-piano(5, "rain-on-the-roof", 4, 90, "40", [
+piano(5, "rain-on-the-roof", "brTGKq5fGkM", 4, 60, "40", [
   section("V", "roof", [
-    phrase(1.77, "pitter"),
-    phrase(6.44, "calling", [], 11.30)
+    phrase(58.71, "pitter"),
+    phrase(68.21, "calling", [], 77.95)
   ])
 ])
 
-piano(6, "song-of-the-volga-boatmen", 4, 90, "40", [
+piano(6, "song-of-the-volga-boatmen", "brTGKq5fGkM", 4, 60, "40", [
   section("V", "river", [
-    phrase(2.10, "yo-ho"),
-    phrase(8.70, "pull", [], 16.09)
+    phrase(80.20, "yo-ho"),
+    phrase(88.85, "pull", [], 99.05)
   ])
 ])
 
-piano(7, "a-message", 4, 90, "40", [
+piano(7, "a-message", "brTGKq5fGkM", 4, 60, "40", [
   section("V", "door", [
-    phrase(1.56, "knocking"),
-    phrase(4.61, "letter"),
-    phrase(7.59, "ring"),
-    phrase(10.61, "bell", [], 13.84)
+    phrase(100.76, "knocking"),
+    phrase(105.25, "letter"),
+    phrase(109.77, "ring"),
+    phrase(114.23, "bell", [], 118.79)
   ])
 ])
 
-piano(8, "chimes", 3, 90, "40", [
+piano(8, "chimes", "brTGKq5fGkM", 3, 60, "40", [
   section("V", "clock-tower", [
-    phrase(1.43, "ding"),
-    phrase(3.91, "ring"),
-    phrase(6.32, "towr"),
-    phrase(8.73, "hour"),
-    phrase(11.17, "dong", [], 16.78)
+    phrase(120.00, "ding"),
+    phrase(123.96, "ring"),
+    phrase(127.81, "towr"),
+    phrase(131.50, "hour"),
+    phrase(135.26, "dong", [], 142.89)
   ])
 ])
 
-piano(9, "good-king-wencelas", 2, 90, "40", [
+piano(9, "good-king-wencelas", "brTGKq5fGkM", 2, 60, "40", [
   section("V", "castle", [
-    phrase(2.96, "king"),
-    phrase(6.15, "feast"),
-    phrase(9.22, "snow"),
-    phrase(12.34, "crisp", [], 15.61)
+    phrase(144.81, "king"),
+    phrase(149.25, "feast"),
+    repeat(153.68, "king"),
+    repeat(158.02, "feast", 162.40)
   ])
 ])
 
-piano(10, "lazy-mary", 3, 90, "40", [
+piano(10, "lazy-mary", "brTGKq5fGkM", 3, 60, "40", [
   section("V", "marys-room", [
-    phrase(1.42, "lazy"),
-    phrase(5.76, "will"),
-    repeat(10.83, "lazy"),
-    phrase(15.03, "late", [], 20.25)
+    phrase(163.22, "lazy"),
+    phrase(170.27, "will"),
+    repeat(177.46, "lazy"),
+    phrase(183.34, "late", [], 190.46)
   ])
 ])
 
-piano(11, "betty-and-bill", 3, 90, "40", [
+piano(11, "betty-and-bill", "brTGKq5fGkM", 3, 60, "40", [
   section("V", "hill", [
-    phrase(1.55, "galloping"),
-    phrase(5.74, "frolic", [], 10.05)
+    phrase(192.55, "galloping"),
+    phrase(199.37, "frolic", [], 206.27)
   ])
 ])
 
-piano(12, "flying-to-the-moon", 2, 90, "40", [
+piano(12, "flying-to-the-moon", "brTGKq5fGkM", 2, 60, "40", [
   section("V", "moon", [
-    phrase(2.02, "flying"),
-    phrase(5.98, "moon", [], 9.55)
+    phrase(210.25, "flying"),
+    phrase(215.98, "moon", [], 221.80)
   ])
 ])
 
-piano(13, "air", 2, 90, "40", [
+piano(13, "air", "brTGKq5fGkM", 2, 60, "40", [
   section("V", "clouds", [
-    phrase(1.44, "haydn"),
-    phrase(3.77, "lingers"),
-    phrase(6.00, "bliss"),
-    phrase(8.16, "tunes", [], 10.64)
+    phrase(223.57, "haydn"),
+    phrase(227.29, "lingers"),
+    phrase(231.12, "bliss"),
+    phrase(234.90, "tunes", [], 239.26)
   ])
 ])
 
-piano(14, "by-the-pond", 2, 90, "40", [
+piano(14, "by-the-pond", "brTGKq5fGkM", 2, 60, "40", [
   section("V", "pond", [
-    phrase(3.45, "quack"),
-    phrase(7.54, "croak", [], 11.28)
+    phrase(241.49, "quack"),
+    phrase(249.11, "croak", [], 256.96)
   ])
 ])
 
-piano(15, "paper-ships", 4, 90, "40", [
+piano(15, "paper-ships", "brTGKq5fGkM", 4, 60, "40", [
   section("V", "wharf", [
-    phrase(2.63, "ships"),
-    phrase(7.45, "captain", [], 12.41)
+    phrase(258.86, "ships"),
+    phrase(267.86, "captain", [], 277.29)
   ])
 ])
 
-piano(16, "sledding", 3, 90, "40", [
+piano(16, "sledding", "brTGKq5fGkM", 3, 60, "40", [
   section("V", "snow", [
-    phrase(2.80, "snowflakes"),
-    phrase(8.06, "sledding", [], 13.37)
+    phrase(280.96, "snowflakes"),
+    phrase(287.19, "sledding", [], 293.97)
   ])
 ])
 
-piano(17, "the-butterfly", 4, 90, "40", [
+piano(17, "the-butterfly", "brTGKq5fGkM", 4, 60, "40", [
   section("V", "garden", [
-    phrase(1.07, "butterfly"),
-    phrase(10.32, "flying", [], 19.13)
+    phrase(297.06, "butterfly"),
+    phrase(309.56, "flying", [], 321.64)
   ])
 ])
 
-piano(18, "questions", 2, 90, "40", [
+piano(18, "questions", "brTGKq5fGkM", 2, 60, "40", [
   section("V", "circus", [
-    phrase(2.01, "tall"),
-    phrase(5.66, "small", [], 9.49)
+    phrase(324.83, "tall"),
+    phrase(328.89, "small", [], 333.67)
   ])
 ])
 
-piano(19, "toy-soldiers", 4, 90, "40", [
+piano(19, "toy-soldiers", "brTGKq5fGkM", 4, 60, "40", [
   section("V", "playroom", [
-    phrase(2.05, "soldiers"),
-    phrase(6.83, "battle"),
-    phrase(11.66, "rank"),
-    phrase(16.46, "onward", [], 21.67)
+    phrase(383.79, "soldiers"),
+    phrase(391.78, "battle"),
+    repeat(399.33, "soldiers"),
+    phrase(406.71, "onward", [], 414.17)
   ])
 ])
 
-piano(20, "big-ships", 3, 90, "40", [
+piano(20, "big-ships", "brTGKq5fGkM", 3, 60, "40", [
   section("V", "sea", [
-    phrase(1.27, "sailing"),
-    phrase(4.82, "sea"),
-    phrase(8.43, "going"),
-    phrase(11.89, "tell", [], 15.73)
+    phrase(415.58, "sailing"),
+    phrase(422.46, "sea"),
+    repeat(429.46, "sailing"),
+    phrase(436.37, "tell", [], 444.01)
   ])
 ])
 
-piano(21, "steamboat-round-the-bend", 2, 90, "40", [
+piano(21, "steamboat-round-the-bend", "brTGKq5fGkM", 2, 60, "40", [
   section("V", "steamboat", [
-    phrase(4.00, "mississippi"),
-    phrase(8.80, "chug", [], 13.14)
+    phrase(446.32, "mississippi"),
+    phrase(454.96, "chug", [], 463.17)
   ])
 ])
 
-piano(22, "comin-round-the-mountain", 4, 90, "45", [
+piano(22, "comin-round-the-mountain", "brTGKq5fGkM", 4, 60, "45", [
   section("V", "mountain", [
-    phrase(1.53, "1"),
-    phrase(5.74, "2"),
-    phrase(9.99, "3"),
-    phrase(14.10, "4", [], 18.44)
+    phrase(467.27, "1"),
+    phrase(476.93, "2"),
+    phrase(486.47, "3"),
+    phrase(495.75, "4", [], 505.75)
   ])
 ])
 
-piano(23, "the-long-trail", 3, 90, "40", [
+piano(23, "the-long-trail", "brTGKq5fGkM", 3, 60, "40", [
   section("V", "rockies", [
-    phrase(3.78, "hiking"),
-    phrase(8.55, "fun"),
-    phrase(13.45, "climbing"),
-    phrase(18.20, "down", [], 22.62)
+    phrase(507.72, "hiking"),
+    phrase(514.56, "fun"),
+    phrase(521.36, "climbing"),
+    phrase(527.94, "down", [], 534.48)
   ])
 ])
 
-piano(24, "the-bee", 2, 90, "40", [
+piano(24, "the-bee", "brTGKq5fGkM", 2, 60, "40", [
   section("V", "grass", [
-    phrase(2.53, "buzzing"),
-    phrase(5.83, "pass", [], 9.34)
+    phrase(538.93, "buzzing"),
+    phrase(546.03, "pass", [], 553.30)
   ])
 ])
 
-piano(25, "my-bonnie", 4, 90, "40", [
+piano(25, "my-bonnie", "brTGKq5fGkM", 4, 60, "40", [
   section("V", "island", [
-    phrase(1.70, "bonnie"),
-    phrase(5.92, "sea"),
-    repeat(10.07, "bonnie"),
-    phrase(14.21, "me", [], 17.64)
+    phrase(555.13, "bonnie"),
+    phrase(561.98, "sea"),
+    repeat(568.65, "bonnie"),
+    phrase(575.40, "me", [], 582.24)
   ])
 ])
 
-piano(26, "vacation-time", 3, 90, "40", [
+piano(26, "vacation-time", "brTGKq5fGkM", 3, 60, "40", [
   section("V", "kooralbyn", [
-    phrase(3.02, "waltzing"),
-    phrase(6.73, "fun"),
-    phrase(10.47, "cloud"),
-    phrase(14.09, "vacation", [], 18.29)
+    phrase(583.74, "waltzing"),
+    phrase(590.37, "fun"),
+    phrase(596.99, "cloud"),
+    phrase(601.91, "vacation", [], 610.42)
   ])
 ])
 
-piano(27, "home-on-the-range", 3, 90, "45", [
+piano(27, "home-on-the-range", "brTGKq5fGkM", 3, 60, "45", [
   section("V", "range", [
-    phrase(1.20, "give"),
-    phrase(5.63, "where-deer"),
-    phrase(10.10, "seldom"),
-    phrase(14.41, "skies", [], 19.20)
+    phrase(614.52, "give"),
+    phrase(620.55, "where-deer"),
+    phrase(626.45, "seldom"),
+    phrase(632.44, "skies", [])
   ]),
   section("V", "home", [
-    phrase(19.20, "home"),
-    phrase(23.35, "the-deer"),
-    repeat(27.65, "seldom"),
-    repeat(31.87, "skies", 36.51)
+    phrase(638.72, "home"),
+    phrase(644.20, "the-deer"),
+    repeat(650.44, "seldom"),
+    repeat(656.64, "skies", 661.85)
   ])
 ])
 
-piano(28, "the-juggler", 4, 90, "40", [
+piano(28, "the-juggler", "brTGKq5fGkM", 4, 60, "40", [
   section("V", "circus", [
-    phrase(0.55, "juggler"),
-    phrase(4.13, "posters"),
-    phrase(7.77, "cup"),
-    phrase(11.38, "pieces", [], 15.10)
+    phrase(664.97, "juggler"),
+    phrase(670.92, "posters"),
+    phrase(676.65, "cup"),
+    phrase(682.20, "pieces", [], 688.32)
   ])
 ])
 
-piano(1029, "from-a-wigwam", 4, 90, "40", [
+piano(1029, "from-a-wigwam", "brTGKq5fGkM", 4, 60, "40", [
   section("V", "wigwam", [
-    phrase(0.69, "1"),
-    phrase(4.65, "2"),
-    phrase(8.48, "3"),
-    repeat(12.49, "1", 17.10)
+    phrase(690.50, "1"),
+    phrase(698.20, "2"),
+    phrase(705.93, "3"),
+    repeat(713.97, "1", 721.63)
   ])
 ])
 
