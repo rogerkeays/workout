@@ -53,9 +53,9 @@ class Section:
 @dataclass # Piece
 class Piece:
   instrument: str
-  video_id: str
   number: int
   name: str
+  video_id: str
   meter: int
   tempo: int
   tonic: str
@@ -69,9 +69,9 @@ def phrase(start, label, notes=[], stop=0, skip=False):
   all_phrases[label] = p
   return p
 
-def piece(video_id, number, name, meter, tempo, tonic, sections):
+def piece(number, name, video_id, meter, tempo, tonic, sections):
   "construct and process a piece in one step)"
-  process_piece(Piece("workout", video_id, number, name, meter, tempo, tonic, sections), None, None, None, None)
+  process_piece(Piece("workout", number, name, video_id, meter, tempo, tonic, sections), None, None, None, None)
 
 def repeat(start, id, stop=0):
   """

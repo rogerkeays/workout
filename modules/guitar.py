@@ -3,8 +3,8 @@
 from modules.workout import *
 
 # constructors
-def guitar(video_id, number, name, meter, tempo, tonic, sections):
-  process_piece(Piece("guitar", video_id, number, name, meter, tempo, tonic, sections), None, None, None, None)
+def guitar(number, name, video_id, meter, tempo, tonic, sections):
+  process_piece(Piece("guitar", number, name, video_id, meter, tempo, tonic, sections), None, None, None, None)
 
 
 # drills
