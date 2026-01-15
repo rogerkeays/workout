@@ -1,11 +1,15 @@
-#!/usr/bin/env python3
-# vim: nowrap
+# vim: foldmethod=expr foldtext=getline(v\:foldstart) foldexpr=indent(v\:lnum)\|\|indent(v\:lnum+1)\|\|getline(v\:lnum)[0]=='@'?1\:'<1' fillchars=fold\:\ 
 
-from workout import *
+from modules.workout import *
 
-# globals
-set_mp3_dir(os.environ['HOME'] + "/library/workout/guitar/00.inbox")
+# constructors
+def guitar(number, name, meter, tempo, tonic, sections):
+  "construct and process a piece in one step)"
+  set_mp3_dir(os.environ['HOME'] + "/library/workout/guitar/00.inbox")
+  process_piece(Piece(number, name, meter, tempo, tonic, sections), None, None, None, None)
 
+
+# drills
 def strumming(tempo, lyrics, rhythm, directions, chords, start, stop):
 
   # capture parameters
@@ -44,4 +48,5 @@ def chord_changes(tempo, from_chord, to_chord):
 
 def chord_shape(chord):
   make_card(locals(), 15)
+
 

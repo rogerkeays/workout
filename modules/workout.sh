@@ -1,8 +1,8 @@
 # vim: filetype=sh
 
 INSTRUMENT=57
-OUTDIR=target
-mkdir -p $OUTDIR
+TARGET=target
+mkdir -p $TARGET
 
 #
 # convert an abc score to an mp3 file
@@ -19,8 +19,8 @@ function make_mp3 {
     return
   fi
   mkdir -p "$2"
-  echo "$1" | abc2midi /dev/stdin -o /dev/stdout \
-        | timidity - --output-24bit -A800 -K${4:=0} -T${5:=100} -Ow -o - \
+  echo "$1" | abc2midi /dev/stdin -quiet -silent -o /dev/stdout \
+        | timidity - --quiet --output-24bit -A800 -K${4:=0} -T${5:=100} -Ow -o - \
         | ffmpeg -loglevel error -i - -ac 1 -ab 64k "$2/$3"
 }
 
@@ -36,7 +36,7 @@ function generate_scales {
   for PITCH in $3; do
     TEMPO=20 # percent
     while [ $TEMPO -le 400 ]; do
-      make_mp3 "$2" $OUTDIR/$1/$PITCH $(printf %03d $TEMPO).$PITCH.${1/\//-}.mp3 $STEPS $TEMPO
+      make_mp3 "$2" $TARGET/$1/$PITCH $(printf %03d $TEMPO).$PITCH.${1/\//-}.mp3 $STEPS $TEMPO
       TEMPO=$((TEMPO+10))
     done
     STEPS=$((STEPS+1))
@@ -77,7 +77,7 @@ function generate_pattern_scales {
 function generate_tempos {
   TEMPO=20 # percent
   while [ $TEMPO -le 400 ]; do
-    make_mp3 "$2" $OUTDIR/$1 \'$(printf %03d $TEMPO).${1/\//-}.mp3 0 $TEMPO
+    make_mp3 "$2" $TARGET/$1 \'$(printf %03d $TEMPO).${1/\//-}.mp3 0 $TEMPO
     TEMPO=$((TEMPO+10))
   done
 }

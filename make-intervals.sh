@@ -3,7 +3,7 @@
 source $(dirname $0)/modules/workout.sh
 
 INSTRUMENT=1
-DIR=$OUTDIR/intervals
+OUTDIR=$TARGET/intervals
 
 STEPS=-17
 for PITCH in 27 28 29 2X 2Y 30 31 32 33 34 35 36 37 38 39 3X 3Y 40 41 42 43 44 45 46; do
@@ -17,7 +17,7 @@ for PITCH in 27 28 29 2X 2Y 30 31 32 33 34 35 36 37 38 39 3X 3Y 40 41 42 43 44 4
       K:C
       | [I:MIDI program $((INSTRUMENT - 1))] 
       |:C|$NOTE|C|$NOTE|C|$NOTE:|" \
-      $DIR ${PITCH}$(printf %+03d $INTERVAL).mp3 $STEPS 100
+      $OUTDIR ${PITCH}$(printf %+03d $INTERVAL).mp3 $STEPS 100
 
     INTERVAL=$((INTERVAL+1))
   done

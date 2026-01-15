@@ -2,7 +2,7 @@
 # vim: foldmethod=expr foldtext=getline(v\:foldstart) foldexpr=indent(v\:lnum)\|\|indent(v\:lnum+1)\|\|getline(v\:lnum)[0]=='@'?1\:'<1' fillchars=fold\:\ 
 
 import re
-from workouts.workout import *
+from modules.workout import *
 from dataclasses import dataclass
 
 # globals
