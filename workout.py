@@ -96,30 +96,7 @@ def cut_chunk(mp3, start, stop, outfile):
     ffmpeg -nostdin -loglevel error -ss {start} -to {to} -i {mp3} -ac 1 -ar 48000 -q 4 \
            -af afade=t=out:st={fade_start}:d={FADE_LENGTH} "{outfile}" """)
 
-def cut_mixed_chunk(mp3, start, stop, outfile):
-  if MAKE_MP3S and not os.path.exists(outfile):
-    with tempfile.TemporaryDirectory() as tmpdir:
-
-      # generate chunks for repetition
-      cut_chunk(mp3, start, stop, tmpdir + "/050.mp3", 0.5);
-      cut_chunk(mp3, start, stop, tmpdir + "/100.mp3", 1.0);
-      make_gunshot(tmpdir + "/gunshot.mp3")
-
-      # repeat for the duration of the drill
-      chunk_length = FADE_LENGTH + stop - start + FADE_LENGTH
-      combo_length = DELAY + chunk_length + DELAY + 2 * chunk_length
-      reps = math.ceil(DRILL_LENGTH / combo_length)
-      with open(tmpdir + "/list", "w") as f:
-        for i in range(reps):
-          f.write("file {tmpdir}/050.mp3\nfile {tmpdir}/100.mp3\n".format(tmpdir=tmpdir))
-        f.write("file {tmpdir}/gunshot.mp3\n".format(tmpdir=tmpdir))
-
-      # concatenate the chunks
-      os.system(f"""
-      ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
-             -codec copy "{outfile}" """)
-
-def cut_repeating_chunk(mp3, start, stop, meter, tempo, outfile="00000.mp3"):
+def make_bracket(mp3, start, stop, meter, tempo, outfile="00000.mp3"):
   if MAKE_MP3S and not os.path.exists(outfile):
     with tempfile.TemporaryDirectory() as tmpdir:
 
@@ -138,12 +115,6 @@ def cut_repeating_chunk(mp3, start, stop, meter, tempo, outfile="00000.mp3"):
       # concatenate the chunks
       os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
                            -codec copy "{outfile}" """)
-
-def cut_timed_chunk(mp3, start, stop, outfile, first=False, speed=1.0):
-  "repeat a chunk for DRILL_LENGTH seconds"
-  length = DELAY + (FADE_LENGTH + stop - start + FADE_LENGTH) / speed
-  reps = math.ceil(DRILL_LENGTH / length)
-  cut_repeating_chunk(mp3, start, stop, outfile, first, speed, reps)
 
 def decimal_to_note(note):
   if not note:
@@ -351,7 +322,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
   start = piece.sections[0].phrases[0].start
   stop = piece.sections[-1].phrases[-1].stop
   mcd(f"{PRACTISE_DIR}/00.{str(piece.number).zfill(4)}.{piece.name}")
-  cut_repeating_chunk(find_mp3(piece), start, stop, piece.meter, piece.tempo, piece.name + ".mp3")
+  make_bracket(find_mp3(piece), start, stop, piece.meter, piece.tempo, piece.name + ".mp3")
 
   # process sections in reverse
   section_num = 0
@@ -361,7 +332,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
       stop = section.phrases[-1].stop
       section_num += 1
       mcd(f"00.{str(section_num).zfill(2)}{section.id}.{section.label}")
-      cut_repeating_chunk(find_mp3(piece), start, stop, piece.meter, piece.tempo, section.label + ".mp3")
+      make_bracket(find_mp3(piece), start, stop, piece.meter, piece.tempo, section.label + ".mp3")
 
       # process phrases
       phrase_num = 0
@@ -369,7 +340,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
         if not phrase.skip:
           phrase_num += 1
           mcd(f"00.{str(phrase_num).zfill(2)}.{phrase.label}")
-          cut_repeating_chunk(find_mp3(piece), phrase.start, phrase.stop, piece.meter, piece.tempo, phrase.label + ".mp3")
+          make_bracket(find_mp3(piece), phrase.start, phrase.stop, piece.meter, piece.tempo, phrase.label + ".mp3")
           if phrase_function != None: phrase_function(piece, section, phrase)
 
           # process notes in reverse order
