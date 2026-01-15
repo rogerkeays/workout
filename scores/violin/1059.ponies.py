@@ -1,7 +1,7 @@
 # vim: foldmethod=marker foldmarker=phrase,\ ) foldtext=getline(v\:foldstart)
 
 # @art class
-piece(1059, "ponies", 3, 95, "42", [
+violin(1059, "ponies", 3, 95, "42", [
   section("A", "desk", [
     phrase(12.68, "girls", notes("""
       1 0 L44= 32G0 3 li-

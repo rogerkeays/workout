@@ -1,7 +1,7 @@
 # vim: foldmethod=marker foldmarker=phrase,\ ) foldtext=getline(v\:foldstart)
 
 # open string exercises
-piece(1, "the-crawl", 4, 90, "37", [
+violin(1, "the-crawl", 4, 90, "37", [
   section("V", "table", [
     phrase(10.16, "crawls", notes("""
       1 0 L4== 40N0 3 li-
@@ -28,7 +28,7 @@ piece(1, "the-crawl", 4, 90, "37", [
   ])
 ])
 
-piece(2, "baby-steps", 4, 90, "37", [
+violin(2, "baby-steps", 4, 90, "37", [
   section("V", "lawn", [
     phrase(10.30, "left", notes("""
       1 0 L4== 40N0 3 left
@@ -58,7 +58,7 @@ piece(2, "baby-steps", 4, 90, "37", [
   ])
 ])
 
-piece(5, "the-first-fall", 4, 100, "37", [
+violin(5, "the-first-fall", 4, 100, "37", [
   section("V", "lounge", [
     phrase(10.19, "window", notes("""
       1 0 D44= 40N0 3 runs
@@ -95,7 +95,7 @@ piece(5, "the-first-fall", 4, 100, "37", [
   ])
 ])
 
-piece(6, "into-the-kitchen", 4, 100, "37", [
+violin(6, "into-the-kitchen", 4, 100, "37", [
   section("V", "kitchen", [
     phrase(10.04, "no-one", notes("""
       1 0 D44= 40N0 3 here
@@ -137,7 +137,7 @@ piece(6, "into-the-kitchen", 4, 100, "37", [
   ])
 ])
 
-piece(3, "the-car-trip", 4, 110, "37", [
+violin(3, "the-car-trip", 4, 110, "37", [
   section("V", "car", [
     phrase(9.72, "baby", notes("""
       1 9 L4== 10N0 3 li-
@@ -175,7 +175,7 @@ piece(3, "the-car-trip", 4, 110, "37", [
   ])
 ])
 
-piece(4, "aeroplane-games", 4, 110, "37", [
+violin(4, "aeroplane-games", 4, 110, "37", [
   section("V", "airfield", [
     phrase(9.59, "upwards", notes("""
       1 0 L4== 40N0 3 fly-
@@ -207,7 +207,7 @@ piece(4, "aeroplane-games", 4, 110, "37", [
 ])
 
 # first finger exercises
-piece(7, "the-door-handle", 4, 94, "37", [
+violin(7, "the-door-handle", 4, 94, "37", [
   section("V", "shack", [
     phrase(10.25, "this-way", notes("""
       1 0 L44= 42N0 3 turn
@@ -239,7 +239,7 @@ piece(7, "the-door-handle", 4, 94, "37", [
   ])
 ])
 
-piece(8, "the-puppy-dog", 3, 104, "49", [
+violin(8, "the-puppy-dog", 3, 104, "49", [
   section("V", "park", [
     phrase(10.28, "puppy", notes("""
       1 7 L44= 12N0 3 mis-
@@ -269,7 +269,7 @@ piece(8, "the-puppy-dog", 3, 104, "49", [
   ])
 ])
 
-piece(9, "hunger", 4, 105, "42", [
+violin(9, "hunger", 4, 105, "42", [
   section("V", "baby-chair", [
     phrase(9.77, "hungry", notes("""
       1 2 L44= 12N0 3 get-
@@ -308,7 +308,7 @@ piece(9, "hunger", 4, 105, "42", [
   ])
 ])
 
-piece(10, "stealing-cookies", 4, 144, "49", [
+violin(10, "stealing-cookies", 4, 144, "49", [
   section("V", "kitchen", [
     phrase(9.23, "cookies", notes("""
       1 9 L44= 12N1 3 stea-
@@ -338,7 +338,7 @@ piece(10, "stealing-cookies", 4, 144, "49", [
   ])
 ])
 
-piece(11, "puppy-in-the-kitchen", 4, 110, "42", [
+violin(11, "puppy-in-the-kitchen", 4, 110, "42", [
   section("V", "kitchen", [
     phrase(9.49, "puppy", notes("""
       1 2 L44= 12N0 3 pu-
@@ -373,7 +373,7 @@ piece(11, "puppy-in-the-kitchen", 4, 110, "42", [
   ])
 ])
 
-piece(12, "dad-goes-looking", 2, 104, "37", [
+violin(12, "dad-goes-looking", 2, 104, "37", [
   section("V", "lost-kids-house", [
     phrase(9.77, "kid", notes("""
       1 0 L44= 42N0 3 some-
@@ -418,7 +418,7 @@ piece(12, "dad-goes-looking", 2, 104, "37", [
 ])
 
 # second finger exercises
-piece(13, "digging-holes", 3, 146, "42", [
+violin(13, "digging-holes", 3, 146, "42", [
   section("V", "sand-dune", [
     phrase(10.36, "holes", notes("""
       1 0 L44= 32N0 3 digg-
@@ -449,7 +449,7 @@ piece(13, "digging-holes", 3, 146, "42", [
   ])
 ])
 
-piece(14, "scottish-boy", 4, 133, "54", [
+violin(14, "scottish-boy", 4, 133, "54", [
   section("V", "rock-pool", [
     phrase(9.51, "boy", notes("""
       1 4 L44= 12N2 3 scott-
@@ -491,7 +491,7 @@ piece(14, "scottish-boy", 4, 133, "54", [
   ])
 ])
 
-piece(15, "toll-busters", 4, 115, "42", [
+violin(15, "toll-busters", 4, 115, "42", [
   section("V", "toll", [
     phrase(9.46, "stop", notes("""
       1 0 L44= 32N0 3 stop
@@ -532,7 +532,7 @@ piece(15, "toll-busters", 4, 115, "42", [
   ])
 ])
 
-piece(16, "car-crash", 6, 145, "42", [
+violin(16, "car-crash", 6, 145, "42", [
   section("V", "crash-site", [
     phrase(9.92, "crash", notes("""
       1 4 L44= 32N2 3 car
@@ -564,7 +564,7 @@ piece(16, "car-crash", 6, 145, "42", [
   ])
 ])
 
-piece(17, "bouncy-castle", 2, 90, "49", [
+violin(17, "bouncy-castle", 2, 90, "49", [
   section("V", "castle", [
     phrase(10.38, "castle", notes("""
       1 Y D44= 12N2 3 boun-
@@ -601,7 +601,7 @@ piece(17, "bouncy-castle", 2, 90, "49", [
   ])
 ])
 
-piece(18, "the-bad-date", 3, 50, "4Y", [
+violin(18, "the-bad-date", 3, 50, "4Y", [
   section("V", "girls-house", [
     phrase(11.90, "girl", notes("""
       1 9 L44= 12N2 3 pick-
@@ -640,7 +640,7 @@ piece(18, "the-bad-date", 3, 50, "4Y", [
 ])
 
 # third and fourth finger exercises
-piece(19, "sleeping-in", 3, 135, "42", [
+violin(19, "sleeping-in", 3, 135, "42", [
   section("V", "lazy-boys-room", [
     phrase(10.34, "boy", notes("""
       1 0 D44= 32W0 3 li-
@@ -678,7 +678,7 @@ piece(19, "sleeping-in", 3, 135, "42", [
   ])
 ])
 
-piece(20, "the-birthday-party", 4, 95, "59", [
+violin(20, "the-birthday-party", 4, 95, "59", [
   section("V", "poolside", [
     phrase(10.26, "birthday", notes("""
       1 0 D44= 12C3 3 to-
@@ -721,7 +721,7 @@ piece(20, "the-birthday-party", 4, 95, "59", [
   ])
 ])
 
-piece(21, "boring-homework", 4, 95, "47", [
+violin(21, "boring-homework", 4, 95, "47", [
   section("V", "desk", [
     phrase(10.60, "homework", notes("""
       1 0 L44= 42W0 3 bor-
@@ -760,7 +760,7 @@ piece(21, "boring-homework", 4, 95, "47", [
   ])
 ])
 
-piece(22, "chinese-kids", 4, 90, "47", [
+violin(22, "chinese-kids", 4, 90, "47", [
   section("V", "classroom", [
     phrase(10.37, "chinese-kids", notes("""
       1 9 D44= 22G4 3 my
@@ -804,7 +804,7 @@ piece(22, "chinese-kids", 4, 90, "47", [
   ])
 ])
 
-piece(23, "chicken-pox", 4, 100, "47", [
+violin(23, "chicken-pox", 4, 100, "47", [
   section("V", "bed", [
     phrase(9.78, "sick", notes("""
       1 7 L44= 42W4 3 get-
@@ -842,7 +842,7 @@ piece(23, "chicken-pox", 4, 100, "47", [
   ])
 ])
 
-piece(24, "last-day-of-school", 4, 95, "4Y", [
+violin(24, "last-day-of-school", 4, 95, "4Y", [
   section("V", "primary-school", [
     phrase(10.21, "school", notes("""
       1 3 L44= 22W4 3 to-

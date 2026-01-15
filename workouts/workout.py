@@ -71,6 +71,10 @@ def phrase(start, label, notes=[], stop=0, skip=False):
   all_phrases[label] = p
   return p
 
+def piece(number, name, meter, tempo, tonic, sections):
+  "construct and process a piece in one step)"
+  process_piece(Piece(number, name, meter, tempo, tonic, sections), None, None, None, None)
+
 def repeat(start, id, stop=0):
   """
     Create a new phrase with the same notes as the phrase with the given id.

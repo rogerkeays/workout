@@ -2,11 +2,10 @@
 # vim: foldmethod=expr foldtext=getline(v\:foldstart) foldexpr=indent(v\:lnum)\|\|indent(v\:lnum+1)\|\|getline(v\:lnum)[0]=='@'?1\:'<1' fillchars=fold\:\ 
 
 import re
-from workout import *
+from workouts.workout import *
 from dataclasses import dataclass
 
 # globals
-set_mp3_dir(os.environ['HOME'] + "/library/workout/violin/00.inbox")
 SHAPES = "PGWCADKH" # Porcupine, Gun, Westside, Chicken, Alien, Dog, ducK, Huddle
 
 # data structures
@@ -50,8 +49,9 @@ def notes(text: str) -> list[Note]:
   """
   return list(map(parse_violin_note, filter(lambda x: len(x) > 0, map(str.strip, text.split("\n")))))
 
-def piece(number, label, meter, tempo, tonic, sections):
+def violin(number, label, meter, tempo, tonic, sections):
   "construct and process a piece in one step"
+  set_mp3_dir(os.environ['HOME'] + "/library/workout/violin/00.inbox")
   process_piece(Piece(number, label, meter, tempo, tonic, sections),
       calculate_defaults, process_phrase, process_transition, process_note)
 
@@ -294,7 +294,4 @@ def violin_hold():
   arm_stretches()
   no_hands_swivels()
 
-
-# process the input files
-process_scores(sys.argv[1:], globals())
 

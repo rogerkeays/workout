@@ -1,7 +1,7 @@
 # vim: foldmethod=marker foldmarker=phrase,\ ) foldtext=getline(v\:foldstart)
 
 # @oxford
-piece(1031, "lightly-row", 4, 90, "49", [
+violin(1031, "lightly-row", 4, 90, "49", [
   section("A", "riverbank", [
     phrase(6.92, "flamingo", notes("""
       1 7 L4== 22W4 3 light-
