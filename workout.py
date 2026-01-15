@@ -96,6 +96,25 @@ def cut_chunk(mp3, start, stop, outfile):
     ffmpeg -nostdin -loglevel error -ss {start} -to {to} -i {mp3} -ac 1 -ar 48000 -q 4 \
            -af afade=t=out:st={fade_start}:d={FADE_LENGTH} "{outfile}" """)
 
+def decimal_to_note(note):
+  if not note:
+    return "0"
+  else:
+    return decimal_to_note(note // 12).lstrip("0") + "0123456789XY"[note % 12]
+
+def find_mp3(piece):
+  dir = MP3_DIR
+  if "WORKOUT_MP3_DIR" in os.environ: dir = os.environ["WORKOUT_MP3_DIR"]
+  return dir + "/" + str(piece.number).zfill(4) + "." + piece.name + ".mp3"
+
+def half(val):
+  return int(val / 2)
+
+def is_skipped(section):
+  for p in section.phrases:
+    if p.skip == False: return False
+  return True
+
 def make_bracket(mp3, start, stop, meter, tempo, outfile="00000.mp3"):
   if MAKE_MP3S and not os.path.exists(outfile):
     with tempfile.TemporaryDirectory() as tmpdir:
@@ -115,25 +134,6 @@ def make_bracket(mp3, start, stop, meter, tempo, outfile="00000.mp3"):
       # concatenate the chunks
       os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
                            -codec copy "{outfile}" """)
-
-def decimal_to_note(note):
-  if not note:
-    return "0"
-  else:
-    return decimal_to_note(note // 12).lstrip("0") + "0123456789XY"[note % 12]
-
-def find_mp3(piece):
-  dir = MP3_DIR
-  if "WORKOUT_MP3_DIR" in os.environ: dir = os.environ["WORKOUT_MP3_DIR"]
-  return dir + "/" + str(piece.number).zfill(4) + "." + piece.name + ".mp3"
-
-def half(val):
-  return int(val / 2)
-
-def is_skipped(section):
-  for p in section.phrases:
-    if p.skip == False: return False
-  return True
 
 def make_drill(params={}, reps=5):
   "make a drill card, ensuring it is unique, and formatting it appropriately as a text file"
