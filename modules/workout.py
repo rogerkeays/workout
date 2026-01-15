@@ -112,7 +112,7 @@ def get_video(id):
   video_file = f"{CACHE_DIR}/{id}.mp4"
   if MAKE_MP3S and not os.path.exists(video_file):
     os.makedirs(CACHE_DIR, exist_ok=True)
-    os.system(f"yt-dlp -t mp4 https://www.youtube.com/watch?v={id} -o '{video_file}'")
+    os.system(f"yt-dlp https://www.youtube.com/watch?v={id} -o '{video_file}'")
   return video_file
 
 def half(val):
