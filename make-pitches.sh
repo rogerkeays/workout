@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source make-patterns.sh
+source $(dirname $0)/modules/workout.sh
 
 DIR=$OUTDIR/pitches
 mkdir -p $DIR

@@ -2,7 +2,7 @@
 
 INSTRUMENT=57
 
-source make-patterns.sh
+source $(dirname $0)/modules/workout.sh
 
 generate_scales scales/major-1 "
   X:0

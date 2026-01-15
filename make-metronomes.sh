@@ -1,8 +1,8 @@
 #!/bin/bash
 
-INSTRUMENT=116 # woodblock
+source $(dirname $0)/modules/workout.sh
 
-source make-patterns.sh
+INSTRUMENT=116 # woodblock
 
 PAT=cGEC
 generate_tempos metronome/4x64 "
