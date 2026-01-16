@@ -99,12 +99,13 @@ def cut_audio_chunk(source, start, stop, outfile):
            -af volume=replaygain=track:replaygain_noclip=0 \
            -af afade=t=out:st={fade_start}:d={FADE_LENGTH} "{outfile}" """)
 
-def cut_video_chunk(source, start, stop, outfile):
+def cut_video_chunk(source, start, stop, outfile, speed=1.0):
   if MAKE_MP3S and not os.path.exists(outfile):
     os.system(f"""
       ffmpeg -nostdin -loglevel error -ss {start} -to {stop} -i {source} -vcodec h263 -acodec aac \
-             -af volume=replaygain=track:replaygain_noclip=0 \
-             -vf "scale=176:144:force_original_aspect_ratio=decrease,pad=176:144:(ow-iw)/2:(oh-ih)/2" "{outfile}" """)
+             -af volume=replaygain=track:replaygain_noclip=0,atempo={speed} \
+             -vf scale="176:144:force_original_aspect_ratio=decrease,pad=176:144:(ow-iw)/2:(oh-ih)/2,setpts=PTS/{speed}" \
+             "{outfile}" """)
 
 def decimal_to_note(note):
   if not note:
@@ -151,10 +152,9 @@ def make_bracket(piece, start, stop, label):
       os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
                            -codec copy "{audio_output}" """)
 
-  # create video bracket
-  video_output = f"{label}.3gp"
-  if MAKE_MP3S and not os.path.exists(video_output):
-    cut_video_chunk(source, start, stop, video_output)
+  # create video brackets
+  cut_video_chunk(source, start, stop, f"{label}.3gp")
+  cut_video_chunk(source, start, stop, f"{label}.slow.3gp", 0.5)
 
 def make_drill(instrument, params={}, reps=5):
   "make a drill card, ensuring it is unique, and formatting it appropriately as a text file"
