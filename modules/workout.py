@@ -376,11 +376,6 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
 
   make_metronome(piece.instrument, piece.tempo)
 
-def process_scores(score_files, globals):
-  """
-    This is the main entry function to process one or more scores. It should be called after
-    all the drill and processing functions have been declared.
-  """
 def shift_rhythm(rhythm):
   "shift a rhythm pattern to start on the first beat"
   onsets = "1bar2dup3cet4mow"
