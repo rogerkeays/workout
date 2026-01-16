@@ -384,13 +384,6 @@ def process_scores(score_files, globals):
     This is the main entry function to process one or more scores. It should be called after
     all the drill and processing functions have been declared.
   """
-  for file in score_files:
-    with open(file) as score:
-      exec(score.read(), globals)
-
-  # output collected drills
-  write_drill_cards()
-
 def shift_rhythm(rhythm):
   "shift a rhythm pattern to start on the first beat"
   onsets = "1bar2dup3cet4mow"
