@@ -88,17 +88,17 @@ sections and phrases with their timestamps, and leave the notes out. E.g:
         phrase(0.34, "P1"),
         phrase(9.15, "P2"),
         phrase(19.55, "P3"),
-        repeat(28.49, "P2", 41.24)
+        pharse(28.49, "P2", [], 41.24)
       ])
     ])
 
 ## Writing Scores
 
-For drills and flashcards, you need to transcribe the piece. Scores are text
-files (python code), with one note per line organised into phrases, sections
-and pieces. Each column of the line represents a different property of the
-note, e.g. beat, scale degree, dynamics. In order to generate drills, the score
-includes mechanics also, which is different for each instrument.
+For drills and flashcard generation, you need to transcribe the piece. Scores
+are text files (python code), with one note per line organised into phrases,
+sections and pieces. Each column of the line represents a different property of
+the note, e.g. beat, scale degree, dynamics. In order to generate drills, the
+score includes mechanics also, which is different for each instrument.
 
 The score format for violin is mostly stable. The columns are: beat, scale
 degree (semitones 0-9,X,Y), attack, start volume, end volume, string, base
