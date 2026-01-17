@@ -1,14 +1,13 @@
 # Workout: Tools for your Music Workout
 
 *Workout* turns your music practise into a game. The software has two main
-modes: 1) generating a complete list of two and half minute drills from a
+modes: 1) generating a comprehensive list of two and half minute drills from a
 musical score for any piece, and 2) creating practise videos and audio to help
 practise each phrase and section individually. The required media is
 automatically downloaded from YouTube.
 
 Drills are currently only implemented for violin. Practise videos can be
-made for any instrument. For an examples of the score format, [browse the
-included scores](https://github.com/rogerkeays/workout/blob/main/scores).
+made for any instrument.
 
 ## How To Play
 
@@ -76,6 +75,34 @@ Some older, still useful scripts are:
   * `make-metronome.sh`: generates more metronomes than you'll ever need
   * `make-pitches.sh`: useful for tuning, or just to keep as reference
   * `make-scales.sh`: generate scales you can play along with
+
+## Writing Scores
+
+Scores are text files (python code), with one note per line organised into
+phrases, sections and pieces. Each column of the line represents a different
+property of the note, e.g. beat, scale degree, dynamics. In order to generate
+drills, the score includes mechanics also, which is different for each
+instrument.
+
+The score format for violin is mostly stable. The columns are: beat, scale
+degree (semitones 0-9,X,Y), attack, start volume, end volume, string, base
+'fret', hand shape (see violin.py), finger, bow position. An `=` character
+means the default value, which is usually the same as the last value. E.g:
+
+      1 7 L4== 22W4 3 light-
+      2 4 ==== ===2 5 ly
+      3 = ==== ==== 3 row,
+      1 5 ==== ===3 5 fla-
+      2 2 ==== ===1 3 min-
+      3 = ==== ==== 5 go
+      1 Z ==== ==== 3 .
+
+You do not need to transcribe a piece if you only want the practise brackets.
+Just complete the sections and phrases with their timestamps, and leave the
+notes out.
+
+For more examples of the score format, [browse the source
+code](https://github.com/rogerkeays/workout/blob/main/scores).
 
 ## Related Resources
 
