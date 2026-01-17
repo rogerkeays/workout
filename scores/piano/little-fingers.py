@@ -229,7 +229,7 @@ piano(28, "the-juggler", "brTGKq5fGkM", 4, 60, "40", [
   ])
 ])
 
-piano(1029, "from-a-wigwam", "brTGKq5fGkM", 4, 60, "40", [
+piano(1000, "from-a-wigwam", "brTGKq5fGkM", 4, 60, "40", [
   section("V", "wigwam", [
     phrase(690.50, "1"),
     phrase(698.20, "2"),

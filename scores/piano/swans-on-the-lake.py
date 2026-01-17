@@ -1,6 +1,6 @@
 # vim: foldmethod=marker foldmarker=phrase,\ ) foldtext=getline(v\:foldstart)
 
-piano(1000, "swans-on-the-lake", "ooYqqUTfW0Q", 4, 150, "40", [
+piano(1001, "swans-on-the-lake", "ooYqqUTfW0Q", 4, 150, "40", [
   section("V", "V1", [
     phrase(3.17, "P1"),
     phrase(7.98, "P2"),
