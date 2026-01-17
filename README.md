@@ -9,30 +9,6 @@ automatically downloaded from YouTube.
 Drills are currently only implemented for violin. Practise videos can be
 made for any instrument.
 
-## How To Play
-
-Divide your total practise time into three equal slots: drills, practise and
-jamming. To practise drills, open the drills folder. Drill cards are text 
-files generated using a dependency tree and automatically sorted by hitcount
-(i.e. the number of times each skill is needed to play the entire piece or
-pieces). Use the generated two and half minute metronome (=TXXX.mp3 files)
-and start practising the drill. If you can complete the drill five times in a
-row at a good standard, delete the drill card and go to the next drill. If you
-run out of time, continue to the next drill without deleting the card.
-
-For the practise slot, open the practise folder and navigate into the folders
-until you reach the first phrase. Each phrase, section and piece has a score
-that starts at 00, which you increment every time you play that bracket through
-correctly. You also get one point for attempting the bracket five times. Recall
-or transcribe the bracket using the audio and video files before you play it.
-When you're ready to test yourself, play along five times with the audio
-bracket and count your points. Increment the folder name by that many points
-and go onto the next bracket.
-
-For the jam slot, play through your repertoire using the audio files as a
-backing track. Play through any errors and add one point to every piece after
-you complete it.
-
 ## Installation
 
 These scripts depend on some widely available UNIX utilities. Install them with
@@ -58,15 +34,6 @@ and practise brackets. Run it like this:
 
 And look for the generated workout files under the `target` directory.
 
-If you want to make your own scores from a YouTube video, you can download the
-video manually using the video id:
-
-    ./download-video.py $ID
-
-The downloaded video will be saved to `$HOME/.cache/workout/$ID.mp4`. You can
-open this in audacity or whatever tool you plan to use to find the timestamps
-for each phrase of music.
-
 Some older, still useful scripts are:
 
   * `make-arpeggios.sh`: generate arpeggios you can play along with
@@ -76,13 +43,62 @@ Some older, still useful scripts are:
   * `make-pitches.sh`: useful for tuning, or just to keep as reference
   * `make-scales.sh`: generate scales you can play along with
 
+## How To Play
+
+Divide your total practise time into three equal slots: drills, practise and
+jamming. To practise drills, open the drills folder. Drill cards are text 
+files generated using a dependency tree and automatically sorted by hitcount
+(i.e. the number of times each skill is needed to play the entire piece or
+pieces). Use the generated two and half minute metronome (=TXXX.mp3 files)
+and start practising the drill. If you can complete the drill five times in a
+row at a good standard, delete the drill card and go to the next drill. If you
+run out of time, continue to the next drill without deleting the card.
+
+For the practise slot, open the practise folder and navigate into the folders
+until you reach the first phrase. Each phrase, section and piece has a score
+that starts at 00, which you increment every time you play that bracket through
+correctly. You also get one point for attempting the bracket five times. Recall
+or transcribe the bracket using the audio and video files before you play it.
+When you're ready to test yourself, play along five times with the audio
+bracket and count your points. Increment the folder name by that many points
+and go onto the next bracket.
+
+For the jam slot, play through your repertoire using the audio files as a
+backing track. Play through any errors and add one point to every piece after
+you complete it.
+
+## Making Your Own Practise Brackets
+
+If you want to make your own practise brackets from a YouTube video, you can
+download the video manually using the video id:
+
+    ./download-video.py $ID
+
+The downloaded video will be saved to `$HOME/.cache/workout/$ID.mp4`. You can
+open this in audacity or whatever tool you plan to use to find the timestamps
+for each phrase of music.
+
+Create a score file for the song as a python file. You do not need to
+transcribe a piece if you only want the practise brackets.  Just complete the
+sections and phrases with their timestamps, and leave the notes out. E.g: 
+
+    # parameters: sequence id, name, youtube id, meter, tempo, tonic
+    piano(1006, "study-in-a-minor", "hy3epV4nshc", 4, 103, "49", [
+      section("V", "V1", [
+        phrase(0.34, "P1"),
+        phrase(9.15, "P2"),
+        phrase(19.55, "P3"),
+        repeat(28.49, "P2", 41.24)
+      ])
+    ])
+
 ## Writing Scores
 
-Scores are text files (python code), with one note per line organised into
-phrases, sections and pieces. Each column of the line represents a different
-property of the note, e.g. beat, scale degree, dynamics. In order to generate
-drills, the score includes mechanics also, which is different for each
-instrument.
+For drills and flashcards, you need to transcribe the piece. Scores are text
+files (python code), with one note per line organised into phrases, sections
+and pieces. Each column of the line represents a different property of the
+note, e.g. beat, scale degree, dynamics. In order to generate drills, the score
+includes mechanics also, which is different for each instrument.
 
 The score format for violin is mostly stable. The columns are: beat, scale
 degree (semitones 0-9,X,Y), attack, start volume, end volume, string, base
@@ -97,12 +113,9 @@ means the default value, which is usually the same as the last value. E.g:
       3 = ==== ==== 5 go
       1 Z ==== ==== 3 .
 
-You do not need to transcribe a piece if you only want the practise brackets.
-Just complete the sections and phrases with their timestamps, and leave the
-notes out.
-
 For more examples of the score format, [browse the source
-code](https://github.com/rogerkeays/workout/blob/main/scores).
+code](https://github.com/rogerkeays/workout/blob/main/scores) and the [violin
+module](https://github.com/rogerkeays/workout/blob/main/modules/violin.py).
 
 ## Related Resources
 
