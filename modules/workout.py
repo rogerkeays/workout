@@ -7,6 +7,12 @@ from dataclasses import dataclass
 # configuration: all durations are in seconds
 MAKE_MP3S = True if "WORKOUT_SKIP_MP3S" not in os.environ else False
 CACHE_DIR = os.environ["HOME"] + "/.cache/workout"
+VIDEO_TYPE="3gp"
+VIDEO_SIZE="176:144"
+VIDEO_FPS="10"
+VIDEO_CODEC="h263"
+AUDIO_CODEC="aac"
+AUDIO_RATE="48000"
 NUM_PADDING = 5
 DRILL_LENGTH = 180
 METRONOME_INSTRUMENT = 116 - 1 # woodblock
@@ -90,22 +96,24 @@ def add(note, interval):
   "add base-12 notes and intervals"
   return decimal_to_note(note_to_decimal(note) + note_to_decimal(interval))
 
-def cut_audio_chunk(source, start, stop, outfile):
+def cut_audio_chunk(source, start, stop, outfile, speed=1.0):
   if MAKE_MP3S and not os.path.exists(outfile):
     to = stop + FADE_LENGTH
     fade_start = stop - start
     os.system(f"""
-    ffmpeg -nostdin -loglevel error -ss {start} -to {to} -i {source} -ac 1 -ar 48000 -q 4 \
-           -af volume=replaygain=track:replaygain_noclip=0 \
-           -af afade=t=out:st={fade_start}:d={FADE_LENGTH} "{outfile}" """)
+    ffmpeg -nostdin -loglevel error -ss {start} -to {to} -i {source} -ac 1 -ar {AUDIO_RATE} -q 4 \
+           -af volume=replaygain=track:replaygain_noclip=0,afade=out:st={fade_start}:d={FADE_LENGTH},atempo={speed} \
+           "{outfile}" """)
 
-def cut_video_chunk(source, start, stop, outfile, speed=1.0, size="176:144", vcodec="h263", acodec="aac"):
+def cut_video_chunk(source, start, stop, outfile, speed=1.0):
   if MAKE_MP3S and not os.path.exists(outfile):
+    to = stop + FADE_LENGTH
+    fade_start = stop - start
     os.system(f"""
-      ffmpeg -nostdin -loglevel error -ss {start} -to {stop} -i {source} -vcodec {vcodec} -acodec {acodec} \
-             -af volume=replaygain=track:replaygain_noclip=0,atempo={speed} \
-             -vf scale="{size}:force_original_aspect_ratio=decrease,pad={size}:(ow-iw)/2:(oh-ih)/2,setpts=PTS/{speed}" \
-             "{outfile}" """)
+      ffmpeg -nostdin -loglevel error -ss {start} -to {to} -i {source} -ac 1 -ar {AUDIO_RATE} -q 4 \
+             -af volume=replaygain=track:replaygain_noclip=0,afade=out:st={fade_start}:d={FADE_LENGTH},atempo={speed} \
+             -vf scale="{VIDEO_SIZE}:force_original_aspect_ratio=decrease,pad={VIDEO_SIZE}:(ow-iw)/2:(oh-ih)/2,fade=out:st={fade_start}:d={FADE_LENGTH},setpts=PTS/{speed}" \
+             -r {VIDEO_FPS} -vcodec {VIDEO_CODEC} -acodec {AUDIO_CODEC} "{outfile}" """)
 
 def decimal_to_note(note):
   if not note:
@@ -130,31 +138,56 @@ def is_skipped(section):
   return True
 
 def make_bracket(piece, start, stop, label):
-  # create audio bracket
   source = get_video(piece.video_id)
-  audio_output = f"{label}.mp3"
-  if MAKE_MP3S and not os.path.exists(audio_output):
-    with tempfile.TemporaryDirectory() as tmpdir:
+  with tempfile.TemporaryDirectory() as tmpdir:
+    for speed in [1.0, 0.5]:
 
-      # generate chunks for repetition
-      make_intro(piece.meter, piece.tempo, tmpdir + "/intro.mp3")
-      cut_audio_chunk(source, start, stop, tmpdir + "/chunk.mp3")
-      make_gunshot(tmpdir + "/gunshot.mp3")
+      # create audio brackets
+      speed_str = str(int(speed*100)).zfill(3)
+      audio_intro = f"{tmpdir}/intro.{speed_str}.mp3"
+      audio_chunk = f"{tmpdir}/audio.{speed_str}.mp3"
+      gunshot_chunk = f"{tmpdir}/gunshot.mp3"
+      audio_concat = f"{tmpdir}/audio.{speed_str}.txt"
+      audio_output = f"{label}.{speed_str}.mp3"
+      make_intro(piece.meter, piece.tempo * speed, audio_intro)
+      if MAKE_MP3S and not os.path.exists(audio_output):
 
-      # repeat for the duration of the drill
-      with open(tmpdir + "/list", "w") as f:
-        for i in range(REPS):
-          f.write(f"file {tmpdir}/intro.mp3\n")
-          f.write(f"file {tmpdir}/chunk.mp3\n")
-        f.write(f"file {tmpdir}/gunshot.mp3\n")
+        # generate chunks for repetition
+        make_intro(piece.meter, piece.tempo * speed, audio_intro)
+        cut_audio_chunk(source, start, stop, audio_chunk, speed)
+        make_gunshot(gunshot_chunk)
 
-      # concatenate the chunks
-      os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{tmpdir}/list" \
-                           -codec copy "{audio_output}" """)
+        # repeat for the duration of the drill
+        with open(audio_concat, "w") as f:
+          for i in range(REPS):
+            f.write(f"file {audio_intro}\n")
+            f.write(f"file {audio_chunk}\n")
+          f.write(f"file {gunshot_chunk}\n")
 
-  # create video brackets
-  cut_video_chunk(source, start, stop, f"{label}.fast.3gp")
-  cut_video_chunk(source, start, stop, f"{label}.slow.3gp", 0.5)
+        # concatenate the chunks
+        os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{audio_concat}" \
+                             -acodec copy "{audio_output}" """)
+
+      # create video brackets
+      video_intro = f"{tmpdir}/intro.{speed_str}.{VIDEO_TYPE}"
+      video_chunk = f"{tmpdir}/video.{speed_str}.{VIDEO_TYPE}"
+      video_frame = f"{tmpdir}/video.{speed_str}.png"
+      video_concat = f"{tmpdir}/video.{speed_str}.txt"
+      video_output = f"{label}.{speed_str}.{VIDEO_TYPE}"
+      if MAKE_MP3S and not os.path.exists(video_output):
+
+        # cut video chunk and make an intro in the same format
+        cut_video_chunk(source, start, stop, video_chunk, speed)
+        os.system(f"""ffmpeg -nostdin -loglevel error -i "{video_chunk}" -frames 1 "{video_frame}" """)
+        os.system(f"""ffmpeg -nostdin -loglevel error -i "{video_frame}" -i "{audio_intro}" \
+                             -r {VIDEO_FPS} -vcodec {VIDEO_CODEC} -acodec {AUDIO_CODEC} "{video_intro}" """)
+
+        # concatenate the chunks: re-encodes for buggy video players
+        with open(video_concat, "w") as f:
+          f.write(f"file {video_intro}\n")
+          f.write(f"file {video_chunk}\n")
+        os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{video_concat}" \
+                             -r {VIDEO_FPS} -vcodec {VIDEO_CODEC} -acodec {AUDIO_CODEC} "{video_output}" """)
 
 def make_drill(instrument, params={}, reps=5):
   "make a drill card, ensuring it is unique, and formatting it appropriately as a text file"
@@ -273,8 +306,8 @@ def make_mp3(score, filename):
     with tempfile.TemporaryDirectory() as tmpdir:
       os.system(f"""echo '{strip_multiline(score)}' | \
           abc2midi /dev/stdin -quiet -silent -o {tmpdir}/out.midi
-          fluidsynth --quiet --fast-render {tmpdir}/out.wav --gain 5 --sample-rate 48000 {tmpdir}/out.midi
-          ffmpeg -loglevel error -i {tmpdir}/out.wav -ac 1 -q 4 "{filename}"
+          fluidsynth --quiet --fast-render {tmpdir}/out.wav --gain 5 --sample-rate {AUDIO_RATE} {tmpdir}/out.midi
+          ffmpeg -loglevel error -i {tmpdir}/out.wav -ac 1 -ar {AUDIO_RATE} -q 4 "{filename}"
           """)
 
 def make_silence(seconds, outfile):
