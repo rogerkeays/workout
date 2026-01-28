@@ -66,6 +66,7 @@ class Piece:
   tempo: int
   tonic: str
   sections: list[Section]
+  speeds: list[float]
 
 
 # constructors
@@ -75,9 +76,9 @@ def phrase(start, label, notes=[], stop=0, skip=False):
   phrases[label] = p
   return p
 
-def piece(number, name, video_id, meter, tempo, tonic, sections):
+def piece(number, name, video_id, meter, tempo, tonic, sections, speeds=[0.5, 1.0]):
   "construct and process a piece in one step)"
-  process_piece(Piece("workout", number, name, video_id, meter, tempo, tonic, sections), None, None, None, None)
+  process_piece(Piece("workout", number, name, video_id, meter, tempo, tonic, sections, speeds), None, None, None, None)
 
 def repeat(start, id, stop=0):
   """
@@ -140,7 +141,7 @@ def is_skipped(section):
 def make_bracket(piece, start, stop, label):
   source = get_video(piece.video_id)
   with tempfile.TemporaryDirectory() as tmpdir:
-    for speed in [1.0, 0.5]:
+    for speed in piece.speeds:
 
       # create audio brackets
       speed_str = str(int(speed*100)).zfill(3)
