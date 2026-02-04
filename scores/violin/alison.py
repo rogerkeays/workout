@@ -418,7 +418,7 @@ violin(12, "dad-goes-looking", "jCavOEFJ4Lc", 2, 104, "37", [
 ])
 
 # second finger exercises
-violin(13, "digging-holes", 3, 146, "42", [
+violin(13, "digging-holes", "wXV2_4L98nI", 3, 146, "42", [
   section("V", "sand-dune", [
     phrase(330.87, "holes", notes("""
       1 0 L44= 32N0 3 digg-
@@ -449,7 +449,7 @@ violin(13, "digging-holes", 3, 146, "42", [
   ])
 ])
 
-violin(14, "scottish-boy", 4, 133, "54", [
+violin(14, "scottish-boy", "wXV2_4L98nI", 4, 133, "54", [
   section("V", "rock-pool", [
     phrase(341.09, "boy", notes("""
       1 4 L44= 12N2 3 scott-
@@ -491,7 +491,7 @@ violin(14, "scottish-boy", 4, 133, "54", [
   ])
 ])
 
-violin(15, "toll-busters", 4, 115, "42", [
+violin(15, "toll-busters", "wXV2_4L98nI", 4, 115, "42", [
   section("V", "toll", [
     phrase(351.60, "stop", notes("""
       1 0 L44= 32N0 3 stop
@@ -532,7 +532,7 @@ violin(15, "toll-busters", 4, 115, "42", [
   ])
 ])
 
-violin(16, "car-crash", 6, 145, "42", [
+violin(16, "car-crash", "wXV2_4L98nI", 6, 145, "42", [
   section("V", "crash-site", [
     phrase(362.01, "crash", notes("""
       1 4 L44= 32N2 3 car
@@ -564,7 +564,7 @@ violin(16, "car-crash", 6, 145, "42", [
   ])
 ])
 
-violin(17, "bouncy-castle", 2, 90, "49", [
+violin(17, "bouncy-castle", "wXV2_4L98nI", 2, 90, "49", [
   section("V", "castle", [
     phrase(372.73, "castle", notes("""
       1 Y D44= 12N2 3 boun-
@@ -601,7 +601,7 @@ violin(17, "bouncy-castle", 2, 90, "49", [
   ])
 ])
 
-violin(18, "the-bad-date", 3, 50, "4Y", [
+violin(18, "the-bad-date", "wXV2_4L98nI", 3, 50, "4Y", [
   section("V", "girls-house", [
     phrase(382.97, "girl", notes("""
       1 9 L44= 12N2 3 pick-
