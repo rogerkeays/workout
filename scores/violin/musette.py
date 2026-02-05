@@ -1,9 +1,14 @@
 # vim: foldmethod=marker foldmarker=phrase,\ ) foldtext=getline(v\:foldstart)
 
+# from coursera, not available on youtube
+
 # @siem reap river
-violin(1057, "musette", 4, 120, "42", [
+violin(1057, "musette", "coursera-65", 4, 120, "42", [
+  section("I", "intro", [
+    phrase(264.18, "intro", skip=True)
+  ]),
   section("A", "bank", [
-    phrase(9.77, "fishing", notes("""
+    phrase(268.91, "fishing", notes("""
       1 7 L44= 32W4 3 i'm
       3 5 ==== ===3 5 go-
       e 4 ==== ===2 3 ing
@@ -16,7 +21,7 @@ violin(1057, "musette", 4, 120, "42", [
       o 0 ==== ===0 5 ing
       1 Z ==== ==== 3 ."""
     )),
-    phrase(14.07, "tackle", notes("""
+    phrase(273.19, "tackle", notes("""
       1 4 L44= 32W2 3 go-
       a 5 ==== ===3 5 nna
       2 7 S=== ===4 3 sit
@@ -28,8 +33,8 @@ violin(1057, "musette", 4, 120, "42", [
       4 0 ==== ===0 5 ckle
       1 Z ==== ==== 3 ."""
     )),
-    repeat(17.87, "fishing"),
-    phrase(21.93, "bait", notes("""
+    repeat(277.02, "fishing"),
+    phrase(281.07, "bait", notes("""
       1 4 L44= 32W2 3 go-
       a 5 ==== ===3 5 nna
       2 7 S=== ===4 3 sit
@@ -42,7 +47,7 @@ violin(1057, "musette", 4, 120, "42", [
     )),
   ]),
   section("B", "water", [
-    phrase(25.84, "food", notes("""
+    phrase(284.99, "food", notes("""
       1 Y D44= 22W2 3 here
       a 0 ==== ===3 5 it
       2 2 S=== ===4 3 comes,
@@ -54,7 +59,7 @@ violin(1057, "musette", 4, 120, "42", [
       3 4 L=== ===0 3 food
       1 Z ==== 2=== 5 ."""
     )),
-    phrase(29.69, "steal", notes("""
+    phrase(288.87, "steal", notes("""
       1 Y D44= 22W2 5 care-
       a 0 ==== ===3 3 ful-
       2 2 S=== ===4 5 ly,
@@ -66,8 +71,8 @@ violin(1057, "musette", 4, 120, "42", [
       3 7 L=== ===0 5 it
       1 Z ==== ==== 3 ."""
     )),
-    repeat(33.59, "food"),
-    phrase(37.43, "strike", notes("""
+    repeat(292.74, "food"),
+    phrase(296.58, "strike", notes("""
       1 4 S44= 12W0 5 big
       2 9 ==== ===4 ^ strike,
       3 2 ==== ===0 3 think
@@ -79,10 +84,10 @@ violin(1057, "musette", 4, 120, "42", [
     )),
   ]),
   section("A", "bank", [
-    repeat(41.55, "fishing"),
-    repeat(45.60, "tackle"),
-    repeat(49.40, "fishing"),
-    repeat(53.40, "bait", 58.60)
+    repeat(300.76, "fishing"),
+    repeat(304.76, "tackle"),
+    repeat(308.59, "fishing"),
+    repeat(312.57, "bait", 317.34) 
   ]),
 ])
 
