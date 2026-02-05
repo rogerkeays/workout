@@ -386,26 +386,28 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
   section_num = 0
   for section in reversed(piece.sections):
     section_num += 1
-    start = section.phrases[0].start
-    stop = section.phrases[-1].stop
-    mcd(f"00.{str(section_num).zfill(2)}{section.id}.{section.label}")
-    make_bracket(piece, start, stop, section.label)
+    if not is_skipped(section):
+      start = section.phrases[0].start
+      stop = section.phrases[-1].stop
+      mcd(f"00.{str(section_num).zfill(2)}{section.id}.{section.label}")
+      make_bracket(piece, start, stop, section.label)
 
-    # process phrases in reverse
-    phrase_num = 0
-    for phrase in reversed(section.phrases):
-      phrase_num += 1
-      mcd(f"00.{str(phrase_num).zfill(2)}.{phrase.label}")
-      make_bracket(piece, phrase.start, phrase.stop, phrase.label)
-      if phrase_function != None: phrase_function(piece, section, phrase)
+      # process phrases in reverse
+      phrase_num = 0
+      for phrase in reversed(section.phrases):
+        phrase_num += 1
+        if not phrase.skip:
+          mcd(f"00.{str(phrase_num).zfill(2)}.{phrase.label}")
+          make_bracket(piece, phrase.start, phrase.stop, phrase.label)
+          if phrase_function != None: phrase_function(piece, section, phrase)
 
-      # process notes in reverse order
-      notes = phrase.notes
-      for i in reversed(range(len(notes))):
-        if i < len(notes) - 2 and transition_function != None: transition_function(piece.tempo, notes[i], notes[i+1], notes[i+2])
-        if i < len(notes) - 1 and note_function != None: note_function(piece.tempo, notes[i], notes[i+1])
+          # process notes in reverse order
+          notes = phrase.notes
+          for i in reversed(range(len(notes))):
+            if i < len(notes) - 2 and transition_function != None: transition_function(piece.tempo, notes[i], notes[i+1], notes[i+2])
+            if i < len(notes) - 1 and note_function != None: note_function(piece.tempo, notes[i], notes[i+1])
+          os.chdir("..")
       os.chdir("..")
-    os.chdir("..")
   os.chdir("../../../..")
 
   make_metronome(piece.instrument, piece.tempo)
