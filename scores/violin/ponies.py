@@ -1,9 +1,9 @@
 # vim: foldmethod=marker foldmarker=phrase,\ ) foldtext=getline(v\:foldstart)
 
 # @art class
-violin(1059, "ponies", 3, 95, "42", [
+violin(1059, "ponies", "coursera-76", 3, 95, "42", [
   section("A", "desk", [
-    phrase(12.68, "girls", notes("""
+    phrase(152.64, "girls", notes("""
       1 0 L44= 32G0 3 li-
       3 7 ==== ===4 5 ttle
       1 = ==== ==== 3 girls
@@ -12,7 +12,7 @@ violin(1059, "ponies", 3, 95, "42", [
       1 5 ==== ===3 5 draw
       1 Z ==== 21== 3 ."""
     )),
-    phrase(20.28, "ponies", notes("""
+    phrase(160.21, "ponies", notes("""
       1 X L44= 21P2 3 all
       3 2 ==== ===4 5 the
       1 7 ==== ===0 3 pre-
@@ -25,11 +25,11 @@ violin(1059, "ponies", 3, 95, "42", [
     )),
   ]),
   section("A", "desk", [
-    repeat(27.69, "girls"),
-    repeat(35.23, "ponies")
+    repeat(167.62, "girls"),
+    repeat(175.34, "ponies")
   ]),
   section("B", "reverie", [
-    phrase(41.61, "dreams", notes("""
+    phrase(182.59, "dreams", notes("""
       1 = L44= 42G1 3 in
       3 = ==== ===3 5 her
       1 = ==== ==== 3 dreams,
@@ -39,11 +39,11 @@ violin(1059, "ponies", 3, 95, "42", [
       1 = ==== ==== 5 mong
       1 = ==== 2=== 3 ."""
     )),
-    repeat(50.63, "ponies")
+    repeat(190.57, "ponies")
   ]),
   section("A", "desk", [
-    repeat(58.00, "girls"),
-    repeat(65.30, "ponies", 74.08)
+    repeat(197.91, "girls"),
+    repeat(205.36, "ponies", 213.94)
   ])
 ])
 
