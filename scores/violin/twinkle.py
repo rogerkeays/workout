@@ -1,15 +1,18 @@
 # vim: foldmethod=marker foldmarker=phrase,\ ) foldtext=getline(v\:foldstart)
 
 # @kids-bedroom
-violin(1027, "twinkle", 4, 95, "49", [
+violin(1027, "twinkle", "PujzJPpl-EE", 4, 110, "49", [
+  section("I", "intro", [
+    phrase(179.74, "intro", skip=True)
+  ]),
   section("A1", "window", [
-    phrase(10.20, "star"),
-    phrase(15.24, "wonder"),
-    phrase(20.27, "world"),
-    phrase(25.39, "diamond")
+    phrase(184.23, "star"),
+    phrase(188.62, "wonder"),
+    phrase(193.01, "world"),
+    phrase(197.27, "diamond")
   ]),
   section("A2", "window'", [
-    repeat(30.46, "star"),
-    repeat(35.43, "wonder", 41.49)
+    repeat(201.57, "star"),
+    repeat(205.79, "wonder", 211.59)
   ])
 ])
