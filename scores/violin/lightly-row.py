@@ -1,9 +1,12 @@
 # vim: foldmethod=marker foldmarker=phrase,\ ) foldtext=getline(v\:foldstart)
 
 # @oxford
-violin(1031, "lightly-row", 4, 90, "49", [
+violin(1031, "lightly-row", "IZ8OFyudRmE", 4, 90, "49", [
+  section("I", "intro", [
+    phrase(0.99, "intro", skip=True)
+  ]),
   section("A", "riverbank", [
-    phrase(6.92, "flamingo", notes("""
+    phrase(4.46, "flamingo", notes("""
       1 7 L4== 22W4 3 light-
       2 4 ==== ===2 5 ly
       3 = ==== ==== 3 row,
@@ -12,7 +15,7 @@ violin(1031, "lightly-row", 4, 90, "49", [
       3 = ==== ==== 5 go
       1 Z ==== ==== 3 ."""
     )),
-    phrase(10.52, "river", notes("""
+    phrase(7.81, "river", notes("""
       1 0 L4== 22W0 3 down
       2 2 ==== ===1 5 the
       3 4 ==== ===2 3 ri-
@@ -22,7 +25,7 @@ violin(1031, "lightly-row", 4, 90, "49", [
       3 = ==== ==== 3 go
       1 Z ==== ==== 5 ."""
     )),
-    phrase(14.12, "rowing", notes("""
+    phrase(11.03, "rowing", notes("""
       1 7 L4== 22W4 5 al-
       2 4 ==== ===2 3 ways
       3 = ==== ==== 5 row-
@@ -33,7 +36,7 @@ violin(1031, "lightly-row", 4, 90, "49", [
       4 = ==== ==== 3 ing
       1 Z ==== ==== 5 ."""
     )),
-    phrase(17.60, "canoe", notes("""
+    phrase(14.18, "canoe", notes("""
       1 0 L4== 22W0 5 in
       2 2 ==== ===1 3 my
       3 7 ==== ===4 5 bright
@@ -45,7 +48,7 @@ violin(1031, "lightly-row", 4, 90, "49", [
     ))
   ]),
   section("B", "bridge", [
-    phrase(21.23, "fishes", notes("""
+    phrase(17.46, "fishes", notes("""
       1 2 L4== 22W1 3 see
       2 = ==== ==== 5 the
       3 = ==== ==== 3 fish-
@@ -55,7 +58,7 @@ violin(1031, "lightly-row", 4, 90, "49", [
       3 5 ==== ===3 3 by
       1 Z ==== ==== 5 ."""
     )),
-    phrase(24.85, "birds", notes("""
+    phrase(20.71, "birds", notes("""
       1 4 L4== 22W2 3 see
       2 = ==== ==== 5 the
       3 = ==== ==== 3 birds
@@ -65,8 +68,8 @@ violin(1031, "lightly-row", 4, 90, "49", [
       3 7 ==== ===4 3 sky
       1 Z ==== ==== 5 ."""
     )),
-    repeat(28.58, "rowing"),
-    repeat(32.13, "canoe", 38.05)
+    repeat(24.02, "rowing"),
+    repeat(27.31, "canoe", 31.49)
   ])
 ])
 
