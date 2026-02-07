@@ -80,7 +80,7 @@ def piece(number, name, video_id, meter, tempo, tonic, sections, speeds=[0.5, 1.
   "construct and process a piece in one step)"
   process_piece(Piece("workout", number, name, video_id, meter, tempo, tonic, sections, speeds), None, None, None, None)
 
-def repeat(start, id, stop=0, skip=True):
+def repeat(start, id, stop=0, skip=False):
   """
     Create a new phrase with the same notes as the phrase with the given id.
     New mp3 start and stop times can be provided if desired. This function
