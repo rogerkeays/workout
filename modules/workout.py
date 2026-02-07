@@ -384,20 +384,20 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
 
   # process sections in reverse
   section_num = 0
-  for section in reversed(piece.sections):
+  for section in piece.sections:
     section_num += 1
     if not is_skipped(section):
       start = section.phrases[0].start
       stop = section.phrases[-1].stop
-      mcd(f"00.{str(section_num).zfill(2)}{section.id}.{section.label}")
+      mcd(f"{str(section_num).zfill(2)} ----- {section.label}")
       make_bracket(piece, start, stop, section.label)
 
       # process phrases in reverse
       phrase_num = 0
-      for phrase in reversed(section.phrases):
+      for phrase in section.phrases:
         phrase_num += 1
         if not phrase.skip:
-          mcd(f"00.{str(phrase_num).zfill(2)}.{phrase.label}")
+          mcd(f"{str(phrase_num).zfill(2)} ----- {phrase.label}")
           make_bracket(piece, phrase.start, phrase.stop, phrase.label)
           if phrase_function != None: phrase_function(piece, section, phrase)
 
