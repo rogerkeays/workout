@@ -52,7 +52,7 @@ class Phrase:
 
 @dataclass # Section
 class Section:
-  id: str
+  function: str
   label: str
   phrases: list[Phrase]
 
@@ -88,8 +88,8 @@ def repeat(start, id, stop=0, skip=False):
   """
   return Phrase(start, id, phrases[id].notes, stop, skip)
 
-def section(id, label, phrases):
-  return Section(id, label, phrases)
+def section(function, label, phrases):
+  return Section(function, label, phrases)
 
 
 # functions
@@ -379,24 +379,24 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
   # create piece practise bracket
   start = piece.sections[0].phrases[0].start
   stop = piece.sections[-1].phrases[-1].stop
-  mcd(f"{TARGET_DIR}/{piece.instrument}/{PRACTISE_DIR}/00.{str(piece.number).zfill(4)}.{piece.name}")
+  mcd(f"{TARGET_DIR}/{piece.instrument}/{PRACTISE_DIR}/{str(piece.number).zfill(4)} ----- {piece.name}")
   make_bracket(piece, start, stop, piece.name)
 
   # process sections in reverse
   section_num = 0
   for section in piece.sections:
-    section_num += 1
     if not is_skipped(section):
+      section_num += 1
       start = section.phrases[0].start
       stop = section.phrases[-1].stop
-      mcd(f"{str(section_num).zfill(2)} ----- {section.label}")
+      mcd(f"{str(section_num).zfill(2)} ----- {section.function}")
       make_bracket(piece, start, stop, section.label)
 
       # process phrases in reverse
       phrase_num = 0
       for phrase in section.phrases:
-        phrase_num += 1
         if not phrase.skip:
+          phrase_num += 1
           mcd(f"{str(phrase_num).zfill(2)} ----- {phrase.label}")
           make_bracket(piece, phrase.start, phrase.stop, phrase.label)
           if phrase_function != None: phrase_function(piece, section, phrase)
