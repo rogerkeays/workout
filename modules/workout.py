@@ -67,6 +67,7 @@ class Piece:
   tonic: str
   sections: list[Section]
   speeds: list[float]
+  video: bool
 
 
 # constructors
@@ -76,9 +77,9 @@ def phrase(start, label, notes=[], stop=0, skip=False):
   phrases[label] = p
   return p
 
-def piece(number, name, video_id, meter, tempo, tonic, sections, speeds=[0.5, 1.0]):
+def piece(number, name, video_id, meter, tempo, tonic, sections, speeds=[0.5, 1.0], video=True):
   "construct and process a piece in one step)"
-  process_piece(Piece("workout", number, name, video_id, meter, tempo, tonic, sections, speeds), None, None, None, None)
+  process_piece(Piece("workout", number, name, video_id, meter, tempo, tonic, sections, speeds, video), None, None, None, None)
 
 def repeat(start, id, stop=0, skip=False):
   """
@@ -175,7 +176,7 @@ def make_bracket(piece, start, stop, label):
       video_frame = f"{tmpdir}/video.{speed_str}.png"
       video_concat = f"{tmpdir}/video.{speed_str}.txt"
       video_output = f"{label}.{speed_str}.{VIDEO_TYPE}"
-      if MAKE_MP3S and not os.path.exists(video_output):
+      if MAKE_MP3S and piece.video and not os.path.exists(video_output):
 
         # cut video chunk and make an intro in the same format
         cut_video_chunk(source, start, stop, video_chunk, speed)
