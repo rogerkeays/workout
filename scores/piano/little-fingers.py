@@ -233,7 +233,7 @@ piano_lf(28, "the-juggler", 4, 60, "40", [
   ])
 ])
 
-piano_lf(1000, "from-a-wigwam", 4, 60, "40", [
+piano_lf(1029, "from-a-wigwam", 4, 60, "40", [
   section("V", "wigwam", [
     phrase(690.50, "1"),
     phrase(698.20, "2"),
