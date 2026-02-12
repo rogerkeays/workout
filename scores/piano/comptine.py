@@ -1,6 +1,6 @@
 # vim: foldmethod=marker foldmarker=phrase,\ ) foldtext=getline(v\:foldstart)
 
-violin(2064, "comptine", "znfYwABeSZ0", 4, 90, "40", [ # @sienne
+piano(2064, "comptine", "znfYwABeSZ0", 4, 90, "40", [ # @sienne
   section("I", "@bridge", [
     phrase(0.20, "I1"),
     phrase(2.67, "I2"),
