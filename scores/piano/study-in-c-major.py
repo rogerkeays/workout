@@ -14,7 +14,7 @@ piano(1050, "study-in-c-major", "9T0OqxYrM-8", 4, 94, "40", [
     phrase(29.89, "P7"),
   ]),
   section("C", "V3", [
-    repeat(32.36, "P1"),
+    repeat(32.27, "P1"),
     repeat(34.79, "P2"),
     phrase(37.35, "P7"),
     phrase(39.93, "P8", stop=43.63)
