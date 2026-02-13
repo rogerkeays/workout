@@ -27,7 +27,7 @@ class ViolinNote(Note):
 # constructors
 def lyrics(start, id, lyrics, template_id, stop=0):
   """ clone a phrase, but with different lyrics and different start and stops """
-  template = all_phrases[template_id]
+  template = phrases[template_id]
   split_lyrics = re.split("[- ]", lyrics)
   return phrase(start, id, list(map(lambda z: ViolinNote(
     beat = z[0].beat,
