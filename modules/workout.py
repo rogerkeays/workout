@@ -23,7 +23,7 @@ DELAY = 5
 REPS = 5
 
 # output preparation
-TARGET_DIR = "target"
+TARGET_DIR = "target" if "WORKOUT_TARGET_DIR" not in os.environ else os.environ["WORKOUT_TARGET_DIR"]
 DRILLS_DIR = "02.drills"
 PRACTISE_DIR = "03.practise"
 PERFORM_DIR = "04.performance"
