@@ -26,6 +26,7 @@ REPS = 5
 TARGET_DIR = "target"
 DRILLS_DIR = "02.drills"
 PRACTISE_DIR = "03.practise"
+PERFORM_DIR = "04.performance"
 
 # global state
 drills = {}
@@ -139,7 +140,32 @@ def is_skipped(section):
     if p.skip == False: return False
   return True
 
-def make_bracket(piece, start, stop, label):
+def make_backing_track(piece):
+  start = piece.sections[0].phrases[0].start
+  stop = piece.sections[-1].phrases[-1].stop
+  speed = piece.speeds[-1]
+  output_dir = f"{TARGET_DIR}/{piece.instrument}/{PERFORM_DIR}"
+  os.makedirs(output_dir, exist_ok=True)
+
+  # add a metronome intro for the backing track
+  with tempfile.TemporaryDirectory() as tmpdir:
+    audio_intro = f"{tmpdir}/intro.mp3"
+    audio_chunk = f"{tmpdir}/chunk.mp3"
+    audio_concat = f"{tmpdir}/concat.txt"
+    audio_output = f"{output_dir}/XX.{str(piece.number).zfill(4)}.{piece.name}.mp3"
+    if MAKE_MP3S and not os.path.exists(audio_output):
+      source = get_video(piece.video_id)
+      make_intro(piece.meter, piece.tempo * speed, audio_intro)
+      cut_audio_chunk(source, start, stop, audio_chunk, speed)
+
+      # concatenate the chunks
+      with open(audio_concat, "w") as f:
+        f.write(f"file {audio_intro}\n")
+        f.write(f"file {audio_chunk}\n")
+      os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{audio_concat}" \
+                           -acodec copy "{audio_output}" """)
+
+def make_bracket(piece, start, stop, label, reps=REPS):
   source = get_video(piece.video_id)
   with tempfile.TemporaryDirectory() as tmpdir:
     for speed in piece.speeds:
@@ -151,7 +177,6 @@ def make_bracket(piece, start, stop, label):
       gunshot_chunk = f"{tmpdir}/gunshot.mp3"
       audio_concat = f"{tmpdir}/audio.{speed_str}.txt"
       audio_output = f"{label}.{speed_str}.mp3"
-      make_intro(piece.meter, piece.tempo * speed, audio_intro)
       if MAKE_MP3S and not os.path.exists(audio_output):
 
         # generate chunks for repetition
@@ -161,7 +186,7 @@ def make_bracket(piece, start, stop, label):
 
         # repeat for the duration of the drill
         with open(audio_concat, "w") as f:
-          for i in range(REPS):
+          for i in range(reps):
             f.write(f"file {audio_intro}\n")
             f.write(f"file {audio_chunk}\n")
           f.write(f"file {gunshot_chunk}\n")
@@ -179,6 +204,7 @@ def make_bracket(piece, start, stop, label):
       if MAKE_MP3S and piece.video and not os.path.exists(video_output):
 
         # cut video chunk and make an intro in the same format
+        make_intro(piece.meter, piece.tempo * speed, audio_intro)
         cut_video_chunk(source, start, stop, video_chunk, speed)
         os.system(f"""ffmpeg -nostdin -loglevel error -i "{video_chunk}" -frames 1 "{video_frame}" """)
         os.system(f"""ffmpeg -nostdin -loglevel error -i "{video_frame}" -i "{audio_intro}" \
@@ -191,7 +217,7 @@ def make_bracket(piece, start, stop, label):
         os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{video_concat}" \
                              -r {VIDEO_FPS} -vcodec {VIDEO_CODEC} -acodec {AUDIO_CODEC} "{video_output}" """)
 
-def make_drill(instrument, params={}, reps=5):
+def make_drill(instrument, params={}, reps=REPS):
   "make a drill card, ensuring it is unique, and formatting it appropriately as a text file"
 
   # format drill card
@@ -412,6 +438,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
   os.chdir("../../../..")
 
   make_metronome(piece.instrument, piece.tempo)
+  make_backing_track(piece)
 
 def shift_rhythm(rhythm):
   "shift a rhythm pattern to start on the first beat"
