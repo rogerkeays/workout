@@ -1,7 +1,7 @@
 # vim: foldmethod=marker foldmarker=phrase,\ ) foldtext=getline(v\:foldstart)
 
 # @river sienne
-piano(2070, "comptine-ext", "NpWHUddBuiI", 4, 92, "44", [
+piano(2064, "comptine-ext", "NpWHUddBuiI", 4, 92, "44", [
   section("I", "@bridge", [
     phrase(7.50, "I1"),
     phrase(10.61, "I2"),
