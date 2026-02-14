@@ -1,4 +1,4 @@
-# vim: foldmethod=marker foldmarker=phrase,\ ) foldtext=getline(v\:foldstart)
+# vim: foldmethod=marker foldmarker=notes(,) foldtext=getline(v\:foldstart)
 
 # from coursera, not available on youtube
 

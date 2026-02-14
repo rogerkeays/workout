@@ -1,4 +1,4 @@
-# vim: foldmethod=marker foldmarker=phrase,\ ) foldtext=getline(v\:foldstart)
+# vim: foldmethod=marker foldmarker=notes(,) foldtext=getline(v\:foldstart)
 
 violin(2026, "gypsy-firelight", "JexClTGGV_s", 4, 135, "59", [
   section("I", "intro", [

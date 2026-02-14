@@ -1,4 +1,4 @@
-# vim: foldmethod=marker foldmarker=phrase,\ ) foldtext=getline(v\:foldstart)
+# vim: foldmethod=marker foldmarker=notes(,) foldtext=getline(v\:foldstart)
 
 # @kids-bedroom
 violin(1027, "twinkle", "PujzJPpl-EE", 4, 110, "49", [

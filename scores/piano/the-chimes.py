@@ -1,4 +1,4 @@
-# vim: foldmethod=marker foldmarker=phrase,\ ) foldtext=getline(v\:foldstart)
+# vim: foldmethod=marker foldmarker=notes(,) foldtext=getline(v\:foldstart)
 
 piano(41, "the-chimes", "rL2ah2oG1vM", 4, 114, "40", [
   section("V", "V1", [

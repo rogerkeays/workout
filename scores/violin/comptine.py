@@ -1,4 +1,4 @@
-# vim: foldmethod=marker foldmarker=phrase,\ ) foldtext=getline(v\:foldstart)
+# vim: foldmethod=marker foldmarker=notes(,) foldtext=getline(v\:foldstart)
 
 violin(3025, "comptine", "znfYwABeSZ0", 4, 90, "40", [ # @sienne
   section("I", "@bridge", [
