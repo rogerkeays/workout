@@ -8,6 +8,5 @@ piano(1032, "pop-goes-the-weasel", "WBFs6xr2Kjg", 3, 150, "40", [
     repeat(9.82, "A1"),
     phrase(15.09, "A3", [], 20.41)
   ])
-])
-
+], speeds=[1.0, 1.5])
 

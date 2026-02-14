@@ -8,5 +8,5 @@ piano(31, "santas-sleigh", "NtgEldOr8nU", 4, 60, "40", [
     phrase(9.22, "A3"),
     phrase(13.52, "A4", [], 17.57)
   ])
-])
+], speeds=[1.0, 1.5])
 
