@@ -1,5 +1,6 @@
 # vim: foldmethod=marker foldmarker=notes(,) foldtext=getline(v\:foldstart)
 
+# john thompson grade 1
 piano(1038, "swans-on-the-lake", "ooYqqUTfW0Q", 4, 150, "40", [
   section("V", "V1", [
     phrase(3.17, "P1"),
