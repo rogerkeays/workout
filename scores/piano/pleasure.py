@@ -1,7 +1,7 @@
 # vim: foldmethod=marker foldmarker=notes(,) foldtext=getline(v\:foldstart)
 
 # the heart plays pleasure first --michael nyman
-piano(3060, "pleasure", "H3KcdCkBtoo", 4, 92, "49", [ # @el capitan
+piano(4060, "pleasure", "H3KcdCkBtoo", 4, 92, "49", [ # @el capitan
 
   # arrival
   section("I", "@van", [
