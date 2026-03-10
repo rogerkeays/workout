@@ -24,9 +24,9 @@ REPS = 5
 
 # output preparation
 TARGET_DIR = "target" if "WORKOUT_TARGET_DIR" not in os.environ else os.environ["WORKOUT_TARGET_DIR"]
-DRILLS_DIR = "02.drills"
+DRILL_DIR = "02.drill"
 PRACTISE_DIR = "03.practise"
-PERFORM_DIR = "04.performance"
+REHEARSE_DIR = "04.rehearse"
 
 # global state
 drills = {}
@@ -144,7 +144,7 @@ def make_backing_track(piece):
   start = piece.sections[0].phrases[0].start
   stop = piece.sections[-1].phrases[-1].stop
   speed = piece.speeds[-1]
-  output_dir = f"{TARGET_DIR}/{piece.instrument}/{PERFORM_DIR}"
+  output_dir = f"{TARGET_DIR}/{piece.instrument}/{REHEARSE_DIR}"
   os.makedirs(output_dir, exist_ok=True)
 
   # add a metronome intro for the backing track
@@ -257,7 +257,7 @@ def make_drone(instrument, note):
     %%MIDI program {GUNSHOT_INSTRUMENT}
     Q:60
     K:C
-    |cccc|z4""", f"../../../{instrument}/{DRILLS_DIR}/=P0{note}.mp3")
+    |cccc|z4""", f"../../../{instrument}/{DRILL_DIR}/=P0{note}.mp3")
 
 def make_flashcard(num, name, tempo, notes, to_string, reps=1):
   if len(notes) == 0: return
@@ -326,7 +326,7 @@ def make_metronome(instrument, tempo):
       %%MIDI program {GUNSHOT_INSTRUMENT}
       Q:60
       {"|c" * 4}
-      """, f"{TARGET_DIR}/{instrument}/{DRILLS_DIR}/{filename}")
+      """, f"{TARGET_DIR}/{instrument}/{DRILL_DIR}/{filename}")
 
 def make_mp3(score, filename):
   "convert an abc score to an mp3 file"
@@ -385,7 +385,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
 
   if there is nothing to do at a given step, pass the function as None
   """
-  os.makedirs(f"{TARGET_DIR}/{piece.instrument}/{DRILLS_DIR}", exist_ok=True)
+  os.makedirs(f"{TARGET_DIR}/{piece.instrument}/{DRILL_DIR}", exist_ok=True)
 
   # calculate defaults
   for s, section in enumerate(piece.sections):
@@ -457,7 +457,7 @@ def write_drill_cards():
     sorted_drills = dict(sorted(counted_drills.items(), key=lambda x: x[1], reverse=True))
     num = 0
     for text in sorted_drills:
-      with open(f"{TARGET_DIR}/{instrument}/{DRILLS_DIR}/{str(num).zfill(NUM_PADDING)}.txt", "w") as f: f.write(text)
+      with open(f"{TARGET_DIR}/{instrument}/{DRILL_DIR}/{str(num).zfill(NUM_PADDING)}.txt", "w") as f: f.write(text)
       num += 1
 
 
