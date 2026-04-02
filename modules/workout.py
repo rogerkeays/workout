@@ -172,6 +172,7 @@ def make_bracket(piece, start, stop, label, reps=REPS):
 
       # create audio brackets
       speed_str = str(int(speed*100)).zfill(3)
+      silence = f"{tmpdir}/silence.mp3"
       audio_intro = f"{tmpdir}/intro.{speed_str}.mp3"
       audio_chunk = f"{tmpdir}/audio.{speed_str}.mp3"
       gunshot_chunk = f"{tmpdir}/gunshot.mp3"
@@ -180,12 +181,14 @@ def make_bracket(piece, start, stop, label, reps=REPS):
       if MAKE_MP3S and not os.path.exists(audio_output):
 
         # generate chunks for repetition
+        make_silence(DELAY, silence)
         make_intro(piece.meter, piece.tempo * speed, audio_intro)
         cut_audio_chunk(source, start, stop, audio_chunk, speed)
         make_gunshot(gunshot_chunk)
 
         # repeat for the duration of the drill
         with open(audio_concat, "w") as f:
+          f.write(f"file {silence}\n")
           for i in range(reps):
             f.write(f"file {audio_intro}\n")
             f.write(f"file {audio_chunk}\n")
@@ -338,8 +341,9 @@ def make_mp3(score, filename):
           ffmpeg -loglevel error -i {tmpdir}/out.wav -ac 1 -ar {AUDIO_RATE} -q 4 "{filename}"
           """)
 
-def make_silence(seconds, outfile):
-  os.system(f"ffmpeg -nostdin -loglevel error -f lavfi -i anullsrc=r=48000:cl=mono -t {seconds} {outfile}")
+def make_silence(seconds, filename):
+  if MAKE_MP3S and not os.path.exists(filename):
+    os.system(f"ffmpeg -nostdin -loglevel error -f lavfi -i anullsrc=r=48000:cl=mono -t {seconds} {outfile}")
 
 def make_whole(mp3, speed=1, silence=0):
   if MAKE_MP3S:
