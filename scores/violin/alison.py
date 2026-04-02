@@ -26,7 +26,7 @@ violin(1, "the-crawl", "ehIVE-JplZA", 4, 90, "37", [
       1 Z ==== ==== 3 ."""
     ), 483.46),
   ])
-])
+], etude=True)
 
 violin(2, "baby-steps", "ehIVE-JplZA", 4, 90, "37", [
   section("V", "lawn", [
@@ -56,7 +56,7 @@ violin(2, "baby-steps", "ehIVE-JplZA", 4, 90, "37", [
       1 Z ==== ==== 5 ."""
     ), 494.98),
   ])
-])
+], etude=True)
 
 violin(3, "the-first-fall", "ehIVE-JplZA", 4, 100, "37", [
   section("V", "lounge", [
@@ -93,7 +93,7 @@ violin(3, "the-first-fall", "ehIVE-JplZA", 4, 100, "37", [
       1 Z ==== ==== 3 ."""
     ), 506.01)
   ])
-])
+], etude=True)
 
 violin(4, "into-the-kitchen", "ehIVE-JplZA", 4, 100, "37", [
   section("V", "kitchen", [
@@ -135,7 +135,7 @@ violin(4, "into-the-kitchen", "ehIVE-JplZA", 4, 100, "37", [
       1 Z ==== ==== 5 ."""
     ), 516.69),
   ])
-])
+], etude=True)
 
 violin(5, "the-car-trip", "ehIVE-JplZA", 4, 110, "37", [
   section("V", "car", [
@@ -173,7 +173,7 @@ violin(5, "the-car-trip", "ehIVE-JplZA", 4, 110, "37", [
       1 Z ==== ==== 5 ."""
     ), 527.46),
   ])
-])
+], etude=True)
 
 violin(6, "aeroplane-games", "ehIVE-JplZA", 2, 110, "37", [
   section("V", "airfield", [
@@ -204,7 +204,7 @@ violin(6, "aeroplane-games", "ehIVE-JplZA", 2, 110, "37", [
       1 Z ==== ==== 5 ."""
     ), 551.31),
   ])
-])
+], etude=True)
 
 # first finger exercises
 violin(7, "the-door-handle", "jCavOEFJ4Lc", 4, 94, "37", [
@@ -237,7 +237,7 @@ violin(7, "the-door-handle", "jCavOEFJ4Lc", 4, 94, "37", [
       1 Z ==== ==== 5 ."""
     ), 570.15)
   ])
-])
+], etude=True)
 
 violin(8, "the-puppy-dog", "jCavOEFJ4Lc", 3, 104, "49", [
   section("V", "park", [
@@ -267,7 +267,7 @@ violin(8, "the-puppy-dog", "jCavOEFJ4Lc", 3, 104, "49", [
       1 Z ==== ==== 3 ."""
     ), 580.90)
   ])
-])
+], etude=True)
 
 violin(9, "hunger", "jCavOEFJ4Lc", 4, 105, "42", [
   section("V", "baby-chair", [
@@ -306,7 +306,7 @@ violin(9, "hunger", "jCavOEFJ4Lc", 4, 105, "42", [
       1 Z ==== ==== 5 ."""
     ), 592.75)
   ])
-])
+], etude=True)
 
 violin(10, "stealing-cookies", "jCavOEFJ4Lc", 4, 144, "49", [
   section("V", "kitchen", [
@@ -336,7 +336,7 @@ violin(10, "stealing-cookies", "jCavOEFJ4Lc", 4, 144, "49", [
       1 Z ==== ==== 3 ."""
     ), 602.40)
   ])
-])
+], etude=True)
 
 violin(11, "puppy-in-the-kitchen", "jCavOEFJ4Lc", 4, 110, "42", [
   section("V", "kitchen", [
@@ -371,7 +371,7 @@ violin(11, "puppy-in-the-kitchen", "jCavOEFJ4Lc", 4, 110, "42", [
       1 Z ==== ==== 5 ."""
     ), 611.18)
   ])
-])
+], etude=True)
 
 violin(12, "dad-goes-looking", "jCavOEFJ4Lc", 2, 104, "37", [
   section("V", "lost-kids-house", [
@@ -415,7 +415,7 @@ violin(12, "dad-goes-looking", "jCavOEFJ4Lc", 2, 104, "37", [
       1 Z ==== ==== 5 ."""
     ), 621.58)
   ])
-])
+], etude=True)
 
 # second finger exercises
 violin(13, "digging-holes", "wXV2_4L98nI", 3, 146, "42", [
@@ -447,7 +447,7 @@ violin(13, "digging-holes", "wXV2_4L98nI", 3, 146, "42", [
       1 Z ==== ==== 5 ."""
     ), 339.95)
   ])
-])
+], etude=True)
 
 violin(14, "scottish-boy", "wXV2_4L98nI", 4, 133, "54", [
   section("V", "rock-pool", [
@@ -489,7 +489,7 @@ violin(14, "scottish-boy", "wXV2_4L98nI", 4, 133, "54", [
       1 Z ==== ==== 5 ."""
     ), 350.28)
   ])
-])
+], etude=True)
 
 violin(15, "toll-busters", "wXV2_4L98nI", 4, 115, "42", [
   section("V", "toll", [
@@ -530,7 +530,7 @@ violin(15, "toll-busters", "wXV2_4L98nI", 4, 115, "42", [
       1 Z ==== ==== 3 ."""
     ), 360.59)
   ])
-])
+], etude=True)
 
 violin(16, "car-crash", "wXV2_4L98nI", 6, 145, "42", [
   section("V", "crash-site", [
@@ -562,7 +562,7 @@ violin(16, "car-crash", "wXV2_4L98nI", 6, 145, "42", [
       1 Z ==== ==== 5 ."""
     ), 371.28)
   ])
-])
+], etude=True)
 
 violin(17, "bouncy-castle", "wXV2_4L98nI", 2, 90, "49", [
   section("V", "castle", [
@@ -599,7 +599,7 @@ violin(17, "bouncy-castle", "wXV2_4L98nI", 2, 90, "49", [
       1 Z ==== ==== 5 ."""
     ), 381.26)
   ])
-])
+], etude=True)
 
 violin(18, "the-bad-date", "wXV2_4L98nI", 3, 50, "4Y", [
   section("V", "girls-house", [
@@ -637,7 +637,7 @@ violin(18, "the-bad-date", "wXV2_4L98nI", 3, 50, "4Y", [
       1 Z ==== ==== 5 ."""
     ), 396.43)
   ])
-])
+], etude=True)
 
 # third and fourth finger exercises
 violin(19, "sleeping-in", "ZCYYCzDH_7Q", 3, 135, "42", [
@@ -676,7 +676,7 @@ violin(19, "sleeping-in", "ZCYYCzDH_7Q", 3, 135, "42", [
       1 Z ==== ==== 5 ."""
     ), 280.85)
   ])
-])
+], etude=True)
 
 violin(20, "the-birthday-party", "ZCYYCzDH_7Q", 4, 95, "59", [
   section("V", "poolside", [
@@ -719,7 +719,7 @@ violin(20, "the-birthday-party", "ZCYYCzDH_7Q", 4, 95, "59", [
       1 Z ==== ==== 3 ."""
     ), 291.21)
   ])
-])
+], etude=True)
 
 violin(21, "boring-homework", "ZCYYCzDH_7Q", 4, 95, "47", [
   section("V", "desk", [
@@ -758,7 +758,7 @@ violin(21, "boring-homework", "ZCYYCzDH_7Q", 4, 95, "47", [
       1 Z ==== ==== 3 ."""
     ), 306.09)
   ])
-])
+], etude=True)
 
 violin(22, "chinese-kids", "ZCYYCzDH_7Q", 4, 90, "47", [
   section("V", "classroom", [
@@ -802,7 +802,7 @@ violin(22, "chinese-kids", "ZCYYCzDH_7Q", 4, 90, "47", [
       1 Z ==== ==== 5 ."""
     ), 318.16)
   ])
-])
+], etude=True)
 
 violin(23, "chicken-pox", "ZCYYCzDH_7Q", 4, 100, "47", [
   section("V", "bed", [
@@ -840,7 +840,7 @@ violin(23, "chicken-pox", "ZCYYCzDH_7Q", 4, 100, "47", [
       1 Z ==== ==== 5 ."""
     ), 337.73)
   ])
-])
+], etude=True)
 
 violin(24, "last-day-of-school", "ZCYYCzDH_7Q", 4, 95, "4Y", [
   section("V", "primary-school", [
@@ -882,5 +882,5 @@ violin(24, "last-day-of-school", "ZCYYCzDH_7Q", 4, 95, "4Y", [
       1 Z ==== ==== 5 ."""
     ), 349.16)
   ])
-])
+], etude=True)
 
