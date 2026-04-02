@@ -151,17 +151,20 @@ def make_backing_track(piece):
 
   # add a metronome intro for the backing track
   with tempfile.TemporaryDirectory() as tmpdir:
+    silence = f"{tmpdir}/silence.mp3"
     audio_intro = f"{tmpdir}/intro.mp3"
     audio_chunk = f"{tmpdir}/chunk.mp3"
     audio_concat = f"{tmpdir}/concat.txt"
     audio_output = f"{output_dir}/XX.{str(piece.number).zfill(4)}.{piece.name}.mp3"
     if MAKE_MP3S and not os.path.exists(audio_output):
       source = get_video(piece.video_id)
+      make_silence(DELAY, silence)
       make_intro(piece.meter, piece.tempo * speed, audio_intro)
       cut_audio_chunk(source, start, stop, audio_chunk, speed)
 
       # concatenate the chunks
       with open(audio_concat, "w") as f:
+        f.write(f"file {silence}\n")
         f.write(f"file {audio_intro}\n")
         f.write(f"file {audio_chunk}\n")
       os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{audio_concat}" \
@@ -345,7 +348,7 @@ def make_mp3(score, filename):
 
 def make_silence(seconds, filename):
   if MAKE_MP3S and not os.path.exists(filename):
-    os.system(f"ffmpeg -nostdin -loglevel error -f lavfi -i anullsrc=r=48000:cl=mono -t {seconds} {outfile}")
+    os.system(f"ffmpeg -nostdin -loglevel error -f lavfi -i anullsrc=r=48000:cl=mono -t {seconds} {filename}")
 
 def make_whole(mp3, speed=1, silence=0):
   if MAKE_MP3S:
