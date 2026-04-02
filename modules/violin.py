@@ -49,8 +49,8 @@ def notes(text: str) -> list[Note]:
   """
   return list(map(parse_violin_note, filter(lambda x: len(x) > 0, map(str.strip, text.split("\n")))))
 
-def violin(number, name, video_id, meter, tempo, tonic, sections, speeds=[0.5, 1.0], video=True):
-  process_piece(Piece("violin", number, name, video_id, meter, tempo, tonic, sections, speeds, video),
+def violin(number, name, video_id, meter, tempo, tonic, sections, speeds=[0.5, 1.0], video=True, etude=False):
+  process_piece(Piece("violin", number, name, video_id, meter, tempo, tonic, sections, speeds, video, etude),
       calculate_defaults, process_phrase, process_transition, process_note)
 
 

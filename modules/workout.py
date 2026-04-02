@@ -25,8 +25,9 @@ REPS = 5
 # output preparation
 TARGET_DIR = "target" if "WORKOUT_TARGET_DIR" not in os.environ else os.environ["WORKOUT_TARGET_DIR"]
 DRILL_DIR = "02.drill"
-PRACTISE_DIR = "03.practise"
-REHEARSE_DIR = "04.rehearse"
+ETUDES_DIR = "03.etudes"
+PRACTISE_DIR = "04.practise"
+REHEARSE_DIR = "05.rehearse"
 
 # global state
 drills = {}
@@ -69,6 +70,7 @@ class Piece:
   sections: list[Section]
   speeds: list[float]
   video: bool
+  etude: bool
 
 
 # constructors
@@ -78,9 +80,9 @@ def phrase(start, label, notes=[], stop=0, skip=False):
   phrases[label] = p
   return p
 
-def piece(number, name, video_id, meter, tempo, tonic, sections, speeds=[0.5, 1.0], video=True):
+def piece(number, name, video_id, meter, tempo, tonic, sections, speeds=[0.5, 1.0], video=True, etude=False):
   "construct and process a piece in one step)"
-  process_piece(Piece("workout", number, name, video_id, meter, tempo, tonic, sections, speeds, video), None, None, None, None)
+  process_piece(Piece("workout", number, name, video_id, meter, tempo, tonic, sections, speeds, video, etude), None, None, None, None)
 
 def repeat(start, id, stop=0, skip=False):
   """
@@ -410,7 +412,8 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
   # create piece practise bracket
   start = piece.sections[0].phrases[0].start
   stop = piece.sections[-1].phrases[-1].stop
-  mcd(f"{TARGET_DIR}/{piece.instrument}/{PRACTISE_DIR}/{str(piece.number).zfill(4)} ----- {piece.name}")
+  outdir = ETUDES_DIR if piece.etude else PRACTISE_DIR
+  mcd(f"{TARGET_DIR}/{piece.instrument}/{outdir}/{str(piece.number).zfill(4)} ----- {piece.name}")
   make_bracket(piece, start, stop, piece.name)
 
   # process sections in reverse
@@ -442,7 +445,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
   os.chdir("../../../..")
 
   make_metronome(piece.instrument, piece.tempo)
-  make_backing_track(piece)
+  if not piece.etude: make_backing_track(piece)
 
 def shift_rhythm(rhythm):
   "shift a rhythm pattern to start on the first beat"
