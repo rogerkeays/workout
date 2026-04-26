@@ -285,7 +285,7 @@ def make_intro(meter, tempo, outfile):
     {"|z" * DELAY}
     %%MIDI program {METRONOME_INSTRUMENT}
     Q:{tempo}
-    {"c|" * meter}
+    {"|c" * meter}
     """, outfile)
 
 def make_gunshot(outfile):
@@ -343,7 +343,8 @@ def make_mp3(score, filename):
       os.system(f"""echo '{strip_multiline(score)}' | \
           abc2midi /dev/stdin -quiet -silent -o {tmpdir}/out.midi
           fluidsynth --quiet --fast-render {tmpdir}/out.wav --gain 5 --sample-rate {AUDIO_RATE} {tmpdir}/out.midi
-          ffmpeg -loglevel error -i {tmpdir}/out.wav -ac 1 -ar {AUDIO_RATE} -q 4 "{filename}"
+          ffmpeg -loglevel error -i {tmpdir}/out.wav -ac 1 -ar {AUDIO_RATE} -q 4 \
+                 -af "silenceremove=stop_periods=1:stop_duration=0.2:stop_threshold=-45dB" "{filename}"
           """)
 
 def make_silence(seconds, filename):
