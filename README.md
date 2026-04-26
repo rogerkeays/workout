@@ -14,7 +14,7 @@ made for any instrument.
 These scripts depend on some widely available UNIX utilities. Install them with
 your operating system's package manager. E.g.
 
-    sudo apt install python3 ffmpeg abc2midi fluidsynth loudgain timidity node
+    sudo apt install python3 ffmpeg abcmidi fluidsynth loudgain timidity nodejs
 
 For video downloads, [`yt-dlp`](https://github.com/yt-dlp/yt-dlp) and a
 javascript runtime such as `node` must be installed. The static binaries of
