@@ -137,6 +137,9 @@ def get_video(id):
 def half(val):
   return int(val / 2)
 
+def has_intro(piece):
+  return len(piece.sections) > 0 and len(piece.sections[0].phrases) > 0 and piece.sections[0].phrases[0].skip == True
+
 def is_skipped(section):
   for p in section.phrases:
     if p.skip == False: return False
@@ -159,7 +162,10 @@ def make_backing_track(piece):
     if MAKE_MP3S and not os.path.exists(audio_output):
       source = get_video(piece.video_id)
       make_silence(DELAY, silence)
-      make_intro(piece.meter, piece.tempo * speed, audio_intro)
+      if has_intro(piece):
+        make_silence(DELAY, audio_intro)
+      else:
+        make_intro(piece.meter, piece.tempo * speed, audio_intro)
       cut_audio_chunk(source, start, stop, audio_chunk, speed)
 
       # concatenate the chunks
