@@ -5,6 +5,7 @@ import sys
 from modules.workout import *
 from modules.violin import *
 from modules.piano import *
+from modules.guitar import *
 
 # process the input files
 for file in sys.argv[1:]:
