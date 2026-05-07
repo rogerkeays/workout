@@ -6,6 +6,7 @@ from modules.workout import *
 from modules.violin import *
 from modules.piano import *
 from modules.guitar import *
+from modules.voice import *
 
 # process the input files
 for file in sys.argv[1:]:
