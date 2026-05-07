@@ -25,9 +25,8 @@ REPS = 5
 # output preparation
 TARGET_DIR = "target" if "WORKOUT_TARGET_DIR" not in os.environ else os.environ["WORKOUT_TARGET_DIR"]
 DRILL_DIR = "02.drill"
-ETUDES_DIR = "03.etudes"
-PRACTISE_DIR = "04.practise"
-REHEARSE_DIR = "05.rehearse"
+PRACTISE_DIR = "03.practise"
+REHEARSE_DIR = "04.rehearse"
 
 # global state
 drills = {}
@@ -423,7 +422,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
   # create piece practise bracket
   start = piece.sections[0].phrases[0].start
   stop = piece.sections[-1].phrases[-1].stop
-  outdir = ETUDES_DIR if piece.etude else PRACTISE_DIR
+  outdir = DRILLS_DIR if piece.etude else PRACTISE_DIR
   mcd(f"{TARGET_DIR}/{piece.instrument}/{outdir}/{str(piece.number).zfill(4)} ----- {piece.name}")
   make_bracket(piece, start, stop, piece.name)
 
