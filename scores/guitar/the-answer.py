@@ -33,14 +33,14 @@ guitar(2001, "the-answer", "D84eh_gn49c", 4, 139, "44", [
     repeat(120.04, "I1"),
     repeat(121.81, "I2")
   ]),
-  section("V", "@", [
-    repeat(121.81, "V1"),  # city : an urban sprawl sits choking on it's discharge, overwhelmed by i~ndustry
+  section("V", "@city", [
+    repeat(121.81, "V1"),  # beggar : an urban sprawl sits choking on it's discharge, overwhelmed by i~ndustry
     repeat(128.81, "V2"),  # musk : searching for another .. saviour from another place inclined toward cha~ri~ty
     repeat(135.89, "V3"),  # crystals : everyone begging for an answer without regard to vali~di~ty
     repeat(142.89, "V4"),  # falkor : but the search it never ends it goes o-n a-nd o-on a-nd on for eter~ni~ty
     repeat(149.90, "V5")
   ]),
-  section("M", "@", [
+  section("M", "@valley", [
     phrase(151.65, "M1"),  # singers : ah, ah, ah~~ ah
     repeat(158.63, "M1")   # singers : ah, ah, ah~~ ah
   ]),
