@@ -282,6 +282,7 @@ def make_flashcard(num, name, tempo, notes, to_string, reps=1):
   with open(str(num).zfill(NUM_PADDING) + ".txt", "w") as f: f.write(text)
 
 def make_intro(meter, tempo, outfile):
+  length = meter / tempo * 60 + DELAY
   make_mp3(f"""
     X:0
     M:1/4
@@ -292,7 +293,7 @@ def make_intro(meter, tempo, outfile):
     %%MIDI program {METRONOME_INSTRUMENT}
     Q:{tempo}
     {"|c" * meter}
-    """, outfile)
+    """, outfile, length)
 
 def make_gunshot(outfile):
   make_mp3(f"""
@@ -342,15 +343,15 @@ def make_metronome(instrument, tempo):
       {"|c" * 4}
       """, f"{TARGET_DIR}/{instrument}/{DRILL_DIR}/{filename}")
 
-def make_mp3(score, filename):
+def make_mp3(score, filename, length=0):
   "convert an abc score to an mp3 file"
   if MAKE_MP3S and not os.path.exists(filename):
     with tempfile.TemporaryDirectory() as tmpdir:
+      to = "" if (length == 0) else f"-to {length}"
       os.system(f"""echo '{strip_multiline(score)}' | \
           abc2midi /dev/stdin -quiet -silent -o {tmpdir}/out.midi
           fluidsynth --quiet --fast-render {tmpdir}/out.wav --gain 5 --sample-rate {AUDIO_RATE} {tmpdir}/out.midi
-          ffmpeg -loglevel error -i {tmpdir}/out.wav -ac 1 -ar {AUDIO_RATE} -q 4 \
-                 -af "silenceremove=stop_periods=1:stop_duration=0.2:stop_threshold=-45dB" "{filename}"
+          ffmpeg -loglevel error -i {tmpdir}/out.wav -ac 1 -ar {AUDIO_RATE} -q 4 {to} "{filename}"
           """)
 
 def make_silence(seconds, filename):
