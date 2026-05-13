@@ -1,6 +1,6 @@
 # vim: foldmethod=marker foldmarker=notes(,) foldtext=getline(v\:foldstart)
 
-violin(1033, "aunt-rhody", "Ku07fOwtbZc", 4, 98, "49", [
+violin(1033, "aunt-rhody", "Ku07fOwtbZc", 4, 98, "49", [ # @johns house
   section("A", "bedroom", [
     phrase(6.58, "aunt"),         # go tell aunt rhody : swss : 44200
     phrase(9.12, "john"),         # john is sick in bed : ssws : 22420
