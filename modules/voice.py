@@ -3,7 +3,7 @@
 from modules.workout import *
 
 # constructors
-def voice(number, name, video_id, meter, tempo, tonic, sections, speeds=[0.5, 1.0], video=True, etude=False):
+def voice(number, name, video_id, meter, tempo, tonic, sections, speeds=[0.5, 1.0], video=False, etude=False):
   process_piece(Piece("voice", number, name, video_id, meter, tempo, tonic, sections, speeds, video, etude), None, None, None, None)
 
 
