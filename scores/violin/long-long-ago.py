@@ -1,6 +1,9 @@
 # vim: foldmethod=marker foldmarker=notes(,) foldtext=getline(v\:foldstart)
 
 violin(1036, "long-long-ago", "izADKOO2MVo", 4, 98, "49", [ # castle
+  section("I", "intro", [
+    phrase(1.30 ,"intro", skip=True)
+  ]),
   section("A", "tower", [
     phrase(6.50, "princess"),   # there was a princess with dark hair and eyes : swsw swsx : 002445 7974
     phrase(11.42, "long-ago"),  # long long ago, long long ago : swsx swsx : 7542 5420
