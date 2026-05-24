@@ -1,6 +1,6 @@
 # vim: foldmethod=marker foldmarker=notes(,) foldtext=getline(v\:foldstart)
 
-violin(1036, "long-long-ago", "izADKOO2MVo", 4, 98, "49", [ # castle
+violin(1036, "long-ago", "izADKOO2MVo", 4, 98, "49", [ # castle
   section("I", "intro", [
     phrase(1.30 ,"intro", skip=True)
   ]),
