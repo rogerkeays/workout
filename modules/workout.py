@@ -433,7 +433,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
       section_num += 1
       start = section.phrases[0].start
       stop = section.phrases[-1].stop
-      mcd(f"{str(section_num).zfill(2)} ----- {section.function}")
+      mcd(f"{str(section_num).zfill(2)} {section.function} ----- {section.label}")
       make_bracket(piece, start, stop, section.label)
 
       # process phrases in reverse
