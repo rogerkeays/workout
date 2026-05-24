@@ -1,7 +1,6 @@
 # vim: foldmethod=marker foldmarker=notes(,) foldtext=getline(v\:foldstart)
 
-# @club
-violin(4028, "tocarte", "1ZmvevvoprI", 4, 100, "49", [
+violin(4028, "tocarte", "1ZmvevvoprI", 4, 100, "49", [ # club
   section("I", "taxi", [
     phrase(0.18, "0.wsws"),
     phrase(2.60, "3.wsws"),

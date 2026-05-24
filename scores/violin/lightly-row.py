@@ -1,7 +1,6 @@
 # vim: foldmethod=marker foldmarker=notes(,) foldtext=getline(v\:foldstart)
 
-# @oxford
-violin(1031, "lightly-row", "IZ8OFyudRmE", 4, 146, "49", [
+violin(1031, "lightly-row", "IZ8OFyudRmE", 4, 146, "49", [ # oxford
   section("I", "intro", [
     phrase(0.99, "intro", skip=True)
   ]),

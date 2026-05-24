@@ -1,9 +1,7 @@
 # vim: foldmethod=marker foldmarker=notes(,) foldtext=getline(v\:foldstart)
 
-# from coursera, not available on youtube
-
-# @siem reap river
-violin(1057, "musette", "coursera-65", 4, 120, "42", [
+# from coursera: not available on youtube
+violin(1057, "musette", "coursera-65", 4, 120, "42", [ # siem-reap-river
   section("I", "intro", [
     phrase(264.18, "intro", skip=True)
   ]),
