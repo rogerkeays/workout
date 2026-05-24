@@ -116,7 +116,7 @@ voice(2002, "king", "KwXNHdfjh30", 4, 62.5, "49", [ # fridays
   section("O", "exit", [
     phrase(243.69, "im-king"),  # i'm king (x4)
     repeat(251.07, "im-king"),
-    phrase(258.66, "solo"),
+    phrase(258.66, "solo", skip=True),
     repeat(273.91, "im-king"),
     repeat(281.31, "im-king"),
     phrase(288.68, "kiiing", [], 306.50)  # i'm k-----ing
