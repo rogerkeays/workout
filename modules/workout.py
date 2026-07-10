@@ -195,27 +195,8 @@ def make_backing_track(piece):
   speed = piece.speeds[-1]
   output_dir = f"{TARGET_DIR}/{piece.instrument}/{REHEARSE_DIR}"
   os.makedirs(output_dir, exist_ok=True)
-
-  # add a metronome intro for the backing track
-  with tempfile.TemporaryDirectory() as tmpdir:
-    silence = f"{tmpdir}/silence.mp3"
-    audio_intro = f"{tmpdir}/intro.mp3"
-    audio_chunk = f"{tmpdir}/chunk.mp3"
-    audio_concat = f"{tmpdir}/concat.txt"
-    audio_output = f"{output_dir}/XX.{str(piece.number).zfill(4)}.{piece.name}.mp3"
-    if MAKE_MP3S and not os.path.exists(audio_output):
-      source = get_video(piece.video_id)
-      make_silence(DELAY, silence)
-      make_audio_intro(piece.meter, piece.tempo * speed, audio_intro, not has_intro(piece))
-      cut_audio_chunk(source, start, stop, audio_chunk, speed)
-
-      # concatenate the chunks
-      with open(audio_concat, "w") as f:
-        f.write(f"file {silence}\n")
-        f.write(f"file {audio_intro}\n")
-        f.write(f"file {audio_chunk}\n")
-      os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{audio_concat}" \
-                           -acodec copy "{audio_output}" """)
+  outfile = f"{output_dir}/XX.{str(piece.number).zfill(4)}.{piece.name}.{VIDEO_TYPE}"
+  make_video_bracket(piece, start, stop, speed, outfile, not has_intro(piece))
 
 def make_brackets(piece, start, stop, label):
   for speed in piece.speeds:
