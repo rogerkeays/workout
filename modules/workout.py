@@ -144,19 +144,50 @@ def is_skipped(section):
     if p.skip == False: return False
   return True
 
-def make_audio_clicks(meter, tempo, outfile):
-  length = meter / tempo * 60 + DELAY
-  make_mp3(f"""
-    X:0
-    M:1/4
-    L:1/4
-    K:C
-    Q:60
-    {"|z" * DELAY}
-    %%MIDI program {METRONOME_INSTRUMENT}
-    Q:{tempo}
-    {"|c" * meter}
-    """, outfile, length)
+def make_audio_bracket(piece, start, stop, speed, outfile, reps=REPS):
+  with tempfile.TemporaryDirectory() as tmpdir:
+    if MAKE_MP3S and not os.path.exists(outfile):
+      source = get_video(piece.video_id)
+      silence = f"{tmpdir}/silence.mp3"
+      intro = f"{tmpdir}/intro.mp3"
+      chunk = f"{tmpdir}/chunk.mp3"
+      gunshot = f"{tmpdir}/gunshot.mp3"
+      concat = f"{tmpdir}/concat.txt"
+
+      # generate chunks for repetition
+      make_silence(DELAY, silence)
+      make_audio_intro(piece.meter, piece.tempo * speed, intro)
+      cut_audio_chunk(source, start, stop, chunk, speed)
+      make_gunshot(gunshot)
+
+      # repeat for the duration of the drill
+      with open(concat, "w") as f:
+        f.write(f"file {silence}\n")
+        for i in range(reps):
+          f.write(f"file {intro}\n")
+          f.write(f"file {chunk}\n")
+        f.write(f"file {gunshot}\n")
+
+      # concatenate the chunks
+      os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{concat}" \
+                           -acodec copy "{outfile}" """)
+
+def make_audio_intro(meter, tempo, outfile, clicks=True):
+  if clicks:
+    length = meter / tempo * 60 + DELAY
+    make_mp3(f"""
+      X:0
+      M:1/4
+      L:1/4
+      K:C
+      Q:60
+      {"|z" * DELAY}
+      %%MIDI program {METRONOME_INSTRUMENT}
+      Q:{tempo}
+      {"|c" * meter}
+      """, outfile, length)
+  else:
+    make_silence(DELAY, outfile)
 
 def make_backing_track(piece):
   start = piece.sections[0].phrases[0].start
@@ -175,10 +206,7 @@ def make_backing_track(piece):
     if MAKE_MP3S and not os.path.exists(audio_output):
       source = get_video(piece.video_id)
       make_silence(DELAY, silence)
-      if has_intro(piece):
-        make_silence(DELAY, audio_intro)
-      else:
-        make_audio_clicks(piece.meter, piece.tempo * speed, audio_intro)
+      make_audio_intro(piece.meter, piece.tempo * speed, audio_intro, not has_intro(piece))
       cut_audio_chunk(source, start, stop, audio_chunk, speed)
 
       # concatenate the chunks
@@ -189,56 +217,11 @@ def make_backing_track(piece):
       os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{audio_concat}" \
                            -acodec copy "{audio_output}" """)
 
-def make_bracket(piece, start, stop, label, reps=REPS):
-  source = get_video(piece.video_id)
-  with tempfile.TemporaryDirectory() as tmpdir:
-    for speed in piece.speeds:
-
-      # create audio brackets
-      speed_str = str(int(speed*100)).zfill(3)
-      silence = f"{tmpdir}/silence.mp3"
-      audio_intro = f"{tmpdir}/intro.{speed_str}.mp3"
-      audio_chunk = f"{tmpdir}/audio.{speed_str}.mp3"
-      gunshot_chunk = f"{tmpdir}/gunshot.mp3"
-      audio_concat = f"{tmpdir}/audio.{speed_str}.txt"
-      audio_output = f"{label}.{speed_str}.mp3"
-      if MAKE_MP3S and not os.path.exists(audio_output):
-
-        # generate chunks for repetition
-        make_silence(DELAY, silence)
-        make_audio_clicks(piece.meter, piece.tempo * speed, audio_intro)
-        cut_audio_chunk(source, start, stop, audio_chunk, speed)
-        make_gunshot(gunshot_chunk)
-
-        # repeat for the duration of the drill
-        with open(audio_concat, "w") as f:
-          f.write(f"file {silence}\n")
-          for i in range(reps):
-            f.write(f"file {audio_intro}\n")
-            f.write(f"file {audio_chunk}\n")
-          f.write(f"file {gunshot_chunk}\n")
-
-        # concatenate the chunks
-        os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{audio_concat}" \
-                             -acodec copy "{audio_output}" """)
-
-      # create video brackets
-      video_intro = f"{tmpdir}/intro.{speed_str}.{VIDEO_TYPE}"
-      video_chunk = f"{tmpdir}/video.{speed_str}.{VIDEO_TYPE}"
-      video_concat = f"{tmpdir}/video.{speed_str}.txt"
-      video_output = f"{label}.{speed_str}.{VIDEO_TYPE}"
-      if MAKE_MP3S and piece.video and not os.path.exists(video_output):
-
-        # cut video chunk and make an intro in the same format
-        cut_video_chunk(source, start, stop, video_chunk, speed)
-        make_video_clicks(piece.meter, piece.tempo * speed, video_chunk, video_intro)
-
-        # concatenate the chunks: re-encodes for buggy video players
-        with open(video_concat, "w") as f:
-          f.write(f"file {video_intro}\n")
-          f.write(f"file {video_chunk}\n")
-        os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{video_concat}" \
-                             -r {VIDEO_FPS} -vcodec {VIDEO_CODEC} -acodec {AUDIO_CODEC} "{video_output}" """)
+def make_brackets(piece, start, stop, label):
+  for speed in piece.speeds:
+    speed_str = str(int(speed*100)).zfill(3)
+    make_audio_bracket(piece, start, stop, speed, f"{label}.{speed_str}.mp3")
+    make_video_bracket(piece, start, stop, speed, f"{label}.{speed_str}.{VIDEO_TYPE}")
 
 def make_drill(instrument, params={}, reps=REPS):
   "make a drill card, ensuring it is unique, and formatting it appropriately as a text file"
@@ -353,12 +336,31 @@ def make_silence(seconds, filename):
   if MAKE_MP3S and not os.path.exists(filename):
     os.system(f"ffmpeg -nostdin -loglevel error -f lavfi -i anullsrc=r=48000:cl=mono -t {seconds} {filename}")
 
-def make_video_clicks(meter, tempo, infile, outfile):
-  video_frame = outfile + ".png"
-  audio_clicks = outfile + ".mp3"
-  make_audio_clicks(meter, tempo, outfile + ".mp3")
+def make_video_bracket(piece, start, stop, speed, outfile, clicks=True):
+  with tempfile.TemporaryDirectory() as tmpdir:
+    if MAKE_MP3S and piece.video and not os.path.exists(outfile):
+      source = get_video(piece.video_id)
+      intro = f"{tmpdir}/intro.{VIDEO_TYPE}"
+      chunk = f"{tmpdir}/chunk.{VIDEO_TYPE}"
+      concat = f"{tmpdir}/concat.txt"
+
+      # cut video chunk and make an intro in the same format
+      cut_video_chunk(source, start, stop, chunk, speed)
+      make_video_intro(piece.meter, piece.tempo * speed, chunk, intro, clicks)
+
+      # concatenate the chunks: re-encodes for buggy video players
+      with open(concat, "w") as f:
+        f.write(f"file {intro}\n")
+        f.write(f"file {chunk}\n")
+      os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{concat}" \
+                           -r {VIDEO_FPS} -vcodec {VIDEO_CODEC} -acodec {AUDIO_CODEC} "{outfile}" """)
+
+def make_video_intro(meter, tempo, infile, outfile, clicks=True):
+  video_frame = f"{outfile}.png"
+  audio_intro = f"{outfile}.mp3"
+  make_audio_intro(meter, tempo, audio_intro, clicks)
   os.system(f"""ffmpeg -nostdin -loglevel error -i "{infile}" -frames 1 "{video_frame}" """)
-  os.system(f"""ffmpeg -nostdin -loglevel error -i "{video_frame}" -i "{audio_clicks}" \
+  os.system(f"""ffmpeg -nostdin -loglevel error -i "{video_frame}" -i "{audio_intro}" \
                        -r {VIDEO_FPS} -vcodec {VIDEO_CODEC} -acodec {AUDIO_CODEC} "{outfile}" """)
 
 def make_whole(mp3, speed=1, silence=0):
@@ -428,7 +430,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
   stop = piece.sections[-1].phrases[-1].stop
   outdir = DRILLS_DIR if piece.etude else PRACTISE_DIR
   mcd(f"{TARGET_DIR}/{piece.instrument}/{outdir}/{str(piece.number).zfill(4)} ----- {piece.name}")
-  make_bracket(piece, start, stop, piece.name)
+  make_brackets(piece, start, stop, piece.name)
 
   # process sections in reverse
   section_num = 0
@@ -438,7 +440,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
       start = section.phrases[0].start
       stop = section.phrases[-1].stop
       mcd(f"{str(section_num).zfill(2)} {section.function} ----- {section.label}")
-      make_bracket(piece, start, stop, section.label)
+      make_brackets(piece, start, stop, section.label)
 
       # process phrases in reverse
       phrase_num = 0
@@ -446,7 +448,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
         if not phrase.skip:
           phrase_num += 1
           mcd(f"{str(phrase_num).zfill(2)} ----- {phrase.label}")
-          make_bracket(piece, phrase.start, phrase.stop, phrase.label)
+          make_brackets(piece, phrase.start, phrase.stop, phrase.label)
           if phrase_function != None: phrase_function(piece, section, phrase)
 
           # process notes in reverse order
