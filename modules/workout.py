@@ -144,6 +144,20 @@ def is_skipped(section):
     if p.skip == False: return False
   return True
 
+def make_audio_clicks(meter, tempo, outfile):
+  length = meter / tempo * 60 + DELAY
+  make_mp3(f"""
+    X:0
+    M:1/4
+    L:1/4
+    K:C
+    Q:60
+    {"|z" * DELAY}
+    %%MIDI program {METRONOME_INSTRUMENT}
+    Q:{tempo}
+    {"|c" * meter}
+    """, outfile, length)
+
 def make_backing_track(piece):
   start = piece.sections[0].phrases[0].start
   stop = piece.sections[-1].phrases[-1].stop
@@ -225,20 +239,6 @@ def make_bracket(piece, start, stop, label, reps=REPS):
           f.write(f"file {video_chunk}\n")
         os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{video_concat}" \
                              -r {VIDEO_FPS} -vcodec {VIDEO_CODEC} -acodec {AUDIO_CODEC} "{video_output}" """)
-
-def make_audio_clicks(meter, tempo, outfile):
-  length = meter / tempo * 60 + DELAY
-  make_mp3(f"""
-    X:0
-    M:1/4
-    L:1/4
-    K:C
-    Q:60
-    {"|z" * DELAY}
-    %%MIDI program {METRONOME_INSTRUMENT}
-    Q:{tempo}
-    {"|c" * meter}
-    """, outfile, length)
 
 def make_drill(instrument, params={}, reps=REPS):
   "make a drill card, ensuring it is unique, and formatting it appropriately as a text file"
