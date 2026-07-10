@@ -164,7 +164,7 @@ def make_backing_track(piece):
       if has_intro(piece):
         make_silence(DELAY, audio_intro)
       else:
-        make_intro(piece.meter, piece.tempo * speed, audio_intro)
+        make_audio_clicks(piece.meter, piece.tempo * speed, audio_intro)
       cut_audio_chunk(source, start, stop, audio_chunk, speed)
 
       # concatenate the chunks
@@ -192,7 +192,7 @@ def make_bracket(piece, start, stop, label, reps=REPS):
 
         # generate chunks for repetition
         make_silence(DELAY, silence)
-        make_intro(piece.meter, piece.tempo * speed, audio_intro)
+        make_audio_clicks(piece.meter, piece.tempo * speed, audio_intro)
         cut_audio_chunk(source, start, stop, audio_chunk, speed)
         make_gunshot(gunshot_chunk)
 
@@ -211,17 +211,13 @@ def make_bracket(piece, start, stop, label, reps=REPS):
       # create video brackets
       video_intro = f"{tmpdir}/intro.{speed_str}.{VIDEO_TYPE}"
       video_chunk = f"{tmpdir}/video.{speed_str}.{VIDEO_TYPE}"
-      video_frame = f"{tmpdir}/video.{speed_str}.png"
       video_concat = f"{tmpdir}/video.{speed_str}.txt"
       video_output = f"{label}.{speed_str}.{VIDEO_TYPE}"
       if MAKE_MP3S and piece.video and not os.path.exists(video_output):
 
         # cut video chunk and make an intro in the same format
-        make_intro(piece.meter, piece.tempo * speed, audio_intro)
         cut_video_chunk(source, start, stop, video_chunk, speed)
-        os.system(f"""ffmpeg -nostdin -loglevel error -i "{video_chunk}" -frames 1 "{video_frame}" """)
-        os.system(f"""ffmpeg -nostdin -loglevel error -i "{video_frame}" -i "{audio_intro}" \
-                             -r {VIDEO_FPS} -vcodec {VIDEO_CODEC} -acodec {AUDIO_CODEC} "{video_intro}" """)
+        make_video_clicks(piece.meter, piece.tempo * speed, video_chunk, video_intro)
 
         # concatenate the chunks: re-encodes for buggy video players
         with open(video_concat, "w") as f:
@@ -229,6 +225,20 @@ def make_bracket(piece, start, stop, label, reps=REPS):
           f.write(f"file {video_chunk}\n")
         os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{video_concat}" \
                              -r {VIDEO_FPS} -vcodec {VIDEO_CODEC} -acodec {AUDIO_CODEC} "{video_output}" """)
+
+def make_audio_clicks(meter, tempo, outfile):
+  length = meter / tempo * 60 + DELAY
+  make_mp3(f"""
+    X:0
+    M:1/4
+    L:1/4
+    K:C
+    Q:60
+    {"|z" * DELAY}
+    %%MIDI program {METRONOME_INSTRUMENT}
+    Q:{tempo}
+    {"|c" * meter}
+    """, outfile, length)
 
 def make_drill(instrument, params={}, reps=REPS):
   "make a drill card, ensuring it is unique, and formatting it appropriately as a text file"
@@ -279,20 +289,6 @@ def make_flashcard(num, name, tempo, notes, to_string, reps=1):
   text = f"{name} @{tempo} x{reps}\n"
   for note in notes: text += to_string(note) + "\n"
   with open(str(num).zfill(NUM_PADDING) + ".txt", "w") as f: f.write(text)
-
-def make_intro(meter, tempo, outfile):
-  length = meter / tempo * 60 + DELAY
-  make_mp3(f"""
-    X:0
-    M:1/4
-    L:1/4
-    K:C
-    Q:60
-    {"|z" * DELAY}
-    %%MIDI program {METRONOME_INSTRUMENT}
-    Q:{tempo}
-    {"|c" * meter}
-    """, outfile, length)
 
 def make_gunshot(outfile):
   make_mp3(f"""
@@ -356,6 +352,14 @@ def make_mp3(score, filename, length=0):
 def make_silence(seconds, filename):
   if MAKE_MP3S and not os.path.exists(filename):
     os.system(f"ffmpeg -nostdin -loglevel error -f lavfi -i anullsrc=r=48000:cl=mono -t {seconds} {filename}")
+
+def make_video_clicks(meter, tempo, infile, outfile):
+  video_frame = outfile + ".png"
+  audio_clicks = outfile + ".mp3"
+  make_audio_clicks(meter, tempo, outfile + ".mp3")
+  os.system(f"""ffmpeg -nostdin -loglevel error -i "{infile}" -frames 1 "{video_frame}" """)
+  os.system(f"""ffmpeg -nostdin -loglevel error -i "{video_frame}" -i "{audio_clicks}" \
+                       -r {VIDEO_FPS} -vcodec {VIDEO_CODEC} -acodec {AUDIO_CODEC} "{outfile}" """)
 
 def make_whole(mp3, speed=1, silence=0):
   if MAKE_MP3S:
