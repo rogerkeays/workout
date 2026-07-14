@@ -2,13 +2,13 @@
 
 # bastien piano basics level 1
 piano(30, "sleepy-john", "VslRvX0LRHg", 4, 73, "40", [
-  section("A", "V1", [
+  section("A", "A", [
     phrase(0.96, "A1"),
     phrase(4.23, "A1^"),
     phrase(7.73, "A2"),
     phrase(11.35, "A2^")
   ]),
-  section("B", "V2", [
+  section("B", "B", [
     phrase(15.05, "B1"),
     repeat(18.48, "B1"),
     phrase(22.06, "B2"),

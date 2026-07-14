@@ -2,13 +2,13 @@
 
 # john thompson grade 1
 piano(1038, "swans-on-the-lake", "ooYqqUTfW0Q", 4, 150, "40", [
-  section("V", "V1", [
+  section("A", "A", [
     phrase(3.17, "P1"),
     phrase(7.98, "P2"),
     repeat(12.47, "P1"),
     repeat(17.14, "P2"),
   ]),
-  section("V", "V2", [
+  section("B", "B", [
     phrase(21.63, "P5"),
     phrase(26.07, "P6"),
     repeat(30.60, "P1"),

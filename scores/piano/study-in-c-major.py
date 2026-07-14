@@ -1,19 +1,19 @@
 # vim: foldmethod=marker foldmarker=notes(,) foldtext=getline(v\:foldstart)
 
 piano(2046, "study-in-c-major", "9T0OqxYrM-8", 4, 94, "40", [
-  section("A", "V1", [
+  section("A", "A1", [
     phrase(11.89, "P1"),
     phrase(14.52, "P2"),
     repeat(17.10, "P1"),
     phrase(19.64, "P3"),
   ]),
-  section("B", "V2", [
+  section("B", "B", [
     phrase(22.30, "P4"),
     phrase(24.85, "P5"),
     phrase(27.37, "P6"),
     phrase(29.89, "P7"),
   ]),
-  section("C", "V3", [
+  section("C", "A2", [
     repeat(32.27, "P1"),
     repeat(34.79, "P2"),
     phrase(37.35, "P7"),
