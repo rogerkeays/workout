@@ -199,10 +199,11 @@ def make_backing_track(piece):
   make_video_bracket(piece, start, stop, speed, outfile, not has_intro(piece))
 
 def make_brackets(piece, start, stop, label):
-  for speed in piece.speeds:
-    speed_str = str(int(speed*100)).zfill(3)
-    make_audio_bracket(piece, start, stop, speed, f"{label}.{speed_str}.mp3")
-    make_video_bracket(piece, start, stop, speed, f"{label}.{speed_str}.{VIDEO_TYPE}")
+  make_video_bracket(piece, start, stop, piece.speeds[-1], f"{label}.{VIDEO_TYPE}")
+  #for speed in piece.speeds:
+  #  speed_str = str(int(speed*100)).zfill(3)
+  #  make_audio_bracket(piece, start, stop, speed, f"{seq} {label}.{speed_str}.mp3")
+  #  make_video_bracket(piece, start, stop, speed, f"{seq} {label}.{speed_str}.{VIDEO_TYPE}")
 
 def make_drill(instrument, params={}, reps=REPS):
   "make a drill card, ensuring it is unique, and formatting it appropriately as a text file"
@@ -410,8 +411,8 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
   start = piece.sections[0].phrases[0].start
   stop = piece.sections[-1].phrases[-1].stop
   outdir = DRILLS_DIR if piece.etude else PRACTISE_DIR
-  mcd(f"{TARGET_DIR}/{piece.instrument}/{outdir}/{str(piece.number).zfill(4)} ----- {piece.name}")
-  make_brackets(piece, start, stop, piece.name)
+  mcd(f"{TARGET_DIR}/{piece.instrument}/{outdir}/XX.{str(piece.number).zfill(4)} {piece.name}")
+  make_brackets(piece, start, stop, f"{piece.name}")
 
   # process sections in reverse
   section_num = 0
@@ -420,16 +421,14 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
       section_num += 1
       start = section.phrases[0].start
       stop = section.phrases[-1].stop
-      mcd(f"{str(section_num).zfill(2)} {section.function} ----- {section.label}")
-      make_brackets(piece, start, stop, section.label)
+      make_brackets(piece, start, stop, f"{section_num} {section.label}")
 
       # process phrases in reverse
       phrase_num = 0
       for phrase in section.phrases:
         if not phrase.skip:
           phrase_num += 1
-          mcd(f"{str(phrase_num).zfill(2)} ----- {phrase.label}")
-          make_brackets(piece, phrase.start, phrase.stop, phrase.label)
+          make_brackets(piece, phrase.start, phrase.stop, f"{section_num}{phrase_num} {phrase.label}")
           if phrase_function != None: phrase_function(piece, section, phrase)
 
           # process notes in reverse order
@@ -437,10 +436,8 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
           for i in reversed(range(len(notes))):
             if i < len(notes) - 2 and transition_function != None: transition_function(piece.tempo, notes[i], notes[i+1], notes[i+2])
             if i < len(notes) - 1 and note_function != None: note_function(piece.tempo, notes[i], notes[i+1])
-          os.chdir("..")
-      os.chdir("..")
-  os.chdir("../../../..")
 
+  os.chdir("../../../..")
   make_metronome(piece.instrument, piece.tempo)
   if not piece.etude: make_backing_track(piece)
 
