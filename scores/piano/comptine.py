@@ -58,10 +58,10 @@ piano(3058, "comptine", "PaXKf0JEzEA", 4, 84, "44", [ # sienne
     repeat(106.73, "bugger")
   ]),
   section("B^", "stairs", [
-    phrase(109.81, "try-not"),
-    phrase(112.71, "to-fall"),
-    phrase(115.57, "have-to"),
-    phrase(118.39, "focus")
+    repeat(109.81, "try-not"),
+    repeat(112.71, "to-fall"),
+    repeat(115.57, "have-to"),
+    repeat(118.39, "focus")
   ]),
   section("B^", "landing", [
     repeat(121.31, "headspin"),

@@ -8,9 +8,9 @@ piano(2062, "bach-menuet", "akObhPYRId0", 3, 118, "40", [
     phrase(10.97, "P04")
   ]),
   section("A", "A2", [
-    repeat(14.09, "P01"),
-    repeat(17.18, "P02"),
-    repeat(20.33, "P03"),
+    phrase(14.09, "P01"),
+    phrase(17.18, "P02"),
+    phrase(20.33, "P03"),
     phrase(23.42, "P04")
   ]),
   section("B", "B", [

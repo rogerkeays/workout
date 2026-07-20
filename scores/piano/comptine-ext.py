@@ -59,10 +59,10 @@ piano(3063, "comptine-ext", "NpWHUddBuiI", 4, 92, "44", [
     repeat(99.47, "A4")
   ]),
   section("B^", "stairs", [
-    phrase(102.21, "B1"),
-    phrase(104.77, "B2"),
-    phrase(107.30, "B3"),
-    phrase(109.84, "B4")
+    repeat(102.21, "B1"),
+    repeat(104.77, "B2"),
+    repeat(107.30, "B3"),
+    repeat(109.84, "B4")
   ]),
   section("B^", "landing", [
     repeat(112.45, "B5"),
