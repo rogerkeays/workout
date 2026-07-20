@@ -2,10 +2,7 @@
 
 violin(3025, "comptine", "znfYwABeSZ0", 4, 90, "40", [ # sienne
   section("I", "bridge", [
-    phrase(0.20, "I1", skip=True),
-    phrase(2.67, "I2", skip=True),
-    phrase(5.00, "I3", skip=True),
-    phrase(7.34, "I4", skip=True)
+    phrase(0.20, "intro", skip=True)
   ]),
   section("A", "bench", [     # catching bit-limpy step : cbsx
     phrase(9.80, "little"),    # little bird, go away :: /3\2/3 78\7

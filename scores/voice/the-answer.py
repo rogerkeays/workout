@@ -43,5 +43,5 @@ voice(3001, "the-answer", "D84eh_gn49c", 4, 139, "44", [ # old-west
     repeat(179.08, "naivety"),
     phrase(186.55, "perfect", [], 199.65) # the answer is perfect fo-r you
   ]),
-], video=False)
+])
 

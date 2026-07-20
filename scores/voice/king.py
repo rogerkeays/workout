@@ -121,5 +121,5 @@ voice(2002, "king", "KwXNHdfjh30", 4, 62.5, "49", [ # fridays
     repeat(281.31, "im-king"),
     phrase(288.68, "kiiing", [], 306.50)  # i'm k-----ing
   ])
-], video=False)
+])
 

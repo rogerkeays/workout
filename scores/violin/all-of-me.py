@@ -1,7 +1,7 @@
 # vim: foldmethod=marker foldmarker=notes(,) foldtext=getline(v\:foldstart)
 
 violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
-  section("V1", "art-desk", [
+  section("V", "art-desk", [
     phrase(23.51, "mouth", notes("""
       3 2 L4== 21W1 2 what
       e 4 ==== ===2 ^ would
@@ -53,7 +53,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       u Z ==== ==== 6 ."""
     ))
   ]),
-  section("V2", "disneyland", [
+  section("V", "disneyland", [
     phrase(38.95, "mind", notes("""
       3 2 L4== 21W1 2 what's
       e 4 ==== ===2 v go-
@@ -105,7 +105,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       e Z ==== ==== 6 ."""
     ))
   ]),
-  section("B1", "show", [
+  section("B", "show", [
     phrase(54.92, "underwater", notes("""
       o 0 L4== 33W3 6 my
       1 7 ==== 2=G3 2 h-
@@ -145,7 +145,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       3 Z ==== ==== 6 ."""
     ))
   ]),
-  section("C1A", "mirrors", [
+  section("CA", "mirrors", [
     phrase(68.21, "all-me", notes("""
       o 4 L4== 21W2 4 cause
       1 = ==== ==== 2 a-
@@ -178,7 +178,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
     )),
     lyrics(78.86, "imperfections", "all you-r per-fect im-per-fec-tions", "curves")
   ]),
-  section("C1B", "sepulchre", [
+  section("CB", "sepulchre", [
     phrase(82.63, "give-your", notes("""
       3 4 L4== 21W2 3 give
       e = ==== ==== 5 your
@@ -203,7 +203,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
     lyrics(90.10, "end", "you're m-y end and my be-gin-ing", "curves"),
     lyrics(94.17, "lose", "e-ve-n when i lose i'm win-ning", "curves")
   ]),
-  section("C1O", "altar", [
+  section("CO", "altar", [
     phrase(97.70, "i-give", notes("""
       u 4 L4== 21W2 6 cause
       3 = ==== ==== 7 i
@@ -227,7 +227,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       3 Z ==== ==== 6 ."""
     ))
   ]),
-  section("V3", "bedroom", [
+  section("V", "bedroom", [
     phrase(115.05, "times", notes("""
       3 2 L4== 21W1 2 how
       e 4 ==== ===2 v ma-
@@ -286,7 +286,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       2 Z ==== ==== 6 ."""
     ))
   ]),
-  section("V4", "garage", [
+  section("V", "garage", [
     phrase(130.19, "downfall", notes("""
       p 7 L4== 21W4 2 you're
       e 4 ==== ===2 4 my
@@ -339,18 +339,18 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       4 Z ==== ==== 2 ."""
     ))
   ]),
-  section("B2", "show", [
+  section("B", "show", [
     repeat(146.37, "underwater"),
     repeat(150.29, "breathin"),
     repeat(153.91, "crazy")
   ]),
-  section("C2A", "mirrors", [
+  section("CA", "mirrors", [
     repeat(159.74, "all-me"),
     repeat(162.63, "all-you"),
     repeat(166.38, "curves"),
     repeat(170.37, "imperfections")
   ]),
-  section("C2B", "sepulchre", [
+  section("CB", "sepulchre", [
     repeat(175.05, "give-your"),
     phrase(177.75, "give-my^", notes("""
       u 4 L4== 21W2 6 i'll
@@ -365,7 +365,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
     repeat(181.63, "end"),
     repeat(185.64, "lose"),
   ]),
-  section("C2O", "altar", [
+  section("CO", "altar", [
     repeat(189.20, "i-give"),
     repeat(196.79, "you-give")
   ]),
@@ -416,23 +416,23 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       3 Z ==== ==== 2 ."""
     ))
   ]),
-  section("C3A", "mirrors", [
+  section("CA", "mirrors", [
     repeat(220.54, "all-me"),
     repeat(223.52, "all-you"),
     repeat(227.34, "curves"),
     repeat(231.31, "imperfections")
   ]),
-  section("C3B", "sepulchre", [
+  section("CB", "sepulchre", [
     repeat(235.15, "give-your"),
     repeat(238.65, "give-my^"),
     repeat(242.60, "end"),
     repeat(246.55, "lose")
   ]),
-  section("C3O1", "altar", [
+  section("CO", "altar", [
     repeat(250.20, "i-give"),
     repeat(257.77, "you-give")
   ]),
-  section("C3O2", "altar", [
+  section("CO", "altar", [
     phrase(265.26, "i-give-auaua", notes("""
       3 4 L4== 21W2 7 i
       e 5 ==== ===3 ^ give

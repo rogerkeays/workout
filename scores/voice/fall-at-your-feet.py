@@ -50,8 +50,8 @@ voice(2010, "fall-at-your-feet", "2ROiU9kOHeE", 4, 98, 43, [
     repeat(163.38, "feet"),
     repeat(168.59, "tears"),         # .you-let.yo.ur-te/_
     repeat(172.65, "rain"),          # _/.-me..,e-e./..
-    repeat(178.00, "fall"),          # _/..../.. :: 44207
-    repeat(183.06, "fall")           # ever i fall/..../.... :: 4209
+    phrase(178.00, "ever"),          # _/..../.. :: 44207
+    phrase(183.06, "ever")           # ever i fall/..../.... :: 4209
   ]),
   section("O", "ground", [
     phrase(188.56, "outro", stop=193.13, skip=True),

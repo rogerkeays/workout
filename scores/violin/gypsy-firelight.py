@@ -15,7 +15,7 @@ violin(2026, "gypsy-firelight", "JexClTGGV_s", 4, 135, "59", [ # gypsy-camp
   ]),
   section("A", "camp", [
     repeat(186.89, "dancing"),
-    repeat(189.33, "fire")      # -8va
+    phrase(189.33, "fire-mad")  # -8va
   ]),
   section("C", "carpark", [
     phrase(191.85, "sheriff"),  # sheriff tom is here now : =dancing/1 : \5/78\5 /XX
