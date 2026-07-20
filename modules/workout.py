@@ -412,15 +412,16 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
       section_num += 1
       start = section.phrases[0].start
       stop = section.phrases[-1].stop
-      make_brackets(piece, start, stop, f"{section_num} ----- {section.label}")
+      section_str = str(section_num) if len(piece.sections) < 10 else str(section_num).zfill(2)
+      make_brackets(piece, start, stop, f"{section_str} ----- {section.label}")
 
       # process phrases in reverse
       phrase_num = 0
       for phrase in section.phrases:
         if not phrase.skip:
           phrase_num += 1
-          make_brackets(piece, phrase.start, phrase.stop, f"{section_num}{phrase_num} ----- {phrase.label}")
-          make_brackets(piece, phrase.start, phrase.stop, f"{section_num}{phrase_num}Z ----- {phrase.label}", 0.5)
+          make_brackets(piece, phrase.start, phrase.stop, f"{section_str}{phrase_num} ----- {phrase.label}")
+          make_brackets(piece, phrase.start, phrase.stop, f"{section_str}{phrase_num}Z ----- {phrase.label}", 0.5)
           if phrase_function != None: phrase_function(piece, section, phrase)
 
           # process notes in reverse order
