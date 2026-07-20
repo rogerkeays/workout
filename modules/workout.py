@@ -144,7 +144,7 @@ def is_skipped(section):
     if p.skip == False: return False
   return True
 
-def make_audio_bracket(piece, start, stop, speed, outfile):
+def make_audio_bracket(piece, start, stop, speed, outfile, clicks=True):
   with tempfile.TemporaryDirectory() as tmpdir:
     if MAKE_MP3S and not os.path.exists(outfile):
       source = get_video(piece.video_id)
@@ -153,7 +153,7 @@ def make_audio_bracket(piece, start, stop, speed, outfile):
       concat = f"{tmpdir}/concat.txt"
 
       # generate chunks for repetition
-      make_audio_intro(piece.meter, piece.tempo * speed, intro)
+      make_audio_intro(piece.meter, piece.tempo * speed, intro, clicks)
       cut_audio_chunk(source, start, stop, chunk, speed)
 
       # repeat for the duration of the drill
@@ -187,8 +187,8 @@ def make_backing_track(piece):
   stop = piece.sections[-1].phrases[-1].stop
   output_dir = f"{TARGET_DIR}/{piece.instrument}/{REHEARSE_DIR}"
   os.makedirs(output_dir, exist_ok=True)
-  outfile = f"{output_dir}/XX.{str(piece.number).zfill(4)}.{piece.name}.{VIDEO_TYPE}"
-  make_video_bracket(piece, start, stop, piece.speed, outfile, not has_intro(piece))
+  outfile = f"{output_dir}/XX.{str(piece.number).zfill(4)}.{piece.name}.mp3"
+  make_audio_bracket(piece, start, stop, piece.speed, f"{outfile}.mp3", not has_intro(piece))
 
 def make_brackets(piece, start, stop, label, speed=1.0):
   if piece.video == True:
