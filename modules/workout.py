@@ -405,7 +405,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
   # create piece practise bracket
   start = piece.sections[0].phrases[0].start
   stop = piece.sections[-1].phrases[-1].stop
-  make_brackets(piece, start, stop, outputdir, f"l----- {piece.name}")
+  make_brackets(piece, start, stop, outputdir, f"0----- {piece.name}")
 
   # process sections in reverse
   for i in range(len(piece.sections)):
