@@ -67,7 +67,7 @@ class Piece:
   tempo: int
   tonic: str
   sections: list[Section]
-  speeds: list[float]
+  speed: float
   video: bool
   etude: bool
 
@@ -79,9 +79,9 @@ def phrase(start, label, notes=[], stop=0, skip=False):
   phrases[label] = p
   return p
 
-def piece(number, name, video_id, meter, tempo, tonic, sections, speeds=[0.5, 1.0], video=True, etude=False):
+def piece(number, name, video_id, meter, tempo, tonic, sections, speed=1.0, video=True, etude=False):
   "construct and process a piece in one step)"
-  process_piece(Piece("workout", number, name, video_id, meter, tempo, tonic, sections, speeds, video, etude), None, None, None, None)
+  process_piece(Piece("workout", number, name, video_id, meter, tempo, tonic, sections, speed, video, etude), None, None, None, None)
 
 def repeat(start, id, stop=0, skip=False):
   """
@@ -144,29 +144,22 @@ def is_skipped(section):
     if p.skip == False: return False
   return True
 
-def make_audio_bracket(piece, start, stop, speed, outfile, reps=REPS):
+def make_audio_bracket(piece, start, stop, speed, outfile):
   with tempfile.TemporaryDirectory() as tmpdir:
     if MAKE_MP3S and not os.path.exists(outfile):
       source = get_video(piece.video_id)
-      silence = f"{tmpdir}/silence.mp3"
       intro = f"{tmpdir}/intro.mp3"
       chunk = f"{tmpdir}/chunk.mp3"
-      gunshot = f"{tmpdir}/gunshot.mp3"
       concat = f"{tmpdir}/concat.txt"
 
       # generate chunks for repetition
-      make_silence(DELAY, silence)
       make_audio_intro(piece.meter, piece.tempo * speed, intro)
       cut_audio_chunk(source, start, stop, chunk, speed)
-      make_gunshot(gunshot)
 
       # repeat for the duration of the drill
       with open(concat, "w") as f:
-        f.write(f"file {silence}\n")
-        for i in range(reps):
-          f.write(f"file {intro}\n")
-          f.write(f"file {chunk}\n")
-        f.write(f"file {gunshot}\n")
+        f.write(f"file {intro}\n")
+        f.write(f"file {chunk}\n")
 
       # concatenate the chunks
       os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{concat}" \
@@ -192,18 +185,16 @@ def make_audio_intro(meter, tempo, outfile, clicks=True):
 def make_backing_track(piece):
   start = piece.sections[0].phrases[0].start
   stop = piece.sections[-1].phrases[-1].stop
-  speed = piece.speeds[-1]
   output_dir = f"{TARGET_DIR}/{piece.instrument}/{REHEARSE_DIR}"
   os.makedirs(output_dir, exist_ok=True)
   outfile = f"{output_dir}/XX.{str(piece.number).zfill(4)}.{piece.name}.{VIDEO_TYPE}"
-  make_video_bracket(piece, start, stop, speed, outfile, not has_intro(piece))
+  make_video_bracket(piece, start, stop, piece.speed, outfile, not has_intro(piece))
 
-def make_brackets(piece, start, stop, label):
-  make_video_bracket(piece, start, stop, piece.speeds[-1], f"{label}.{VIDEO_TYPE}")
-  #for speed in piece.speeds:
-  #  speed_str = str(int(speed*100)).zfill(3)
-  #  make_audio_bracket(piece, start, stop, speed, f"{seq} {label}.{speed_str}.mp3")
-  #  make_video_bracket(piece, start, stop, speed, f"{seq} {label}.{speed_str}.{VIDEO_TYPE}")
+def make_brackets(piece, start, stop, label, speed=1.0):
+  if piece.video == True:
+    make_video_bracket(piece, start, stop, speed * piece.speed, f"{label}.{VIDEO_TYPE}")
+  else:
+    make_audio_bracket(piece, start, stop, speed * piece.speed, f"{label}.mp3")
 
 def make_drill(instrument, params={}, reps=REPS):
   "make a drill card, ensuring it is unique, and formatting it appropriately as a text file"
@@ -429,6 +420,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
         if not phrase.skip:
           phrase_num += 1
           make_brackets(piece, phrase.start, phrase.stop, f"{section_num}{phrase_num} ----- {phrase.label}")
+          make_brackets(piece, phrase.start, phrase.stop, f"{section_num}{phrase_num}Z ----- {phrase.label}", 0.5)
           if phrase_function != None: phrase_function(piece, section, phrase)
 
           # process notes in reverse order
