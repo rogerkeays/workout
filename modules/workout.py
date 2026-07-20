@@ -382,7 +382,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
   """
   # prepare the filesystem
   os.makedirs(f"{TARGET_DIR}/{piece.instrument}/{DRILL_DIR}", exist_ok=True)
-  subdir = DRILLS_DIR if piece.etude else PRACTISE_DIR
+  subdir = DRILL_DIR if piece.etude else PRACTISE_DIR
   outputdir = f"{TARGET_DIR}/{piece.instrument}/{subdir}/XX.{str(piece.number).zfill(4)} {piece.name}"
   os.makedirs(outputdir, exist_ok=True)
 
