@@ -188,7 +188,7 @@ def make_backing_track(piece):
   output_dir = f"{TARGET_DIR}/{piece.instrument}/{REHEARSE_DIR}"
   os.makedirs(output_dir, exist_ok=True)
   outfile = f"{output_dir}/XX.{str(piece.number).zfill(4)}.{piece.name}.mp3"
-  make_audio_bracket(piece, start, stop, piece.speed, f"{outfile}.mp3", not has_intro(piece))
+  make_audio_bracket(piece, start, stop, piece.speed, outfile, not has_intro(piece))
 
 def make_brackets(piece, start, stop, label, speed=1.0):
   if piece.video == True:
