@@ -10,6 +10,7 @@ from modules.voice import *
 
 # process the input files
 for file in sys.argv[1:]:
+  print(file)
   with open(file) as score:
     exec(score.read(), globals())
 
