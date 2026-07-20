@@ -412,7 +412,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
   stop = piece.sections[-1].phrases[-1].stop
   outdir = DRILLS_DIR if piece.etude else PRACTISE_DIR
   mcd(f"{TARGET_DIR}/{piece.instrument}/{outdir}/XX.{str(piece.number).zfill(4)} {piece.name}")
-  make_brackets(piece, start, stop, f"{piece.name}")
+  make_brackets(piece, start, stop, f"l----- {piece.name}")
 
   # process sections in reverse
   section_num = 0
@@ -421,14 +421,14 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
       section_num += 1
       start = section.phrases[0].start
       stop = section.phrases[-1].stop
-      make_brackets(piece, start, stop, f"{section_num} {section.label}")
+      make_brackets(piece, start, stop, f"{section_num} ----- {section.label}")
 
       # process phrases in reverse
       phrase_num = 0
       for phrase in section.phrases:
         if not phrase.skip:
           phrase_num += 1
-          make_brackets(piece, phrase.start, phrase.stop, f"{section_num}{phrase_num} {phrase.label}")
+          make_brackets(piece, phrase.start, phrase.stop, f"{section_num}{phrase_num} ----- {phrase.label}")
           if phrase_function != None: phrase_function(piece, section, phrase)
 
           # process notes in reverse order
