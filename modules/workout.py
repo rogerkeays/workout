@@ -83,7 +83,7 @@ def piece(number, name, video_id, meter, tempo, tonic, sections, speed=1.0, vide
   "construct and process a piece in one step)"
   process_piece(Piece("workout", number, name, video_id, meter, tempo, tonic, sections, speed, video, etude), None, None, None, None)
 
-def repeat(start, id, stop=0, skip=False):
+def repeat(start, id, stop=0, skip=True):
   """
     Create a new phrase with the same notes as the phrase with the given id.
     New mp3 start and stop times can be provided if desired. This function
@@ -406,29 +406,27 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
   make_brackets(piece, start, stop, f"l----- {piece.name}")
 
   # process sections in reverse
-  section_num = 0
-  for section in piece.sections:
+  for i in range(len(piece.sections)):
+    section = piece.sections[i]
     if not is_skipped(section):
-      section_num += 1
       start = section.phrases[0].start
       stop = section.phrases[-1].stop
-      section_str = str(section_num) if len(piece.sections) < 10 else str(section_num).zfill(2)
+      section_str = str(i + 1) if len(piece.sections) < 10 else str(i + 1).zfill(2)
       make_brackets(piece, start, stop, f"{section_str} ----- {section.label}")
 
-      # process phrases in reverse
-      phrase_num = 0
-      for phrase in section.phrases:
+      # process phrases
+      for j in range(len(section.phrases)):
+        phrase = section.phrases[j]
         if not phrase.skip:
-          phrase_num += 1
-          make_brackets(piece, phrase.start, phrase.stop, f"{section_str}{phrase_num} ----- {phrase.label}")
-          make_brackets(piece, phrase.start, phrase.stop, f"{section_str}{phrase_num}Z ----- {phrase.label}", 0.5)
+          make_brackets(piece, phrase.start, phrase.stop, f"{section_str}{j + 1} ----- {phrase.label}")
+          make_brackets(piece, phrase.start, phrase.stop, f"{section_str}{j + 1}Z ----- {phrase.label}", 0.5)
           if phrase_function != None: phrase_function(piece, section, phrase)
 
-          # process notes in reverse order
+          # process notes
           notes = phrase.notes
-          for i in reversed(range(len(notes))):
-            if i < len(notes) - 2 and transition_function != None: transition_function(piece.tempo, notes[i], notes[i+1], notes[i+2])
-            if i < len(notes) - 1 and note_function != None: note_function(piece.tempo, notes[i], notes[i+1])
+          for k in range(len(notes)):
+            if k < len(notes) - 2 and transition_function != None: transition_function(piece.tempo, notes[k], notes[k+1], notes[i+2])
+            if k < len(notes) - 1 and note_function != None: note_function(piece.tempo, notes[k], notes[k+1])
 
   os.chdir("../../../..")
   make_metronome(piece.instrument, piece.tempo)
