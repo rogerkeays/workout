@@ -190,11 +190,11 @@ def make_backing_track(piece):
   outfile = f"{output_dir}/XX.{str(piece.number).zfill(4)}.{piece.name}.mp3"
   make_audio_bracket(piece, start, stop, piece.speed, outfile, not has_intro(piece))
 
-def make_brackets(piece, start, stop, label, speed=1.0):
+def make_brackets(piece, start, stop, outputdir, label, speed=1.0):
   if piece.video == True:
-    make_video_bracket(piece, start, stop, speed * piece.speed, f"{label}.{VIDEO_TYPE}")
+    make_video_bracket(piece, start, stop, speed * piece.speed, f"{outputdir}/{label}.{VIDEO_TYPE}")
   else:
-    make_audio_bracket(piece, start, stop, speed * piece.speed, f"{label}.mp3")
+    make_audio_bracket(piece, start, stop, speed * piece.speed, f"{outputdir}/{label}.mp3")
 
 def make_drill(instrument, params={}, reps=REPS):
   "make a drill card, ensuring it is unique, and formatting it appropriately as a text file"
@@ -380,7 +380,11 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
 
   if there is nothing to do at a given step, pass the function as None
   """
+  # prepare the filesystem
   os.makedirs(f"{TARGET_DIR}/{piece.instrument}/{DRILL_DIR}", exist_ok=True)
+  subdir = DRILLS_DIR if piece.etude else PRACTISE_DIR
+  outputdir = f"{TARGET_DIR}/{piece.instrument}/{subdir}/XX.{str(piece.number).zfill(4)} {piece.name}"
+  os.makedirs(outputdir, exist_ok=True)
 
   # calculate defaults
   for s, section in enumerate(piece.sections):
@@ -401,9 +405,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
   # create piece practise bracket
   start = piece.sections[0].phrases[0].start
   stop = piece.sections[-1].phrases[-1].stop
-  outdir = DRILLS_DIR if piece.etude else PRACTISE_DIR
-  mcd(f"{TARGET_DIR}/{piece.instrument}/{outdir}/XX.{str(piece.number).zfill(4)} {piece.name}")
-  make_brackets(piece, start, stop, f"l----- {piece.name}")
+  make_brackets(piece, start, stop, outputdir, f"l----- {piece.name}")
 
   # process sections in reverse
   for i in range(len(piece.sections)):
@@ -412,14 +414,14 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
       start = section.phrases[0].start
       stop = section.phrases[-1].stop
       section_str = str(i + 1) if len(piece.sections) < 10 else str(i + 1).zfill(2)
-      make_brackets(piece, start, stop, f"{section_str} ----- {section.label}")
+      make_brackets(piece, start, stop, outputdir, f"{section_str} ----- {section.label}")
 
       # process phrases
       for j in range(len(section.phrases)):
         phrase = section.phrases[j]
         if not phrase.skip:
-          make_brackets(piece, phrase.start, phrase.stop, f"{section_str}{j + 1} ----- {phrase.label}")
-          make_brackets(piece, phrase.start, phrase.stop, f"{section_str}{j + 1}Z ----- {phrase.label}", 0.5)
+          make_brackets(piece, phrase.start, phrase.stop, outputdir, f"{section_str}{j + 1} ----- {phrase.label}")
+          make_brackets(piece, phrase.start, phrase.stop, outputdir, f"{section_str}{j + 1}Z ----- {phrase.label}", 0.5)
           if phrase_function != None: phrase_function(piece, section, phrase)
 
           # process notes
@@ -428,7 +430,6 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
             if k < len(notes) - 2 and transition_function != None: transition_function(piece.tempo, notes[k], notes[k+1], notes[i+2])
             if k < len(notes) - 1 and note_function != None: note_function(piece.tempo, notes[k], notes[k+1])
 
-  os.chdir("../../../..")
   make_metronome(piece.instrument, piece.tempo)
   if not piece.etude: make_backing_track(piece)
 
