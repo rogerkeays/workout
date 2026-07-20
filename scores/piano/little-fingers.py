@@ -76,7 +76,7 @@ piano_lf(9, "good-king-wencelas", 2, 60, "40", [
 
 piano_lf(10, "lazy-mary", 3, 60, "40", [
   section("V", "marys-room", [
-    phrase(163.22, "lazy"),                # lazy mary, will you get up : ma MI-mi ti-ti Pa GI-wa
+    phrase(164.22, "lazy"),                # lazy mary, will you get up : ma MI-mi ti-ti Pa GI-wa
     phrase(170.27, "will"),                # will you, will you, will you, get up? : DI-Ta ti ti chi Mu mu
     repeat(177.46, "lazy"),                # lazy mary, will you get up : ma MI-mi ti-ti Pa GI-wa
     phrase(183.34, "late", [], 190.46)     # it's very late in the morning : DI-Ta ti ti chi Mu mu
