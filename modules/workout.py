@@ -144,22 +144,29 @@ def is_skipped(section):
     if p.skip == False: return False
   return True
 
-def make_audio_bracket(piece, start, stop, speed, outfile, clicks=True):
+def make_audio_bracket(piece, start, stop, outfile, clicks=True, slow=True):
   with tempfile.TemporaryDirectory() as tmpdir:
     if MAKE_MP3S and not os.path.exists(outfile):
       source = get_video(piece.video_id)
-      intro = f"{tmpdir}/intro.mp3"
-      chunk = f"{tmpdir}/chunk.mp3"
+      fast_intro = f"{tmpdir}/fast_intro.mp3"
+      slow_intro = f"{tmpdir}/slow_intro.mp3"
+      fast_chunk = f"{tmpdir}/fast_chunk.mp3"
+      slow_chunk = f"{tmpdir}/slow_chunk.mp3"
       concat = f"{tmpdir}/concat.txt"
 
-      # generate chunks for repetition
-      make_audio_intro(piece.meter, piece.tempo * speed, intro, clicks)
-      cut_audio_chunk(source, start, stop, chunk, speed)
-
-      # repeat for the duration of the drill
+      # full speed chunk with metronome
       with open(concat, "w") as f:
-        f.write(f"file {intro}\n")
-        f.write(f"file {chunk}\n")
+        make_audio_intro(piece.meter, piece.tempo * piece.speed, fast_intro, clicks)
+        cut_audio_chunk(source, start, stop, fast_chunk, piece.speed)
+        f.write(f"file {fast_intro}\n")
+        f.write(f"file {fast_chunk}\n")
+
+        # half speed chunk with metronome
+        if slow:
+          make_audio_intro(piece.meter, piece.tempo * piece.speed * 0.50, slow_intro, clicks)
+          cut_audio_chunk(source, start, stop, slow_chunk, piece.speed * 0.50)
+          f.write(f"file {slow_intro}\n")
+          f.write(f"file {slow_chunk}\n")
 
       # concatenate the chunks
       os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{concat}" \
@@ -188,13 +195,13 @@ def make_backing_track(piece):
   output_dir = f"{TARGET_DIR}/{piece.instrument}/{REHEARSE_DIR}"
   os.makedirs(output_dir, exist_ok=True)
   outfile = f"{output_dir}/XX.{str(piece.number).zfill(4)}.{piece.name}.mp3"
-  make_audio_bracket(piece, start, stop, piece.speed, outfile, not has_intro(piece))
+  make_audio_bracket(piece, start, stop, outfile, not has_intro(piece), slow=False)
 
-def make_brackets(piece, start, stop, outputdir, label, speed=1.0):
+def make_brackets(piece, start, stop, outputdir, label):
   if piece.video == True:
-    make_video_bracket(piece, start, stop, speed * piece.speed, f"{outputdir}/{label}.{VIDEO_TYPE}")
+    make_video_bracket(piece, start, stop, f"{outputdir}/{label}.{VIDEO_TYPE}")
   else:
-    make_audio_bracket(piece, start, stop, speed * piece.speed, f"{outputdir}/{label}.mp3")
+    make_audio_bracket(piece, start, stop, f"{outputdir}/{label}.mp3")
 
 def make_drill(instrument, params={}, reps=REPS):
   "make a drill card, ensuring it is unique, and formatting it appropriately as a text file"
@@ -309,22 +316,31 @@ def make_silence(seconds, filename):
   if MAKE_MP3S and not os.path.exists(filename):
     os.system(f"ffmpeg -nostdin -loglevel error -f lavfi -i anullsrc=r=48000:cl=mono -t {seconds} {filename}")
 
-def make_video_bracket(piece, start, stop, speed, outfile, clicks=True):
+def make_video_bracket(piece, start, stop, outfile, clicks=True, slow=True):
   with tempfile.TemporaryDirectory() as tmpdir:
     if MAKE_MP3S and piece.video and not os.path.exists(outfile):
       source = get_video(piece.video_id)
-      intro = f"{tmpdir}/intro.{VIDEO_TYPE}"
-      chunk = f"{tmpdir}/chunk.{VIDEO_TYPE}"
+      fast_intro = f"{tmpdir}/fast_intro.{VIDEO_TYPE}"
+      slow_intro = f"{tmpdir}/slow_intro.{VIDEO_TYPE}"
+      fast_chunk = f"{tmpdir}/fast_chunk.{VIDEO_TYPE}"
+      slow_chunk = f"{tmpdir}/slow_chunk.{VIDEO_TYPE}"
       concat = f"{tmpdir}/concat.txt"
 
-      # cut video chunk and make an intro in the same format
-      cut_video_chunk(source, start, stop, chunk, speed)
-      make_video_intro(piece.meter, piece.tempo * speed, chunk, intro, clicks)
+      # full speed chunk with metronome
+      with open(concat, "w") as f:
+        cut_video_chunk(source, start, stop, fast_chunk, piece.speed)
+        make_video_intro(piece.meter, piece.tempo * piece.speed, fast_chunk, fast_intro, clicks)
+        f.write(f"file {fast_intro}\n")
+        f.write(f"file {fast_chunk}\n")
+
+        # half speed chunk with metronome
+        if slow:
+          cut_video_chunk(source, start, stop, slow_chunk, piece.speed * 0.50)
+          make_video_intro(piece.meter, piece.tempo * piece.speed * 0.50, slow_chunk, slow_intro, clicks)
+          f.write(f"file {slow_intro}\n")
+          f.write(f"file {slow_chunk}\n")
 
       # concatenate the chunks: re-encodes for buggy video players
-      with open(concat, "w") as f:
-        f.write(f"file {intro}\n")
-        f.write(f"file {chunk}\n")
       os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{concat}" \
                            -r {VIDEO_FPS} -vcodec {VIDEO_CODEC} -acodec {AUDIO_CODEC} "{outfile}" """)
 
@@ -421,7 +437,6 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
         phrase = section.phrases[j]
         if not phrase.skip:
           make_brackets(piece, phrase.start, phrase.stop, outputdir, f"{section_str}{j + 1} ----- {phrase.label}")
-          make_brackets(piece, phrase.start, phrase.stop, outputdir, f"{section_str}{j + 1}Z ----- {phrase.label}", 0.5)
           if phrase_function != None: phrase_function(piece, section, phrase)
 
           # process notes
