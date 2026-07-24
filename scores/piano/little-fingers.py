@@ -2,7 +2,7 @@
 
 # all pieces use the same, overly slow, source video
 def piano_lf(id, name, meter, tempo, tonic, sections):
-  piano(id, name, "brTGKq5fGkM", meter, tempo, tonic, sections, 1.5)
+  piano(id, name, "brTGKq5fGkM", meter, tempo, tonic, sections, [1.5, 1.0])
 
 piano_lf(1, "birthday-party", 2, 60, "40", [
   section("V", "party", [

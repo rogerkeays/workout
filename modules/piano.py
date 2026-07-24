@@ -7,7 +7,7 @@ from dataclasses import dataclass
 #@dataclass # PianoNote
 #class PianoNote(Note):
 
-def piano(number, name, video_id, meter, tempo, tonic, sections, speed=1.0, video=True, etude=False):
-  process_piece(Piece("piano", number, name, video_id, meter, tempo, tonic, sections, speed, video, etude), None, None, None, None)
+def piano(number, name, video_id, meter, tempo, tonic, sections, speeds=[1.0, 0.5], video=True, etude=False):
+  process_piece(Piece("piano", number, name, video_id, meter, tempo, tonic, sections, speeds, video, etude), None, None, None, None)
 
 

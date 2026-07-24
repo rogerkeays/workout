@@ -14,5 +14,5 @@ piano(30, "sleepy-john", "VslRvX0LRHg", 4, 73, "40", [
     phrase(22.06, "B2"),
     repeat(25.79, "B2", 29.80)
   ])
-], speed=1.5)
+], speeds=[1.5, 1.0])
 

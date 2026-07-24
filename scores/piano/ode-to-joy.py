@@ -24,5 +24,5 @@ piano(1036, "ode-to-joy", "yM8u7L2Jots", 4, 85, "40", [
     phrase(75.50, "O1"),
     repeat(82.34, "A3", 91.22)
   ]),
-], speed=1.5)
+], speeds=[1.5, 1.0])
 
