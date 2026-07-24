@@ -349,7 +349,8 @@ def make_video_intro(meter, tempo, infile, outfile, clicks=True):
   audio_intro = f"{outfile}.mp3"
   make_audio_intro(meter, tempo, audio_intro, clicks)
   os.system(f"""ffmpeg -nostdin -loglevel error -i "{infile}" -frames 1 "{video_frame}" """)
-  os.system(f"""ffmpeg -nostdin -loglevel error -i "{video_frame}" -i "{audio_intro}" \
+  os.system(f"""ffmpeg -nostdin -loglevel error -loop 1 -t {FADE_LENGTH} -i "{video_frame}" -i "{audio_intro}" \
+                       -vf fade=in:st=0:d={FADE_LENGTH} \
                        -r {VIDEO_FPS} -vcodec {VIDEO_CODEC} -acodec {AUDIO_CODEC} "{outfile}" """)
 
 def make_whole(mp3, speed=1, silence=0):
