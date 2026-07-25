@@ -79,7 +79,7 @@ def phrase(start, label, notes=[], stop=0, skip=False):
   phrases[label] = p
   return p
 
-def piece(number, name, video_id, meter, tempo, tonic, sections, speeds=[1.0, 0.5], video=True, etude=False):
+def piece(number, name, video_id, meter, tempo, tonic, sections, speeds=[0.5, 1.0], video=True, etude=False):
   "construct and process a piece in one step)"
   process_piece(Piece("workout", number, name, video_id, meter, tempo, tonic, sections, speeds, video, etude), None, None, None, None)
 
@@ -187,7 +187,7 @@ def make_backing_track(piece):
   output_dir = f"{TARGET_DIR}/{piece.instrument}/{REHEARSE_DIR}"
   os.makedirs(output_dir, exist_ok=True)
   outfile = f"{output_dir}/XX.{str(piece.number).zfill(4)}.{piece.name}.mp3"
-  make_audio_bracket(piece, start, stop, outfile, not has_intro(piece), [piece.speeds[0]])
+  make_audio_bracket(piece, start, stop, outfile, not has_intro(piece), [piece.speeds[-1]])
 
 def make_brackets(piece, start, stop, outputdir, label):
   if piece.video == True:
