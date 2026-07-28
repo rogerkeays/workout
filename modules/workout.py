@@ -266,7 +266,7 @@ def make_hash(name, params):
   if "rhythm" in keys: keys["rhythm"] = shift_rhythm(keys["rhythm"])
   return name + str(keys)
 
-def make_metronome(instrument, tempo):
+def make_metronome(instrument, tempo, outfile):
   """
     make a metronome for the given piece which goes for DRILL_LENGTH seconds
     before sounding an alarm
@@ -274,7 +274,6 @@ def make_metronome(instrument, tempo):
   if MAKE_MP3S:
     countdown_notes = int(tempo/8) # fifteen seconds at half tempo
     metronome_notes = int(tempo * DRILL_LENGTH / 60)
-    filename = "=T" + str(int(tempo)).zfill(3) + ".mp3"
     make_mp3(f"""
       X:0
       M:1/4
@@ -291,7 +290,7 @@ def make_metronome(instrument, tempo):
       %%MIDI program {GUNSHOT_INSTRUMENT}
       Q:60
       {"|c" * 4}
-      """, f"{TARGET_DIR}/{instrument}/{DRILL_DIR}/{filename}")
+      """, outfile)
 
 def make_mp3(score, filename, length=0):
   "convert an abc score to an mp3 file"
@@ -430,7 +429,12 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
             if k < len(notes) - 2 and transition_function != None: transition_function(piece.tempo, notes[k], notes[k+1], notes[i+2])
             if k < len(notes) - 1 and note_function != None: note_function(piece.tempo, notes[k], notes[k+1])
 
-  make_metronome(piece.instrument, piece.tempo)
+  # make metronomes
+  for speed in piece.speeds:
+    filename = outputdir + "/=T" + str(int(piece.tempo * speed)).zfill(3) + ".mp3"
+    make_metronome(piece.instrument, piece.tempo * speed, filename)
+
+  # make backing track
   if not piece.etude: make_backing_track(piece)
 
 def shift_rhythm(rhythm):
