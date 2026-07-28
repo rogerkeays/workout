@@ -24,9 +24,6 @@ REPS = 5
 
 # output preparation
 TARGET_DIR = "target" if "WORKOUT_TARGET_DIR" not in os.environ else os.environ["WORKOUT_TARGET_DIR"]
-DRILL_DIR = "02.drill"
-PRACTISE_DIR = "03.practise"
-REHEARSE_DIR = "04.rehearse"
 
 # global state
 drills = {}
@@ -144,7 +141,7 @@ def is_skipped(section):
     if p.skip == False: return False
   return True
 
-def make_audio_bracket(piece, start, stop, outfile, clicks=True, speeds=[]):
+def make_audio_bracket(piece, start, stop, outfile, clicks=True, speeds=[], album=""):
   with tempfile.TemporaryDirectory() as tmpdir:
     if MAKE_MP3S and not os.path.exists(outfile):
       source = get_video(piece.video_id)
@@ -162,7 +159,7 @@ def make_audio_bracket(piece, start, stop, outfile, clicks=True, speeds=[]):
 
       # concatenate the chunks
       os.system(f"""ffmpeg -nostdin -loglevel error -f concat -safe 0 -i "{concat}" \
-                           -acodec copy "{outfile}" """)
+                           -acodec copy -metadata album="{album}" "{outfile}" """)
 
 def make_audio_intro(meter, tempo, outfile, clicks=True):
   if clicks:
@@ -180,14 +177,6 @@ def make_audio_intro(meter, tempo, outfile, clicks=True):
       """, outfile, length)
   else:
     make_silence(DELAY, outfile)
-
-def make_backing_track(piece):
-  start = piece.sections[0].phrases[0].start
-  stop = piece.sections[-1].phrases[-1].stop
-  output_dir = f"{TARGET_DIR}/{piece.instrument}/{REHEARSE_DIR}"
-  os.makedirs(output_dir, exist_ok=True)
-  outfile = f"{output_dir}/XX.{str(piece.number).zfill(4)}.{piece.name}.mp3"
-  make_audio_bracket(piece, start, stop, outfile, not has_intro(piece), [piece.speeds[-1]])
 
 def make_brackets(piece, start, stop, outputdir, label):
   if piece.video == True:
@@ -381,9 +370,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
   if there is nothing to do at a given step, pass the function as None
   """
   # prepare the filesystem
-  os.makedirs(f"{TARGET_DIR}/{piece.instrument}/{DRILL_DIR}", exist_ok=True)
-  subdir = DRILL_DIR if piece.etude else PRACTISE_DIR
-  outputdir = f"{TARGET_DIR}/{piece.instrument}/{subdir}/XX.{str(piece.number).zfill(4)} {piece.name}"
+  outputdir = f"{TARGET_DIR}/{piece.instrument}/00.{str(piece.number).zfill(4)} {piece.name}"
   os.makedirs(outputdir, exist_ok=True)
 
   # calculate defaults
@@ -435,7 +422,14 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
     make_metronome(piece.instrument, piece.tempo * speed, filename)
 
   # make backing track
-  if not piece.etude: make_backing_track(piece)
+  if not piece.etude:
+    make_audio_bracket(piece,
+        start = piece.sections[0].phrases[0].start,
+        stop = piece.sections[-1].phrases[-1].stop,
+        outfile = f"{outputdir}/{piece.name}.mp3",
+        clicks = not has_intro(piece),
+        speeds = [piece.speeds[-1]],
+        album = f"jam.{piece.instrument}")
 
 def shift_rhythm(rhythm):
   "shift a rhythm pattern to start on the first beat"
