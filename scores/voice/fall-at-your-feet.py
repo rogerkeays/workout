@@ -6,7 +6,7 @@ voice(3010, "fall-at-your-feet", "2ROiU9kOHeE", 4, 98, 43, [
   ]),
   section("V", "his-room", [
     phrase(13.59, "close"),         #  -im.rea-lly.close-to'ni/.,ght.../.. : 40L974
-    phrase(18.01, "inside"),        # ,n-i.fee,l'like.,im/.mo-ving.in-side.-her./.. : 470L97 42L24
+    phrase(18.15, "inside"),        # ,n-i.fee,l'like.,im/.mo-ving.in-side.-her./.. : 470L97 42L24
     phrase(23.14, "dark"),          # larng'in.,the-da/.'a.ark../ : (4)0L99 74
     phrase(27.39, "beginning"),     # ,n-i.think-that'im.-be=gi/.=ning'to.-know.-her. : =inside (+4) 
     phrase(32.10, "go"),            # .let,it'go/.'o.o../. : 4209
