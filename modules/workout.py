@@ -419,7 +419,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
   # make metronomes
   for speed in piece.speeds:
     filename = outputdir + "/=T" + str(int(piece.tempo * speed)).zfill(3) + ".mp3"
-    make_metronome(piece.instrument, piece.tempo * speed, filename)
+    #make_metronome(piece.instrument, piece.tempo * speed, filename)
 
   # make backing track
   if not piece.etude:
