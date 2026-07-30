@@ -1,7 +1,7 @@
 # vim: foldmethod=marker foldmarker=notes(,) foldtext=getline(v\:foldstart)
 
 # original: not available on youtube
-piano(2061, "xmas-melody", "original-xm", 4, 139, "42", [
+piano(1061, "xmas-melody", "original-xm", 4, 139, "42", [
   section("I", "intro", [
     phrase(3.09, "I1"),
     phrase(5.64, "I2"),
@@ -57,16 +57,16 @@ piano(2061, "xmas-melody", "original-xm", 4, 139, "42", [
     phrase(107.20, "E4")
   ]),
   section("B", "3-2-D", [
-    repeat(109.86, "B1"),
-    repeat(112.49, "B2"),
-    repeat(115.13, "B3"),
-    repeat(118.11, "B4")
+    phrase(109.86, "B1"),
+    phrase(112.49, "B2"),
+    phrase(115.13, "B3"),
+    phrase(118.11, "B4")
   ]),
   section("B", "3-2-D", [
     repeat(120.48, "B1"),
     repeat(123.12, "B2"),
     repeat(125.73, "B3"),
-    repeat(128.37, "B4", 136.93)
+    phrase(128.37, "B4", [], 136.93)
   ])
 ], video=False)
 
