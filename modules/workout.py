@@ -1,7 +1,7 @@
 # vim: foldmethod=expr foldtext=getline(v\:foldstart) foldexpr=indent(v\:lnum)\|\|indent(v\:lnum+1)\|\|getline(v\:lnum)[0]=='@'?1\:'<1' fillchars=fold\:\ 
 
 # dependencies
-import sys, os, inspect, tempfile, math, shutil
+import sys, os, inspect, tempfile, math, shutil, re
 from dataclasses import dataclass
 
 # configuration: all durations are in seconds
@@ -70,6 +70,25 @@ class Piece:
 
 
 # constructors
+def lyrics(start, id, lyrics, template_id, stop=0):
+  """ clone a phrase, but with different lyrics and different start and stops """
+  template = phrases[template_id]
+  split_lyrics = re.split("[- ]", lyrics)
+  return phrase(start, id, list(map(lambda z: Note(
+    beat = z[0].beat,
+    degree = z[0].degree,
+    attack = z[0].attack,
+    vol_start = z[0].vol_start,
+    vol_stop = z[0].vol_stop,
+    sustain = z[0].sustain,
+    label = z[1]), zip(template.notes, split_lyrics))), stop, False)
+
+def notes(text: str) -> list[Note]:
+  """
+    parse a block of notes line by line and return an array of Notes
+  """
+  return list(map(parse_note, filter(lambda x: len(x) > 0, map(str.strip, text.split("\n")))))
+
 def phrase(start, label, notes=[], stop=0, skip=False):
   "constructor for phrases, which keeps a reference to the phrases created"
   p = Phrase(start, label, notes, stop, skip)
@@ -357,7 +376,7 @@ def parse_note(text: str):
      3 7 ==== twin-
      4 = ==== kle
   """
-  return Note(text[0], text[2], text[4], text[5], text[6], text[7], text[9:], {})
+  return Note(text[0], text[2], text[4], text[5], text[6], text[7], text[9:])
 
 def process_piece(piece, defaults_function, phrase_function, transition_function, note_function):
   """
