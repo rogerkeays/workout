@@ -30,3 +30,18 @@ pink_piano(1064, "clap-your-hands", 4, 129, "", [
   ])
 ])
 
+pink_piano(1065, "happy-birthday", 4, 100, "", [
+  section("A", "kitchen", [
+    phrase(60.31, "haappy"),  # happy birthday to you
+    phrase(63.90, "happy+"),  # (haappy)
+    phrase(67.48, "happy^"),  # happy birthday happy birthday
+    phrase(71.06, "half-cadence")   # (happy)
+  ]),
+  section("B", "lounge", [
+    phrase(74.64, "happy"),   # (happy+)
+    repeat(78.23, "happy+"),
+    repeat(81.83, "happy^"),
+    phrase(85.41, "cadence", [], 90.28)  # (happy)
+  ])
+])
+
