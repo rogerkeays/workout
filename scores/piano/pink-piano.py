@@ -45,3 +45,18 @@ pink_piano(1065, "happy-birthday", 4, 100, "", [
   ])
 ])
 
+pink_piano(1066, "lightly-row", 3, 100, "", [
+  section("A", "riverbank", [
+    phrase(90.90, "flamingo"),  # lightly row, flamingo
+    phrase(93.28, "river"),  # down the river we will go
+    phrase(95.69, "rowing"),  # always rowing, never slowing
+    phrase(98.06, "canoe")   # in my bright big red canoe
+  ]),
+  section("B", "bridge", [
+    phrase(100.47, "fishes"),  # see the fishes swimming by
+    phrase(102.87, "birds"),  # see the birds up in the sky
+    repeat(105.26, "flamingo"),
+    phrase(107.63, "steamboat", [], 110.05)  # in my bright big red steam boat
+  ])
+])
+
