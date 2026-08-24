@@ -25,7 +25,11 @@ class ViolinNote(Note):
 
 
 # constructors
-def lyrics(start, id, lyrics, template_id, stop=0):
+def violin(number, name, video_id, meter, tempo, tonic, sections, speeds=[0.5, 1.0], video=True, etude=False):
+  process_piece(Piece("violin", number, name, video_id, meter, tempo, tonic, sections, speeds, video, etude),
+      calculate_defaults, process_phrase, process_transition, process_note)
+
+def violin_lyrics(start, id, lyrics, template_id, stop=0):
   """ clone a phrase, but with different lyrics and different start and stops """
   template = phrases[template_id]
   split_lyrics = re.split("[- ]", lyrics)
@@ -42,10 +46,6 @@ def lyrics(start, id, lyrics, template_id, stop=0):
     finger = z[0].finger,
     bow_position = z[0].bow_position,
     label = z[1]), zip(template.notes, split_lyrics))), stop, True)
-
-def violin(number, name, video_id, meter, tempo, tonic, sections, speeds=[0.5, 1.0], video=True, etude=False):
-  process_piece(Piece("violin", number, name, video_id, meter, tempo, tonic, sections, speeds, video, etude),
-      calculate_defaults, process_phrase, process_transition, process_note)
 
 def violin_notes(text: str) -> list[Note]:
   """

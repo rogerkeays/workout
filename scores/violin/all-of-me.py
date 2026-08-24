@@ -1,6 +1,6 @@
 # vim: foldmethod=marker foldmarker=violin_notes(,) foldtext=getline(v\:foldstart)
 
-violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
+violin(3070, "all-of-me", "450p7goxZqg", 4, 126, "48", [ # wedding-reception
   section("V", "art-desk", [
     phrase(23.51, "mouth", violin_notes("""
       3 2 L4== 21W1 2 what
@@ -176,7 +176,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       1 0 ==== 3=C4 3 ges
       2 Z ==== ==== 5 ."""
     )),
-    lyrics(78.86, "imperfections", "all you-r per-fect im-per-fec-tions", "curves")
+    repeat(78.86, "curves"),  # all you-r per-fect im-per-fec-tions
   ]),
   section("CB", "sepulchre", [
     phrase(82.63, "give-your", violin_notes("""
@@ -200,8 +200,8 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       1 4 ==== ===2 3 u
       2 Z ==== ==== 5 ."""
     )),
-    lyrics(90.10, "end", "you're m-y end and my be-gin-ing", "curves"),
-    lyrics(94.17, "lose", "e-ve-n when i lose i'm win-ning", "curves")
+    repeat(90.10, "curves"), # you're m-y end and my be-gin-ing
+    repeat(94.17, "curves"), # e-ve-n when i lose i'm win-ning
   ]),
   section("CO", "altar", [
     phrase(97.70, "i-give", violin_notes("""
@@ -220,7 +220,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       o = ==== ==== 4 me
       u Z ==== ==== 6 ."""
     )),
-    lyrics(105.29, "you-give", "and you give me a-u-i-a-a-ll of you", "i-give"),
+    repeat(105.29, "i-give"), # and you give me a-u-i-a-a-ll of you
     phrase(111.83, "oo", violin_notes("""
       4 4 L4== 21W2 6 oh-
       o 2 ==== ===1 2 o
@@ -348,7 +348,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
     repeat(159.74, "all-me"),
     repeat(162.63, "all-you"),
     repeat(166.38, "curves"),
-    repeat(170.37, "imperfections")
+    repeat(170.37, "curves") # imperfections
   ]),
   section("CB", "sepulchre", [
     repeat(175.05, "give-your"),
@@ -362,12 +362,12 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       o 4 ==== ===2 3 you
       2 Z ==== ==== 5 ."""
     )),
-    repeat(181.63, "end"),
-    repeat(185.64, "lose"),
+    repeat(181.63, "curves"), # end
+    repeat(185.64, "curves"), # lose
   ]),
   section("CO", "altar", [
     repeat(189.20, "i-give"),
-    repeat(196.79, "you-give")
+    repeat(196.79, "i-give") # you-give
   ]),
   section("M", "casino", [
     phrase(204.06, "give-me", violin_notes("""
@@ -420,17 +420,17 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
     repeat(220.54, "all-me"),
     repeat(223.52, "all-you"),
     repeat(227.34, "curves"),
-    repeat(231.31, "imperfections")
+    repeat(231.31, "curves") # imperfections
   ]),
   section("CB", "sepulchre", [
     repeat(235.15, "give-your"),
     repeat(238.65, "give-my^"),
-    repeat(242.60, "end"),
-    repeat(246.55, "lose")
+    repeat(242.60, "curves"), # end
+    repeat(246.55, "curves") # lose
   ]),
   section("CO", "altar", [
     repeat(250.20, "i-give"),
-    repeat(257.77, "you-give")
+    repeat(257.77, "i-give")  # you-give
   ]),
   section("CO", "altar", [
     phrase(265.26, "i-give-auaua", violin_notes("""
@@ -448,7 +448,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       o = ==== ==== 4 me
       3 Z ==== ==== 6 ."""
     )),
-    repeat(273.04, "you-give"),
+    repeat(273.04, "i-give"), # you-give
     phrase(279.42, "ouo", violin_notes("""
       4 2 L4== 21W1 6 o-
       o 4 ==== ===2 ^ u-
