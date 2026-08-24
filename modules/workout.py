@@ -7,10 +7,10 @@ from dataclasses import dataclass
 # configuration: all durations are in seconds
 MAKE_MP3S = True if "WORKOUT_SKIP_MP3S" not in os.environ else False
 CACHE_DIR = os.environ["HOME"] + "/.cache/workout"
-VIDEO_TYPE="3gp"
+VIDEO_TYPE="mp4"
 VIDEO_SIZE="176:144"
 VIDEO_FPS="10"
-VIDEO_CODEC="h263"
+VIDEO_CODEC="mpeg4"
 AUDIO_CODEC="aac"
 AUDIO_RATE="48000"
 NUM_PADDING = 5
