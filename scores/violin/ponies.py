@@ -1,8 +1,8 @@
-# vim: foldmethod=marker foldmarker=notes(,) foldtext=getline(v\:foldstart)
+# vim: foldmethod=marker foldmarker=violin_notes(,) foldtext=getline(v\:foldstart)
 
 violin(1059, "ponies", "coursera-76", 3, 95, "42", [ # art-class
   section("A", "desk", [
-    phrase(152.64, "girls", notes("""
+    phrase(152.64, "girls", violin_notes("""
       1 0 L44= 32G0 3 li-
       3 7 ==== ===4 5 ttle
       1 = ==== ==== 3 girls
@@ -11,7 +11,7 @@ violin(1059, "ponies", "coursera-76", 3, 95, "42", [ # art-class
       1 5 ==== ===3 5 draw
       1 Z ==== 21== 3 ."""
     )),
-    phrase(160.21, "ponies", notes("""
+    phrase(160.21, "ponies", violin_notes("""
       1 X L44= 21P2 3 all
       3 2 ==== ===4 5 the
       1 7 ==== ===0 3 pre-
@@ -28,7 +28,7 @@ violin(1059, "ponies", "coursera-76", 3, 95, "42", [ # art-class
     repeat(175.34, "ponies")
   ]),
   section("B", "reverie", [
-    phrase(182.59, "dreams", notes("""
+    phrase(182.59, "dreams", violin_notes("""
       1 = L44= 42G1 3 in
       3 = ==== ===3 5 her
       1 = ==== ==== 3 dreams,

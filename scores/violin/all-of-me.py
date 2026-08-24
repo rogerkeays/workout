@@ -1,8 +1,8 @@
-# vim: foldmethod=marker foldmarker=notes(,) foldtext=getline(v\:foldstart)
+# vim: foldmethod=marker foldmarker=violin_notes(,) foldtext=getline(v\:foldstart)
 
 violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
   section("V", "art-desk", [
-    phrase(23.51, "mouth", notes("""
+    phrase(23.51, "mouth", violin_notes("""
       3 2 L4== 21W1 2 what
       e 4 ==== ===2 ^ would
       4 = ==== ==== 6 i
@@ -15,7 +15,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       1 = ===~ ==== 2 mouth?
       2 Z ==== ==== 6 ."""
     )),
-    phrase(27.31, "drawin", notes("""
+    phrase(27.31, "drawin", violin_notes("""
       3 2 L4== 21W1 2 draw-
       e 4 ==== ===2 v in
       4 = ==== ==== 6 me
@@ -29,7 +29,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       1 9 ==== ===2 2 out
       2 Z ==== ==== 6 ."""
     )),
-    phrase(31.12, "spinnin", notes("""
+    phrase(31.12, "spinnin", violin_notes("""
       u 9 L4== 31C2 6 you've
       3 4 ==== 2=W= 4 got
       t = ==== ==== 7 my
@@ -42,7 +42,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       e 0 ==== 3=C4 7 din
       4 Z ==== ==== 3 ."""
     )),
-    phrase(35.85, "pin", notes("""
+    phrase(35.85, "pin", violin_notes("""
       o 0 L4== 31C4 3 i
       1 2 ==== 2=W1 2 can't
       u Z ==== ==== 5 ,
@@ -54,7 +54,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
     ))
   ]),
   section("V", "disneyland", [
-    phrase(38.95, "mind", notes("""
+    phrase(38.95, "mind", violin_notes("""
       3 2 L4== 21W1 2 what's
       e 4 ==== ===2 v go-
       4 = ==== ==== 6 in
@@ -67,7 +67,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       w = ==== ==== 2 mind
       2 Z ==== ==== 6 ?"""
     )),
-    phrase(42.67, "ride", notes("""
+    phrase(42.67, "ride", violin_notes("""
       3 4 L4== 21W2 6 i'm
       e = ==== ==== 4 on
       4 = ==== ==== 6 your
@@ -81,7 +81,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       1 9 ==== ===2 6 ide
       u Z ==== ==== 2 ."""
     )),
-    phrase(46.57, "dizzy", notes("""
+    phrase(46.57, "dizzy", violin_notes("""
       3 4 L4== 21W2 2 and
       e = ==== ==== 6 i'm
       1 5 ==== ===3 2 so
@@ -96,7 +96,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       e 0 ==== 3==4 6 me
       4 Z ==== ==== 3 ."""
     )),
-    phrase(51.03, "alright", notes("""
+    phrase(51.03, "alright", violin_notes("""
       o 0 L4== 31C4 3 but
       1 2 ==== 2=W1 2 i'll
       3 4 ==== ===2 5 be
@@ -106,7 +106,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
     ))
   ]),
   section("B", "show", [
-    phrase(54.92, "underwater", notes("""
+    phrase(54.92, "underwater", violin_notes("""
       o 0 L4== 33W3 6 my
       1 7 ==== 2=G3 2 h-
       b 9 ==== ===4 v ead's
@@ -120,7 +120,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       e = ==== ===3 6 but
       4 Z ==== ==== 2 ."""
     )),
-    phrase(58.71, "breathin", notes("""
+    phrase(58.71, "breathin", violin_notes("""
       o Y L4== 33W2 2 i'm
       u 9 ==== =1=2 6 br-
       3 7 ==== ===1 ^ ea-
@@ -129,7 +129,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       o = ==== ==== 6 fine
       u Z ==== ==== 2 ."""
     )),
-    phrase(62.57, "crazy", notes("""
+    phrase(62.57, "crazy", violin_notes("""
       o 7 L4== 24P2 2 y-
       w 9 ==== ===3 v ou're
       u = ==== ==== 6 cr-
@@ -146,7 +146,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
     ))
   ]),
   section("CA", "mirrors", [
-    phrase(68.21, "all-me", notes("""
+    phrase(68.21, "all-me", violin_notes("""
       o 4 L4== 21W2 4 cause
       1 = ==== ==== 2 a-
       b 7 ==== ===4 v a-
@@ -156,7 +156,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       1 9 ==== 1==1 2 e
       2 Z ==== ==== 4 ."""
     )),
-    phrase(71.10, "all-you", notes("""
+    phrase(71.10, "all-you", violin_notes("""
       3 4 L4== 21W3 4 loves
       1 2 ==== ===2 2 all
       4 0 ==== 3=C4 6 of
@@ -164,7 +164,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       1 4 ==== ==== 2 ou
       2 Z ==== ==== 6 ."""
     )),
-    phrase(74.86, "curves", notes("""
+    phrase(74.86, "curves", violin_notes("""
       3 4 L4== 21W2 2 love
       e = ==== ==== 6 you-
       o 2 ==== ===1 ^ r
@@ -179,7 +179,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
     lyrics(78.86, "imperfections", "all you-r per-fect im-per-fec-tions", "curves")
   ]),
   section("CB", "sepulchre", [
-    phrase(82.63, "give-your", notes("""
+    phrase(82.63, "give-your", violin_notes("""
       3 4 L4== 21W2 3 give
       e = ==== ==== 5 your
       1 = ==== ==== 3 a-
@@ -189,7 +189,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       1 9 ==== 1==1 3 e
       2 Z ==== ==== 6 ."""
     )),
-    phrase(86.35, "give-my", notes("""
+    phrase(86.35, "give-my", violin_notes("""
       u 2 L4== 21W1 6 i'll
       3 9 ==== 1=== 3 give
       e 4 ==== 2==2 5 m-
@@ -204,7 +204,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
     lyrics(94.17, "lose", "e-ve-n when i lose i'm win-ning", "curves")
   ]),
   section("CO", "altar", [
-    phrase(97.70, "i-give", notes("""
+    phrase(97.70, "i-give", violin_notes("""
       u 4 L4== 21W2 6 cause
       3 = ==== ==== 7 i
       e 5 ==== ===3 ^ give
@@ -221,14 +221,14 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       u Z ==== ==== 6 ."""
     )),
     lyrics(105.29, "you-give", "and you give me a-u-i-a-a-ll of you", "i-give"),
-    phrase(111.83, "oo", notes("""
+    phrase(111.83, "oo", violin_notes("""
       4 4 L4== 21W2 6 oh-
       o 2 ==== ===1 2 o
       3 Z ==== ==== 6 ."""
     ))
   ]),
   section("V", "bedroom", [
-    phrase(115.05, "times", notes("""
+    phrase(115.05, "times", violin_notes("""
       3 2 L4== 21W1 2 how
       e 4 ==== ===2 v ma-
       4 2 ==== ===1 6 ni-
@@ -243,7 +243,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       1 = ==== ==== 2 you?
       2 Z ==== ==== 6 ."""
     )),
-    phrase(118.98, "crying", notes("""
+    phrase(118.98, "crying", violin_notes("""
       3 4 L4== 21W2 2 e-
       e = ==== ==== 4 ven
       4 = ==== ==== 2 when
@@ -259,7 +259,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       1 9 ==== ===2 6 oo
       2 Z ==== ==== 4 ."""
     )),
-    phrase(122.55, "beating", notes("""
+    phrase(122.55, "beating", violin_notes("""
       u 0 L4== 31C4 6 the
       3 2 ==== 2=W1 2 w-
       c 4 ==== ===2 v orld
@@ -277,7 +277,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       o 2 ==== 2=W1 2 round
       2 Z ==== ==== 6 ."""
     )),
-    phrase(128.17, "mood", notes("""
+    phrase(128.17, "mood", violin_notes("""
       u 2 L4== 21W1 6 through
       3 4 ==== ===2 2 e-
       e 2 ==== ===1 v ve-
@@ -287,7 +287,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
     ))
   ]),
   section("V", "garage", [
-    phrase(130.19, "downfall", notes("""
+    phrase(130.19, "downfall", violin_notes("""
       p 7 L4== 21W4 2 you're
       e 4 ==== ===2 4 my
       o = ==== ==== 2 down-
@@ -297,7 +297,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       o = ==== ==== 2 muse
       a Z ==== ==== 6 ."""
     )),
-    phrase(133.97, "distraction", notes("""
+    phrase(133.97, "distraction", violin_notes("""
       u 0 L4== 31C4 6 my
       3 5 ==== 2=W3 2 w-
       e 7 ==== ===4 v orst
@@ -312,7 +312,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       o 9 ==== 3=C2 2 blues
       2 Z ==== ==== 6 ."""
     )),
-    phrase(137.69, "singing", notes("""
+    phrase(137.69, "singing", violin_notes("""
       u 4 L4== 21W2 6 i
       3 = ==== ==== 4 can't
       t = ==== ==== 6 stop
@@ -328,7 +328,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       e = ==== ==== 6 in
       4 Z ==== ==== 2 ."""
     )),
-    phrase(142.49, "head", notes("""
+    phrase(142.49, "head", violin_notes("""
       o 2 L4== 21W1 2 my
       2 Z ==== ==== 6 ,
       u 4 ==== ===2 6 h-
@@ -352,7 +352,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
   ]),
   section("CB", "sepulchre", [
     repeat(175.05, "give-your"),
-    phrase(177.75, "give-my^", notes("""
+    phrase(177.75, "give-my^", violin_notes("""
       u 4 L4== 21W2 6 i'll
       3 0 ==== 1==3 3 give
       e Y ==== ===2 5 m-
@@ -370,7 +370,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
     repeat(196.79, "you-give")
   ]),
   section("M", "casino", [
-    phrase(204.06, "give-me", notes("""
+    phrase(204.06, "give-me", violin_notes("""
       a 5 L4== 21W3 3 give
       2 7 ==== ===4 5 me
       u Y ==== 1==2 3 a-
@@ -384,7 +384,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       e 0 ==== 3=C4 ^ oh
       1 Z ==== ==== 1 ."""
     )),
-    phrase(207.59, "cards", notes("""
+    phrase(207.59, "cards", violin_notes("""
       1 9 L4== 11W2 3 cards
       u 7 ==== 2==1 5 o-
       3 5 ==== ===4 ^ n
@@ -403,7 +403,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       o = ==== ==== 6 hearts
       e Z ==== ==== 2 ."""
     )),
-    phrase(215.01, "risk", notes("""
+    phrase(215.01, "risk", violin_notes("""
       1 9 L4== 11W1 2 ris-
       u 7 ==== 2==4 6 king
       3 5 ==== ===3 ^ it
@@ -433,7 +433,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
     repeat(257.77, "you-give")
   ]),
   section("CO", "altar", [
-    phrase(265.26, "i-give-auaua", notes("""
+    phrase(265.26, "i-give-auaua", violin_notes("""
       3 4 L4== 21W2 7 i
       e 5 ==== ===3 ^ give
       4 7 ==== ===4 ^ you
@@ -449,7 +449,7 @@ violin(3070, "all-of-me", 4, 126, "48", [ # wedding-reception
       3 Z ==== ==== 6 ."""
     )),
     repeat(273.04, "you-give"),
-    phrase(279.42, "ouo", notes("""
+    phrase(279.42, "ouo", violin_notes("""
       4 2 L4== 21W1 6 o-
       o 4 ==== ===2 ^ u-
       1 2 ==== ===1 ^ oh

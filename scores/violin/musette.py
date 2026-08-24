@@ -1,4 +1,4 @@
-# vim: foldmethod=marker foldmarker=notes(,) foldtext=getline(v\:foldstart)
+# vim: foldmethod=marker foldmarker=violin_notes(,) foldtext=getline(v\:foldstart)
 
 # from coursera: not available on youtube
 violin(1057, "musette", "coursera-65", 4, 120, "42", [ # siem-reap-river
@@ -6,7 +6,7 @@ violin(1057, "musette", "coursera-65", 4, 120, "42", [ # siem-reap-river
     phrase(264.18, "intro", skip=True)
   ]),
   section("A", "bank", [
-    phrase(268.91, "fishing", notes("""
+    phrase(268.91, "fishing", violin_notes("""
       1 7 L44= 32W4 3 i'm
       3 5 ==== ===3 5 go-
       e 4 ==== ===2 3 ing
@@ -19,7 +19,7 @@ violin(1057, "musette", "coursera-65", 4, 120, "42", [ # siem-reap-river
       o 0 ==== ===0 5 ing
       1 Z ==== ==== 3 ."""
     )),
-    phrase(273.19, "tackle", notes("""
+    phrase(273.19, "tackle", violin_notes("""
       1 4 L44= 32W2 3 go-
       a 5 ==== ===3 5 nna
       2 7 S=== ===4 3 sit
@@ -32,7 +32,7 @@ violin(1057, "musette", "coursera-65", 4, 120, "42", [ # siem-reap-river
       1 Z ==== ==== 3 ."""
     )),
     repeat(277.02, "fishing"),
-    phrase(281.07, "bait", notes("""
+    phrase(281.07, "bait", violin_notes("""
       1 4 L44= 32W2 3 go-
       a 5 ==== ===3 5 nna
       2 7 S=== ===4 3 sit
@@ -45,7 +45,7 @@ violin(1057, "musette", "coursera-65", 4, 120, "42", [ # siem-reap-river
     )),
   ]),
   section("B", "water", [
-    phrase(284.99, "food", notes("""
+    phrase(284.99, "food", violin_notes("""
       1 Y D44= 22W2 3 here
       a 0 ==== ===3 5 it
       2 2 S=== ===4 3 comes,
@@ -57,7 +57,7 @@ violin(1057, "musette", "coursera-65", 4, 120, "42", [ # siem-reap-river
       3 4 L=== ===0 3 food
       1 Z ==== 2=== 5 ."""
     )),
-    phrase(288.87, "steal", notes("""
+    phrase(288.87, "steal", violin_notes("""
       1 Y D44= 22W2 5 care-
       a 0 ==== ===3 3 ful-
       2 2 S=== ===4 5 ly,
@@ -70,7 +70,7 @@ violin(1057, "musette", "coursera-65", 4, 120, "42", [ # siem-reap-river
       1 Z ==== ==== 3 ."""
     )),
     repeat(292.74, "food"),
-    phrase(296.58, "strike", notes("""
+    phrase(296.58, "strike", violin_notes("""
       1 4 S44= 12W0 5 big
       2 9 ==== ===4 ^ strike,
       3 2 ==== ===0 3 think

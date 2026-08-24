@@ -1,11 +1,11 @@
-# vim: foldmethod=marker foldmarker=notes(,) foldtext=getline(v\:foldstart)
+# vim: foldmethod=marker foldmarker=violin_notes(,) foldtext=getline(v\:foldstart)
 
 violin(1031, "lightly-row", "IZ8OFyudRmE", 4, 146, "49", [ # oxford
   section("I", "intro", [
     phrase(0.99, "intro", skip=True)
   ]),
   section("A", "riverbank", [
-    phrase(4.46, "flamingo", notes("""
+    phrase(4.46, "flamingo", violin_notes("""
       1 7 L4== 22W4 3 light-
       2 4 ==== ===2 5 ly
       3 = ==== ==== 3 row,
@@ -14,7 +14,7 @@ violin(1031, "lightly-row", "IZ8OFyudRmE", 4, 146, "49", [ # oxford
       3 = ==== ==== 5 go
       1 Z ==== ==== 3 ."""
     )),
-    phrase(7.81, "river", notes("""
+    phrase(7.81, "river", violin_notes("""
       1 0 L4== 22W0 3 down
       2 2 ==== ===1 5 the
       3 4 ==== ===2 3 ri-
@@ -24,7 +24,7 @@ violin(1031, "lightly-row", "IZ8OFyudRmE", 4, 146, "49", [ # oxford
       3 = ==== ==== 3 go
       1 Z ==== ==== 5 ."""
     )),
-    phrase(11.03, "rowing", notes("""
+    phrase(11.03, "rowing", violin_notes("""
       1 7 L4== 22W4 5 al-
       2 4 ==== ===2 3 ways
       3 = ==== ==== 5 row-
@@ -35,7 +35,7 @@ violin(1031, "lightly-row", "IZ8OFyudRmE", 4, 146, "49", [ # oxford
       4 = ==== ==== 3 ing
       1 Z ==== ==== 5 ."""
     )),
-    phrase(14.18, "canoe", notes("""
+    phrase(14.18, "canoe", violin_notes("""
       1 0 L4== 22W0 5 in
       2 2 ==== ===1 3 my
       3 7 ==== ===4 5 bright
@@ -47,7 +47,7 @@ violin(1031, "lightly-row", "IZ8OFyudRmE", 4, 146, "49", [ # oxford
     ))
   ]),
   section("B", "bridge", [
-    phrase(17.46, "fishes", notes("""
+    phrase(17.46, "fishes", violin_notes("""
       1 2 L4== 22W1 3 see
       2 = ==== ==== 5 the
       3 = ==== ==== 3 fish-
@@ -57,7 +57,7 @@ violin(1031, "lightly-row", "IZ8OFyudRmE", 4, 146, "49", [ # oxford
       3 5 ==== ===3 3 by
       1 Z ==== ==== 5 ."""
     )),
-    phrase(20.71, "birds", notes("""
+    phrase(20.71, "birds", violin_notes("""
       1 4 L4== 22W2 3 see
       2 = ==== ==== 5 the
       3 = ==== ==== 3 birds

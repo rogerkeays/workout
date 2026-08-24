@@ -1,9 +1,9 @@
-# vim: foldmethod=marker foldmarker=notes(,) foldtext=getline(v\:foldstart)
+# vim: foldmethod=marker foldmarker=violin_notes(,) foldtext=getline(v\:foldstart)
 
 # open string exercises
 violin(1, "the-crawl", "ehIVE-JplZA", 4, 90, "37", [
   section("V", "table", [
-    phrase(474.03, "crawls", notes("""
+    phrase(474.03, "crawls", violin_notes("""
       1 0 L4== 40N0 3 li-
       2 = ==== ==== 5 ttle
       3 7 ==== 3=== 3 ba-
@@ -14,7 +14,7 @@ violin(1, "the-crawl", "ehIVE-JplZA", 4, 90, "37", [
       4 = ==== ==== 5 ger
       1 Z ==== ==== 3 ."""
     )),
-    phrase(478.56, "scared", notes("""
+    phrase(478.56, "scared", violin_notes("""
       1 2 L4== 20N0 3 scared
       2 = ==== ==== 5 he
       3 7 ==== 3=== 3 turns
@@ -30,26 +30,26 @@ violin(1, "the-crawl", "ehIVE-JplZA", 4, 90, "37", [
 
 violin(2, "baby-steps", "ehIVE-JplZA", 4, 90, "37", [
   section("V", "lawn", [
-    phrase(485.66, "left", notes("""
+    phrase(485.66, "left", violin_notes("""
       1 0 L4== 40N0 3 left
       2 = ==== ==== 5 foot
       3 7 ==== 3=== 3 step
       1 Z ==== ==== 5 ."""
     )),
-    phrase(487.93, "right", notes("""
+    phrase(487.93, "right", violin_notes("""
       1 2 L4== 20N0 5 right
       2 = ==== ==== 3 foot
       3 0 ==== 3=== 5 step
       1 Z ==== ==== 3 ."""
     )),
-    phrase(490.11, "mummy", notes("""
+    phrase(490.11, "mummy", violin_notes("""
       1 2 L4== 20N0 3 looks
       2 = ==== ==== 5 for
       3 7 ==== 1=== 3 mu-
       4 = ==== ==== 5 mmy
       1 Z ==== ==== 3 ."""
     )),
-    phrase(492.03, "falling", notes("""
+    phrase(492.03, "falling", violin_notes("""
       1 2 L4== 20N0 3 fall-
       2 = ==== 3=== 5 ing
       3 7 ==== 4=== 3 down
@@ -60,7 +60,7 @@ violin(2, "baby-steps", "ehIVE-JplZA", 4, 90, "37", [
 
 violin(3, "the-first-fall", "ehIVE-JplZA", 4, 100, "37", [
   section("V", "lounge", [
-    phrase(497.00, "window", notes("""
+    phrase(497.00, "window", violin_notes("""
       1 0 D44= 40N0 3 runs
       a = ==== ==== 5 in-
       2 = ==== ==== 3 to
@@ -69,7 +69,7 @@ violin(3, "the-first-fall", "ehIVE-JplZA", 4, 100, "37", [
       4 = ==== ==== 5 dow
       1 Z ==== 1=== 3 ."""
     )),
-    phrase(499.17, "falling", notes("""
+    phrase(499.17, "falling", violin_notes("""
       1 9 D44= 10N0 3 fall-
       a = ==== ==== 5 ing
       2 = ==== ==== 3 on
@@ -77,7 +77,7 @@ violin(3, "the-first-fall", "ehIVE-JplZA", 4, 100, "37", [
       3 2 ==== 2=== 3 arse
       1 Z ==== ==== 5 ."""
     )),
-    phrase(501.19, "what", notes("""
+    phrase(501.19, "what", violin_notes("""
       1 2 D44= 20N0 5 what
       a = ==== ==== 3 the
       2 = ==== ==== 5 hell
@@ -86,7 +86,7 @@ violin(3, "the-first-fall", "ehIVE-JplZA", 4, 100, "37", [
       4 = ==== ==== 3 ppened?
       1 Z ==== 2=== 5 ."""
     )),
-    phrase(503.24, "dunno", notes("""
+    phrase(503.24, "dunno", violin_notes("""
       1 7 D44= 20N0 5 i
       2 2 ==== 3=== 3 don't
       3 0 ==== 4=== 5 know
@@ -97,7 +97,7 @@ violin(3, "the-first-fall", "ehIVE-JplZA", 4, 100, "37", [
 
 violin(4, "into-the-kitchen", "ehIVE-JplZA", 4, 100, "37", [
   section("V", "kitchen", [
-    phrase(507.81, "no-one", notes("""
+    phrase(507.81, "no-one", violin_notes("""
       1 0 D44= 40N0 3 here
       a 7 ==== 3=== 5 there's
       2 = ==== ==== 3 no-
@@ -108,7 +108,7 @@ violin(4, "into-the-kitchen", "ehIVE-JplZA", 4, 100, "37", [
       o = ==== ==== 5 one
       1 Z ==== 1=== 3 ."""
     )),
-    phrase(510.11, "sneak", notes("""
+    phrase(510.11, "sneak", violin_notes("""
       1 9 D44= 10N0 3 sneak
       a = ==== ==== 5 in-
       2 = ==== ==== 3 to
@@ -117,7 +117,7 @@ violin(4, "into-the-kitchen", "ehIVE-JplZA", 4, 100, "37", [
       4 = ==== ==== 5 tchen
       1 Z ==== ==== 3 ."""
     )),
-    phrase(511.89, "climbing", notes("""
+    phrase(511.89, "climbing", violin_notes("""
       1 2 D44= 20N0 3 climb-
       a = ==== ==== 5 ing
       2 = ==== ==== 3 up
@@ -126,7 +126,7 @@ violin(4, "into-the-kitchen", "ehIVE-JplZA", 4, 100, "37", [
       4 = ==== ==== 5 ter
       1 Z ==== 2=== 3 ."""
     )),
-    phrase(513.92, "hanging", notes("""
+    phrase(513.92, "hanging", violin_notes("""
       1 2 D44= 20N0 3 hang-
       a 7 ==== 3=== 5 ing
       2 = ==== ==== 3 off
@@ -139,7 +139,7 @@ violin(4, "into-the-kitchen", "ehIVE-JplZA", 4, 100, "37", [
 
 violin(5, "the-car-trip", "ehIVE-JplZA", 4, 110, "37", [
   section("V", "car", [
-    phrase(518.60, "baby", notes("""
+    phrase(518.60, "baby", violin_notes("""
       1 9 L4== 10N0 3 li-
       2 = ==== ==== 5 ttle
       3 2 ==== 2=== 3 ba-
@@ -149,7 +149,7 @@ violin(5, "the-car-trip", "ehIVE-JplZA", 4, 110, "37", [
       3 2 ==== 2=== 3 up
       1 Z ==== ==== 5 ."""
     )),
-    phrase(520.71, "mummy", notes("""
+    phrase(520.71, "mummy", violin_notes("""
       1 7 L4== 20N0 5 mu-
       2 = ==== ==== 3 mmy
       3 0 ==== 4=== 5 wants
@@ -159,14 +159,14 @@ violin(5, "the-car-trip", "ehIVE-JplZA", 4, 110, "37", [
       3 2 ==== 2=== 5 too
       1 Z ==== ==== 3 ."""
     )),
-    phrase(522.71, "pull", notes("""
+    phrase(522.71, "pull", violin_notes("""
       1 9 L4== 10N0 3 pull-
       2 2 ==== 2=== 5 ling
       3 7 ==== 3=== 3 o
       4 0 ==== 4=== 5 ver
       1 Z ==== ==== 3 ."""
     )),
-    phrase(524.78, "clean", notes("""
+    phrase(524.78, "clean", violin_notes("""
       1 7 L4== 20N0 3 clean
       2 = ==== ==== 5 it
       3 2 ==== 3=== 3 up
@@ -177,14 +177,14 @@ violin(5, "the-car-trip", "ehIVE-JplZA", 4, 110, "37", [
 
 violin(6, "aeroplane-games", "ehIVE-JplZA", 2, 110, "37", [
   section("V", "airfield", [
-    phrase(542.92, "upwards", notes("""
+    phrase(542.92, "upwards", violin_notes("""
       1 0 L4== 40N0 3 fly-
       a 7 ==== 3=== 5 ing
       2 2 ==== 2=== 3 up-
       u 9 ==== 1=== 5 wards
       1 Z ==== ==== 3 ."""
     )),
-    phrase(544.20, "downwards", notes("""
+    phrase(544.20, "downwards", violin_notes("""
       1 9 L4== 10N0 3 fly-
       a 2 ==== 2=== 5 ing
       2 7 ==== 3=== 3 down-
@@ -193,7 +193,7 @@ violin(6, "aeroplane-games", "ehIVE-JplZA", 2, 110, "37", [
     )),
     repeat(545.43, "upwards"),
     repeat(546.55, "downwards"),
-    phrase(547.73, "terminal", notes("""
+    phrase(547.73, "terminal", violin_notes("""
       1 7 L4== 30N0 3 land-
       a = ==== ==== 5 ing
       2 2 ==== 2=== 3 at
@@ -209,28 +209,28 @@ violin(6, "aeroplane-games", "ehIVE-JplZA", 2, 110, "37", [
 # first finger exercises
 violin(7, "the-door-handle", "jCavOEFJ4Lc", 4, 94, "37", [
   section("V", "shack", [
-    phrase(561.07, "this-way", notes("""
+    phrase(561.07, "this-way", violin_notes("""
       1 0 L44= 42N0 3 turn
       2 7 ==== 3=== 5 it
       3 9 ==== ===1 3 this
       4 7 ==== ===0 5 way
       1 Z ==== 2=== 3 ."""
     )),
-    phrase(563.55, "that-way", notes("""
+    phrase(563.55, "that-way", violin_notes("""
       1 2 L44= 22N0 3 turn
       2 7 ==== 3=== 5 it
       3 9 ==== ===1 3 that
       4 7 ==== ===0 5 way
       1 Z ==== 2=== 3 ."""
     )),
-    phrase(565.67, "door", notes("""
+    phrase(565.67, "door", violin_notes("""
       1 2 L44= 22N0 3 the
       2 2 ==== ==== 5 door
       3 4 ==== ===1 3 o-
       4 2 ==== ===0 5 pens
       1 Z ==== 3=== 3 ."""
     )),
-    phrase(567.67, "inside", notes("""
+    phrase(567.67, "inside", violin_notes("""
       1 7 L44= 32N0 3 go
       2 9 ==== ===1 5 in-
       3 0 ==== 4==0 3 side
@@ -241,7 +241,7 @@ violin(7, "the-door-handle", "jCavOEFJ4Lc", 4, 94, "37", [
 
 violin(8, "the-puppy-dog", "jCavOEFJ4Lc", 3, 104, "49", [
   section("V", "park", [
-    phrase(571.61, "puppy", notes("""
+    phrase(571.61, "puppy", violin_notes("""
       1 7 L44= 12N0 3 mis-
       2 9 ==== ===1 5 chie-
       3 7 ==== ===0 3 vous
@@ -250,7 +250,7 @@ violin(8, "the-puppy-dog", "jCavOEFJ4Lc", 3, 104, "49", [
       3 0 ==== ===0 5 dog
       1 Z ==== 3=== 3 ."""
     )),
-    phrase(574.59, "running", notes("""
+    phrase(574.59, "running", violin_notes("""
       1 5 L44= 32N0 3 he's
       2 7 ==== ===1 5 run-
       3 5 ==== ===0 3 ning
@@ -259,7 +259,7 @@ violin(8, "the-puppy-dog", "jCavOEFJ4Lc", 3, 104, "49", [
       3 X ==== ===0 5 me
       1 Z ==== 3=== 3 ."""
     )),
-    phrase(577.50, "play", notes("""
+    phrase(577.50, "play", violin_notes("""
       1 7 L44= 32N1 3 he
       2 = ==== ==== 5 wants
       3 = ==== ==== 3 to
@@ -271,35 +271,35 @@ violin(8, "the-puppy-dog", "jCavOEFJ4Lc", 3, 104, "49", [
 
 violin(9, "hunger", "jCavOEFJ4Lc", 4, 105, "42", [
   section("V", "baby-chair", [
-    phrase(582.42, "hungry", notes("""
+    phrase(582.42, "hungry", violin_notes("""
       1 2 L44= 12N0 3 get-
       2 7 ==== 2=== 5 ting
       3 9 ==== ===1 3 hun-
       4 7 ==== ===0 5 gry
       1 Z ==== 3=== 3 ."""
     )),
-    phrase(584.43, "time", notes("""
+    phrase(584.43, "time", violin_notes("""
       1 0 L44= 32N0 3 for
       2 7 ==== 2=== 5 the
       3 9 ==== ===1 3 first
       4 7 ==== ===0 5 time
       1 Z ==== ==== 3 ."""
     )),
-    phrase(586.44, "what", notes("""
+    phrase(586.44, "what", violin_notes("""
       1 7 L44= 22N0 3 what
       2 9 ==== ===1 5 is
       3 7 ==== ===0 3 hap-
       4 9 ==== ===1 5 ning?
       1 Z ==== 1=== 3 ."""
     )),
-    phrase(588.25, "mummy", notes("""
+    phrase(588.25, "mummy", violin_notes("""
       1 2 L44= 12N0 3 where's
       2 4 ==== ===1 5 mu-
       3 = ==== ==== 3 mmy
       4 2 ==== ===0 5 now?
       1 Z ==== 2=== 3 ."""
     )),
-    phrase(590.24, "know", notes("""
+    phrase(590.24, "know", violin_notes("""
       1 7 L44= 22N0 3 i
       2 0 ==== 3=== 5 don't
       3 = ==== ==== 3 know
@@ -310,14 +310,14 @@ violin(9, "hunger", "jCavOEFJ4Lc", 4, 105, "42", [
 
 violin(10, "stealing-cookies", "jCavOEFJ4Lc", 4, 144, "49", [
   section("V", "kitchen", [
-    phrase(594.22, "cookies", notes("""
+    phrase(594.22, "cookies", violin_notes("""
       1 9 L44= 12N1 3 stea-
       3 7 ==== ===0 5 ling
       1 2 ==== 2==1 3 cook-
       3 0 ==== ===0 5 ies
       1 Z ==== 3=== 3 ."""
     )),
-    phrase(597.88, "pockets", notes("""
+    phrase(597.88, "pockets", violin_notes("""
       1 5 L44= 32N0 3 shove
       a 7 ==== ===1 5 them
       2 5 ==== ===0 3 in
@@ -326,7 +326,7 @@ violin(10, "stealing-cookies", "jCavOEFJ4Lc", 4, 144, "49", [
       4 2 ==== ===1 5 ckets
       1 Z ==== ==== 3 ."""
     )),
-    phrase(599.86, "eat", notes("""
+    phrase(599.86, "eat", violin_notes("""
       1 7 L44= 12N0 3 go-
       a 9 ==== ===1 5 nna
       2 7 ==== ===0 3 eat
@@ -340,7 +340,7 @@ violin(10, "stealing-cookies", "jCavOEFJ4Lc", 4, 144, "49", [
 
 violin(11, "puppy-in-the-kitchen", "jCavOEFJ4Lc", 4, 110, "42", [
   section("V", "kitchen", [
-    phrase(603.93, "puppy", notes("""
+    phrase(603.93, "puppy", violin_notes("""
       1 2 L44= 12N0 3 pu-
       a = ==== ==== 5 ppy
       2 = ==== ==== 3 in
@@ -349,7 +349,7 @@ violin(11, "puppy-in-the-kitchen", "jCavOEFJ4Lc", 4, 110, "42", [
       4 2 ==== ===0 5 tchen
       1 Z ==== 2=== 3 ."""
     )),
-    phrase(605.98, "running", notes("""
+    phrase(605.98, "running", violin_notes("""
       1 7 L44= 22N0 3 run-
       a = ==== ==== 5 ning
       2 = ==== ==== 3 in
@@ -358,7 +358,7 @@ violin(11, "puppy-in-the-kitchen", "jCavOEFJ4Lc", 4, 110, "42", [
       4 7 ==== ===0 5 tchen
       1 Z ==== 1=== 3 ."""
     )),
-    phrase(607.94, "someone", notes("""
+    phrase(607.94, "someone", violin_notes("""
       1 2 L44= 12N0 3 some-
       a = ==== ==== 5 one's
       2 4 ==== ===1 3 com-
@@ -375,7 +375,7 @@ violin(11, "puppy-in-the-kitchen", "jCavOEFJ4Lc", 4, 110, "42", [
 
 violin(12, "dad-goes-looking", "jCavOEFJ4Lc", 2, 104, "37", [
   section("V", "lost-kids-house", [
-    phrase(612.74, "kid", notes("""
+    phrase(612.74, "kid", violin_notes("""
       1 0 L44= 42N0 3 some-
       a 2 ==== ===1 5 things
       2 0 ==== ===0 3 ha-
@@ -386,7 +386,7 @@ violin(12, "dad-goes-looking", "jCavOEFJ4Lc", 2, 104, "37", [
       o 9 ==== ===1 5 kid?
       1 Z ==== 2=== 3 ."""
     )),
-    phrase(614.92, "kitchen", notes("""
+    phrase(614.92, "kitchen", violin_notes("""
       1 4 L44= 22N1 3 must
       a = ==== ==== 5 be
       2 9 ==== 1==0 3 in
@@ -395,7 +395,7 @@ violin(12, "dad-goes-looking", "jCavOEFJ4Lc", 2, 104, "37", [
       4 = ==== ==== 5 tchen
       1 Z ==== ==== 3 ."""
     )),
-    phrase(616.92, "sofa", notes("""
+    phrase(616.92, "sofa", violin_notes("""
       1 Y L44= 12N1 3 not
       a 9 ==== ===0 5 the
       2 Y ==== ===1 3 cur-
@@ -406,7 +406,7 @@ violin(12, "dad-goes-looking", "jCavOEFJ4Lc", 2, 104, "37", [
       o 2 ==== ===0 5 fa
       1 Z ==== 3=== 3 ."""
     )),
-    phrase(618.73, "help", notes("""
+    phrase(618.73, "help", violin_notes("""
       1 7 L44= 32N0 3 should
       a 9 ==== ===1 5 i
       2 = ==== ==== 3 call
@@ -420,7 +420,7 @@ violin(12, "dad-goes-looking", "jCavOEFJ4Lc", 2, 104, "37", [
 # second finger exercises
 violin(13, "digging-holes", "wXV2_4L98nI", 3, 146, "42", [
   section("V", "sand-dune", [
-    phrase(330.87, "holes", notes("""
+    phrase(330.87, "holes", violin_notes("""
       1 0 L44= 32N0 3 digg-
       2 4 ==== ===2 5 ing
       3 = ==== ==== 3 holes
@@ -429,14 +429,14 @@ violin(13, "digging-holes", "wXV2_4L98nI", 3, 146, "42", [
       3 = ==== ==== 5 holes
       1 Z ==== ==== 3 ."""
     )),
-    phrase(333.46, "big-holes", notes("""
+    phrase(333.46, "big-holes", violin_notes("""
       1 0 L44= 32N0 3 digg-
       2 9 ==== 2==1 5 ing
       3 = ==== ==== 3 big
       1 7 ==== ===0 5 holes
       1 Z ==== ==== 3 ."""
     )),
-    phrase(335.85, "avalanche", notes("""
+    phrase(335.85, "avalanche", violin_notes("""
       1 Y L44= 32N2 3 what
       2 9 ==== ===1 5 if
       3 7 ==== ===0 3 an
@@ -451,7 +451,7 @@ violin(13, "digging-holes", "wXV2_4L98nI", 3, 146, "42", [
 
 violin(14, "scottish-boy", "wXV2_4L98nI", 4, 133, "54", [
   section("V", "rock-pool", [
-    phrase(341.09, "boy", notes("""
+    phrase(341.09, "boy", violin_notes("""
       1 4 L44= 12N2 3 scott-
       a = ==== ==== 5 ish
       2 2 ==== ===1 3 boy
@@ -460,7 +460,7 @@ violin(14, "scottish-boy", "wXV2_4L98nI", 4, 133, "54", [
       4 = ==== ==== 5 ver
       1 Z ==== ==== 3 ."""
     )),
-    phrase(343.27, "toys", notes("""
+    phrase(343.27, "toys", violin_notes("""
       1 9 L44= 22N2 3 car-
       a = ==== ==== 5 ry-
       2 7 ==== ===1 3 ing
@@ -469,7 +469,7 @@ violin(14, "scottish-boy", "wXV2_4L98nI", 4, 133, "54", [
       4 = ==== ==== 5 toys
       1 Z ==== ==== 3 ."""
     )),
-    phrase(345.44, "mum-n-dad", notes("""
+    phrase(345.44, "mum-n-dad", violin_notes("""
       1 9 L44= 22N2 3 mum
       a 0 ==== 1==0 5 and
       2 = ==== ==== 3 dad
@@ -478,7 +478,7 @@ violin(14, "scottish-boy", "wXV2_4L98nI", 4, 133, "54", [
       4 = ==== ==== 5 cute
       1 Z ==== ==== 3 ."""
     )),
-    phrase(347.63, "hands", notes("""
+    phrase(347.63, "hands", violin_notes("""
       1 2 L44= 12N1 3 are
       a = ==== ==== 5 they
       2 0 ==== ===0 3 go-
@@ -493,7 +493,7 @@ violin(14, "scottish-boy", "wXV2_4L98nI", 4, 133, "54", [
 
 violin(15, "toll-busters", "wXV2_4L98nI", 4, 115, "42", [
   section("V", "toll", [
-    phrase(351.60, "stop", notes("""
+    phrase(351.60, "stop", violin_notes("""
       1 0 L44= 32N0 3 stop
       a = ==== ==== 5 to
       2 2 ==== ===1 3 pay
@@ -502,7 +502,7 @@ violin(15, "toll-busters", "wXV2_4L98nI", 4, 115, "42", [
       4 = ==== ==== 5 sir
       1 Z ==== 3=== 3 ."""
     )),
-    phrase(353.87, "won't", notes("""
+    phrase(353.87, "won't", violin_notes("""
       1 0 L44= 32N0 3 i
       a = ==== ==== 5 won't
       2 2 ==== ===1 3 pay
@@ -511,7 +511,7 @@ violin(15, "toll-busters", "wXV2_4L98nI", 4, 115, "42", [
       4 = ==== ==== 5 sir
       1 Z ==== ==== 3 ."""
     )),
-    phrase(356.00, "getaway", notes("""
+    phrase(356.00, "getaway", violin_notes("""
       1 9 L44= 42N2 3 gon-
       a = ==== ==== 5 na
       2 7 ==== ===1 3 make
@@ -521,7 +521,7 @@ violin(15, "toll-busters", "wXV2_4L98nI", 4, 115, "42", [
       4 0 ==== ===0 3 way
       1 Z ==== 4=== 5 ."""
     )),
-    phrase(358.20, "shit", notes("""
+    phrase(358.20, "shit", violin_notes("""
       1 7 L44= 42N1 5 oh
       a = ==== ==== 3 shit
       2 9 ==== ===2 5 turn
@@ -534,19 +534,19 @@ violin(15, "toll-busters", "wXV2_4L98nI", 4, 115, "42", [
 
 violin(16, "car-crash", "wXV2_4L98nI", 6, 145, "42", [
   section("V", "crash-site", [
-    phrase(362.01, "crash", notes("""
+    phrase(362.01, "crash", violin_notes("""
       1 4 L44= 32N2 3 car
       4 2 ==== ===1 5 crash
       1 Z ==== ==== 3 ."""
     )),
-    phrase(364.09, "busted", notes("""
+    phrase(364.09, "busted", violin_notes("""
       1 0 L44= 32N0 3 i'm
       2 = ==== ==== 5 bus-
       3 = ==== ==== 3 ted
       4 2 ==== ===1 5 now
       1 Z ==== ==== 3 ."""
     )),
-    phrase(366.31, "police", notes("""
+    phrase(366.31, "police", violin_notes("""
       1 4 L44= 32N2 3 the
       2 7 ==== 2==0 5 po-
       3 = ==== ==== 3 lice
@@ -554,7 +554,7 @@ violin(16, "car-crash", "wXV2_4L98nI", 6, 145, "42", [
       5 7 ==== ===0 3 me
       1 Z ==== 3=== 5 ."""
     )),
-    phrase(368.48, "lock", notes("""
+    phrase(368.48, "lock", violin_notes("""
       1 4 L44= 32N2 5 lock
       2 0 ==== ===0 3 him
       3 9 ==== 4==2 5 a-
@@ -566,7 +566,7 @@ violin(16, "car-crash", "wXV2_4L98nI", 6, 145, "42", [
 
 violin(17, "bouncy-castle", "wXV2_4L98nI", 2, 90, "49", [
   section("V", "castle", [
-    phrase(372.73, "castle", notes("""
+    phrase(372.73, "castle", violin_notes("""
       1 Y D44= 12N2 3 boun-
       a 9 ==== ===1 5 cy
       2 Y ==== ===2 3 ca-
@@ -577,7 +577,7 @@ violin(17, "bouncy-castle", "wXV2_4L98nI", 2, 90, "49", [
       u 2 ==== ===1 5 rite
       1 Z ==== 3=== 3 ."""
     )),
-    phrase(375.09, "bottom", notes("""
+    phrase(375.09, "bottom", violin_notes("""
       1 9 D44= 32N2 3 till
       a 7 ==== ===1 5 i
       2 9 ==== ===2 3 reach
@@ -586,7 +586,7 @@ violin(17, "bouncy-castle", "wXV2_4L98nI", 2, 90, "49", [
       2 0 ==== ==== 5 ttom
       1 Z ==== ==== 3 ."""
     )),
-    phrase(377.47, "dad", notes("""
+    phrase(377.47, "dad", violin_notes("""
       1 0 D44= 42N1 3 come
       a 2 ==== ===2 5 on
       2 0 ==== ===1 3 dad
@@ -603,7 +603,7 @@ violin(17, "bouncy-castle", "wXV2_4L98nI", 2, 90, "49", [
 
 violin(18, "the-bad-date", "wXV2_4L98nI", 3, 50, "4Y", [
   section("V", "girls-house", [
-    phrase(382.97, "girl", notes("""
+    phrase(382.97, "girl", violin_notes("""
       1 9 L44= 12N2 3 pick-
       a 5 ==== ===0 5 ing
       2 9 ==== ===2 3 up
@@ -611,7 +611,7 @@ violin(18, "the-bad-date", "wXV2_4L98nI", 3, 50, "4Y", [
       3 0 ==== 2==1 3 girl
       1 Z ==== ==== 5 ."""
     )),
-    phrase(386.48, "car", notes("""
+    phrase(386.48, "car", violin_notes("""
       1 2 L44= 22N2 3 take
       a X ==== ===0 5 her
       2 2 ==== ===2 3 to
@@ -619,7 +619,7 @@ violin(18, "the-bad-date", "wXV2_4L98nI", 3, 50, "4Y", [
       3 5 ==== 1=== 3 car
       1 Z ==== 2=== 5 ."""
     )),
-    phrase(389.70, "walk", notes("""
+    phrase(389.70, "walk", violin_notes("""
       1 2 L44= 22N2 3 walk
       a X ==== ===0 5 a-
       2 7 ==== 3==2 3 round
@@ -628,7 +628,7 @@ violin(18, "the-bad-date", "wXV2_4L98nI", 3, 50, "4Y", [
       e 8 ==== ===0 5 in
       1 Z ==== ==== 3 ."""
     )),
-    phrase(392.88, "shit", notes("""
+    phrase(392.88, "shit", violin_notes("""
       1 0 L44= 42N2 3 oh
       a 3 ==== 3==0 5 shit,
       2 7 ==== ===2 3 it
@@ -642,7 +642,7 @@ violin(18, "the-bad-date", "wXV2_4L98nI", 3, 50, "4Y", [
 # third and fourth finger exercises
 violin(19, "sleeping-in", "ZCYYCzDH_7Q", 3, 135, "42", [
   section("V", "lazy-boys-room", [
-    phrase(270.32, "boy", notes("""
+    phrase(270.32, "boy", violin_notes("""
       1 0 D44= 32W0 3 li-
       2 4 ==== ===2 5 ttle
       3 = ==== ==== 3 boy
@@ -651,14 +651,14 @@ violin(19, "sleeping-in", "ZCYYCzDH_7Q", 3, 135, "42", [
       3 2 ==== ===1 5 ping
       1 Z ==== ==== 3 ."""
     )),
-    phrase(273.09, "school", notes("""
+    phrase(273.09, "school", violin_notes("""
       1 4 D44= 32W2 3 on
       2 7 ==== 22C0 5 a
       3 9 ==== ===1 3 school
       1 7 ==== ===0 5 day
       1 Z ==== ==== 3 ."""
     )),
-    phrase(275.50, "hair", notes("""
+    phrase(275.50, "hair", violin_notes("""
       1 0 D44= 22C3 3 brush
       2 7 ==== ===0 5 the
       3 4 ==== 32W2 3 hair
@@ -667,7 +667,7 @@ violin(19, "sleeping-in", "ZCYYCzDH_7Q", 3, 135, "42", [
       3 4 ==== ===2 5 face
       1 Z ==== ==== 3 ."""
     )),
-    phrase(278.01, "door", notes("""
+    phrase(278.01, "door", violin_notes("""
       1 5 D44= 32W3 3 stum-
       a 7 ==== ===4 5 ble
       2 4 ==== ===2 3 out
@@ -680,7 +680,7 @@ violin(19, "sleeping-in", "ZCYYCzDH_7Q", 3, 135, "42", [
 
 violin(20, "the-birthday-party", "ZCYYCzDH_7Q", 4, 95, "59", [
   section("V", "poolside", [
-    phrase(282.17, "birthday", notes("""
+    phrase(282.17, "birthday", violin_notes("""
       1 0 D44= 12C3 3 to-
       a Y ==== ===2 5 day
       2 9 ==== ===1 3 it's
@@ -690,7 +690,7 @@ violin(20, "the-birthday-party", "ZCYYCzDH_7Q", 4, 95, "59", [
       4 0 ==== ===3 3 day
       1 Z ==== 22W= 5 ."""
     )),
-    phrase(284.52, "cake", notes("""
+    phrase(284.52, "cake", violin_notes("""
       1 7 D44= 22W4 5 and
       a 5 ==== ===3 3 i
       2 4 ==== ===2 5 have
@@ -699,7 +699,7 @@ violin(20, "the-birthday-party", "ZCYYCzDH_7Q", 4, 95, "59", [
       4 2 ==== ===1 3 too
       1 Z ==== ==== 5 ."""
     )),
-    phrase(286.78, "friends", notes("""
+    phrase(286.78, "friends", violin_notes("""
       1 0 D44= 22W0 5 all
       a 4 ==== ===2 3 my
       2 2 ==== ===1 5 friends
@@ -710,7 +710,7 @@ violin(20, "the-birthday-party", "ZCYYCzDH_7Q", 4, 95, "59", [
       o 9 ==== 12C1 3 let's
       1 Z ==== ==== 5 ."""
     )),
-    phrase(288.96, "pool", notes("""
+    phrase(288.96, "pool", violin_notes("""
       1 7 D44= 12C0 5 throw
       a 2 ==== ===4 3 them
       2 0 ==== ===3 5 in
@@ -723,14 +723,14 @@ violin(20, "the-birthday-party", "ZCYYCzDH_7Q", 4, 95, "59", [
 
 violin(21, "boring-homework", "ZCYYCzDH_7Q", 4, 95, "47", [
   section("V", "desk", [
-    phrase(292.94, "homework", notes("""
+    phrase(292.94, "homework", violin_notes("""
       1 0 L44= 42W0 3 bor-
       2 7 ==== 3=C= 5 ing
       3 0 ==== 4=W= 3 home-
       4 7 ==== 3=C= 5 work
       1 Z ==== 4=W= 3 ."""
     )),
-    phrase(295.51, "outside", notes("""
+    phrase(295.51, "outside", violin_notes("""
       1 0 D44= 42W0 3 want
       a 9 ==== 3=C1 5 to
       2 7 ==== ===0 3 go
@@ -738,7 +738,7 @@ violin(21, "boring-homework", "ZCYYCzDH_7Q", 4, 95, "47", [
       3 7 ==== 3=C0 3 side
       1 Z ==== ==== 5 ."""
     )),
-    phrase(297.83, "finish", notes("""
+    phrase(297.83, "finish", violin_notes("""
       1 9 L44= 32C1 5 but
       2 0 ==== ===3 3 you
       3 9 ==== ===1 5 can't
@@ -749,7 +749,7 @@ violin(21, "boring-homework", "ZCYYCzDH_7Q", 4, 95, "47", [
       4 0 ==== ===3 3 ish
       1 Z ==== ==== 5 ."""
     )),
-    phrase(302.44, "start", notes("""
+    phrase(302.44, "start", violin_notes("""
       1 2 D44= 32C4 5 so
       2 2 ==== ==== 3 you
       3 0 ==== ===3 5 bet-
@@ -762,7 +762,7 @@ violin(21, "boring-homework", "ZCYYCzDH_7Q", 4, 95, "47", [
 
 violin(22, "chinese-kids", "ZCYYCzDH_7Q", 4, 90, "47", [
   section("V", "classroom", [
-    phrase(307.78, "chinese-kids", notes("""
+    phrase(307.78, "chinese-kids", violin_notes("""
       1 9 D44= 22G4 3 my
       a 7 ==== ===3 5 teach-
       2 9 ==== ===4 3 er
@@ -772,7 +772,7 @@ violin(22, "chinese-kids", "ZCYYCzDH_7Q", 4, 90, "47", [
       4 2 ==== ===0 3 kids
       1 Z ==== 3=W= 5 ."""
     )),
-    phrase(310.33, "quiz", notes("""
+    phrase(310.33, "quiz", violin_notes("""
       1 2 D44= 32W4 5 they
       a 0 ==== ===3 3 can
       2 2 ==== ===4 5 an-
@@ -782,7 +782,7 @@ violin(22, "chinese-kids", "ZCYYCzDH_7Q", 4, 90, "47", [
       4 7 ==== ===0 5 quiz
       1 Z ==== 4=== 3 ."""
     )),
-    phrase(312.82, "children", notes("""
+    phrase(312.82, "children", violin_notes("""
       1 5 L44= 22G3 3 but
       a 9 ==== 3=W1 5 none
       2 7 ==== ===0 3 of
@@ -793,7 +793,7 @@ violin(22, "chinese-kids", "ZCYYCzDH_7Q", 4, 90, "47", [
       o 7 ==== ===0 5 -ren
       1 Z ==== ==== 3 ."""
     )),
-    phrase(315.37, "play", notes("""
+    phrase(315.37, "play", violin_notes("""
       1 2 L44= 32W4 3 want
       a 7 ==== ===0 5 to
       2 Y ==== ===2 3 play
@@ -806,20 +806,20 @@ violin(22, "chinese-kids", "ZCYYCzDH_7Q", 4, 90, "47", [
 
 violin(23, "chicken-pox", "ZCYYCzDH_7Q", 4, 100, "47", [
   section("V", "bed", [
-    phrase(319.94, "sick", notes("""
+    phrase(319.94, "sick", violin_notes("""
       1 7 L44= 42W4 3 get-
       3 5 ==== ===3 5 ting
       1 4 ==== ===2 3 sick
       4 Z ==== ==== 5 ."""
     )),
-    phrase(323.84, "chicken", notes("""
+    phrase(323.84, "chicken", violin_notes("""
       4 2 L44= 42W1 5 with
       1 9 ==== 3=== 3 chi-
       3 7 ==== ===0 5 cken
       1 5 ==== 4==3 3 pox
       4 Z ==== 3=== 5 ."""
     )),
-    phrase(328.28, "schoolwork", notes("""
+    phrase(328.28, "schoolwork", violin_notes("""
       4 9 L44= 32W1 5 go-
       1 2 ==== ===4 3 nna
       2 4 ==== 2=G1 5 miss
@@ -830,7 +830,7 @@ violin(23, "chicken-pox", "ZCYYCzDH_7Q", 4, 100, "47", [
       3 9 ==== ===4 3 work
       1 Z ==== ==== 5 ."""
     )),
-    phrase(332.97, "better", notes("""
+    phrase(332.97, "better", violin_notes("""
       1 4 L44= 22G1 5 if
       2 0 ==== 3=W3 3 i
       3 = ==== ==== 5 don't
@@ -844,7 +844,7 @@ violin(23, "chicken-pox", "ZCYYCzDH_7Q", 4, 100, "47", [
 
 violin(24, "last-day-of-school", "ZCYYCzDH_7Q", 4, 95, "4Y", [
   section("V", "primary-school", [
-    phrase(338.95, "school", notes("""
+    phrase(338.95, "school", violin_notes("""
       1 3 L44= 22W4 3 to-
       a X ==== ===0 5 day's
       2 = ==== ==== 3 the
@@ -854,7 +854,7 @@ violin(24, "last-day-of-school", "ZCYYCzDH_7Q", 4, 95, "4Y", [
       4 X ==== ===0 3 school
       1 Z ==== ==== 5 ."""
     )),
-    phrase(341.51, "holidays", notes("""
+    phrase(341.51, "holidays", violin_notes("""
       1 0 L44= 22W1 5 hol-
       a 7 ==== 3==2 3 i-
       2 = ==== ==== 5 days
@@ -864,7 +864,7 @@ violin(24, "last-day-of-school", "ZCYYCzDH_7Q", 4, 95, "4Y", [
       4 7 ==== 3==2 5 cool
       1 Z ==== ==== 3 ."""
     )),
-    phrase(343.98, "nintendo", notes("""
+    phrase(343.98, "nintendo", violin_notes("""
       1 5 L44= 32W1 3 i
       a 7 ==== ===2 5 will
       2 8 ==== ===3 3 play
@@ -875,7 +875,7 @@ violin(24, "last-day-of-school", "ZCYYCzDH_7Q", 4, 95, "4Y", [
       o 5 ==== ===4 5 do
       1 Z ==== 12N= 3 ."""
     )),
-    phrase(346.42, "day", notes("""
+    phrase(346.42, "day", violin_notes("""
       1 7 L44= 12N1 3 ev-
       2 = ==== ==== 5 ry
       3 0 ==== 2=W= 3 day
