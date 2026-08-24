@@ -432,7 +432,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
           # process notes
           notes = phrase.notes
           for k in range(len(notes)):
-            if k < len(notes) - 2 and transition_function != None: transition_function(piece.tempo, notes[k], notes[k+1], notes[i+2])
+            if k < len(notes) - 2 and transition_function != None: transition_function(piece.tempo, notes[k], notes[k+1], notes[k+2])
             if k < len(notes) - 1 and note_function != None: note_function(piece.tempo, notes[k], notes[k+1])
 
   # make metronomes
