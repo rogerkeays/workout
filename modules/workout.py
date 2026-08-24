@@ -145,7 +145,7 @@ def get_video(id):
   video_file = f"{CACHE_DIR}/{id}.mp4"
   if MAKE_MP3S and not os.path.exists(video_file):
     os.makedirs(CACHE_DIR, exist_ok=True)
-    os.system(f"yt-dlp --js-runtime node -f 'best[height<=480]' -t mp4 https://www.youtube.com/watch?v={id} -o '{video_file}'")
+    os.system(f"yt-dlp --js-runtimes node -f 'bestvideo[height<=480]+bestaudio' -t mp4 https://www.youtube.com/watch?v={id} -o '{video_file}'")
     os.system(f"loudgain --pregain=5 --clip --tagmode=i '{video_file}'")
   return video_file
 
