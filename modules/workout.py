@@ -441,14 +441,13 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
     #make_metronome(piece.instrument, piece.tempo * speed, filename)
 
   # make backing track
-  if not piece.etude:
-    make_audio_bracket(piece,
-        start = piece.sections[0].phrases[0].start,
-        stop = piece.sections[-1].phrases[-1].stop,
-        outfile = f"{outputdir}/{piece.name}.mp3",
-        clicks = not has_intro(piece),
-        speeds = [piece.speeds[-1]],
-        album = f"jam.{piece.instrument}")
+  make_audio_bracket(piece,
+      start = piece.sections[0].phrases[0].start,
+      stop = piece.sections[-1].phrases[-1].stop,
+      outfile = f"{outputdir}/{piece.name}.mp3",
+      clicks = not has_intro(piece),
+      speeds = [piece.speeds[-1]],
+      album = f"jam.{piece.instrument}")
 
 def shift_rhythm(rhythm):
   "shift a rhythm pattern to start on the first beat"
