@@ -408,25 +408,16 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
         for n, note in enumerate(phrase.notes):
           if n < len(phrase.notes) - 1: defaults_function(note, phrase.notes[n + 1])
 
-  # create piece practise bracket
-  start = piece.sections[0].phrases[0].start
-  stop = piece.sections[-1].phrases[-1].stop
-  make_brackets(piece, start, stop, outputdir, f"0 {piece.name}")
-
-  # process sections in reverse
+  # process sections
   for i in range(len(piece.sections)):
     section = piece.sections[i]
+    section_str = str(i + 1) if len(piece.sections) < 10 else str(i + 1).zfill(2)
     if not is_skipped(section):
-      start = section.phrases[0].start
-      stop = section.phrases[-1].stop
-      section_str = str(i + 1) if len(piece.sections) < 10 else str(i + 1).zfill(2)
-      make_brackets(piece, start, stop, outputdir, f"{section_str}. {section.label}")
 
       # process phrases
       for j in range(len(section.phrases)):
         phrase = section.phrases[j]
         if not phrase.skip:
-          make_brackets(piece, phrase.start, phrase.stop, outputdir, f"{section_str}.{j + 1}. {phrase.label}")
           if phrase_function != None: phrase_function(piece, section, phrase)
 
           # process notes
@@ -435,10 +426,18 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
             if k < len(notes) - 2 and transition_function != None: transition_function(piece.tempo, notes[k], notes[k+1], notes[k+2])
             if k < len(notes) - 1 and note_function != None: note_function(piece.tempo, notes[k], notes[k+1])
 
-  # make metronomes
-  for speed in piece.speeds:
-    filename = outputdir + "/=T" + str(int(piece.tempo * speed)).zfill(3) + ".mp3"
-    #make_metronome(piece.instrument, piece.tempo * speed, filename)
+          # create phrase practise bracket
+          make_brackets(piece, phrase.start, phrase.stop, outputdir, f"{section_str}.{j + 1}. {phrase.label}")
+
+      # create section practise bracket
+      start = section.phrases[0].start
+      stop = section.phrases[-1].stop
+      make_brackets(piece, start, stop, outputdir, f"{section_str}. {section.label}")
+
+  # create piece practise bracket
+  start = piece.sections[0].phrases[0].start
+  stop = piece.sections[-1].phrases[-1].stop
+  make_brackets(piece, start, stop, outputdir, f"0 {piece.name}")
 
   # make backing track
   make_audio_bracket(piece,
