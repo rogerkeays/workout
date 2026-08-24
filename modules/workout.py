@@ -19,7 +19,7 @@ METRONOME_INSTRUMENT = 116 - 1 # woodblock
 GUNSHOT_INSTRUMENT = 128 - 1   # gunshot
 DRONE_INSTRUMENT = 57 - 1      # trumpet (closest to perfect pitch)
 FADE_LENGTH = 2.5
-DELAY = 5
+DELAY = 10
 REPS = 5
 
 # output preparation
