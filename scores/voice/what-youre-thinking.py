@@ -19,7 +19,7 @@ voice(2009, "what-youre-thinking", "nVl7g9b0oqk", 4, 158, "00", [ # lima-coast
     phrase(31.71, "heart")                 # but its love that broke ~our hearts
   ]),
   section("C", "beach", [
-    phrase(37.06, "crystal-ball"),         # and if i knew what you were thi~nking
+    phrase(37.06, "knew"),                 # and if i knew what you were thi~nking
     phrase(43.29, "boat"),                 # i would stop this boat from si~nking
     phrase(48.92, "sand"),                 # but darling you are like the sand
     phrase(52.22, "slipping"),             # and youre slipping through my hands
@@ -43,7 +43,7 @@ voice(2009, "what-youre-thinking", "nVl7g9b0oqk", 4, 158, "00", [ # lima-coast
     phrase(88.02, "close")                 # but its as close as i can get
   ]),
   section("C", "veranda", [
-    repeat(93.65, "crystal-ball"),
+    repeat(93.65, "knew"),
     repeat(99.85, "boat"),
     phrase(105.61, "sun"),                  # but darling you are like the sun
     phrase(108.69, "setting"),              # setting when my evening comes
@@ -64,7 +64,7 @@ voice(2009, "what-youre-thinking", "nVl7g9b0oqk", 4, 158, "00", [ # lima-coast
 
   # stairs
   section("C", "stairs", [
-    repeat(141.82, "crystal-ball"),
+    repeat(141.82, "knew"),
     repeat(148.24, "boat"),
     phrase(154.22, "stars"),                # but darling you are like the stars
     phrase(157.49, "reach"),                # i know i cant reach that far
