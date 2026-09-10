@@ -1,6 +1,6 @@
 # vim: foldmethod=marker foldmarker=notes(,) foldtext=getline(v\:foldstart)
 
-guitar(2043, "perfect-situation", "_Tx0dKij8Zs", 4, 94, "00", [ # boston
+guitar(1043, "perfect-situation", "_Tx0dKij8Zs", 4, 94, "00", [ # boston
   section("I", "change-rooms", [
     phrase(6.54, "I1"),
     phrase(16.87, "i1"),
