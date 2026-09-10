@@ -15,5 +15,5 @@ for file in sys.argv[1:]:
     exec(score.read(), globals())
 
 # output collected drills
-write_drill_cards()
+#write_drill_cards()
 
