@@ -21,6 +21,7 @@ DRONE_INSTRUMENT = 57 - 1      # trumpet (closest to perfect pitch)
 FADE_LENGTH = 2.5
 DELAY = 10
 REPS = 5
+SLOW_MULT=0.66
 
 # output preparation
 TARGET_DIR = "target" if "WORKOUT_TARGET_DIR" not in os.environ else os.environ["WORKOUT_TARGET_DIR"]
@@ -64,7 +65,7 @@ class Piece:
   tempo: int
   tonic: str
   sections: list[Section]
-  speeds: list[float]
+  speed: float
   video: bool
   etude: bool
 
@@ -95,9 +96,9 @@ def phrase(start, label, notes=[], stop=0, skip=False):
   phrases[label] = p
   return p
 
-def piece(number, name, video_id, meter, tempo, tonic, sections, speeds=[0.5, 1.0], video=True, etude=False):
+def piece(number, name, video_id, meter, tempo, tonic, sections, speed=1.0, video=True, etude=False):
   "construct and process a piece in one step)"
-  process_piece(Piece("workout", number, name, video_id, meter, tempo, tonic, sections, speeds, video, etude), None, None, None, None)
+  process_piece(Piece("workout", number, name, video_id, meter, tempo, tonic, sections, speed, video, etude), None, None, None, None)
 
 def repeat(start, id, stop=0, skip=True):
   """
@@ -168,7 +169,7 @@ def make_audio_bracket(piece, start, stop, outfile, clicks=True, speeds=[], albu
       with open(concat, "w") as f:
 
         # create chunks for each practise speed
-        for speed in (speeds if speeds else piece.speeds):
+        for speed in (speeds if speeds else [piece.speed]):
           intro = f"{tmpdir}/{speed}_intro.mp3"
           chunk = f"{tmpdir}/{speed}_chunk.mp3"
           make_audio_intro(piece.meter, piece.tempo * speed, intro, clicks)
@@ -198,10 +199,11 @@ def make_audio_intro(meter, tempo, outfile, clicks=True):
     make_silence(DELAY, outfile)
 
 def make_brackets(piece, start, stop, outputdir, label):
+  speeds = [SLOW_MULT * piece.speed, piece.speed]
   if piece.video == True:
-    make_video_bracket(piece, start, stop, f"{outputdir}/{label}.{VIDEO_TYPE}")
+    make_video_bracket(piece, start, stop, f"{outputdir}/{label}.{VIDEO_TYPE}", True, speeds)
   else:
-    make_audio_bracket(piece, start, stop, f"{outputdir}/{label}.mp3")
+    make_audio_bracket(piece, start, stop, f"{outputdir}/{label}.mp3", True, speeds)
 
 def make_drill(instrument, params={}, reps=REPS):
   "make a drill card, ensuring it is unique, and formatting it appropriately as a text file"
@@ -323,7 +325,7 @@ def make_video_bracket(piece, start, stop, outfile, clicks=True, speeds=[]):
       with open(concat, "w") as f:
 
         # create chunks for each practise speed
-        for speed in (speeds if speeds else piece.speeds):
+        for speed in (speeds if speeds else [piece.speed]):
           intro = f"{tmpdir}/{speed}_intro.{VIDEO_TYPE}"
           chunk = f"{tmpdir}/{speed}_chunk.{VIDEO_TYPE}"
           cut_video_chunk(source, start, stop, chunk, speed)
@@ -445,7 +447,7 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
       stop = piece.sections[-1].phrases[-1].stop,
       outfile = f"{outputdir}/{piece.name}.mp3",
       clicks = not has_intro(piece),
-      speeds = [piece.speeds[-1]],
+      speeds = [piece.speed],
       album = f"jam.{piece.instrument}")
 
 def shift_rhythm(rhythm):

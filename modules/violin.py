@@ -25,8 +25,8 @@ class ViolinNote(Note):
 
 
 # constructors
-def violin(number, name, video_id, meter, tempo, tonic, sections, speeds=[0.5, 1.0], video=True, etude=False):
-  process_piece(Piece("violin", number, name, video_id, meter, tempo, tonic, sections, speeds, video, etude),
+def violin(number, name, video_id, meter, tempo, tonic, sections, speed=1.0, video=True, etude=False):
+  process_piece(Piece("violin", number, name, video_id, meter, tempo, tonic, sections, speed, video, etude),
       calculate_defaults, process_phrase, process_transition, process_note)
 
 def violin_lyrics(start, id, lyrics, template_id, stop=0):
