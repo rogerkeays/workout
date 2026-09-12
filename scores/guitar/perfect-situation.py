@@ -45,7 +45,7 @@ guitar(1043, "perfect-situation", "_Tx0dKij8Zs", 4, 94, "36", [ # boston
   ]),
   section("O", "trundle-bed", [
     repeat(232.22, "I1"),
-    repeat(242.30, "I1", [], 259.27)
+    repeat(242.30, "I1", 259.27)
   ])
 ])
 
