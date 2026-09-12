@@ -36,7 +36,7 @@ guitar(2035, "king", "KwXNHdfjh30", 4, 62.5, "49", [ # fridays
   section("O", "exit", [
     repeat(244.41, "V1"),
     repeat(259.60, "V1"),
-    repeat(274.62, "V1", [], 303.55)
+    repeat(274.62, "V1", 303.55)
   ])
 ], video=False)
 
