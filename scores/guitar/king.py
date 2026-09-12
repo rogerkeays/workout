@@ -1,6 +1,6 @@
 # vim: foldmethod=marker foldmarker=notes(,) foldtext=getline(v\:foldstart)
 
-guitar(2035, "king", "KwXNHdfjh30", 4, 62.5, "49", [ # fridays
+guitar(1035, "king", "KwXNHdfjh30", 4, 62.5, "49", [ # fridays
   section("V", "club-bar", [
     phrase(1.72, "V1"),
     repeat(16.96, "V1")
