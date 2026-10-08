@@ -58,7 +58,7 @@ violin(2, "baby-steps", "ehIVE-JplZA", 4, 90, "37", [
   ])
 ], etude=True)
 
-violin(3, "the-first-fall", "ehIVE-JplZA", 4, 100, "37", [
+violin(3003, "the-first-fall", "ehIVE-JplZA", 4, 100, "37", [
   section("V", "lounge", [
     phrase(497.00, "window", violin_notes("""
       1 0 D44= 40N0 3 runs
@@ -95,7 +95,7 @@ violin(3, "the-first-fall", "ehIVE-JplZA", 4, 100, "37", [
   ])
 ], etude=True)
 
-violin(4, "into-the-kitchen", "ehIVE-JplZA", 4, 100, "37", [
+violin(3004, "into-the-kitchen", "ehIVE-JplZA", 4, 100, "37", [
   section("V", "kitchen", [
     phrase(507.81, "no-one", violin_notes("""
       1 0 D44= 40N0 3 here
