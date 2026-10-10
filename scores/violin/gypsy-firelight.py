@@ -24,5 +24,5 @@ violin(2026, "gypsy-firelight", "JexClTGGV_s", 4, 135, "59", [ # gypsy-camp
     phrase(195.54, "out", [     # get out of here! : wksx : /77 70
     ], 198.14)
   ])
-])
+], speed=0.8)
 
