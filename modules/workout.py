@@ -7,6 +7,11 @@ from dataclasses import dataclass
 # configuration: all durations are in seconds
 MAKE_MP3S = True if "WORKOUT_SKIP_MP3S" not in os.environ else False
 CACHE_DIR = os.environ["HOME"] + "/.cache/workout"
+DRILLS_DIR = "1.drills"
+PHRASES_DIR = "3.phrases"
+SECTIONS_DIR = "4.sections"
+PIECES_DIR = "5.pieces"
+BACKING_DIR = "6.tracks"
 VIDEO_TYPE="mp4"
 VIDEO_SIZE="176:144"
 VIDEO_FPS="10"
@@ -391,8 +396,12 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
   if there is nothing to do at a given step, pass the function as None
   """
   # prepare the filesystem
-  outputdir = f"{TARGET_DIR}/{piece.instrument}/00.{str(piece.number).zfill(4)} {piece.name}"
-  os.makedirs(outputdir, exist_ok=True)
+  outputdir = f"{TARGET_DIR}/{piece.instrument}/"
+  os.makedirs(f"{outputdir}/{DRILLS_DIR}", exist_ok=True)
+  os.makedirs(f"{outputdir}/{PHRASES_DIR}", exist_ok=True)
+  os.makedirs(f"{outputdir}/{SECTIONS_DIR}", exist_ok=True)
+  os.makedirs(f"{outputdir}/{PIECES_DIR}", exist_ok=True)
+  os.makedirs(f"{outputdir}/{BACKING_DIR}", exist_ok=True)
 
   # calculate defaults
   for s, section in enumerate(piece.sections):
@@ -410,11 +419,22 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
         for n, note in enumerate(phrase.notes):
           if n < len(phrase.notes) - 1: defaults_function(note, phrase.notes[n + 1])
 
+  # create piece practise bracket
+  start = piece.sections[0].phrases[0].start
+  stop = piece.sections[-1].phrases[-1].stop
+  piece_num = str(piece.number).zfill(4)
+  make_brackets(piece, start, stop, outputdir, f"{PIECES_DIR}/00.{piece_num}.{piece.name}")
+
   # process sections
   for i in range(len(piece.sections)):
     section = piece.sections[i]
-    section_str = str(i + 1) if len(piece.sections) < 10 else str(i + 1).zfill(2)
     if not is_skipped(section):
+
+      # create section practise bracket
+      start = section.phrases[0].start
+      stop = section.phrases[-1].stop
+      section_num = str(i + 1).zfill(2)
+      make_brackets(piece, start, stop, outputdir, f"{SECTIONS_DIR}/00.{piece_num}{section_num}.{section.label}")
 
       # process phrases
       for j in range(len(section.phrases)):
@@ -429,23 +449,15 @@ def process_piece(piece, defaults_function, phrase_function, transition_function
             if k < len(notes) - 1 and note_function != None: note_function(piece.tempo, notes[k], notes[k+1])
 
           # create phrase practise bracket
-          make_brackets(piece, phrase.start, phrase.stop, outputdir, f"{section_str}.{j + 1}. {phrase.label}")
-
-      # create section practise bracket
-      start = section.phrases[0].start
-      stop = section.phrases[-1].stop
-      make_brackets(piece, start, stop, outputdir, f"{section_str}. {section.label}")
-
-  # create piece practise bracket
-  start = piece.sections[0].phrases[0].start
-  stop = piece.sections[-1].phrases[-1].stop
-  make_brackets(piece, start, stop, outputdir, f"0 {piece.name}")
+          phrase_num = str(j + 1).zfill(2)
+          make_brackets(piece, phrase.start, phrase.stop, outputdir,
+              f"{PHRASES_DIR}/00.{piece_num}{section_num}{phrase_num}.{phrase.label}")
 
   # make backing track
   make_audio_bracket(piece,
       start = piece.sections[0].phrases[0].start,
       stop = piece.sections[-1].phrases[-1].stop,
-      outfile = f"{outputdir}/{piece.name}.mp3",
+      outfile = f"{outputdir}/{BACKING_DIR}/00.{piece_num}.{piece.name}.mp3",
       clicks = not has_intro(piece),
       speeds = [piece.speed],
       album = f"jam.{piece.instrument}")
