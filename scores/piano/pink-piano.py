@@ -1,7 +1,7 @@
 # vim: foldmethod=marker foldmarker=notes(,) foldtext=getline(v\:foldstart)
 
 def pink_piano(id, name, meter, tempo, tonic, sections):
-  piano(id, name, "pink-piano", meter, tempo, tonic, sections, [0.5, 1.0], video=False)
+  piano(id, name, "pink-piano", meter, tempo, tonic, sections, video=False)
 
 pink_piano(1064, "clap-your-hands", 4, 129, "", [
   section("I", "intro", [
