@@ -45,7 +45,7 @@ violin(3009, "numb", "G31N_11ee84", 4, 110, "49", [ # med-ball
     repeat(93.23, "to-you"),
     phrase(97.88, "second"),     # ev-ry /se-cond \i \waste : (step) : 4974
     phrase(99.79, "take"),       # is more than /i \can /ta\ke : xxkw tkxs : 40Y0
-    phrase(102.24, "blah")       # blah..
+    phrase(102.24, "pie")        # [pie watermelon and] i :: 9 02457 9
   ]),
   section("C", "streets", [
     repeat(102.81, "numb"),
